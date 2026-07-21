@@ -1,0 +1,9 @@
+import { Container } from "@/components/container";
+import { PageHero } from "@/components/page-hero";
+import { siteConfig } from "@/config/site";
+
+export const metadata = { title: "Política de privacidade" };
+
+export default function PrivacyPage() {
+  return <><PageHero eyebrow="Privacidade e proteção de dados" title="Política de privacidade" description="Modelo inicial que deve ser revisado pelo jurídico eleitoral e por profissional de proteção de dados antes da publicação definitiva."/><Container className="py-14"><article className="prose-public max-w-4xl"><h2>1. Finalidade</h2><p>Os dados enviados por esta plataforma são utilizados para registrar demandas, responder contatos, organizar contribuições e, quando houver consentimento específico, enviar atualizações da campanha.</p><h2>2. Dados coletados</h2><p>Podem ser coletados nome, município, bairro, e-mail, telefone e o conteúdo voluntariamente informado pelo usuário. Evite inserir dados sensíveis, documentos pessoais ou informações de terceiros no campo de descrição.</p><h2>3. Compartilhamento</h2><p>Os dados não devem ser vendidos nem cedidos para listas de marketing. O acesso interno deve ser limitado às pessoas responsáveis pelo atendimento, tecnologia, jurídico e coordenação, conforme necessidade.</p><h2>4. Segurança e retenção</h2><p>A equipe deve adotar controles de acesso, autenticação forte, registros de atividade e cópias de segurança. Os prazos de retenção devem ser definidos conforme a finalidade, obrigações legais e orientação jurídica.</p><h2>5. Direitos do titular</h2><p>Solicitações de acesso, correção, exclusão ou cancelamento de comunicações podem ser encaminhadas para {siteConfig.contact.email}.</p><h2>6. Responsável</h2><p>Antes do lançamento, substitua este trecho pela identificação completa do controlador, encarregado ou canal responsável e pelas bases legais aplicáveis.</p></article></Container></>;
+}

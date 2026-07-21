@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f8f4;
+  --surface: #f0f3ec;
+  --ink: #13231d;
+  --brand: #176f57;
+  --brand-dark: #0e5541;
+  --brand-soft: #dff1e9;
+  --accent: #f4d68a;
+  --accent-strong: #edc45d;
+}
+
+@theme inline {
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--ink);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(244, 214, 138, .18), transparent 25rem),
+    radial-gradient(circle at 90% 15%, rgba(23, 111, 87, .09), transparent 28rem),
+    var(--background);
+  color: var(--ink);
+}
+::selection { background: var(--accent); color: var(--ink); }
+a { text-underline-offset: 3px; }
+.font-display { font-family: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif; }
+.noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");
+}
+.prose-public h2 { margin-top: 2rem; font-size: 1.5rem; font-weight: 750; letter-spacing: -.025em; }
+.prose-public h3 { margin-top: 1.5rem; font-size: 1.15rem; font-weight: 750; }
+.prose-public p { margin-top: 1rem; line-height: 1.8; color: rgba(0,0,0,.65); }
+.prose-public ul { margin: 1rem 0 0 1.25rem; list-style: disc; color: rgba(0,0,0,.65); }
+.prose-public li { margin-top: .5rem; line-height: 1.7; }

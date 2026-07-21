@@ -1,0 +1,13 @@
+import { CheckCircle2, Gauge, Target } from "lucide-react";
+import { Container } from "@/components/container";
+import { PageHero } from "@/components/page-hero";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { getCommitments } from "@/lib/data";
+
+export const metadata = { title: "Compromissos" };
+
+export default async function CommitmentsPage() {
+  const items = await getCommitments();
+  return <><PageHero eyebrow="Compromissos públicos" title="Promessas precisam virar metas acompanháveis" description="Os compromissos desta plataforma combinam objetivo, indicador e atualização de andamento. Durante a campanha, o painel mostra o que está sendo preparado; no mandato, poderá registrar a execução."/><Container className="py-14"><div className="grid gap-5 lg:grid-cols-2">{items.map(item=><Card key={item.id}><CardContent className="p-6 sm:p-7"><div className="flex items-start justify-between gap-4"><span className="grid h-12 w-12 place-items-center rounded-2xl bg-[var(--brand-soft)] text-[var(--brand)]"><Target size={22}/></span><Badge tone={item.progress >= 100 ? "success" : item.progress > 0 ? "warning" : "neutral"}>{item.status}</Badge></div><h2 className="mt-5 text-2xl font-bold tracking-[-.03em]">{item.title}</h2><p className="mt-3 text-sm leading-7 text-black/58">{item.summary}</p><div className="mt-6 grid gap-3 rounded-2xl bg-[var(--surface)] p-4 sm:grid-cols-2"><div><p className="text-xs font-bold uppercase tracking-wider text-black/35">Indicador</p><p className="mt-1 text-sm font-semibold">{item.metric}</p></div><div><p className="text-xs font-bold uppercase tracking-wider text-black/35">Meta</p><p className="mt-1 text-sm font-semibold">{item.target}</p></div></div><div className="mt-6"><div className="mb-2 flex items-center justify-between text-xs font-bold"><span className="flex items-center gap-2 text-black/45"><Gauge size={14}/> Preparação</span><span>{item.progress}%</span></div><div className="h-2 rounded-full bg-black/[.06]"><div className="h-2 rounded-full bg-[var(--brand)]" style={{ width: `${Math.min(100, Math.max(0, item.progress))}%` }}/></div></div></CardContent></Card>)}</div><div className="mt-8 rounded-[28px] border border-black/[.07] bg-white p-6"><div className="flex gap-4"><CheckCircle2 className="mt-0.5 shrink-0 text-[var(--brand)]"/><div><h3 className="font-bold">Compromissos editáveis, histórico preservado</h3><p className="mt-2 text-sm leading-7 text-black/55">O painel administrativo permite atualizar o andamento. Mudanças importantes devem ser explicadas em notícia ou relatório, evitando que metas desapareçam sem justificativa.</p></div></div></div></Container></>;
+}

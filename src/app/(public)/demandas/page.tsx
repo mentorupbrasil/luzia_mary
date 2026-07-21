@@ -1,0 +1,13 @@
+import { BarChart3, LockKeyhole, MessagesSquare } from "lucide-react";
+import { Container } from "@/components/container";
+import { DemandForm } from "@/components/demand-form";
+import { PageHero } from "@/components/page-hero";
+import { Card, CardContent } from "@/components/ui/card";
+import { getPublicDemandStats } from "@/lib/data";
+
+export const metadata = { title: "Envie sua demanda" };
+
+export default async function DemandsPage() {
+  const stats = await getPublicDemandStats();
+  return <><PageHero eyebrow="Sua voz" title="Ajude a construir as prioridades da campanha" description="Envie uma necessidade, sugestão ou problema do seu município. As contribuições são organizadas por tema e localidade para apoiar propostas e posicionamentos."/><Container className="grid gap-8 py-14 lg:grid-cols-[1fr_.72fr]"><Card><CardContent className="p-6 sm:p-8"><DemandForm/></CardContent></Card><aside className="space-y-5"><Card><CardContent className="pt-6"><MessagesSquare className="text-[var(--brand)]"/><h2 className="mt-4 text-xl font-bold">Como funciona</h2><ol className="mt-4 space-y-4 text-sm leading-6 text-black/60"><li><strong className="text-[var(--ink)]">1.</strong> Você registra a contribuição.</li><li><strong className="text-[var(--ink)]">2.</strong> O sistema gera um protocolo.</li><li><strong className="text-[var(--ink)]">3.</strong> A equipe classifica e analisa.</li><li><strong className="text-[var(--ink)]">4.</strong> As demandas ajudam a orientar propostas e ações.</li></ol></CardContent></Card><Card><CardContent className="pt-6"><LockKeyhole className="text-[var(--brand)]"/><h2 className="mt-4 text-xl font-bold">Proteção dos dados</h2><p className="mt-3 text-sm leading-7 text-black/60">As informações pessoais não aparecem no painel público. Estatísticas são apresentadas de forma agregada, sem identificar quem enviou.</p></CardContent></Card><Card className="bg-[#10251d] text-white"><CardContent className="pt-6"><BarChart3 className="text-[var(--accent)]"/><div className="mt-5 grid grid-cols-2 gap-4"><div><p className="text-3xl font-bold">{stats.total}</p><p className="mt-1 text-xs text-white/55">demandas registradas</p></div><div><p className="text-3xl font-bold">{stats.cities}</p><p className="mt-1 text-xs text-white/55">municípios ou localidades</p></div></div>{stats.categories.length > 0 && <div className="mt-6 border-t border-white/10 pt-5"><p className="text-xs font-bold uppercase tracking-wider text-white/50">Temas mais citados</p><div className="mt-3 flex flex-wrap gap-2">{stats.categories.map(c=><span key={c.category} className="rounded-full bg-white/10 px-3 py-1 text-xs">{c.category} · {c.total}</span>)}</div></div>}</CardContent></Card></aside></Container></>;
+}
