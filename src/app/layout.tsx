@@ -1,15 +1,8 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { Fraunces } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
-
-const display = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-});
 
 const publicUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://luzia-mary.vercel.app";
 
@@ -46,7 +39,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${GeistSans.variable} ${GeistMono.variable} ${display.variable}`}>
+    <html lang="pt-BR" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className={`${GeistSans.className} antialiased`}>{children}</body>
     </html>
   );
