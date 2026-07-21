@@ -6,27 +6,30 @@ export const siteConfig = {
     office: "Pré-candidata a Deputada Federal",
     state: "Maranhão",
     cityBase: "Imperatriz",
+    region: "Região Tocantina",
     party: "Podemos",
     partyAcronym: "PODE",
     number: "A definir",
-    slogan: "Escutar, construir e prestar contas.",
+    slogan: "Uma voz firme para fazer o Maranhão avançar.",
     shortBio:
-      "Liderança de Imperatriz e da Região Tocantina, construindo uma candidatura federal com participação popular, responsabilidade e compromisso com o Maranhão.",
+      "Liderança de Imperatriz com experiência em gestão pública e compromisso com quem vive a realidade da Região Tocantina.",
+    manifesto:
+      "Política de verdade começa ouvindo, continua com trabalho e só faz sentido quando entrega resultado para as pessoas.",
     bio: [
-      "Luzia Mary de Araújo é liderança de Imperatriz, no Maranhão, com trajetória ligada à gestão pública municipal e à escuta das demandas da Região Tocantina.",
-      "Nas eleições municipais de 2024, concorreu a vereadora pelo Podemos e consolidou presença política junto à população. Agora, prepara-se para disputar uma cadeira na Câmara dos Deputados, levando a voz de Imperatriz e do interior maranhense a Brasília.",
-      "A proposta desta plataforma é transformar escuta em compromisso público: informações organizadas, atendimento responsável e prestação de contas acessível — desde a pré-campanha até o mandato.",
+      "Luzia Mary de Araújo construiu sua trajetória em Imperatriz, conhecendo de perto os desafios da gestão pública, das famílias e de quem precisa que o poder público funcione de verdade.",
+      "Nas eleições municipais de 2024, colocou seu nome à disposição da cidade e ampliou uma rede de diálogo com lideranças, profissionais, mulheres, jovens e comunidades da Região Tocantina.",
+      "Agora, prepara uma pré-candidatura à Câmara dos Deputados com um compromisso simples: transformar escuta em prioridade, prioridade em trabalho e trabalho em resultado para o Maranhão.",
     ],
   },
   contact: {
     email: "contato@luziamary.com.br",
-    whatsapp: "5599999999999",
+    whatsapp: "",
     address: "Imperatriz, Maranhão",
   },
   social: {
-    instagram: "https://instagram.com/",
-    facebook: "https://facebook.com/",
-    youtube: "https://youtube.com/",
+    instagram: "",
+    facebook: "",
+    youtube: "",
   },
   legal: {
     cnpj: "CNPJ da campanha após registro",
@@ -37,13 +40,12 @@ export const siteConfig = {
 } as const;
 
 export const navItems = [
-  { href: "/sobre", label: "Conheça" },
-  { href: "/propostas", label: "Propostas" },
+  { href: "/sobre", label: "Luzia Mary" },
+  { href: "/propostas", label: "Prioridades" },
   { href: "/compromissos", label: "Compromissos" },
-  { href: "/demandas", label: "Sua voz" },
+  { href: "/demandas", label: "Participe" },
   { href: "/agenda", label: "Agenda" },
   { href: "/noticias", label: "Notícias" },
-  { href: "/verdade-ou-boato", label: "Verdade ou boato" },
   { href: "/transparencia", label: "Transparência" },
 ];
 

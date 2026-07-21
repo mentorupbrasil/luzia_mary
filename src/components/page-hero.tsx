@@ -1,5 +1,17 @@
 import { Container } from "./container";
 
 export function PageHero({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
-  return <section className="relative overflow-hidden border-b border-black/[.05] py-16 sm:py-20"><div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_20%,rgba(232,197,106,.28),transparent_27rem),radial-gradient(circle_at_85%_30%,rgba(15,107,82,.12),transparent_24rem)]"/><Container><p className="text-xs font-bold uppercase tracking-[.24em] text-[var(--brand)]">{eyebrow}</p><h1 className="mt-4 max-w-4xl font-display text-4xl font-medium tracking-[-.02em] sm:text-5xl lg:text-6xl">{title}</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-black/60">{description}</p></Container></section>;
+  return (
+    <section className="relative overflow-hidden bg-[var(--hero)] py-20 text-white sm:py-24">
+      <div className="editorial-grid absolute inset-0 opacity-45" aria-hidden />
+      <div className="paper-noise absolute inset-0" aria-hidden />
+      <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full border border-white/10" aria-hidden />
+      <div className="absolute -right-10 top-6 h-56 w-56 rounded-full border border-[var(--accent)]/30" aria-hidden />
+      <Container className="relative">
+        <p className="text-[10px] font-bold uppercase tracking-[.28em] text-[var(--accent)]">{eyebrow}</p>
+        <h1 className="display-balance mt-5 max-w-5xl font-display text-5xl font-semibold leading-[.96] tracking-[-.045em] sm:text-6xl lg:text-7xl">{title}</h1>
+        <p className="copy-balance mt-7 max-w-3xl text-base leading-8 text-white/58 sm:text-lg">{description}</p>
+      </Container>
+    </section>
+  );
 }

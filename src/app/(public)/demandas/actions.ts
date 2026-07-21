@@ -15,7 +15,6 @@ const schema = z.object({
   description: z.string().min(20, "Descreva a situação com pelo menos 20 caracteres."),
   consent: z.literal("on", { error: "É necessário concordar com o tratamento dos dados para enviar." }),
   updates: z.string().optional(),
-  website: z.string().optional(),
 });
 
 export type DemandState = { ok: boolean; message: string; protocol?: string; errors?: Record<string, string[]> };
@@ -23,8 +22,6 @@ export type DemandState = { ok: boolean; message: string; protocol?: string; err
 export async function submitDemand(_: DemandState, formData: FormData): Promise<DemandState> {
   const parsed = schema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) return { ok: false, message: "Revise os campos destacados.", errors: parsed.error.flatten().fieldErrors };
-  // Honeypot: bots that fill hidden fields are rejected silently
-  if (parsed.data.website) return { ok: true, message: "Demanda registrada com sucesso.", protocol: `MA-${new Date().getFullYear()}-OK` };
   if (!hasDatabase()) return { ok: false, message: "O banco de dados ainda não foi conectado. Configure DATABASE_URL no Neon/Vercel para ativar o formulário." };
 
   const data = parsed.data;
