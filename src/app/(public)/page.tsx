@@ -53,17 +53,16 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* 1. Hero */}
+      {/* 1. Hero — cutout sobre bloco de cor (padrão Nikolas/Marina) */}
       <section className="relative overflow-hidden bg-[var(--bg)]">
-        {showHeroPhoto && (
-          <div
-            className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] bg-[var(--navy)] lg:block"
-            aria-hidden
-          />
-        )}
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 hidden w-[48%] bg-[var(--navy)] lg:block"
+          aria-hidden
+        />
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-3 bg-[var(--coral)] lg:hidden" aria-hidden />
 
-        <Container className="relative grid gap-8 pt-6 pb-14 lg:min-h-[calc(100dvh-68px)] lg:grid-cols-[1fr_minmax(280px,0.95fr)] lg:items-center lg:gap-12 lg:py-12">
-          <div className="order-2 lg:order-1">
+        <Container className="relative grid gap-6 pt-6 pb-0 lg:min-h-[calc(100dvh-68px)] lg:grid-cols-[1fr_minmax(300px,0.95fr)] lg:items-end lg:gap-8 lg:pb-0 lg:pt-10">
+          <div className="order-2 pb-12 lg:order-1 lg:pb-16">
             <p className="anim-rise text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--muted)]">
               {content.candidate.city} · {content.candidate.region} · {content.candidate.state}
             </p>
@@ -96,19 +95,20 @@ export default async function HomePage() {
           </div>
 
           {showHeroPhoto ? (
-            <div className="relative order-1 mx-auto w-full max-w-[420px] lg:order-2 lg:mx-0 lg:max-w-none lg:self-end">
+            <div className="relative order-1 mx-auto w-full max-w-[440px] bg-[var(--navy)] pt-6 lg:order-2 lg:mx-0 lg:max-w-none lg:bg-transparent lg:pt-0">
               <Photo
                 src={heroSrc}
                 alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
                 priority
-                className="relative z-10 aspect-[3/4] w-full shadow-[var(--lift)] sm:aspect-[4/5] lg:max-h-[min(82dvh,740px)] lg:aspect-auto lg:h-[min(82dvh,740px)]"
-                imgClassName="object-cover object-top"
-                objectPosition="center top"
+                className="relative z-10 mx-auto aspect-[3/4] w-full max-w-[400px] lg:max-h-[min(86dvh,760px)] lg:max-w-none lg:aspect-auto lg:h-[min(86dvh,760px)]"
+                imgClassName="object-contain object-bottom"
+                objectPosition="center bottom"
               />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-4 bg-[var(--coral)] lg:block" aria-hidden />
             </div>
           ) : (
             <div
-              className="relative order-1 flex min-h-[200px] items-end bg-[var(--navy)] px-6 py-8 sm:min-h-[240px] lg:order-2 lg:min-h-[min(70dvh,560px)] lg:px-10 lg:py-12"
+              className="relative order-1 flex min-h-[220px] items-end bg-[var(--navy)] px-6 py-8 sm:min-h-[260px] lg:order-2 lg:min-h-[min(70dvh,560px)] lg:px-10 lg:py-12"
               aria-hidden
             >
               <div>
@@ -128,12 +128,15 @@ export default async function HomePage() {
       <section className="border-t border-[var(--line)] bg-[var(--surface)] py-16 sm:py-20">
         <Container className={`grid items-center gap-10 lg:gap-14 ${showAboutPhoto ? "lg:grid-cols-[0.9fr_1.1fr]" : ""}`}>
           {showAboutPhoto && (
-            <Photo
-              src={aboutSrc}
-              alt={`${content.candidate.ballotName} em Imperatriz`}
-              className="aspect-[4/5] w-full max-w-md shadow-[var(--lift)] lg:max-w-none"
-              objectPosition="center top"
-            />
+            <div className="relative bg-[var(--navy)] px-4 pt-6 sm:px-6">
+              <Photo
+                src={aboutSrc}
+                alt={`${content.candidate.ballotName} em Imperatriz`}
+                className="aspect-[4/5] w-full max-w-md lg:max-w-none"
+                imgClassName="object-contain object-bottom"
+                objectPosition="center bottom"
+              />
+            </div>
           )}
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--coral)]">Quem é Luzia</p>
@@ -388,12 +391,15 @@ export default async function HomePage() {
             )}
           </div>
           {showParticipatePhoto && (
-            <Photo
-              src={participateSrc}
-              alt={`${content.candidate.ballotName} convida à participação`}
-              className="aspect-[4/5] w-full max-w-md justify-self-end shadow-[0_24px_50px_rgba(0,0,0,0.35)] lg:max-w-none"
-              objectPosition="center top"
-            />
+            <div className="relative justify-self-end overflow-hidden bg-[color-mix(in_srgb,white_8%,transparent)] px-4 pt-4 sm:px-6">
+              <Photo
+                src={participateSrc}
+                alt={`${content.candidate.ballotName} convida à participação`}
+                className="aspect-[4/5] w-full max-w-md lg:max-w-none"
+                imgClassName="object-contain object-bottom"
+                objectPosition="center bottom"
+              />
+            </div>
           )}
         </Container>
       </section>

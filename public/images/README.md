@@ -1,11 +1,15 @@
 # Fotografias — Luzia Mary
 
-Coloque os arquivos reais nestes caminhos (mesmo nome):
+Cutouts com fundo transparente (padrão Marina Helou / Nikolas Ferreira):
 
 | Arquivo | Seção |
 |---------|--------|
-| `luzia-mary-hero.jpg` | Hero (em pé, mãos na cintura) |
-| `luzia-mary-trajetoria.jpg` | Quem é Luzia (sentada) |
-| `luzia-mary-participe.jpg` | Participação (polegares) |
+| `luzia-mary-hero.png` | Hero (em pé, mãos na cintura) |
+| `luzia-mary-trajetoria.png` | Quem é Luzia (sentada) |
+| `luzia-mary-participe.png` | Participação (polegares) |
 
-Enquanto o arquivo não existir, o bloco da foto é omitido ou substituído por um painel gráfico da marca — sem textos técnicos.
+Originais em `raw/`. Regenerar cutouts:
+
+```bash
+python scripts/prepare_cutouts.py
+```

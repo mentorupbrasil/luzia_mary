@@ -29,9 +29,9 @@ export const content = {
     /** Motivação adicional — ocultar se vazio */
     motivation: "",
     photos: {
-      hero: "/images/luzia-mary-hero.jpg",
-      about: "/images/luzia-mary-trajetoria.jpg",
-      participate: "/images/luzia-mary-participe.jpg",
+      hero: "/images/luzia-mary-hero.png",
+      about: "/images/luzia-mary-trajetoria.png",
+      participate: "/images/luzia-mary-participe.png",
     },
   },
 
