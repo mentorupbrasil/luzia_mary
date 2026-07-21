@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { BrandLogo } from "./brand-logo";
 import { Container } from "./container";
 
 const desktopLinks = [
@@ -31,7 +30,7 @@ export function SiteHeader() {
 
   useEffect(() => {
     function onScroll() {
-      setScrolled(window.scrollY > 28);
+      setScrolled(window.scrollY > 20);
     }
 
     onScroll();
@@ -44,14 +43,17 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "campaign-header z-50 transition-[background-color,box-shadow,color,backdrop-filter] duration-300",
+        "campaign-header z-50 transition-[background-color,box-shadow,backdrop-filter,color] duration-300",
         onHome ? "fixed inset-x-0 top-0" : "sticky top-0",
-        heroMode ? "campaign-header-transparent" : "campaign-header-solid",
+        heroMode ? "campaign-header-hero" : "campaign-header-solid",
       )}
     >
       <Container className="campaign-header-bar">
-        <Link href="/" className="campaign-brand-link" aria-label="Luzia Mary — Início">
-          <BrandLogo size="md" priority />
+        <Link href="/" className="campaign-lockup" aria-label="Luzia Mary — Início">
+          <span className="campaign-lockup-name">
+            <span className="campaign-lockup-l">L</span>UZIA MARY
+          </span>
+          <span className="campaign-lockup-role">Pré-candidata a Deputada Federal pelo Maranhão</span>
         </Link>
 
         <nav className="campaign-nav" aria-label="Navegação principal">

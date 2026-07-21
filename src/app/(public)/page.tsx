@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Check, MessageCircle } from "lucide-react";
+import { ArrowRight, Check, Heart, MapPin, MessageCircle, Users } from "lucide-react";
 import { Container } from "@/components/container";
 import { Photo, hasPhoto } from "@/components/photo";
 import { content } from "@/config/site";
@@ -34,10 +34,12 @@ export default async function HomePage() {
   const aboutSrc = content.candidate.photos.about;
   const participateSrc = content.candidate.photos.participate;
   const placeSrc = content.candidate.photos.heroPlace;
+  const crowdSrc = "/images/luzia-crowd-subtle.jpg";
   const showHeroPhoto = hasPhoto(heroSrc);
   const showAboutPhoto = hasPhoto(aboutSrc);
   const showParticipatePhoto = hasPhoto(participateSrc);
   const showPlacePhoto = hasPhoto(placeSrc);
+  const showCrowdPhoto = hasPhoto(crowdSrc);
   const achievements = content.achievements;
   const values = content.values.slice(0, 3);
   const hasSocial =
@@ -49,6 +51,16 @@ export default async function HomePage() {
   return (
     <>
       <section className="campaign-hero">
+        {showCrowdPhoto && (
+          <Photo
+            src={crowdSrc}
+            alt=""
+            priority
+            className="campaign-crowd"
+            imgClassName="campaign-crowd-img"
+            objectPosition="center center"
+          />
+        )}
         {showPlacePhoto ? (
           <Photo
             src={placeSrc}
@@ -56,7 +68,7 @@ export default async function HomePage() {
             priority
             className="campaign-place"
             imgClassName="campaign-place-img"
-            objectPosition="68% 42%"
+            objectPosition="70% 40%"
           />
         ) : (
           <div className="campaign-place-fallback" aria-hidden />
@@ -65,9 +77,7 @@ export default async function HomePage() {
 
         <Container className={`campaign-stage${showHeroPhoto ? " campaign-stage-split" : ""}`}>
           <div className="campaign-copy anim-rise">
-            <p className="campaign-office">
-              {content.candidate.office} pelo {content.candidate.state}
-            </p>
+            <p className="campaign-office">Pré-candidata a Deputada Federal pelo Maranhão</p>
 
             <div className="campaign-nameplate">
               <h1 className="campaign-luzia" aria-label={content.candidate.ballotName}>
@@ -79,7 +89,7 @@ export default async function HomePage() {
             </div>
 
             <p className="campaign-tagline anim-rise anim-d1">
-              A mulher do povo, de Imperatriz para o Maranhão.
+              A mulher do povo, de <strong>Imperatriz</strong> para o <strong>Maranhão.</strong>
             </p>
 
             <Link href="/sobre" className="campaign-cta anim-rise anim-d2">
@@ -90,18 +100,35 @@ export default async function HomePage() {
 
           {showHeroPhoto && (
             <div className="campaign-portrait-slot anim-rise anim-d1">
-              <div className="campaign-portrait-shade" aria-hidden />
               <Photo
                 src={heroSrc}
                 alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
                 priority
                 className="campaign-portrait"
                 imgClassName="campaign-portrait-img"
-                objectPosition="center 12%"
+                objectPosition="center 10%"
               />
             </div>
           )}
         </Container>
+
+        <div className="campaign-strip">
+          <div className="campaign-strip-item campaign-strip-yellow">
+            <Users size={22} strokeWidth={2.2} aria-hidden />
+            <strong>A mulher do povo!</strong>
+          </div>
+          <div className="campaign-strip-item campaign-strip-green">
+            <MapPin size={22} strokeWidth={2.2} aria-hidden />
+            <p>
+              <span>De Imperatriz</span>
+              <strong>para o Maranhão</strong>
+            </p>
+          </div>
+          <div className="campaign-strip-item campaign-strip-navy">
+            <Heart size={22} strokeWidth={2.2} aria-hidden />
+            <strong>Trabalho · Fé · Família</strong>
+          </div>
+        </div>
       </section>
 
       <section className="people-intro overflow-hidden bg-white py-20 sm:py-24 lg:py-32">
