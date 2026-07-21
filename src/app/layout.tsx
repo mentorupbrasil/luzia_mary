@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { DM_Sans, Fraunces } from "next/font/google";
+import { Manrope, Sora } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { getSiteUrl } from "@/lib/site-url";
 
-const display = Fraunces({
+const display = Sora({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-sora",
   display: "swap",
 });
 
-const sans = DM_Sans({
+const sans = Manrope({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  variable: "--font-manrope",
   display: "swap",
 });
 

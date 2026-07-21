@@ -10,10 +10,10 @@ export default function PrivacyPage() {
       <PublicPageHero
         eyebrow="Privacidade"
         title="Política de privacidade"
-        description="Modelo inicial que deve ser revisado pelo jurídico eleitoral e por profissional de proteção de dados antes da publicação definitiva."
+        description="Modelo inicial a ser revisado pelo jurídico eleitoral e por profissional de proteção de dados."
       />
-      <Container className="py-14">
-        <article className="prose-public max-w-4xl">
+      <Container className="py-12">
+        <article className="prose-public max-w-3xl">
           <h2>1. Finalidade</h2>
           <p>
             Os dados enviados por esta plataforma são utilizados para registrar demandas, responder
@@ -23,30 +23,22 @@ export default function PrivacyPage() {
           <h2>2. Dados coletados</h2>
           <p>
             Podem ser coletados nome, município, bairro, e-mail, telefone e o conteúdo
-            voluntariamente informado pelo usuário. Evite inserir dados sensíveis, documentos
-            pessoais ou informações de terceiros no campo de descrição.
+            voluntariamente informado. Evite inserir dados sensíveis ou informações de terceiros.
           </p>
           <h2>3. Compartilhamento</h2>
           <p>
             Os dados não devem ser vendidos nem cedidos para listas de marketing. O acesso interno
-            deve ser limitado às pessoas responsáveis pelo atendimento, tecnologia, jurídico e
-            coordenação, conforme necessidade.
+            deve ser limitado às pessoas responsáveis pelo atendimento e coordenação.
           </p>
           <h2>4. Segurança e retenção</h2>
           <p>
-            A equipe deve adotar controles de acesso, autenticação forte, registros de atividade e
-            cópias de segurança. Os prazos de retenção devem ser definidos conforme a finalidade,
-            obrigações legais e orientação jurídica.
+            Controles de acesso, autenticação e cópias de segurança devem ser adotados. Prazos de
+            retenção seguem a finalidade e a orientação jurídica.
           </p>
           <h2>5. Direitos do titular</h2>
           <p>
             Solicitações de acesso, correção, exclusão ou cancelamento de comunicações podem ser
-            encaminhadas para {siteConfig.contact.email}.
-          </p>
-          <h2>6. Responsável</h2>
-          <p>
-            Antes do lançamento definitivo, substitua este trecho pela identificação completa do
-            controlador, encarregado ou canal responsável e pelas bases legais aplicáveis.
+            encaminhadas para {siteConfig.contact.email || "o canal oficial de contato"}.
           </p>
         </article>
       </Container>

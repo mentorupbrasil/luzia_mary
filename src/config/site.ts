@@ -9,10 +9,14 @@ export const siteConfig = {
     region: "Região Tocantina",
     party: "Podemos",
     partyAcronym: "PODE",
-    number: "A definir",
+    // Preencher após o registro eleitoral
+    number: "",
     slogan: "Uma voz firme para fazer o Maranhão avançar.",
     shortBio:
       "Liderança de Imperatriz com experiência em gestão pública e compromisso com quem vive a realidade da Região Tocantina.",
+    // Texto curto para a home (máx. ~3 linhas)
+    homeIntro:
+      "De Imperatriz para o Maranhão: uma pré-candidatura construída com escuta, presença e compromisso com quem vive a Região Tocantina.",
     manifesto:
       "Política de verdade começa ouvindo, continua com trabalho e só faz sentido quando entrega resultado para as pessoas.",
     bio: [
@@ -20,11 +24,16 @@ export const siteConfig = {
       "Nas eleições municipais de 2024, colocou seu nome à disposição da cidade e ampliou uma rede de diálogo com lideranças, profissionais, mulheres, jovens e comunidades da Região Tocantina.",
       "Agora, prepara uma pré-candidatura à Câmara dos Deputados com um compromisso simples: transformar escuta em prioridade, prioridade em trabalho e trabalho em resultado para o Maranhão.",
     ],
-    /** Coloque o arquivo em public/images/luzia-mary-retrato.jpg */
-    portraitPath: "/images/luzia-mary-retrato.jpg",
-    portraitAlt: "Retrato oficial de Luzia Mary — pré-candidata a Deputada Federal",
+    // Preencher com motivação adicional validada pela equipe (não publicar vazio)
+    candidacyMotivation: "",
+    photos: {
+      hero: "/images/luzia-mary-hero.jpg",
+      about: "/images/luzia-mary-trajetoria.jpg",
+      participate: "/images/luzia-mary-participe.jpg",
+    },
   },
   contact: {
+    // Exibir somente se confirmado
     email: "contato@luziamary.com.br",
     whatsapp: "",
     address: "Imperatriz, Maranhão",
@@ -40,22 +49,10 @@ export const siteConfig = {
     disclaimer:
       "Pré-candidatura. Conteúdo institucional de apresentação e participação. Número de urna e materiais oficiais serão atualizados após o registro eleitoral.",
   },
-  territory: {
-    cities: [
-      "Imperatriz",
-      "Açailândia",
-      "Porto Franco",
-      "Estreito",
-      "João Lisboa",
-      "Davínópolis",
-      "Governador Edison Lobão",
-      "Buritirana",
-    ],
-  },
   values: [
     {
       title: "Clareza",
-      text: "Explicar posições, prioridades, decisões e resultados sem esconder a política atrás de linguagem complicada.",
+      text: "Explicar posições, prioridades e decisões sem esconder a política atrás de linguagem complicada.",
     },
     {
       title: "Presença",
@@ -82,24 +79,21 @@ export const siteConfig = {
   ],
 } as const;
 
-/** Navegação principal enxuta */
 export const navPrimary = [
   { href: "/", label: "Início" },
   { href: "/sobre", label: "Conheça" },
-  { href: "/propostas", label: "Prioridades" },
-  { href: "/demandas", label: "Participação" },
+  { href: "/propostas", label: "Bandeiras" },
   { href: "/noticias", label: "Notícias" },
+  { href: "/demandas", label: "Participe" },
 ] as const;
 
-/** Itens do menu “Mais” */
 export const navSecondary = [
-  { href: "/compromissos", label: "Compromissos" },
   { href: "/agenda", label: "Agenda" },
+  { href: "/compromissos", label: "Compromissos" },
   { href: "/transparencia", label: "Transparência" },
   { href: "/verdade-ou-boato", label: "Verdade ou boato" },
 ] as const;
 
-/** Compatibilidade com referências existentes */
 export const navItems = [
   ...navPrimary.filter((item) => item.href !== "/"),
   ...navSecondary,

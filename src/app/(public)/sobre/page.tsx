@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { CandidatePortrait } from "@/components/candidate-portrait";
+import { CandidatePhoto } from "@/components/candidate-photo";
 import { Container } from "@/components/container";
-import { ParticipationCallout } from "@/components/participation-callout";
-import { PublicPageHero } from "@/components/page-hero";
 import { siteConfig } from "@/config/site";
 
 export const metadata = { title: "Conheça Luzia Mary" };
@@ -11,107 +9,115 @@ export const metadata = { title: "Conheça Luzia Mary" };
 export default function AboutPage() {
   return (
     <>
-      <PublicPageHero
-        eyebrow="Conheça"
-        title="Uma trajetória construída em Imperatriz. Um compromisso com o Maranhão."
-        description="Experiência, presença e a decisão de representar a Região Tocantina na Câmara dos Deputados."
-      />
-
-      <section className="py-20 sm:py-24">
-        <Container className="grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-          <CandidatePortrait tone="light" />
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[var(--accent)]">
-              A história por trás da candidatura
-            </p>
-            <blockquote className="display-balance mt-5 font-display text-[clamp(1.7rem,3vw,2.6rem)] font-semibold leading-[1.12] tracking-[-0.03em]">
-              “{siteConfig.candidate.manifesto}”
-            </blockquote>
-            <div className="mt-8 space-y-5 text-base leading-8 text-[var(--text-muted)]">
-              {siteConfig.candidate.bio.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+      <section className="overflow-hidden bg-[linear-gradient(160deg,#eef4ff_0%,#faf9f7_55%)] py-14 sm:py-16">
+        <Container className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
+          <div className="relative mx-auto w-full max-w-[420px] lg:mx-0">
+            <div className="soft-blob absolute -inset-5 bg-[var(--brand)]/10 blur-2xl" aria-hidden />
+            <div className="photo-frame relative overflow-hidden rounded-[2rem] border border-white bg-white p-2">
+              <CandidatePhoto
+                src={siteConfig.candidate.photos.about}
+                alt={`${siteConfig.candidate.ballotName} — conheça a trajetória`}
+                className="rounded-[1.6rem]"
+                priority
+              />
             </div>
+          </div>
+          <div>
+            <p className="text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--accent)]">Conheça</p>
+            <h1 className="mt-3 font-display text-[clamp(2rem,4.5vw,3.4rem)] font-bold tracking-[-0.045em]">
+              Luzia Mary
+            </h1>
+            <p className="mt-3 text-sm font-semibold text-[var(--text-muted)]">
+              {siteConfig.candidate.office}
+            </p>
+            <p className="mt-5 max-w-xl text-base leading-8 text-[var(--text-muted)]">
+              {siteConfig.candidate.shortBio}
+            </p>
+            <p className="mt-4 text-sm font-semibold text-[var(--brand-dark)]">
+              {siteConfig.candidate.cityBase} · {siteConfig.candidate.region} · {siteConfig.candidate.state}
+            </p>
           </div>
         </Container>
       </section>
 
-      <section className="border-y border-[var(--border)] bg-[var(--surface-muted)]/40 py-20 sm:py-24">
-        <Container>
-          <div className="max-w-2xl">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[var(--accent)]">Linha do tempo</p>
-            <h2 className="mt-4 font-display text-[clamp(1.9rem,3.5vw,3rem)] font-semibold tracking-[-0.03em]">
-              Caminhos que formam a candidatura
-            </h2>
+      <section className="py-14 sm:py-16">
+        <Container className="max-w-3xl">
+          <h2 className="font-display text-2xl font-bold tracking-[-0.03em] sm:text-3xl">Biografia</h2>
+          <div className="mt-6 space-y-5 text-base leading-8 text-[var(--text-muted)]">
+            {siteConfig.candidate.bio.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </div>
-          <ol className="mt-12 border-t border-[var(--border)]">
+          {siteConfig.candidate.candidacyMotivation ? (
+            <div className="mt-10 rounded-3xl bg-[var(--surface-muted)] p-6 sm:p-8">
+              <h3 className="font-display text-xl font-bold">Por que esta candidatura</h3>
+              <p className="mt-3 text-base leading-8 text-[var(--text-muted)]">
+                {siteConfig.candidate.candidacyMotivation}
+              </p>
+            </div>
+          ) : null}
+        </Container>
+      </section>
+
+      <section className="border-y border-[var(--border)] bg-white py-14 sm:py-16">
+        <Container>
+          <h2 className="font-display text-2xl font-bold tracking-[-0.03em] sm:text-3xl">Trajetória</h2>
+          <ol className="mt-8 space-y-0">
             {siteConfig.timeline.map((item, index) => (
               <li
                 key={item.label}
-                className="grid gap-4 border-b border-[var(--border)] py-8 sm:grid-cols-[88px_1fr]"
+                className="grid gap-3 border-b border-[var(--border)] py-7 sm:grid-cols-[80px_1fr]"
               >
-                <span className="font-display text-3xl font-semibold text-[var(--accent)]">
+                <span className="font-display text-2xl font-bold text-[var(--brand)]">
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h3 className="font-display text-2xl font-semibold tracking-[-0.025em]">{item.label}</h3>
-                  <p className="mt-3 max-w-2xl text-base leading-8 text-[var(--text-muted)]">{item.text}</p>
+                  <h3 className="font-display text-xl font-bold tracking-[-0.02em]">{item.label}</h3>
+                  <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--text-muted)]">{item.text}</p>
                 </div>
               </li>
             ))}
           </ol>
-          <p className="mt-6 text-sm text-[var(--text-muted)]">
-            {/* PLACEHOLDER: acrescente datas e marcos adicionais quando validados pela equipe */}
-            Marcos adicionais podem ser incluídos após validação da equipe.
-          </p>
         </Container>
       </section>
 
-      <section className="py-20 sm:py-24">
-        <Container className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr]">
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[var(--accent)]">Valores</p>
-            <h2 className="mt-4 font-display text-[clamp(1.9rem,3.5vw,3rem)] font-semibold tracking-[-0.03em]">
-              A forma de fazer política também importa.
-            </h2>
-          </div>
-          <div className="border-t border-[var(--border)]">
-            {siteConfig.values.map((value, index) => (
-              <div key={value.title} className="border-b border-[var(--border)] py-8">
-                <p className="font-mono text-[11px] text-[var(--text-muted)]">
-                  {String(index + 1).padStart(2, "0")}
-                </p>
-                <h3 className="mt-2 font-display text-3xl font-semibold tracking-[-0.03em]">{value.title}</h3>
-                <p className="mt-3 max-w-xl text-base leading-8 text-[var(--text-muted)]">{value.text}</p>
+      <section className="py-14 sm:py-16">
+        <Container>
+          <h2 className="font-display text-2xl font-bold tracking-[-0.03em] sm:text-3xl">Valores</h2>
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            {siteConfig.values.map((value) => (
+              <div
+                key={value.title}
+                className="rounded-3xl border border-[var(--border)] bg-[var(--surface-muted)]/50 p-6"
+              >
+                <h3 className="font-display text-xl font-bold">{value.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">{value.text}</p>
               </div>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="border-t border-[var(--border)] bg-[var(--hero)] py-20 text-white sm:py-24">
-        <Container className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[var(--accent)]">Território</p>
-            <h2 className="mt-4 max-w-2xl font-display text-[clamp(1.9rem,3.5vw,3rem)] font-semibold tracking-[-0.03em]">
-              Imperatriz e a Região Tocantina como ponto de partida.
-            </h2>
-            <p className="mt-5 max-w-xl text-base leading-8 text-white/55">
-              A candidatura nasce do conhecimento da realidade local e do compromisso de levar essa
-              vivência para a Câmara dos Deputados.
-            </p>
+      <section className="pb-16">
+        <Container>
+          <div className="flex flex-col items-start justify-between gap-6 rounded-[2rem] bg-[var(--brand-dark)] px-8 py-10 text-white sm:flex-row sm:items-center sm:px-10">
+            <div>
+              <h2 className="font-display text-2xl font-bold tracking-[-0.03em] sm:text-3xl">
+                Participe desta construção
+              </h2>
+              <p className="mt-3 max-w-lg text-sm leading-7 text-white/60">
+                Envie uma demanda ou sugestão e ajude a orientar as prioridades do território.
+              </p>
+            </div>
+            <Link
+              href="/demandas"
+              className="inline-flex h-12 shrink-0 items-center gap-2 rounded-full bg-[var(--accent)] px-6 text-sm font-bold text-white"
+            >
+              Enviar demanda <ArrowRight size={16} aria-hidden />
+            </Link>
           </div>
-          <Link
-            href="/demandas"
-            className="inline-flex h-12 w-fit items-center gap-2 bg-[var(--accent)] px-6 text-sm font-bold text-white"
-            style={{ borderRadius: "999px" }}
-          >
-            Participar da construção <ArrowRight size={16} aria-hidden />
-          </Link>
         </Container>
       </section>
-
-      <ParticipationCallout />
     </>
   );
 }
