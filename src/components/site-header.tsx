@@ -13,6 +13,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
   const onHome = pathname === "/";
 
@@ -24,21 +25,41 @@ export function SiteHeader() {
   }, [open]);
 
   useEffect(() => {
-    function onDown(e: MouseEvent) {
-      if (!moreRef.current?.contains(e.target as Node)) setMoreOpen(false);
+    function onDown(event: MouseEvent) {
+      if (!moreRef.current?.contains(event.target as Node)) setMoreOpen(false);
     }
+
     document.addEventListener("mousedown", onDown);
     return () => document.removeEventListener("mousedown", onDown);
   }, []);
 
-  const moreActive = navSecondary.some((i) => pathname === i.href || pathname.startsWith(`${i.href}/`));
+  useEffect(() => {
+    if (!onHome) return;
+
+    function onScroll() {
+      setScrolled(window.scrollY > 24);
+    }
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [onHome]);
+
+  const moreActive = navSecondary.some(
+    (item) => pathname === item.href || pathname.startsWith(`${item.href}/`),
+  );
 
   return (
     <header
       className={cn(
-        "z-50",
+        "z-50 transition-[background-color,border-color,box-shadow] duration-300",
         onHome
-          ? "absolute inset-x-0 top-0 border-b border-white/10 bg-transparent"
+          ? cn(
+              "fixed inset-x-0 top-0",
+              scrolled || open
+                ? "border-b border-white/10 bg-[color-mix(in_srgb,var(--navy)_92%,transparent)] shadow-[0_12px_34px_rgba(3,14,31,0.24)] backdrop-blur-xl"
+                : "border-b border-white/10 bg-transparent",
+            )
           : "sticky top-0 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--bg)_92%,white)] backdrop-blur-lg",
       )}
     >
@@ -47,17 +68,21 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegação principal">
           {navPrimary.map((item) => {
-            const active = item.href === "/" ? pathname === "/" : pathname === item.href || pathname.startsWith(`${item.href}/`);
+            const active =
+              item.href === "/"
+                ? pathname === "/"
+                : pathname === item.href || pathname.startsWith(`${item.href}/`);
+
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-3 py-2 text-[13px] font-semibold uppercase tracking-[0.04em] transition",
+                  "px-3 py-2 text-[12px] font-extrabold uppercase tracking-[0.07em] transition",
                   onHome
                     ? active
                       ? "text-white"
-                      : "text-white/70 hover:text-white"
+                      : "text-white/65 hover:text-white"
                     : active
                       ? "text-[var(--navy)] underline decoration-[var(--coral)] decoration-2 underline-offset-8"
                       : "text-[var(--muted)] hover:text-[var(--ink)]",
@@ -67,28 +92,35 @@ export function SiteHeader() {
               </Link>
             );
           })}
+
           <div className="relative" ref={moreRef}>
             <button
               type="button"
               className={cn(
-                "inline-flex items-center gap-1 px-3 py-2 text-[13px] font-semibold uppercase tracking-[0.04em]",
+                "inline-flex items-center gap-1 px-3 py-2 text-[12px] font-extrabold uppercase tracking-[0.07em]",
                 onHome
                   ? moreActive || moreOpen
                     ? "text-white"
-                    : "text-white/70"
+                    : "text-white/65"
                   : moreActive || moreOpen
                     ? "text-[var(--navy)]"
                     : "text-[var(--muted)]",
               )}
               aria-expanded={moreOpen}
-              onClick={() => setMoreOpen((v) => !v)}
+              onClick={() => setMoreOpen((value) => !value)}
             >
-              Mais <ChevronDown size={14} className={cn(moreOpen && "rotate-180")} aria-hidden />
+              Mais
+              <ChevronDown
+                size={14}
+                className={cn("transition-transform", moreOpen && "rotate-180")}
+                aria-hidden
+              />
             </button>
+
             {moreOpen && (
               <div
                 role="menu"
-                className="absolute right-0 top-full mt-2 min-w-[200px] border border-[var(--line)] bg-white p-1.5 shadow-[var(--lift)]"
+                className="absolute right-0 top-full mt-2 min-w-[210px] border border-[var(--line)] bg-white p-1.5 shadow-[var(--lift)]"
               >
                 {navSecondary.map((item) => (
                   <Link
@@ -110,21 +142,24 @@ export function SiteHeader() {
           <Link
             href="/demandas"
             className={cn(
-              "hidden h-10 items-center px-5 text-sm font-bold transition sm:inline-flex",
+              "hidden h-10 items-center px-5 text-sm font-extrabold transition sm:inline-flex",
               onHome
-                ? "bg-[var(--sky)] text-[var(--navy)] hover:brightness-110"
-                : "bg-[var(--coral)] text-white hover:brightness-95",
+                ? "bg-[var(--sky)] text-[var(--navy)] hover:-translate-y-0.5 hover:brightness-110"
+                : "bg-[var(--coral)] text-white hover:-translate-y-0.5 hover:brightness-95",
             )}
           >
             Envie sua demanda
           </Link>
+
           <button
             type="button"
             className={cn(
               "grid h-10 w-10 place-items-center lg:hidden",
-              onHome ? "border border-white/30 text-white" : "border border-[var(--line)] bg-white text-[var(--ink)]",
+              onHome
+                ? "border border-white/30 text-white"
+                : "border border-[var(--line)] bg-white text-[var(--ink)]",
             )}
-            onClick={() => setOpen(!open)}
+            onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-controls="menu-mobile"
             aria-label={open ? "Fechar menu" : "Abrir menu"}
@@ -145,7 +180,7 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="border-b border-white/10 py-4 font-display text-2xl font-bold tracking-[-0.03em] text-white"
+                className="border-b border-white/10 py-4 font-display text-2xl font-extrabold tracking-[-0.04em] text-white"
               >
                 {item.label}
               </Link>
@@ -153,7 +188,7 @@ export function SiteHeader() {
             <Link
               href="/demandas"
               onClick={() => setOpen(false)}
-              className="mt-5 bg-[var(--sky)] px-5 py-4 text-center text-sm font-bold text-[var(--navy)]"
+              className="mt-5 bg-[var(--sky)] px-5 py-4 text-center text-sm font-extrabold text-[var(--navy)]"
             >
               Envie sua demanda
             </Link>

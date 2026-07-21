@@ -1,39 +1,57 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check, MapPin } from "lucide-react";
 import { Container } from "@/components/container";
 import { Photo, hasPhoto } from "@/components/photo";
 import { content } from "@/config/site";
 import { getPosts, getProposals } from "@/lib/data";
 import { formatShortDate } from "@/lib/utils";
 
-const bandeiraAccent = ["#0c2d5a", "#c94b2f", "#163f78", "#2a6bb5"] as const;
+const priorityAccent = ["#5ed6f3", "#ff8f70", "#9fdcf0", "#f4c4b5"] as const;
 
-const canalPassos = [
+const heroPrinciples = [
   {
     n: "01",
-    title: "Você conta",
-    text: "Descreva a demanda do seu município, bairro ou comunidade.",
+    title: "Escuta que vira prioridade",
+    text: "As necessidades da região precisam orientar o trabalho político.",
   },
   {
     n: "02",
-    title: "Recebemos",
-    text: "A equipe registra com protocolo e classifica o tema.",
+    title: "Presença no território",
+    text: "Imperatriz e a Região Tocantina no centro das decisões.",
   },
   {
     n: "03",
-    title: "Acompanhamos",
-    text: "Priorizamos o que pode avançar com articulação e cobrança.",
+    title: "Informação aberta",
+    text: "Compromissos explicados com clareza e acompanhamento público.",
+  },
+] as const;
+
+const listeningSteps = [
+  {
+    n: "01",
+    title: "Você conta",
+    text: "Descreva a necessidade do seu município, bairro ou comunidade.",
+  },
+  {
+    n: "02",
+    title: "A equipe organiza",
+    text: "A demanda recebe protocolo e é classificada por tema e localidade.",
+  },
+  {
+    n: "03",
+    title: "A prioridade é analisada",
+    text: "O registro ajuda a orientar propostas, articulações e posicionamentos.",
   },
   {
     n: "04",
-    title: "Respondemos",
-    text: "Você recebe retorno sobre o andamento — sem sumiço.",
+    title: "Você acompanha",
+    text: "O protocolo mantém a contribuição identificada para retorno da equipe.",
   },
 ] as const;
 
 export default async function HomePage() {
   const [proposals, posts] = await Promise.all([getProposals(), getPosts()]);
-  const bandeiras = proposals.slice(0, 4);
+  const priorities = proposals.slice(0, 4);
   const [featured, ...rest] = posts;
   const secondary = rest.slice(0, 2);
 
@@ -43,8 +61,8 @@ export default async function HomePage() {
   const showHeroPhoto = hasPhoto(heroSrc);
   const showAboutPhoto = hasPhoto(aboutSrc);
   const showParticipatePhoto = hasPhoto(participateSrc);
-  const highlights = content.highlights.slice(0, 3);
   const achievements = content.achievements;
+  const values = content.values.slice(0, 3);
   const hasSocial =
     Boolean(content.social.instagram) ||
     Boolean(content.social.facebook) ||
@@ -53,115 +71,138 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* 1. Hero full-bleed — tipografia em camadas (Nikolas) + presença (Marina) */}
-      <section className="hero-stage relative isolate min-h-[100dvh] overflow-hidden text-white">
-        <div className="pointer-events-none absolute inset-0 opacity-40" aria-hidden>
-          <div className="absolute -left-24 top-24 h-72 w-72 rounded-full bg-[var(--sky)]/20 blur-3xl" />
-          <div className="absolute -right-16 bottom-40 h-80 w-80 rounded-full bg-[var(--coral)]/15 blur-3xl" />
-        </div>
+      <section className="home-hero relative isolate overflow-hidden text-white">
+        <div className="home-hero-grid pointer-events-none absolute inset-0" aria-hidden />
+        <div className="home-hero-glow home-hero-glow-left" aria-hidden />
+        <div className="home-hero-glow home-hero-glow-right" aria-hidden />
 
-        <div className="relative mx-auto flex min-h-[100dvh] max-w-7xl flex-col px-5 pt-[72px] sm:px-7 lg:px-10">
-          <h1 className="sr-only">
-            {content.candidate.ballotName} — {content.candidate.office}
-          </h1>
-          <p className="anim-rise relative z-20 mt-4 text-center text-[11px] font-bold uppercase tracking-[0.22em] text-white/55 sm:text-left">
-            {content.candidate.office} · {content.candidate.city} · {content.candidate.state}
-          </p>
-
-          <div className="relative mt-2 flex flex-1 flex-col justify-end">
-            {/* Nome gigante atrás da foto */}
-            <div className="anim-fade pointer-events-none absolute inset-x-0 top-[8%] z-0 flex justify-center lg:top-[4%]">
-              <p className="hero-giant text-center">Luzia</p>
-            </div>
-
-            {/* Cutout */}
-            {showHeroPhoto ? (
-              <div className="anim-rise anim-d1 relative z-10 mx-auto w-full max-w-[520px] lg:max-w-[580px]">
-                <Photo
-                  src={heroSrc}
-                  alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
-                  priority
-                  className="mx-auto aspect-[3/4] w-full drop-shadow-[0_30px_60px_rgba(0,0,0,0.45)]"
-                  imgClassName="object-contain object-bottom"
-                  objectPosition="center bottom"
-                />
-              </div>
-            ) : (
-              <div className="relative z-10 mx-auto mb-10 flex h-[50vh] w-full max-w-lg items-end justify-center" aria-hidden>
-                <p className="hero-script">Luzia</p>
-              </div>
-            )}
-
-            {/* Script na frente da foto */}
-            <p className="hero-script anim-rise anim-d2 pointer-events-none absolute bottom-[22%] left-1/2 z-20 -translate-x-1/2 sm:bottom-[18%] lg:bottom-[16%]">
-              Mary
+        <Container className="relative grid min-h-[min(900px,100svh)] gap-10 pb-10 pt-[108px] lg:grid-cols-[0.92fr_1.08fr] lg:items-end lg:gap-0 lg:pb-0">
+          <div className="relative z-20 pb-4 lg:pb-24">
+            <p className="anim-rise inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-white/60">
+              <MapPin size={13} className="text-[var(--sky)]" aria-hidden />
+              {content.candidate.city} · {content.candidate.region} · {content.candidate.state}
             </p>
-          </div>
-        </div>
 
-        {/* Barra inferior de impacto */}
-        <div className="relative z-30 grid border-t border-white/10 lg:grid-cols-[1.4fr_1fr]">
-          <div className="bg-[var(--navy)] px-5 py-5 sm:px-8 sm:py-6 lg:px-10">
-            <p className="font-display text-lg font-extrabold leading-snug tracking-[-0.02em] text-white sm:text-xl lg:text-2xl">
+            <p className="anim-rise anim-d1 mt-8 text-xs font-extrabold uppercase tracking-[0.2em] text-[var(--sky)]">
+              {content.candidate.office}
+            </p>
+
+            <h1 className="home-hero-name anim-rise anim-d1 mt-4">
+              Luzia
+              <span>Mary</span>
+            </h1>
+
+            <p className="anim-rise anim-d2 mt-7 max-w-xl font-display text-[clamp(1.45rem,2.6vw,2.25rem)] font-bold leading-[1.08] tracking-[-0.035em] text-white">
               {content.candidate.slogan}
             </p>
-            <p className="mt-2 max-w-xl text-sm leading-6 text-white/60">{content.candidate.homeLead}</p>
+            <p className="anim-rise anim-d2 mt-5 max-w-lg text-base leading-8 text-white/65">
+              {content.candidate.homeLead}
+            </p>
+
+            <div className="anim-rise anim-d3 mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link
+                href="/demandas"
+                className="inline-flex h-13 items-center justify-center gap-2 bg-[var(--sky)] px-7 text-sm font-extrabold text-[var(--navy)] transition hover:-translate-y-0.5 hover:brightness-110"
+              >
+                Envie sua demanda <ArrowRight size={16} aria-hidden />
+              </Link>
+              <Link
+                href="/sobre"
+                className="inline-flex h-13 items-center justify-center gap-2 border border-white/25 px-7 text-sm font-bold text-white transition hover:border-white/55 hover:bg-white/5"
+              >
+                Conheça a trajetória
+              </Link>
+            </div>
           </div>
-          <div className="flex flex-col gap-3 bg-[var(--sky)] px-5 py-5 sm:flex-row sm:items-center sm:justify-end sm:gap-4 sm:px-8 sm:py-6 lg:px-10">
-            <Link
-              href="/sobre"
-              className="inline-flex h-12 items-center justify-center gap-2 bg-[var(--navy)] px-6 text-sm font-bold text-white transition hover:bg-[var(--navy-mid)]"
-            >
-              Conheça Luzia <ArrowRight size={16} aria-hidden />
-            </Link>
-            <Link
-              href="/demandas"
-              className="inline-flex h-12 items-center justify-center border-2 border-[var(--navy)] bg-transparent px-6 text-sm font-bold text-[var(--navy)] transition hover:bg-[var(--navy)] hover:text-white"
-            >
-              Envie sua demanda
-            </Link>
+
+          <div className="relative z-10 flex min-h-[510px] items-end justify-center lg:min-h-[calc(100svh-108px)] lg:justify-end">
+            <p className="home-hero-monogram" aria-hidden>
+              LM
+            </p>
+            <div className="home-portrait-halo" aria-hidden />
+            {showHeroPhoto ? (
+              <Photo
+                src={heroSrc}
+                alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
+                priority
+                className="anim-rise anim-d1 relative z-10 aspect-[3/4] w-full max-w-[540px] lg:max-w-[650px]"
+                imgClassName="object-contain object-bottom drop-shadow-[0_30px_60px_rgba(0,0,0,0.42)]"
+                objectPosition="center bottom"
+              />
+            ) : (
+              <div className="relative z-10 h-[62vh] w-full max-w-[560px]" aria-hidden />
+            )}
+            <div className="home-photo-caption absolute bottom-6 right-0 z-20 hidden lg:block">
+              <span>De Imperatriz</span>
+              <strong>para o Maranhão</strong>
+            </div>
           </div>
+        </Container>
+
+        <div className="home-principles relative z-30">
+          <Container>
+            <ul className="grid lg:grid-cols-3">
+              {heroPrinciples.map((item) => (
+                <li key={item.n} className="home-principle-item">
+                  <span>{item.n}</span>
+                  <div>
+                    <p>{item.title}</p>
+                    <small>{item.text}</small>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </Container>
         </div>
-        <div className="h-2 bg-[var(--coral)]" aria-hidden />
       </section>
 
-      {/* 2. Quem é Luzia — bloco de cor + cutout (Marina) */}
-      <section className="relative overflow-hidden bg-[var(--navy)] py-16 text-white sm:py-20">
-        <Container className={`relative grid items-end gap-10 lg:gap-12 ${showAboutPhoto ? "lg:grid-cols-[0.85fr_1.15fr]" : ""}`}>
+      <section className="overflow-hidden bg-[var(--bg)] py-20 sm:py-24 lg:py-28">
+        <Container className="grid items-center gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-20">
           {showAboutPhoto && (
-            <div className="relative -mb-16 max-w-md lg:-mb-20 lg:max-w-none">
+            <div className="home-about-photo relative mx-auto w-full max-w-[520px] lg:mx-0">
+              <div className="absolute -left-5 -top-5 h-28 w-28 border-l-2 border-t-2 border-[var(--coral)]" aria-hidden />
               <Photo
                 src={aboutSrc}
                 alt={`${content.candidate.ballotName} em Imperatriz`}
-                className="aspect-[4/5] w-full"
+                className="aspect-[4/5] w-full bg-[var(--navy)]"
                 imgClassName="object-contain object-bottom"
                 objectPosition="center bottom"
               />
+              <div className="absolute -bottom-6 -right-4 max-w-[230px] bg-[var(--sky)] p-5 text-[var(--navy)] sm:-right-8">
+                <p className="font-display text-xl font-extrabold leading-tight tracking-[-0.03em]">
+                  Política com os pés no território.
+                </p>
+              </div>
             </div>
           )}
-          <div className="pb-4 lg:pb-8">
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--sky)]">Prazer, Luzia</p>
-            <h2 className="section-title mt-3 text-white">
-              Trajetória em Imperatriz, compromisso com o Maranhão
+
+          <div>
+            <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--coral)]">
+              Quem é Luzia Mary
+            </p>
+            <h2 className="section-title mt-4 max-w-2xl">
+              Uma trajetória construída perto de quem precisa que o poder público funcione.
             </h2>
-            <div className="mt-6 space-y-4 text-[15px] leading-7 text-white/70">
+            <div className="mt-7 max-w-2xl space-y-4 text-base leading-8 text-[var(--muted)]">
               {content.candidate.bio.slice(0, 2).map((paragraph) => (
                 <p key={paragraph.slice(0, 40)}>{paragraph}</p>
               ))}
             </div>
-            {highlights.length > 0 && (
-              <ul className="mt-8 grid gap-4 border-t border-white/15 pt-8 sm:grid-cols-3">
-                {highlights.map((item) => (
-                  <li key={item.label}>
-                    <p className="font-display text-sm font-extrabold text-[var(--sky)]">{item.label}</p>
-                    <p className="mt-1 text-sm leading-6 text-white/60">{item.text}</p>
-                  </li>
-                ))}
-              </ul>
-            )}
+
+            <ul className="mt-9 grid gap-4 sm:grid-cols-3">
+              {values.map((item) => (
+                <li key={item.title} className="border-t-2 border-[var(--navy)] pt-4">
+                  <p className="font-display text-lg font-extrabold tracking-[-0.03em] text-[var(--navy)]">
+                    {item.title}
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{item.text}</p>
+                </li>
+              ))}
+            </ul>
+
             <Link
               href="/sobre"
-              className="mt-8 inline-flex items-center gap-2 text-sm font-bold text-white underline decoration-[var(--coral)] decoration-2 underline-offset-6 hover:text-[var(--sky)]"
+              className="mt-9 inline-flex items-center gap-2 text-sm font-extrabold text-[var(--navy)] underline decoration-[var(--coral)] decoration-2 underline-offset-8 transition hover:text-[var(--coral)]"
             >
               Conheça a história completa <ArrowRight size={15} aria-hidden />
             </Link>
@@ -169,71 +210,112 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* 3. Quatro bandeiras */}
-      <section className="border-t border-[var(--line)] bg-[var(--bg)] py-16 sm:py-20">
-        <Container>
-          <div className="max-w-2xl">
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--coral)]">Bandeiras</p>
-            <h2 className="section-title mt-3">
-              Quatro prioridades para a Região Tocantina
-            </h2>
-            <p className="mt-4 text-[15px] leading-7 text-[var(--muted)]">
-              Temas concretos, sem discurso genérico — cada bandeira com caminho de acompanhamento.
+      <section className="relative overflow-hidden bg-[var(--navy)] py-20 text-white sm:py-24 lg:py-28">
+        <div className="home-section-orbit" aria-hidden />
+        <Container className="relative">
+          <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+            <div>
+              <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--sky)]">
+                Bandeiras
+              </p>
+              <h2 className="section-title mt-4 max-w-xl text-white">
+                Prioridades para o Maranhão que começa na Região Tocantina.
+              </h2>
+            </div>
+            <p className="max-w-xl text-base leading-8 text-white/60 lg:justify-self-end">
+              Cada bandeira parte de um problema concreto e apresenta um caminho de atuação federal,
+              sem esconder a proposta atrás de discurso genérico.
             </p>
           </div>
 
-          <ol className="mt-12 divide-y divide-[var(--line)] border-y border-[var(--line)]">
-            {bandeiras.map((item, index) => (
-              <li key={item.id} className="group grid gap-4 py-8 sm:grid-cols-[4.5rem_1fr_auto] sm:items-start sm:gap-8">
-                <span
-                  className="font-display text-3xl font-extrabold tracking-[-0.04em]"
-                  style={{ color: bandeiraAccent[index % bandeiraAccent.length] }}
-                >
+          <div className="mt-12 grid gap-4 md:grid-cols-2">
+            {priorities.map((item, index) => (
+              <article key={item.id} className="home-priority-card group">
+                <span className="home-priority-number" aria-hidden>
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <div className="max-w-2xl">
+                <div className="relative z-10">
                   <p
-                    className="text-[11px] font-bold uppercase tracking-[0.16em]"
-                    style={{ color: bandeiraAccent[index % bandeiraAccent.length] }}
+                    className="text-[11px] font-extrabold uppercase tracking-[0.18em]"
+                    style={{ color: priorityAccent[index % priorityAccent.length] }}
                   >
                     {item.category}
                   </p>
-                  <h3 className="mt-2 font-display text-xl font-bold tracking-[-0.03em] sm:text-2xl">{item.title}</h3>
-                  <p className="mt-2 text-[15px] leading-7 text-[var(--muted)]">{item.summary}</p>
+                  <h3 className="mt-5 max-w-md font-display text-[clamp(1.6rem,3vw,2.35rem)] font-extrabold leading-[1.06] tracking-[-0.04em]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-4 max-w-xl text-[15px] leading-7 text-white/60">{item.summary}</p>
+                  <Link
+                    href={`/propostas/${item.slug}`}
+                    className="mt-8 inline-flex items-center gap-2 text-sm font-extrabold text-white transition group-hover:text-[var(--sky)]"
+                  >
+                    Ver proposta <ArrowRight size={15} aria-hidden />
+                  </Link>
                 </div>
-                <Link
-                  href={`/propostas/${item.slug}`}
-                  className="inline-flex items-center gap-1 self-start text-sm font-bold text-[var(--navy)] transition group-hover:text-[var(--coral)] sm:pt-1"
-                >
-                  Ler <ArrowRight size={14} aria-hidden />
-                </Link>
-              </li>
+              </article>
             ))}
-          </ol>
+          </div>
 
           <Link
             href="/propostas"
-            className="mt-8 inline-flex items-center gap-2 text-sm font-bold text-[var(--navy)] underline decoration-[var(--coral)] decoration-2 underline-offset-6"
+            className="mt-9 inline-flex items-center gap-2 text-sm font-extrabold text-white underline decoration-[var(--coral)] decoration-2 underline-offset-8"
           >
             Ver todas as bandeiras <ArrowRight size={15} aria-hidden />
           </Link>
         </Container>
       </section>
 
-      {/* 4. Resultados — só se houver dados */}
-      {achievements.length > 0 && (
-        <section className="border-t border-[var(--line)] bg-[var(--surface)] py-16 sm:py-20">
-          <Container>
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--coral)]">Trajetória pública</p>
-            <h2 className="section-title mt-3">
-              Resultados que podem ser conferidos
+      <section className="bg-[var(--surface)] py-20 sm:py-24 lg:py-28">
+        <Container className="grid gap-14 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--coral)]">
+              Gabinete digital
+            </p>
+            <h2 className="section-title mt-4 max-w-xl">
+              Seu problema não deve cair em uma fila invisível.
             </h2>
+            <p className="mt-5 max-w-lg text-base leading-8 text-[var(--muted)]">
+              O canal de participação organiza contribuições por tema e localidade, gera protocolo e
+              ajuda a transformar escuta em prioridade de trabalho.
+            </p>
+            <Link
+              href="/demandas"
+              className="mt-8 inline-flex h-13 items-center justify-center gap-2 bg-[var(--coral)] px-7 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:brightness-95"
+            >
+              Enviar uma demanda <ArrowRight size={16} aria-hidden />
+            </Link>
+          </div>
+
+          <ol className="border-t border-[var(--line)]">
+            {listeningSteps.map((step) => (
+              <li key={step.n} className="home-listening-step">
+                <span>{step.n}</span>
+                <div>
+                  <h3>{step.title}</h3>
+                  <p>{step.text}</p>
+                </div>
+                <Check size={20} className="hidden text-[var(--coral)] sm:block" aria-hidden />
+              </li>
+            ))}
+          </ol>
+        </Container>
+      </section>
+
+      {achievements.length > 0 && (
+        <section className="border-t border-[var(--line)] bg-[var(--bg-soft)] py-20 sm:py-24">
+          <Container>
+            <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--coral)]">
+              Trajetória pública
+            </p>
+            <h2 className="section-title mt-4">Resultados que podem ser conferidos.</h2>
             <ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {achievements.map((item) => (
                 <li key={item.label} className="border-t-2 border-[var(--navy)] pt-5">
-                  <p className="font-display text-3xl font-extrabold tracking-[-0.04em] text-[var(--navy)]">{item.value}</p>
-                  <p className="mt-2 text-sm font-bold text-[var(--ink)]">{item.label}</p>
-                  {item.detail && <p className="mt-1 text-sm leading-6 text-[var(--muted)]">{item.detail}</p>}
+                  <p className="font-display text-4xl font-extrabold tracking-[-0.05em] text-[var(--navy)]">
+                    {item.value}
+                  </p>
+                  <p className="mt-2 text-sm font-extrabold text-[var(--ink)]">{item.label}</p>
+                  {item.detail && <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{item.detail}</p>}
                 </li>
               ))}
             </ul>
@@ -241,57 +323,56 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* 5. Notícias */}
-      <section className="border-t border-[var(--line)] bg-[var(--bg-soft)] py-16 sm:py-20">
-        <Container>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--coral)]">Notícias</p>
-              <h2 className="section-title mt-3">
-                O que está acontecendo
-              </h2>
+      {posts.length > 0 && (
+        <section className="border-t border-[var(--line)] bg-[var(--bg)] py-20 sm:py-24 lg:py-28">
+          <Container>
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--coral)]">
+                  Notícias
+                </p>
+                <h2 className="section-title mt-4">Acompanhe a pré-candidatura.</h2>
+              </div>
+              <Link
+                href="/noticias"
+                className="text-sm font-extrabold text-[var(--navy)] underline decoration-2 underline-offset-8"
+              >
+                Ver todas as notícias
+              </Link>
             </div>
-            <Link href="/noticias" className="text-sm font-bold text-[var(--navy)] underline decoration-2 underline-offset-6">
-              Ver todas
-            </Link>
-          </div>
 
-          {posts.length === 0 ? (
-            <p className="mt-10 max-w-xl border-l-2 border-[var(--navy)] pl-5 text-[15px] leading-7 text-[var(--muted)]">
-              Em breve, atualizações da pré-candidatura e da escuta na Região Tocantina.
-            </p>
-          ) : (
-            <div className="mt-10 grid gap-10 lg:grid-cols-[1.35fr_1fr]">
+            <div className="mt-12 grid gap-10 lg:grid-cols-[1.3fr_0.7fr]">
               {featured && (
-                <article>
-                  <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted)]">
+                <article className="border-t-2 border-[var(--navy)] pt-6">
+                  <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[var(--muted)]">
                     {featured.publishedAt ? formatShortDate(featured.publishedAt) : featured.category}
                   </p>
-                  <h3 className="mt-3 font-display text-2xl font-bold tracking-[-0.03em] sm:text-3xl">
-                    <Link href={`/noticias/${featured.slug}`} className="hover:text-[var(--coral)]">
+                  <h3 className="mt-4 max-w-3xl font-display text-[clamp(2rem,4vw,3.3rem)] font-extrabold leading-[1.04] tracking-[-0.045em]">
+                    <Link href={`/noticias/${featured.slug}`} className="transition hover:text-[var(--coral)]">
                       {featured.title}
                     </Link>
                   </h3>
                   {featured.excerpt && (
-                    <p className="mt-3 max-w-xl text-[15px] leading-7 text-[var(--muted)]">{featured.excerpt}</p>
+                    <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--muted)]">{featured.excerpt}</p>
                   )}
                   <Link
                     href={`/noticias/${featured.slug}`}
-                    className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[var(--navy)]"
+                    className="mt-7 inline-flex items-center gap-2 text-sm font-extrabold text-[var(--navy)]"
                   >
-                    Ler matéria <ArrowRight size={14} aria-hidden />
+                    Ler matéria <ArrowRight size={15} aria-hidden />
                   </Link>
                 </article>
               )}
+
               {secondary.length > 0 && (
-                <ul className="divide-y divide-[var(--line)] border-t border-[var(--line)] lg:border-t-0 lg:border-l lg:pl-10">
+                <ul className="divide-y divide-[var(--line)] border-y border-[var(--line)] lg:border-y-0 lg:border-l lg:pl-10">
                   {secondary.map((post) => (
-                    <li key={post.id} className="py-5 first:pt-0 lg:first:pt-0">
-                      <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted)]">
+                    <li key={post.id} className="py-7 first:pt-0 lg:first:pt-0">
+                      <p className="text-[11px] font-extrabold uppercase tracking-[0.15em] text-[var(--muted)]">
                         {post.publishedAt ? formatShortDate(post.publishedAt) : post.category}
                       </p>
-                      <h3 className="mt-2 font-display text-lg font-bold tracking-[-0.02em]">
-                        <Link href={`/noticias/${post.slug}`} className="hover:text-[var(--coral)]">
+                      <h3 className="mt-3 font-display text-xl font-extrabold leading-tight tracking-[-0.03em]">
+                        <Link href={`/noticias/${post.slug}`} className="transition hover:text-[var(--coral)]">
                           {post.title}
                         </Link>
                       </h3>
@@ -300,69 +381,45 @@ export default async function HomePage() {
                 </ul>
               )}
             </div>
-          )}
-        </Container>
-      </section>
+          </Container>
+        </section>
+      )}
 
-      {/* 6. Canal direto */}
-      <section className="border-t border-[var(--line)] bg-[var(--surface)] py-16 sm:py-20">
-        <Container>
-          <div className="max-w-2xl">
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--coral)]">Escuta</p>
-            <h2 className="section-title mt-3">
-              Um canal direto para ouvir você.
-            </h2>
-            <p className="mt-4 text-[15px] leading-7 text-[var(--muted)]">
-              Demanda com protocolo, retorno da equipe e acompanhamento — sem fila invisível.
+      <section className="home-closing relative overflow-hidden bg-[var(--navy)] text-white">
+        <div className="home-closing-glow" aria-hidden />
+        <Container
+          className={`relative grid items-end gap-10 pt-20 sm:pt-24 ${
+            showParticipatePhoto ? "lg:grid-cols-[1fr_0.88fr] lg:pt-0" : "pb-20 sm:pb-24"
+          }`}
+        >
+          <div className="pb-20 sm:pb-24 lg:py-28">
+            <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--sky)]">
+              Participe
             </p>
-          </div>
-
-          <ol className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {canalPassos.map((passo) => (
-              <li key={passo.n}>
-                <p className="font-display text-sm font-extrabold text-[var(--coral)]">{passo.n}</p>
-                <h3 className="mt-2 font-display text-lg font-bold tracking-[-0.02em]">{passo.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{passo.text}</p>
-              </li>
-            ))}
-          </ol>
-
-          <Link
-            href="/demandas"
-            className="mt-10 inline-flex h-12 items-center justify-center gap-2 bg-[var(--coral)] px-7 text-sm font-bold text-white transition hover:brightness-95"
-          >
-            Enviar demanda agora <ArrowRight size={16} aria-hidden />
-          </Link>
-        </Container>
-      </section>
-
-      {/* 7. Participação */}
-      <section className="relative overflow-hidden border-t border-[var(--line)] bg-[var(--navy)] py-16 text-white sm:py-20">
-        <Container className={`relative grid items-center gap-10 ${showParticipatePhoto ? "lg:grid-cols-[1fr_0.85fr]" : ""}`}>
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/45">Participe</p>
-            <h2 className="section-title mt-3 text-white">
-              Sua demanda pode virar prioridade
+            <h2 className="mt-4 max-w-3xl font-display text-[clamp(2.5rem,5vw,4.6rem)] font-extrabold leading-[0.98] tracking-[-0.055em]">
+              A política começa quando alguém é ouvido.
             </h2>
-            <p className="mt-4 max-w-lg text-[15px] leading-7 text-white/65">
-              Conte o que falta no seu município. A escuta começa aqui — e o retorno também.
+            <p className="mt-6 max-w-xl text-base leading-8 text-white/65">
+              Conte o que falta no seu município. Sua contribuição ajuda a construir prioridades mais
+              próximas da realidade do Maranhão.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
                 href="/demandas"
-                className="inline-flex h-12 items-center justify-center gap-2 bg-[var(--coral)] px-7 text-sm font-bold text-white transition hover:brightness-95"
+                className="inline-flex h-13 items-center justify-center gap-2 bg-[var(--sky)] px-7 text-sm font-extrabold text-[var(--navy)] transition hover:-translate-y-0.5 hover:brightness-110"
               >
-                Envie sua demanda <ArrowRight size={16} aria-hidden />
+                Quero participar <ArrowRight size={16} aria-hidden />
               </Link>
               <Link
                 href="/compromissos"
-                className="inline-flex h-12 items-center justify-center border border-white/25 px-7 text-sm font-bold text-white transition hover:border-white/50"
+                className="inline-flex h-13 items-center justify-center border border-white/25 px-7 text-sm font-bold text-white transition hover:border-white/55 hover:bg-white/5"
               >
                 Ver compromissos
               </Link>
             </div>
+
             {hasSocial && (
-              <div className="mt-8 flex flex-wrap gap-4 text-sm font-semibold text-white/55">
+              <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-white/55">
                 {content.contact.whatsapp && (
                   <a
                     href={`https://wa.me/${content.contact.whatsapp}`}
@@ -391,12 +448,14 @@ export default async function HomePage() {
               </div>
             )}
           </div>
+
           {showParticipatePhoto && (
-            <div className="relative justify-self-end overflow-hidden bg-[color-mix(in_srgb,white_8%,transparent)] px-4 pt-4 sm:px-6">
+            <div className="relative flex h-full min-h-[520px] items-end justify-center lg:min-h-[680px]">
+              <div className="absolute inset-x-8 bottom-0 top-16 bg-white/[0.045]" aria-hidden />
               <Photo
                 src={participateSrc}
                 alt={`${content.candidate.ballotName} convida à participação`}
-                className="aspect-[4/5] w-full max-w-md lg:max-w-none"
+                className="relative z-10 aspect-[4/5] w-full max-w-[520px]"
                 imgClassName="object-contain object-bottom"
                 objectPosition="center bottom"
               />
