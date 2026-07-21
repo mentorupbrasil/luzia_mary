@@ -7,5 +7,79 @@ import { siteConfig } from "@/config/site";
 export const metadata = { title: "Conheça a candidata" };
 
 export default function AboutPage() {
-  return <><PageHero eyebrow="Conheça" title={`Quem é ${siteConfig.candidate.ballotName}`} description="Uma apresentação objetiva da trajetória, das experiências e das razões que sustentam esta candidatura."/><Container className="grid gap-10 py-14 lg:grid-cols-[.72fr_1fr]"><aside><div className="sticky top-28 overflow-hidden rounded-[38px] bg-[#173e32] p-8 text-white shadow-[0_30px_80px_rgba(20,55,44,.24)]"><div className="grid aspect-[4/5] place-items-center rounded-[28px] bg-[linear-gradient(145deg,rgba(255,255,255,.08),rgba(244,214,138,.25))]"><span className="text-7xl font-black text-[var(--accent)]">{siteConfig.candidate.initials}</span></div><h2 className="mt-6 text-3xl font-semibold tracking-[-.04em]">{siteConfig.candidate.name}</h2><p className="mt-2 text-sm text-white/60">{siteConfig.candidate.office} · {siteConfig.candidate.state}</p></div></aside><article><div className="prose-public">{siteConfig.candidate.bio.map((paragraph,index)=><p key={index}>{paragraph}</p>)}<h2>Princípios desta candidatura</h2></div><div className="mt-7 grid gap-4"><Card><CardContent className="flex gap-4 pt-6"><Eye className="shrink-0 text-[var(--brand)]"/><div><h3 className="font-bold">Transparência desde a campanha</h3><p className="mt-2 text-sm leading-7 text-black/55">Informações claras, compromissos públicos e explicações acessíveis sobre decisões e prioridades.</p></div></CardContent></Card><Card><CardContent className="flex gap-4 pt-6"><Handshake className="shrink-0 text-[var(--brand)]"/><div><h3 className="font-bold">Escuta com organização</h3><p className="mt-2 text-sm leading-7 text-black/55">As demandas recebidas devem ser registradas, classificadas e usadas para orientar a atuação.</p></div></CardContent></Card><Card><CardContent className="flex gap-4 pt-6"><ShieldCheck className="shrink-0 text-[var(--brand)]"/><div><h3 className="font-bold">Responsabilidade com dados e informação</h3><p className="mt-2 text-sm leading-7 text-black/55">Proteção de dados pessoais, combate à desinformação e uso responsável de tecnologia.</p></div></CardContent></Card></div></article></Container></>;
+  return (
+    <>
+      <PageHero
+        eyebrow="Conheça"
+        title={`Quem é ${siteConfig.candidate.ballotName}`}
+        description="Trajetória, experiência e as razões que sustentam esta pré-candidatura a Deputada Federal pelo Maranhão."
+      />
+      <Container className="grid gap-10 py-14 lg:grid-cols-[.72fr_1fr]">
+        <aside>
+          <div className="sticky top-28 overflow-hidden rounded-[38px] bg-[#173e32] p-8 text-white shadow-[0_30px_80px_rgba(20,55,44,.24)]">
+            <div className="grid aspect-[4/5] place-items-center rounded-[28px] bg-[linear-gradient(145deg,rgba(255,255,255,.08),rgba(232,197,106,.28))]">
+              <span className="font-display text-7xl font-medium text-[var(--accent)]">
+                {siteConfig.candidate.initials}
+              </span>
+            </div>
+            <h2 className="mt-6 font-display text-3xl font-medium tracking-[-.02em]">
+              {siteConfig.candidate.name}
+            </h2>
+            <p className="mt-2 text-sm text-white/60">
+              {siteConfig.candidate.office} · {siteConfig.candidate.party}
+            </p>
+            <p className="mt-1 text-sm text-white/45">
+              {siteConfig.candidate.cityBase}, {siteConfig.candidate.state}
+            </p>
+            <div className="mt-6 rounded-2xl bg-white/[.08] px-4 py-3 text-sm text-white/70">
+              Número de urna: <strong className="text-[var(--accent)]">{siteConfig.candidate.number}</strong>
+            </div>
+          </div>
+        </aside>
+        <article>
+          <div className="prose-public">
+            {siteConfig.candidate.bio.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+            <h2>Princípios desta candidatura</h2>
+          </div>
+          <div className="mt-7 grid gap-4">
+            <Card>
+              <CardContent className="flex gap-4 pt-6">
+                <Eye className="shrink-0 text-[var(--brand)]" aria-hidden />
+                <div>
+                  <h3 className="font-bold">Transparência desde a campanha</h3>
+                  <p className="mt-2 text-sm leading-7 text-black/55">
+                    Informações claras, compromissos públicos e explicações acessíveis sobre decisões e prioridades.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="flex gap-4 pt-6">
+                <Handshake className="shrink-0 text-[var(--brand)]" aria-hidden />
+                <div>
+                  <h3 className="font-bold">Escuta com organização</h3>
+                  <p className="mt-2 text-sm leading-7 text-black/55">
+                    As demandas recebidas são registradas, classificadas e usadas para orientar a atuação.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="flex gap-4 pt-6">
+                <ShieldCheck className="shrink-0 text-[var(--brand)]" aria-hidden />
+                <div>
+                  <h3 className="font-bold">Responsabilidade com dados e informação</h3>
+                  <p className="mt-2 text-sm leading-7 text-black/55">
+                    Proteção de dados pessoais, combate à desinformação e uso responsável de tecnologia.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </article>
+      </Container>
+    </>
+  );
 }
