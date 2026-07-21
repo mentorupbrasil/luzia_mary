@@ -4,11 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { content, navPrimary, navSecondary } from "@/config/site";
+import { navPrimary, navSecondary } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Container } from "./container";
 
-const desktopLinks = navPrimary.slice(0, 5);
+const desktopLinks = [
+  { href: "/", label: "Início" },
+  { href: "/sobre", label: "Biografia" },
+  { href: "/propostas", label: "Propostas" },
+  { href: "/agenda", label: "Agenda" },
+  { href: "/demandas", label: "Participe" },
+] as const;
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -25,7 +31,7 @@ export function SiteHeader() {
 
   useEffect(() => {
     function onScroll() {
-      setScrolled(window.scrollY > 28);
+      setScrolled(window.scrollY > 34);
     }
 
     onScroll();
@@ -38,21 +44,19 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "people-header z-50 transition-all duration-300",
+        "campaign-header z-50 transition-all duration-300",
         onHome ? "fixed inset-x-0 top-0" : "sticky top-0",
-        heroMode ? "people-header-transparent" : "people-header-solid",
+        heroMode ? "campaign-header-transparent" : "campaign-header-solid",
       )}
     >
-      <Container className="flex h-[82px] items-center justify-between gap-4">
-        <Link href="/" className="people-brand" aria-label={`${content.candidate.ballotName} — Início`}>
-          <span className="people-brand-name">
-            <strong>L</strong><span>uzia</span>
-            <strong>M</strong><span>ary</span>
-          </span>
-          <span className="people-brand-tagline">A mulher do povo!</span>
+      <Container className="flex h-[92px] items-center justify-between gap-6">
+        <Link href="/" className="campaign-mark" aria-label="Luzia Mary — Início">
+          <span className="campaign-mark-green" aria-hidden />
+          <span className="campaign-mark-yellow" aria-hidden />
+          <span className="sr-only">Luzia Mary</span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegação principal">
+        <nav className="campaign-nav hidden items-center lg:flex" aria-label="Navegação principal">
           {desktopLinks.map((item) => {
             const active =
               item.href === "/"
@@ -63,7 +67,7 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={cn("people-nav-link", active && "people-nav-link-active")}
+                className={cn("campaign-nav-link", active && "campaign-nav-link-active")}
               >
                 {item.label}
               </Link>
@@ -71,26 +75,20 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
-          <Link href="/demandas" className="people-header-cta hidden sm:inline-flex">
-            Envie sua demanda
-          </Link>
-
-          <button
-            type="button"
-            className="people-menu-button lg:hidden"
-            onClick={() => setOpen((value) => !value)}
-            aria-expanded={open}
-            aria-controls="menu-mobile"
-            aria-label={open ? "Fechar menu" : "Abrir menu"}
-          >
-            {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
+        <button
+          type="button"
+          className="campaign-menu-button lg:hidden"
+          onClick={() => setOpen((value) => !value)}
+          aria-expanded={open}
+          aria-controls="menu-mobile"
+          aria-label={open ? "Fechar menu" : "Abrir menu"}
+        >
+          {open ? <X size={23} /> : <Menu size={23} />}
+        </button>
       </Container>
 
       {open && (
-        <div id="menu-mobile" className="people-mobile-menu lg:hidden">
+        <div id="menu-mobile" className="campaign-mobile-menu lg:hidden">
           <Container>
             <nav className="grid" aria-label="Menu mobile">
               {[...navPrimary, ...navSecondary].map((item) => (
@@ -98,12 +96,12 @@ export function SiteHeader() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="people-mobile-link"
+                  className="campaign-mobile-link"
                 >
                   {item.label}
                 </Link>
               ))}
-              <Link href="/demandas" onClick={() => setOpen(false)} className="people-mobile-cta">
+              <Link href="/demandas" onClick={() => setOpen(false)} className="campaign-mobile-cta">
                 Envie sua demanda
               </Link>
             </nav>

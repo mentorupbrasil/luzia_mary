@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Check, MapPin, MessageCircle, Sparkles } from "lucide-react";
+import { ArrowRight, Check, MessageCircle } from "lucide-react";
 import { Container } from "@/components/container";
 import { Photo, hasPhoto } from "@/components/photo";
 import { content } from "@/config/site";
@@ -46,89 +46,73 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="people-hero relative isolate overflow-hidden">
-        <div className="people-grid pointer-events-none absolute inset-0" aria-hidden />
-        <div className="people-hero-orbit people-hero-orbit-one" aria-hidden />
-        <div className="people-hero-orbit people-hero-orbit-two" aria-hidden />
-        <div className="people-hero-word" aria-hidden>
-          Povo
-        </div>
+      <section className="campaign-hero relative isolate overflow-hidden">
+        <div className="campaign-sky" aria-hidden />
+        <div className="campaign-lights" aria-hidden />
 
-        <Container className="people-hero-layout relative min-h-[min(900px,100svh)] pt-[92px]">
-          <div className="people-hero-copy relative z-20 flex flex-col justify-center py-12 lg:py-20">
-            <p className="people-location anim-rise">
-              <MapPin size={15} aria-hidden />
-              {content.candidate.city} · {content.candidate.region} · {content.candidate.state}
-            </p>
+        <svg className="campaign-waves" viewBox="0 0 760 540" fill="none" aria-hidden>
+          <path d="M-40 166C116 91 205 247 364 172C506 105 597 196 760 129" />
+          <path d="M-40 208C116 133 205 289 364 214C506 147 597 238 760 171" />
+          <path d="M-40 250C116 175 205 331 364 256C506 189 597 280 760 213" />
+          <path d="M-40 292C116 217 205 373 364 298C506 231 597 322 760 255" />
+          <path d="M-40 334C116 259 205 415 364 340C506 273 597 364 760 297" />
+        </svg>
 
-            <p className="people-office anim-rise anim-d1">{content.candidate.office}</p>
+        <svg className="campaign-bridge" viewBox="0 0 1600 500" preserveAspectRatio="none" aria-hidden>
+          <path className="campaign-bridge-deck" d="M0 404C260 395 532 401 790 383C1047 365 1308 351 1600 360V500H0Z" />
+          <path className="campaign-bridge-line" d="M0 400C264 391 528 397 790 379C1052 361 1318 348 1600 356" />
+          <path className="campaign-bridge-line" d="M655 385L790 135L914 371" />
+          <path className="campaign-bridge-line campaign-bridge-line-soft" d="M682 374L790 135M708 373L790 135M734 371L790 135M760 369L790 135M818 369L790 135M846 368L790 135M874 367L790 135" />
+        </svg>
 
-            <h1 className="people-name anim-rise anim-d1" aria-label={content.candidate.ballotName}>
-              <span>Luzia</span>
-              <strong>Mary</strong>
+        <Container className="campaign-stage relative z-10">
+          <p className="campaign-office anim-rise">
+            {content.candidate.office} pelo {content.candidate.state}
+          </p>
+
+          <div className="campaign-name-composition">
+            <h1 className="campaign-luzia anim-rise anim-d1" aria-label={content.candidate.ballotName}>
+              LUZIA
             </h1>
-
-            <div className="people-tagline anim-rise anim-d2">
-              <Sparkles size={18} aria-hidden />
-              <span>A mulher do povo!</span>
-            </div>
-
-            <h2 className="people-slogan anim-rise anim-d2">{content.candidate.slogan}</h2>
-            <p className="people-lead anim-rise anim-d3">{content.candidate.homeLead}</p>
-
-            <div className="people-actions anim-rise anim-d3">
-              <Link href="/demandas" className="people-button people-button-lime">
-                Envie sua demanda <ArrowRight size={18} aria-hidden />
-              </Link>
-              <Link href="/sobre" className="people-button people-button-ghost">
-                Conheça Luzia
-              </Link>
-            </div>
-
-            <div className="people-hero-signature anim-rise anim-d3" aria-label="Compromissos centrais">
-              <span>Escuta</span>
-              <i aria-hidden />
-              <span>Presença</span>
-              <i aria-hidden />
-              <span>Trabalho</span>
-            </div>
-          </div>
-
-          <div className="people-portrait-stage relative z-10 flex min-h-[520px] items-end justify-center lg:min-h-0">
-            <div className="people-portrait-shape" aria-hidden />
-            <div className="people-portrait-lime" aria-hidden />
-            <div className="people-portrait-ribbon" aria-hidden>
-              Imperatriz • Região Tocantina • Maranhão •
-            </div>
 
             {showHeroPhoto ? (
               <Photo
                 src={heroSrc}
                 alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
                 priority
-                className="people-portrait anim-rise anim-d1 relative z-10 aspect-[3/4] w-full"
+                className="campaign-portrait anim-rise anim-d1"
                 imgClassName="object-contain object-bottom"
                 objectPosition="center bottom"
               />
             ) : (
-              <div className="relative z-10 h-[70vh] w-full" aria-hidden />
+              <div className="campaign-portrait-placeholder" aria-hidden />
             )}
 
-            <div className="people-photo-seal">
-              <span>Uma voz</span>
-              <strong>firme</strong>
-              <small>pelo Maranhão</small>
-            </div>
+            <span className="campaign-mary anim-rise anim-d2" aria-hidden>
+              Mary
+            </span>
+          </div>
+
+          <div className="campaign-location anim-rise anim-d3">
+            <span>Imperatriz</span>
+            <i aria-hidden />
+            <span>Região Tocantina</span>
           </div>
         </Container>
 
-        <div className="people-hero-footer relative z-30">
-          <Container className="people-hero-footer-inner">
-            <p>Política feita perto das pessoas.</p>
-            <Link href="/propostas">
-              Conheça as prioridades <ArrowRight size={16} aria-hidden />
-            </Link>
-          </Container>
+        <div className="campaign-band relative z-20">
+          <div className="campaign-band-blue">
+            <span>A mulher</span>
+            <strong>do povo!</strong>
+          </div>
+          <div className="campaign-band-green">
+            <span>De Imperatriz</span>
+            <strong>para o Maranhão</strong>
+          </div>
+          <Link href="/sobre" className="campaign-band-yellow">
+            <span>Conheça Luzia</span>
+            <ArrowRight size={23} aria-hidden />
+          </Link>
         </div>
       </section>
 
