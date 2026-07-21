@@ -30,9 +30,11 @@ export default async function HomePage() {
   const [featured, ...rest] = posts;
   const secondary = rest.slice(0, 2);
 
+  const heroSrc = content.candidate.photos.hero;
   const aboutSrc = content.candidate.photos.about;
   const participateSrc = content.candidate.photos.participate;
   const placeSrc = content.candidate.photos.heroPlace;
+  const showHeroPhoto = hasPhoto(heroSrc);
   const showAboutPhoto = hasPhoto(aboutSrc);
   const showParticipatePhoto = hasPhoto(participateSrc);
   const showPlacePhoto = hasPhoto(placeSrc);
@@ -62,32 +64,50 @@ export default async function HomePage() {
         <div className="campaign-place-veil" aria-hidden />
         <div className="campaign-place-grain" aria-hidden />
 
-        <div className="campaign-stage">
-          <p className="campaign-office anim-rise">
-            {content.candidate.office} pelo {content.candidate.state}
-          </p>
+        <div className={`campaign-stage${showHeroPhoto ? " campaign-stage-with-portrait" : ""}`}>
+          <div className="campaign-copy">
+            <p className="campaign-office anim-rise">
+              {content.candidate.office} pelo {content.candidate.state}
+            </p>
 
-          <div className="campaign-nameplate anim-rise anim-d1">
-            <h1 className="campaign-luzia" aria-label={content.candidate.ballotName}>
-              LUZIA
-            </h1>
-            <span className="campaign-mary anim-rise anim-d2" aria-hidden>
-              Mary
-            </span>
+            <div className="campaign-nameplate anim-rise anim-d1">
+              <h1 className="campaign-luzia" aria-label={content.candidate.ballotName}>
+                LUZIA
+              </h1>
+              <span className="campaign-mary anim-rise anim-d2" aria-hidden>
+                Mary
+              </span>
+            </div>
           </div>
+
+          {showHeroPhoto && (
+            <div className="campaign-portrait-wrap anim-rise anim-d1">
+              <div className="campaign-portrait-fade" aria-hidden />
+              <Photo
+                src={heroSrc}
+                alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
+                priority
+                className="campaign-portrait"
+                imgClassName="campaign-portrait-img"
+                objectPosition="center top"
+              />
+            </div>
+          )}
         </div>
 
         <div className="campaign-band">
           <div className="campaign-band-rail" aria-hidden />
           <div className="campaign-band-inner">
             <p className="campaign-band-slogan">A mulher do povo!</p>
+            <div className="campaign-band-divider" aria-hidden />
             <div className="campaign-band-place">
               <span>De Imperatriz</span>
               <strong>para o Maranhão</strong>
             </div>
+            <div className="campaign-band-divider" aria-hidden />
             <Link href="/sobre" className="campaign-band-cta">
               Conheça Luzia
-              <ArrowRight size={17} aria-hidden />
+              <ArrowRight size={16} aria-hidden />
             </Link>
           </div>
         </div>
