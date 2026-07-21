@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Check, Heart, MapPin, MessageCircle, Users } from "lucide-react";
+import { CampaignHomeHeader } from "@/components/campaign-home-header";
 import { Container } from "@/components/container";
 import { Photo, hasPhoto } from "@/components/photo";
 import { content } from "@/config/site";
@@ -68,12 +69,16 @@ export default async function HomePage() {
             priority
             className="campaign-place"
             imgClassName="campaign-place-img"
-            objectPosition="72% 38%"
+            objectPosition="68% 42%"
           />
         ) : (
           <div className="campaign-place-fallback" aria-hidden />
         )}
         <div className="campaign-place-veil" aria-hidden />
+
+        <div className="campaign-hero-chrome">
+          <CampaignHomeHeader />
+        </div>
 
         <Container className="campaign-stage">
           <div className="campaign-copy anim-rise">
@@ -108,7 +113,7 @@ export default async function HomePage() {
               priority
               className="campaign-portrait"
               imgClassName="campaign-portrait-img"
-              objectPosition="center 6%"
+              objectPosition="center top"
             />
           </div>
         )}
@@ -119,14 +124,14 @@ export default async function HomePage() {
             <strong>A mulher do povo!</strong>
           </div>
           <div className="campaign-strip-item campaign-strip-green">
-            <MapPin size={24} strokeWidth={2.1} aria-hidden />
+            <MapPin size={22} strokeWidth={2.1} className="campaign-strip-pin" aria-hidden />
             <p>
               <span>De Imperatriz</span>
               <strong>para o Maranhão</strong>
             </p>
           </div>
           <div className="campaign-strip-item campaign-strip-navy">
-            <Heart size={24} strokeWidth={2.1} className="campaign-strip-heart" aria-hidden />
+            <Heart size={22} strokeWidth={2.1} className="campaign-strip-heart" aria-hidden />
             <strong>Trabalho · Fé · Família</strong>
           </div>
         </div>

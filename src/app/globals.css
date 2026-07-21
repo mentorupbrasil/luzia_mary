@@ -115,14 +115,48 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-header-bar {
   display: flex;
-  height: 5.25rem;
+  height: 5.1rem;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
 }
 
+.campaign-hero-chrome {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 30;
+  width: 100%;
+}
+
 .campaign-header-hero {
-  background: linear-gradient(180deg, rgba(2, 20, 55, .95) 0%, rgba(2, 20, 55, .5) 75%, transparent 100%);
+  background: #001a33;
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.campaign-brand {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: .28rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.campaign-brand-logo {
+  width: auto;
+  height: clamp(1.55rem, 2.1vw, 1.9rem);
+  object-fit: contain;
+  object-position: left center;
+}
+
+.campaign-brand-role {
+  max-width: 17rem;
+  color: rgba(255, 255, 255, .72);
+  font-size: .48rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  line-height: 1.25;
+  text-transform: uppercase;
 }
 
 .campaign-header-solid {
@@ -162,7 +196,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   right: 0;
   bottom: .08em;
   height: .22em;
-  background: #efd22a;
+  background: #ffcc00;
 }
 
 .campaign-lockup-role {
@@ -182,7 +216,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .campaign-nav {
   display: none;
   align-items: center;
-  gap: .2rem;
+  gap: .15rem;
 }
 
 @media (min-width: 1024px) {
@@ -193,11 +227,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-nav-link {
   position: relative;
-  padding: .7rem .95rem;
-  color: color-mix(in srgb, currentColor 78%, transparent);
+  padding: .7rem .9rem;
+  color: rgba(255, 255, 255, .86);
   font-size: .68rem;
   font-weight: 800;
-  letter-spacing: .08em;
+  letter-spacing: .1em;
   text-transform: uppercase;
   text-decoration: none;
   transition: color 160ms ease;
@@ -205,18 +239,18 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-nav-link:hover,
 .campaign-nav-link-active {
-  color: currentColor;
+  color: #ffcc00;
 }
 
 .campaign-nav-link::after {
   content: "";
   position: absolute;
-  left: .95rem;
-  right: .95rem;
-  bottom: .3rem;
+  left: .9rem;
+  right: .9rem;
+  bottom: .28rem;
   height: 2px;
   transform: scaleX(0);
-  background: #efd22a;
+  background: #ffcc00;
   transition: transform 180ms ease;
 }
 
@@ -248,12 +282,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-mobile-menu {
   position: fixed;
-  inset: 5.25rem 0 0;
+  inset: 5.1rem 0 0;
   z-index: 40;
   overflow-y: auto;
   padding: 1.2rem 0 2.4rem;
   color: white;
-  background: #021937;
+  background: #001a33;
   border-top: 1px solid rgba(255, 255, 255, .1);
 }
 
@@ -279,15 +313,15 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-mobile-link-active,
 .campaign-mobile-link:hover {
-  color: #efd22a;
+  color: #ffcc00;
 }
 
 .campaign-mobile-cta {
   margin-top: 1.4rem;
   padding: .95rem 1.2rem;
   border-radius: .35rem;
-  color: #021937;
-  background: #efd22a;
+  color: #001a33;
+  background: #ffcc00;
   text-align: center;
   font-size: .78rem;
   font-weight: 900;
@@ -301,11 +335,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   position: relative;
   isolation: isolate;
   display: flex;
-  min-height: clamp(700px, 100svh, 840px);
+  min-height: clamp(720px, 100svh, 880px);
   flex-direction: column;
   overflow: hidden;
   color: white;
-  background: #021937;
+  background: #001a33;
 }
 
 .campaign-crowd,
@@ -319,34 +353,34 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-crowd {
   z-index: 0;
-  width: 62%;
+  width: 58%;
   right: auto;
-  mask-image: linear-gradient(90deg, #000 0%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 48%, transparent 100%);
 }
 
 .campaign-crowd-img {
   object-fit: cover;
   object-position: center center;
-  filter: saturate(.25) brightness(.42) contrast(1.08) hue-rotate(8deg);
-  opacity: .7;
+  filter: saturate(.2) brightness(.38) contrast(1.1) hue-rotate(12deg);
+  opacity: .78;
 }
 
 .campaign-place {
   z-index: 0;
-  left: 32%;
-  width: 68%;
-  mask-image: linear-gradient(90deg, transparent 0%, #000 28%, #000 100%);
+  left: 28%;
+  width: 72%;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 24%, #000 100%);
 }
 
 .campaign-place-img {
   object-fit: cover;
-  object-position: 72% 38%;
-  filter: saturate(.55) brightness(.62) contrast(1.02);
+  object-position: 68% 42%;
+  filter: saturate(.7) brightness(.72) contrast(1.05);
 }
 
 .campaign-place-fallback {
   z-index: 0;
-  background: linear-gradient(110deg, #021937 30%, #05345f 70%, #032a3a 100%);
+  background: linear-gradient(110deg, #001a33 30%, #05345f 70%, #032a3a 100%);
 }
 
 .campaign-place-veil {
@@ -355,8 +389,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, #021937 0%, rgba(2, 25, 55, .88) 26%, rgba(2, 25, 55, .35) 52%, rgba(2, 25, 55, .12) 72%, rgba(2, 25, 55, .28) 100%),
-    linear-gradient(180deg, rgba(2, 25, 55, .5) 0%, transparent 22%, transparent 68%, rgba(2, 25, 55, .4) 100%);
+    linear-gradient(90deg, #001a33 0%, rgba(0, 26, 51, .92) 24%, rgba(0, 26, 51, .42) 48%, rgba(0, 26, 51, .12) 70%, rgba(0, 26, 51, .22) 100%),
+    linear-gradient(180deg, rgba(0, 26, 51, .55) 0%, transparent 18%, transparent 70%, rgba(0, 26, 51, .35) 100%);
 }
 
 .campaign-stage {
@@ -366,26 +400,26 @@ button, a { -webkit-tap-highlight-color: transparent; }
   flex: 1 1 auto;
   width: 100%;
   align-items: center;
-  padding-top: 5.25rem;
-  padding-bottom: 5.5rem;
+  padding-top: 5.6rem;
+  padding-bottom: 5.8rem;
 }
 
 .campaign-copy {
   position: relative;
   z-index: 12;
   display: flex;
-  max-width: 36rem;
+  max-width: 38rem;
   flex-direction: column;
   align-items: flex-start;
-  padding: 1.25rem 0;
+  padding: 1.1rem 0;
 }
 
 .campaign-office {
-  margin: 0 0 .95rem;
-  color: #efd22a;
-  font-size: clamp(.62rem, .9vw, .72rem);
+  margin: 0 0 1rem;
+  color: #ffcc00;
+  font-size: clamp(.62rem, .9vw, .74rem);
   font-weight: 800;
-  letter-spacing: .12em;
+  letter-spacing: .14em;
   line-height: 1.4;
   text-transform: uppercase;
 }
@@ -394,62 +428,64 @@ button, a { -webkit-tap-highlight-color: transparent; }
   position: relative;
   width: max-content;
   max-width: 100%;
-  margin-bottom: 1.45rem;
+  margin-bottom: 1.55rem;
 }
 
 .campaign-luzia {
   margin: 0;
   color: #fff;
   font-family: var(--font-archivo), "Archivo", sans-serif;
-  font-size: clamp(4.2rem, 9.2vw, 8rem);
+  font-size: clamp(4.4rem, 9.6vw, 8.4rem);
   font-weight: 900;
-  line-height: .86;
-  letter-spacing: -.04em;
+  line-height: .84;
+  letter-spacing: -.045em;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
 .campaign-mary {
   position: absolute;
-  left: 48%;
-  bottom: -.28em;
-  color: #efd22a;
+  left: 46%;
+  bottom: -.32em;
+  color: #ffcc00;
   font-family: var(--font-caveat), "Caveat", cursive;
-  font-size: clamp(3.2rem, 6.8vw, 5.6rem);
+  font-size: clamp(3.4rem, 7vw, 5.9rem);
   font-weight: 700;
   line-height: .7;
-  transform: rotate(-7deg);
+  transform: rotate(-8deg);
+  text-shadow: 0 10px 24px rgba(0, 10, 30, .35);
   pointer-events: none;
 }
 
 .campaign-tagline {
-  max-width: 26rem;
-  margin: 0 0 1.6rem;
-  color: rgba(255, 255, 255, .92);
-  font-size: clamp(1.02rem, 1.45vw, 1.22rem);
+  max-width: 27rem;
+  margin: 0 0 1.7rem;
+  color: rgba(255, 255, 255, .94);
+  font-size: clamp(1.02rem, 1.5vw, 1.28rem);
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.38;
 }
 
 .campaign-tagline strong {
-  color: #efd22a;
+  color: #ffcc00;
   font-weight: 800;
 }
 
 .campaign-cta {
   display: inline-flex;
-  min-height: 2.9rem;
+  min-height: 3rem;
   align-items: center;
-  gap: .5rem;
-  padding: 0 1.4rem;
+  gap: .55rem;
+  padding: 0 1.55rem;
   border-radius: 999px;
-  color: #021937;
-  background: #efd22a;
-  font-size: .74rem;
+  color: #001a33;
+  background: #ffcc00;
+  font-size: .76rem;
   font-weight: 900;
-  letter-spacing: .04em;
+  letter-spacing: .05em;
   text-transform: uppercase;
   text-decoration: none;
+  box-shadow: 0 10px 28px rgba(0, 12, 40, .22);
   transition: transform 180ms ease, filter 180ms ease;
 }
 
@@ -459,7 +495,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-cta:hover {
   transform: translateY(-1px);
-  filter: brightness(1.05);
+  filter: brightness(1.04);
 }
 
 .campaign-cta:hover svg {
@@ -469,15 +505,15 @@ button, a { -webkit-tap-highlight-color: transparent; }
 /* Portrait — absolute, overlaps strip lightly, soft integration */
 .campaign-portrait-slot {
   position: absolute;
-  right: 0;
+  right: clamp(0%, 2vw, 3%);
   bottom: 0;
   z-index: 18;
   display: none;
-  width: min(48%, 560px);
-  height: calc(100% - 4.2rem);
+  width: min(46%, 560px);
+  height: calc(100% - 4.6rem);
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 2.4rem;
+  padding-bottom: 1.1rem;
   pointer-events: none;
 }
 
@@ -489,13 +525,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-portrait-glow {
   position: absolute;
-  right: 8%;
-  bottom: 18%;
+  right: 10%;
+  bottom: 16%;
   z-index: 0;
-  width: 70%;
-  height: 55%;
+  width: 68%;
+  height: 52%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(40, 90, 160, .35) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(30, 80, 150, .38) 0%, transparent 72%);
   filter: blur(18px);
 }
 
@@ -506,20 +542,20 @@ button, a { -webkit-tap-highlight-color: transparent; }
   height: 100%;
   overflow: visible !important;
   -webkit-mask-image:
-    linear-gradient(90deg, transparent 0%, #000 12%, #000 100%),
-    linear-gradient(180deg, #000 0%, #000 82%, transparent 100%);
+    linear-gradient(90deg, transparent 0%, #000 8%, #000 100%),
+    linear-gradient(180deg, #000 0%, #000 88%, transparent 100%);
   mask-image:
-    linear-gradient(90deg, transparent 0%, #000 12%, #000 100%),
-    linear-gradient(180deg, #000 0%, #000 82%, transparent 100%);
+    linear-gradient(90deg, transparent 0%, #000 8%, #000 100%),
+    linear-gradient(180deg, #000 0%, #000 88%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
-  filter: drop-shadow(0 18px 40px rgba(0, 12, 40, .28));
+  filter: drop-shadow(0 18px 36px rgba(0, 12, 40, .3));
 }
 
 .campaign-portrait-img {
-  object-fit: cover;
-  object-position: center 4%;
-  filter: saturate(.88) contrast(1.02) brightness(.98);
+  object-fit: contain !important;
+  object-position: center bottom;
+  filter: saturate(.92) contrast(1.03) brightness(1);
 }
 
 /* Strip — always readable */
@@ -529,7 +565,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   display: grid;
   flex: 0 0 auto;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  min-height: 4.75rem;
+  min-height: 4.85rem;
   box-shadow: 0 -8px 24px rgba(0, 10, 30, .18);
 }
 
@@ -543,13 +579,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .campaign-strip-yellow {
-  color: #021937;
-  background: #efd22a;
+  color: #001a33;
+  background: #ffcc00;
 }
 
 .campaign-strip-green {
   color: white;
-  background: #0f8a45;
+  background: #006837;
 }
 
 .campaign-strip-navy {
@@ -557,12 +593,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
   z-index: 26;
   justify-content: flex-start;
   color: white;
-  background: #021937;
+  background: #001a33;
   padding-left: clamp(1.2rem, 3vw, 2.5rem);
 }
 
-.campaign-strip-heart {
-  color: #efd22a;
+.campaign-strip-heart,
+.campaign-strip-pin {
+  color: #ffcc00;
 }
 
 .campaign-strip-item strong {
@@ -623,6 +660,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
     padding: .9rem .85rem;
     gap: .55rem;
   }
+
+  .campaign-brand-role {
+    max-width: 13rem;
+  }
 }
 
 @media (max-width: 899px) {
@@ -634,13 +675,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .campaign-place {
-    opacity: .5;
+    opacity: .48;
   }
 
   .campaign-place-veil {
     background:
-      linear-gradient(180deg, rgba(2, 25, 55, .75) 0%, rgba(2, 25, 55, .55) 45%, rgba(2, 25, 55, .88) 100%),
-      linear-gradient(90deg, rgba(2, 25, 55, .9) 0%, rgba(2, 25, 55, .55) 100%);
+      linear-gradient(180deg, rgba(0, 26, 51, .78) 0%, rgba(0, 26, 51, .58) 45%, rgba(0, 26, 51, .9) 100%),
+      linear-gradient(90deg, rgba(0, 26, 51, .92) 0%, rgba(0, 26, 51, .55) 100%);
   }
 
   .campaign-stage {
@@ -672,11 +713,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 @media (max-width: 639px) {
   .campaign-header-bar {
-    height: 4.6rem;
+    height: 4.55rem;
   }
 
   .campaign-mobile-menu {
-    inset: 4.6rem 0 0;
+    inset: 4.55rem 0 0;
+  }
+
+  .campaign-brand-role {
+    max-width: 11rem;
+    font-size: .4rem;
   }
 
   .campaign-lockup-role {
@@ -685,7 +731,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .campaign-stage {
-    padding-top: 4.6rem;
+    padding-top: 4.7rem;
   }
 
   .campaign-office {
