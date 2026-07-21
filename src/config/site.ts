@@ -30,7 +30,7 @@ export const content = {
     motivation: "",
     photos: {
       hero: "/images/luzia-mary-hero.png",
-      heroCrowd: "/images/luzia-mary-hero-crowd.jpg",
+      heroPlace: "/images/imperatriz-ponte-hero.jpg",
       about: "/images/luzia-mary-trajetoria.png",
       participate: "/images/luzia-mary-participe.png",
     },

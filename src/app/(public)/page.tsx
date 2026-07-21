@@ -30,12 +30,12 @@ export default async function HomePage() {
   const [featured, ...rest] = posts;
   const secondary = rest.slice(0, 2);
 
-  const heroSrc = content.candidate.photos.hero;
   const aboutSrc = content.candidate.photos.about;
   const participateSrc = content.candidate.photos.participate;
-  const showHeroPhoto = hasPhoto(heroSrc);
+  const placeSrc = content.candidate.photos.heroPlace;
   const showAboutPhoto = hasPhoto(aboutSrc);
   const showParticipatePhoto = hasPhoto(participateSrc);
+  const showPlacePhoto = hasPhoto(placeSrc);
   const achievements = content.achievements;
   const values = content.values.slice(0, 3);
   const hasSocial =
@@ -46,29 +46,45 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="campaign-hero-v9 relative isolate overflow-hidden">
-        <div className="campaign-hero-art" aria-hidden />
-        <div className="campaign-hero-top-mask" aria-hidden />
+      <section className="campaign-hero relative isolate overflow-hidden">
+        {showPlacePhoto ? (
+          <Photo
+            src={placeSrc}
+            alt=""
+            priority
+            className="campaign-place"
+            imgClassName="object-cover object-[center_42%]"
+            objectPosition="center 42%"
+          />
+        ) : (
+          <div className="campaign-place-fallback" aria-hidden />
+        )}
+        <div className="campaign-place-veil" aria-hidden />
 
-        <div className="campaign-office-v9">
-          <p>{content.candidate.office} pelo {content.candidate.state}</p>
-        </div>
+        <Container className="campaign-stage relative z-10">
+          <p className="campaign-office anim-rise">
+            {content.candidate.office} pelo {content.candidate.state}
+          </p>
 
-        <h1 className="sr-only">
-          {content.candidate.ballotName} — {content.candidate.office} pelo {content.candidate.state}
-        </h1>
+          <div className="campaign-name-composition">
+            <h1 className="campaign-luzia anim-rise anim-d1" aria-label={content.candidate.ballotName}>
+              LUZIA
+            </h1>
+            <span className="campaign-mary anim-rise anim-d2" aria-hidden>
+              Mary
+            </span>
+          </div>
+        </Container>
 
-        <div className="campaign-band-v9">
-          <div className="campaign-band-v9-blue">
+        <div className="campaign-band relative z-20">
+          <div className="campaign-band-blue">
             <strong>A mulher do povo!</strong>
           </div>
-
-          <div className="campaign-band-v9-green">
+          <div className="campaign-band-green">
             <span>De Imperatriz</span>
             <strong>para o Maranhão</strong>
           </div>
-
-          <Link href="/sobre" className="campaign-band-v9-yellow">
+          <Link href="/sobre" className="campaign-band-yellow">
             <span>Conheça Luzia</span>
             <ArrowRight size={22} aria-hidden />
           </Link>
