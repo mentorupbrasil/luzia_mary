@@ -31,9 +31,11 @@ export default async function HomePage() {
   const secondary = rest.slice(0, 2);
 
   const heroSrc = content.candidate.photos.hero;
+  const heroCrowdSrc = content.candidate.photos.heroCrowd;
   const aboutSrc = content.candidate.photos.about;
   const participateSrc = content.candidate.photos.participate;
   const showHeroPhoto = hasPhoto(heroSrc);
+  const showHeroCrowd = hasPhoto(heroCrowdSrc);
   const showAboutPhoto = hasPhoto(aboutSrc);
   const showParticipatePhoto = hasPhoto(participateSrc);
   const achievements = content.achievements;
@@ -47,31 +49,23 @@ export default async function HomePage() {
   return (
     <>
       <section className="campaign-hero relative isolate overflow-hidden">
-        <div className="campaign-sky" aria-hidden />
-        <div className="campaign-lights" aria-hidden />
-
-        <svg className="campaign-waves" viewBox="0 0 760 540" fill="none" aria-hidden>
-          <path d="M-40 166C116 91 205 247 364 172C506 105 597 196 760 129" />
-          <path d="M-40 208C116 133 205 289 364 214C506 147 597 238 760 171" />
-          <path d="M-40 250C116 175 205 331 364 256C506 189 597 280 760 213" />
-          <path d="M-40 292C116 217 205 373 364 298C506 231 597 322 760 255" />
-          <path d="M-40 334C116 259 205 415 364 340C506 273 597 364 760 297" />
-        </svg>
-
-        <svg className="campaign-bridge" viewBox="0 0 1600 500" preserveAspectRatio="none" aria-hidden>
-          <path className="campaign-bridge-deck" d="M0 404C260 395 532 401 790 383C1047 365 1308 351 1600 360V500H0Z" />
-          <path className="campaign-bridge-line" d="M0 400C264 391 528 397 790 379C1052 361 1318 348 1600 356" />
-          <path className="campaign-bridge-line" d="M655 385L790 135L914 371" />
-          <path className="campaign-bridge-line campaign-bridge-line-soft" d="M682 374L790 135M708 373L790 135M734 371L790 135M760 369L790 135M818 369L790 135M846 368L790 135M874 367L790 135" />
-        </svg>
+        {showHeroCrowd ? (
+          <Photo
+            src={heroCrowdSrc}
+            alt=""
+            priority
+            className="campaign-crowd"
+            imgClassName="object-cover object-center"
+            objectPosition="center center"
+          />
+        ) : (
+          <div className="campaign-crowd-fallback" aria-hidden />
+        )}
+        <div className="campaign-crowd-veil" aria-hidden />
 
         <Container className="campaign-stage relative z-10">
-          <p className="campaign-office anim-rise">
-            {content.candidate.office} pelo {content.candidate.state}
-          </p>
-
           <div className="campaign-name-composition">
-            <h1 className="campaign-luzia anim-rise anim-d1" aria-label={content.candidate.ballotName}>
+            <h1 className="campaign-luzia anim-rise" aria-label={content.candidate.ballotName}>
               LUZIA
             </h1>
 
@@ -92,27 +86,17 @@ export default async function HomePage() {
               Mary
             </span>
           </div>
-
-          <div className="campaign-location anim-rise anim-d3">
-            <span>Imperatriz</span>
-            <i aria-hidden />
-            <span>Região Tocantina</span>
-          </div>
         </Container>
 
         <div className="campaign-band relative z-20">
-          <div className="campaign-band-blue">
-            <span>A mulher</span>
-            <strong>do povo!</strong>
+          <div className="campaign-band-green" aria-hidden />
+          <div className="campaign-band-yellow" aria-hidden />
+          <div className="campaign-band-inner">
+            <p className="campaign-band-slogan">A mulher do povo!</p>
+            <Link href="/sobre" className="campaign-band-cta">
+              Veja mais
+            </Link>
           </div>
-          <div className="campaign-band-green">
-            <span>De Imperatriz</span>
-            <strong>para o Maranhão</strong>
-          </div>
-          <Link href="/sobre" className="campaign-band-yellow">
-            <span>Conheça Luzia</span>
-            <ArrowRight size={23} aria-hidden />
-          </Link>
         </div>
       </section>
 
