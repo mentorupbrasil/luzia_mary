@@ -14,6 +14,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
+  const onHome = pathname === "/";
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -33,9 +34,16 @@ export function SiteHeader() {
   const moreActive = navSecondary.some((i) => pathname === i.href || pathname.startsWith(`${i.href}/`));
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--bg)_92%,white)] backdrop-blur-lg">
-      <Container className="flex h-[68px] items-center justify-between gap-3">
-        <SiteLogo />
+    <header
+      className={cn(
+        "z-50",
+        onHome
+          ? "absolute inset-x-0 top-0 border-b border-white/10 bg-transparent"
+          : "sticky top-0 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--bg)_92%,white)] backdrop-blur-lg",
+      )}
+    >
+      <Container className="flex h-[72px] items-center justify-between gap-3">
+        <SiteLogo light={onHome} />
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegação principal">
           {navPrimary.map((item) => {
@@ -45,10 +53,14 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-3 py-2 text-[13px] font-semibold transition",
-                  active
-                    ? "text-[var(--navy)] underline decoration-[var(--coral)] decoration-2 underline-offset-8"
-                    : "text-[var(--muted)] hover:text-[var(--ink)]",
+                  "px-3 py-2 text-[13px] font-semibold uppercase tracking-[0.04em] transition",
+                  onHome
+                    ? active
+                      ? "text-white"
+                      : "text-white/70 hover:text-white"
+                    : active
+                      ? "text-[var(--navy)] underline decoration-[var(--coral)] decoration-2 underline-offset-8"
+                      : "text-[var(--muted)] hover:text-[var(--ink)]",
                 )}
               >
                 {item.label}
@@ -59,8 +71,14 @@ export function SiteHeader() {
             <button
               type="button"
               className={cn(
-                "inline-flex items-center gap-1 px-3 py-2 text-[13px] font-semibold",
-                moreActive || moreOpen ? "text-[var(--navy)]" : "text-[var(--muted)]",
+                "inline-flex items-center gap-1 px-3 py-2 text-[13px] font-semibold uppercase tracking-[0.04em]",
+                onHome
+                  ? moreActive || moreOpen
+                    ? "text-white"
+                    : "text-white/70"
+                  : moreActive || moreOpen
+                    ? "text-[var(--navy)]"
+                    : "text-[var(--muted)]",
               )}
               aria-expanded={moreOpen}
               onClick={() => setMoreOpen((v) => !v)}
@@ -78,7 +96,7 @@ export function SiteHeader() {
                     href={item.href}
                     role="menuitem"
                     onClick={() => setMoreOpen(false)}
-                    className="block px-3 py-2.5 text-sm font-semibold hover:bg-[var(--bg-soft)]"
+                    className="block px-3 py-2.5 text-sm font-semibold text-[var(--ink)] hover:bg-[var(--bg-soft)]"
                   >
                     {item.label}
                   </Link>
@@ -91,13 +109,21 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <Link
             href="/demandas"
-            className="hidden h-10 items-center bg-[var(--coral)] px-5 text-sm font-bold text-white transition hover:brightness-95 sm:inline-flex"
+            className={cn(
+              "hidden h-10 items-center px-5 text-sm font-bold transition sm:inline-flex",
+              onHome
+                ? "bg-[var(--sky)] text-[var(--navy)] hover:brightness-110"
+                : "bg-[var(--coral)] text-white hover:brightness-95",
+            )}
           >
             Envie sua demanda
           </Link>
           <button
             type="button"
-            className="grid h-10 w-10 place-items-center border border-[var(--line)] bg-white lg:hidden"
+            className={cn(
+              "grid h-10 w-10 place-items-center lg:hidden",
+              onHome ? "border border-white/30 text-white" : "border border-[var(--line)] bg-white text-[var(--ink)]",
+            )}
             onClick={() => setOpen(!open)}
             aria-expanded={open}
             aria-controls="menu-mobile"
@@ -111,7 +137,7 @@ export function SiteHeader() {
       {open && (
         <div
           id="menu-mobile"
-          className="fixed inset-x-0 top-[68px] z-40 h-[calc(100dvh-68px)] overflow-y-auto border-t border-[var(--line)] bg-[var(--bg)] px-5 py-6 lg:hidden"
+          className="fixed inset-x-0 top-[72px] z-40 h-[calc(100dvh-72px)] overflow-y-auto border-t border-white/10 bg-[var(--navy)] px-5 py-6 lg:hidden"
         >
           <nav className="grid gap-1" aria-label="Menu mobile">
             {[...navPrimary, ...navSecondary].map((item) => (
@@ -119,7 +145,7 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="border-b border-[var(--line)] py-4 font-display text-2xl font-bold tracking-[-0.03em]"
+                className="border-b border-white/10 py-4 font-display text-2xl font-bold tracking-[-0.03em] text-white"
               >
                 {item.label}
               </Link>
@@ -127,7 +153,7 @@ export function SiteHeader() {
             <Link
               href="/demandas"
               onClick={() => setOpen(false)}
-              className="mt-5 bg-[var(--coral)] px-5 py-4 text-center text-sm font-bold text-white"
+              className="mt-5 bg-[var(--sky)] px-5 py-4 text-center text-sm font-bold text-[var(--navy)]"
             >
               Envie sua demanda
             </Link>

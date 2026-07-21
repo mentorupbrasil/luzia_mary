@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, Plus_Jakarta_Sans } from "next/font/google";
+import { Archivo, Caveat, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { content } from "@/config/site";
 import { getSiteUrl } from "@/lib/site-url";
@@ -9,6 +9,13 @@ const display = Archivo({
   variable: "--font-archivo",
   display: "swap",
   weight: ["500", "600", "700", "800"],
+});
+
+const script = Caveat({
+  subsets: ["latin"],
+  variable: "--font-caveat",
+  display: "swap",
+  weight: ["600", "700"],
 });
 
 const body = Plus_Jakarta_Sans({
@@ -52,7 +59,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${display.variable} ${body.variable}`}>
+    <html lang="pt-BR" className={`${display.variable} ${script.variable} ${body.variable}`}>
       <body className={`${body.className} antialiased`}>{children}</body>
     </html>
   );
