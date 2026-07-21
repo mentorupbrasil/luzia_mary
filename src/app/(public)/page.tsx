@@ -1,29 +1,42 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/container";
 import { Photo, hasPhoto } from "@/components/photo";
 import { content } from "@/config/site";
 import { getPosts, getProposals } from "@/lib/data";
 import { formatShortDate } from "@/lib/utils";
 
-const bandeiraCopy: Record<string, string> = {
-  Saúde: "Atenção básica, prevenção e acesso a exames e tratamentos perto de casa.",
-  "Emprego e renda": "Qualificação e oportunidades que geram renda no Maranhão.",
-  Infraestrutura: "Investimentos com transparência de prazos, valores e resultados.",
-  "Direitos das mulheres": "Proteção, autonomia econômica e serviços especializados.",
-};
+const bandeiraAccent = ["#0c2d5a", "#c94b2f", "#163f78", "#2a6bb5"] as const;
 
-const bandeiraTone = [
-  "from-[#dff4fb] to-white",
-  "from-[#ffe8df] to-white",
-  "from-[#e7efff] to-white",
-  "from-[#eef7f2] to-white",
-];
+const canalPassos = [
+  {
+    n: "01",
+    title: "Você conta",
+    text: "Descreva a demanda do seu município, bairro ou comunidade.",
+  },
+  {
+    n: "02",
+    title: "Recebemos",
+    text: "A equipe registra com protocolo e classifica o tema.",
+  },
+  {
+    n: "03",
+    title: "Acompanhamos",
+    text: "Priorizamos o que pode avançar com articulação e cobrança.",
+  },
+  {
+    n: "04",
+    title: "Respondemos",
+    text: "Você recebe retorno sobre o andamento — sem sumiço.",
+  },
+] as const;
 
 export default async function HomePage() {
   const [proposals, posts] = await Promise.all([getProposals(), getPosts()]);
   const bandeiras = proposals.slice(0, 4);
   const [featured, ...rest] = posts;
+  const secondary = rest.slice(0, 2);
+
   const heroSrc = content.candidate.photos.hero;
   const aboutSrc = content.candidate.photos.about;
   const participateSrc = content.candidate.photos.participate;
@@ -32,363 +45,356 @@ export default async function HomePage() {
   const showParticipatePhoto = hasPhoto(participateSrc);
   const highlights = content.highlights.slice(0, 3);
   const achievements = content.achievements;
+  const hasSocial =
+    Boolean(content.social.instagram) ||
+    Boolean(content.social.facebook) ||
+    Boolean(content.social.youtube) ||
+    Boolean(content.contact.whatsapp);
 
   return (
     <>
-      {/* ——— HERO ——— */}
-      <section className="relative overflow-hidden bg-[linear-gradient(120deg,#e9f7fc_0%,#fffdf9_42%,#fff4ef_100%)]">
-        <div className="pointer-events-none absolute -left-20 top-16 h-64 w-64 rounded-full bg-[var(--cyan)]/20 blur-3xl" aria-hidden />
-        <div className="pointer-events-none absolute bottom-0 right-10 h-72 w-72 rounded-full bg-[var(--coral)]/15 blur-3xl" aria-hidden />
+      {/* 1. Hero */}
+      <section className="relative overflow-hidden bg-[var(--bg)]">
+        {showHeroPhoto && (
+          <div
+            className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] bg-[var(--navy)] lg:block"
+            aria-hidden
+          />
+        )}
 
-        <Container className="relative grid items-end gap-8 pt-10 pb-0 lg:min-h-[calc(100dvh-70px)] lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-10 lg:py-10">
-          <div className="order-2 pb-10 lg:order-1 lg:pb-16">
-            <p className="anim-rise text-[12px] font-extrabold uppercase tracking-[0.16em] text-[var(--cyan-deep)]">
+        <Container className="relative grid gap-8 pt-6 pb-14 lg:min-h-[calc(100dvh-68px)] lg:grid-cols-[1fr_minmax(280px,0.95fr)] lg:items-center lg:gap-12 lg:py-12">
+          <div className="order-2 lg:order-1">
+            <p className="anim-rise text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--muted)]">
               {content.candidate.city} · {content.candidate.region} · {content.candidate.state}
             </p>
-            <p className="anim-rise anim-d1 mt-4 text-sm font-bold text-[var(--muted)]">
+            <p className="anim-rise anim-d1 mt-4 text-sm font-semibold text-[var(--navy-mid)]">
               {content.candidate.office}
             </p>
-            <h1 className="anim-rise anim-d1 mt-2 font-display text-[clamp(3rem,9vw,5.6rem)] font-extrabold leading-[0.92] tracking-[-0.055em]">
-              Luzia <span className="text-[var(--cyan)]">Mary</span>
+            <h1 className="hero-name anim-rise anim-d1 mt-2 text-[var(--ink)]">
+              Luzia Mary
             </h1>
-            <p className="anim-rise anim-d2 mt-5 max-w-md text-lg font-bold leading-snug text-[var(--ink)] sm:text-xl">
+            <p className="hero-slogan anim-rise anim-d2 mt-6 max-w-lg text-[var(--ink)]">
               {content.candidate.slogan}
             </p>
             <p className="anim-rise anim-d2 mt-4 max-w-md text-[15px] leading-7 text-[var(--muted)]">
               {content.candidate.homeLead}
             </p>
-            <div className="anim-rise anim-d3 mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="anim-rise anim-d3 mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
                 href="/sobre"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[var(--blue)] px-7 text-sm font-extrabold text-white shadow-[var(--glow)] transition hover:bg-[var(--blue-deep)]"
+                className="inline-flex h-12 items-center justify-center gap-2 bg-[var(--navy)] px-7 text-sm font-bold text-white transition hover:bg-[var(--navy-mid)]"
               >
                 Conheça Luzia <ArrowRight size={16} aria-hidden />
               </Link>
               <Link
                 href="/demandas"
-                className="inline-flex h-12 items-center justify-center rounded-full border-2 border-[var(--ink)]/10 bg-white px-7 text-sm font-extrabold text-[var(--ink)] transition hover:border-[var(--cyan)]"
+                className="inline-flex h-12 items-center justify-center border-2 border-[var(--ink)]/15 bg-transparent px-7 text-sm font-bold text-[var(--ink)] transition hover:border-[var(--navy)] hover:text-[var(--navy)]"
               >
                 Envie sua demanda
               </Link>
             </div>
           </div>
 
-          <div className="relative order-1 mx-auto w-full max-w-[480px] lg:order-2 lg:mx-0 lg:max-w-none lg:self-end">
-            <div
-              className="absolute inset-x-6 bottom-0 top-16 -z-0 rounded-[40%_60%_45%_55%/50%_40%_60%_50%] bg-[var(--cyan)]/25"
-              aria-hidden
-            />
-            <div className="absolute -right-2 top-20 h-24 w-24 rounded-full bg-[var(--coral)]/30 blur-md" aria-hidden />
-            {showHeroPhoto ? (
+          {showHeroPhoto ? (
+            <div className="relative order-1 mx-auto w-full max-w-[420px] lg:order-2 lg:mx-0 lg:max-w-none lg:self-end">
               <Photo
                 src={heroSrc}
                 alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
                 priority
-                className="relative z-10 aspect-[3/4] w-full drop-shadow-[0_30px_60px_rgba(10,58,122,0.22)] sm:aspect-[4/5] lg:max-h-[min(78dvh,720px)] lg:aspect-auto lg:h-[min(78dvh,720px)]"
-                imgClassName="object-contain object-bottom"
-                objectPosition="center bottom"
+                className="relative z-10 aspect-[3/4] w-full shadow-[var(--lift)] sm:aspect-[4/5] lg:max-h-[min(82dvh,740px)] lg:aspect-auto lg:h-[min(82dvh,740px)]"
+                imgClassName="object-cover object-top"
+                objectPosition="center top"
               />
-            ) : (
-              <div
-                className="relative z-10 aspect-[3/4] w-full overflow-hidden rounded-[2rem] bg-[linear-gradient(160deg,#dff4fb_0%,#1aa6d6_45%,#0a3a7a_100%)] shadow-[var(--glow)] sm:aspect-[4/5] lg:h-[min(78dvh,720px)] lg:aspect-auto"
-                aria-hidden
-              >
-                <div className="absolute -right-16 top-10 h-56 w-56 rounded-full border-[18px] border-white/15" />
-                <div className="absolute -left-10 bottom-24 h-44 w-44 rounded-full bg-[var(--coral)]/40 blur-2xl" />
-                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[var(--blue-deep)]/80 to-transparent" />
-                <div className="absolute bottom-8 left-8 right-8">
-                  <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-white/70">
-                    {content.candidate.region}
-                  </p>
-                  <p className="mt-2 font-display text-2xl font-extrabold text-white">
-                    {content.candidate.city} · {content.candidate.state}
-                  </p>
-                </div>
+            </div>
+          ) : (
+            <div
+              className="relative order-1 flex min-h-[200px] items-end bg-[var(--navy)] px-6 py-8 sm:min-h-[240px] lg:order-2 lg:min-h-[min(70dvh,560px)] lg:px-10 lg:py-12"
+              aria-hidden
+            >
+              <div>
+                <p className="hero-name text-white" style={{ fontSize: "clamp(2.4rem, 5vw, 3.75rem)" }}>
+                  Imperatriz
+                </p>
+                <p className="mt-3 text-sm font-semibold uppercase tracking-[0.16em] text-white/45">
+                  Região Tocantina · Maranhão
+                </p>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </Container>
       </section>
 
-      {/* ——— QUEM É ——— */}
-      <section className="py-16 sm:py-20">
-        <Container className={`grid items-center gap-10 lg:gap-14 ${showAboutPhoto ? "lg:grid-cols-[0.92fr_1.08fr]" : ""}`}>
+      {/* 2. Quem é Luzia */}
+      <section className="border-t border-[var(--line)] bg-[var(--surface)] py-16 sm:py-20">
+        <Container className={`grid items-center gap-10 lg:gap-14 ${showAboutPhoto ? "lg:grid-cols-[0.9fr_1.1fr]" : ""}`}>
           {showAboutPhoto && (
-            <div className="relative mx-auto w-full max-w-[400px] lg:mx-0">
-              <div className="absolute -left-3 top-6 h-[92%] w-full rounded-[1.75rem] bg-[var(--cyan)]/15" aria-hidden />
-              <Photo
-                src={aboutSrc}
-                alt={`${content.candidate.ballotName} — trajetória`}
-                className="relative aspect-[4/5] rounded-[1.75rem] shadow-[var(--glow)]"
-              />
-            </div>
+            <Photo
+              src={aboutSrc}
+              alt={`${content.candidate.ballotName} em Imperatriz`}
+              className="aspect-[4/5] w-full max-w-md shadow-[var(--lift)] lg:max-w-none"
+              objectPosition="center top"
+            />
           )}
           <div>
-            <p className="text-[12px] font-extrabold uppercase tracking-[0.16em] text-[var(--coral)]">Trajetória</p>
-            <h2 className="mt-3 font-display text-[clamp(1.9rem,4vw,3rem)] font-extrabold tracking-[-0.04em]">
-              Quem é Luzia Mary
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--coral)]">Quem é Luzia</p>
+            <h2 className="section-title mt-3">
+              Trajetória em Imperatriz, compromisso com o Maranhão
             </h2>
-            <p className="mt-5 max-w-xl text-base leading-8 text-[var(--muted)]">{content.candidate.bio[0]}</p>
-            <p className="mt-4 max-w-xl text-base leading-8 text-[var(--muted)]">{content.candidate.bio[1]}</p>
-            {content.candidate.motivation ? (
-              <p className="mt-4 max-w-xl text-base font-semibold leading-8 text-[var(--ink)]">
-                {content.candidate.motivation}
-              </p>
-            ) : null}
-
+            <div className="mt-6 space-y-4 text-[15px] leading-7 text-[var(--muted)]">
+              {content.candidate.bio.slice(0, 2).map((paragraph) => (
+                <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+              ))}
+            </div>
             {highlights.length > 0 && (
-              <ul className="mt-8 grid gap-3 sm:grid-cols-3">
+              <ul className="mt-8 grid gap-4 border-t border-[var(--line)] pt-8 sm:grid-cols-3">
                 {highlights.map((item) => (
-                  <li key={item.label} className="rounded-2xl border border-[var(--line)] bg-[var(--bg-soft)] p-4">
-                    <p className="font-display text-lg font-extrabold text-[var(--cyan-deep)]">{item.label}</p>
+                  <li key={item.label}>
+                    <p className="font-display text-sm font-extrabold text-[var(--navy)]">{item.label}</p>
                     <p className="mt-1 text-sm leading-6 text-[var(--muted)]">{item.text}</p>
                   </li>
                 ))}
               </ul>
             )}
-
-            <Link href="/sobre" className="mt-8 inline-flex items-center gap-2 text-sm font-extrabold text-[var(--blue-deep)]">
-              Ver história completa <ArrowUpRight size={16} aria-hidden />
+            <Link
+              href="/sobre"
+              className="mt-8 inline-flex items-center gap-2 text-sm font-bold text-[var(--navy)] underline decoration-[var(--coral)] decoration-2 underline-offset-6 hover:text-[var(--coral)]"
+            >
+              Conheça a história completa <ArrowRight size={15} aria-hidden />
             </Link>
           </div>
         </Container>
       </section>
 
-      {/* ——— BANDEIRAS ——— */}
-      <section className="bg-[var(--bg-soft)] py-16 sm:py-20">
+      {/* 3. Quatro bandeiras */}
+      <section className="border-t border-[var(--line)] bg-[var(--bg)] py-16 sm:py-20">
         <Container>
-          <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-            <div>
-              <p className="text-[12px] font-extrabold uppercase tracking-[0.16em] text-[var(--coral)]">Bandeiras</p>
-              <h2 className="mt-3 font-display text-[clamp(1.9rem,4vw,3rem)] font-extrabold tracking-[-0.04em]">
-                O que vamos defender
-              </h2>
-            </div>
-            <Link href="/propostas" className="text-sm font-extrabold text-[var(--blue-deep)]">
-              Todas as bandeiras
-            </Link>
+          <div className="max-w-2xl">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--coral)]">Bandeiras</p>
+            <h2 className="section-title mt-3">
+              Quatro prioridades para a Região Tocantina
+            </h2>
+            <p className="mt-4 text-[15px] leading-7 text-[var(--muted)]">
+              Temas concretos, sem discurso genérico — cada bandeira com caminho de acompanhamento.
+            </p>
           </div>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-2">
-            {bandeiras.map((item, i) => (
-              <Link
-                key={item.id}
-                href={`/propostas/${item.slug}`}
-                className={`group relative overflow-hidden rounded-[1.5rem] border border-[var(--line)] bg-gradient-to-br ${bandeiraTone[i % 4]} p-7 transition hover:-translate-y-0.5 hover:shadow-[var(--glow)]`}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="font-display text-3xl font-extrabold text-[var(--cyan)]">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[var(--muted)]">
-                    {item.category}
-                  </span>
-                </div>
-                <h3 className="mt-4 font-display text-xl font-extrabold tracking-[-0.03em] sm:text-2xl">
-                  {item.title}
-                </h3>
-                <p className="mt-3 max-w-md text-sm leading-7 text-[var(--muted)]">
-                  {bandeiraCopy[item.category] || item.summary}
-                </p>
-                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-extrabold text-[var(--blue-deep)]">
-                  Saiba mais <ArrowUpRight size={15} aria-hidden />
+          <ol className="mt-12 divide-y divide-[var(--line)] border-y border-[var(--line)]">
+            {bandeiras.map((item, index) => (
+              <li key={item.id} className="group grid gap-4 py-8 sm:grid-cols-[4.5rem_1fr_auto] sm:items-start sm:gap-8">
+                <span
+                  className="font-display text-3xl font-extrabold tracking-[-0.04em]"
+                  style={{ color: bandeiraAccent[index % bandeiraAccent.length] }}
+                >
+                  {String(index + 1).padStart(2, "0")}
                 </span>
-              </Link>
+                <div className="max-w-2xl">
+                  <p
+                    className="text-[11px] font-bold uppercase tracking-[0.16em]"
+                    style={{ color: bandeiraAccent[index % bandeiraAccent.length] }}
+                  >
+                    {item.category}
+                  </p>
+                  <h3 className="mt-2 font-display text-xl font-bold tracking-[-0.03em] sm:text-2xl">{item.title}</h3>
+                  <p className="mt-2 text-[15px] leading-7 text-[var(--muted)]">{item.summary}</p>
+                </div>
+                <Link
+                  href={`/propostas/${item.slug}`}
+                  className="inline-flex items-center gap-1 self-start text-sm font-bold text-[var(--navy)] transition group-hover:text-[var(--coral)] sm:pt-1"
+                >
+                  Ler <ArrowRight size={14} aria-hidden />
+                </Link>
+              </li>
             ))}
-          </div>
+          </ol>
+
+          <Link
+            href="/propostas"
+            className="mt-8 inline-flex items-center gap-2 text-sm font-bold text-[var(--navy)] underline decoration-[var(--coral)] decoration-2 underline-offset-6"
+          >
+            Ver todas as bandeiras <ArrowRight size={15} aria-hidden />
+          </Link>
         </Container>
       </section>
 
-      {/* ——— RESULTADOS (só se houver dados confirmados) ——— */}
+      {/* 4. Resultados — só se houver dados */}
       {achievements.length > 0 && (
-        <section className="py-16 sm:py-20">
+        <section className="border-t border-[var(--line)] bg-[var(--surface)] py-16 sm:py-20">
           <Container>
-            <p className="text-[12px] font-extrabold uppercase tracking-[0.16em] text-[var(--coral)]">Trajetória pública</p>
-            <h2 className="mt-3 max-w-xl font-display text-[clamp(1.9rem,4vw,3rem)] font-extrabold tracking-[-0.04em]">
-              Fatos que constroem autoridade
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--coral)]">Trajetória pública</p>
+            <h2 className="section-title mt-3">
+              Resultados que podem ser conferidos
             </h2>
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {achievements.map((item) => (
-                <div key={item.label} className="rounded-[1.25rem] border border-[var(--line)] bg-white p-6">
-                  <p className="font-display text-3xl font-extrabold text-[var(--cyan)]">{item.value}</p>
+                <li key={item.label} className="border-t-2 border-[var(--navy)] pt-5">
+                  <p className="font-display text-3xl font-extrabold tracking-[-0.04em] text-[var(--navy)]">{item.value}</p>
                   <p className="mt-2 text-sm font-bold text-[var(--ink)]">{item.label}</p>
-                  {item.detail && <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{item.detail}</p>}
-                </div>
+                  {item.detail && <p className="mt-1 text-sm leading-6 text-[var(--muted)]">{item.detail}</p>}
+                </li>
               ))}
-            </div>
+            </ul>
           </Container>
         </section>
       )}
 
-      {/* ——— NOTÍCIAS ——— */}
-      <section className={`py-16 sm:py-20 ${achievements.length > 0 ? "bg-[var(--bg-soft)]" : ""}`}>
+      {/* 5. Notícias */}
+      <section className="border-t border-[var(--line)] bg-[var(--bg-soft)] py-16 sm:py-20">
         <Container>
-          <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-[12px] font-extrabold uppercase tracking-[0.16em] text-[var(--coral)]">Notícias</p>
-              <h2 className="mt-3 font-display text-[clamp(1.9rem,4vw,3rem)] font-extrabold tracking-[-0.04em]">
-                Ações e atualizações
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--coral)]">Notícias</p>
+              <h2 className="section-title mt-3">
+                O que está acontecendo
               </h2>
             </div>
-            <Link href="/noticias" className="text-sm font-extrabold text-[var(--blue-deep)]">
+            <Link href="/noticias" className="text-sm font-bold text-[var(--navy)] underline decoration-2 underline-offset-6">
               Ver todas
             </Link>
           </div>
 
-          {featured ? (
-            <div className="mt-10 grid gap-4 lg:grid-cols-[1.35fr_0.85fr]">
-              <Link
-                href={`/noticias/${featured.slug}`}
-                className="group overflow-hidden rounded-[1.5rem] border border-[var(--line)] bg-white"
-              >
-                {featured.imageUrl ? (
-                  <div className="relative aspect-[16/9]">
-                    <Photo src={featured.imageUrl} alt="" className="h-full w-full" fallback="shape" />
-                  </div>
-                ) : (
-                  <div className="relative flex min-h-[220px] items-end bg-[linear-gradient(135deg,#1aa6d6,#1564c8)] p-7 text-white">
-                    <div>
-                      <span className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-white/70">
-                        {featured.category}
-                      </span>
-                      <h3 className="mt-3 font-display text-2xl font-extrabold tracking-[-0.03em] sm:text-3xl">
-                        {featured.title}
-                      </h3>
-                    </div>
-                  </div>
-                )}
-                <div className="p-6">
-                  {featured.publishedAt && (
-                    <p className="text-xs font-bold text-[var(--muted)]">{formatShortDate(featured.publishedAt)}</p>
-                  )}
-                  {!featured.imageUrl ? null : (
-                    <h3 className="mt-2 font-display text-xl font-extrabold tracking-[-0.02em]">{featured.title}</h3>
-                  )}
-                  {featured.excerpt && (
-                    <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{featured.excerpt}</p>
-                  )}
-                </div>
-              </Link>
-
-              <div className="grid gap-4">
-                {rest.slice(0, 2).map((post) => (
-                  <Link
-                    key={post.id}
-                    href={`/noticias/${post.slug}`}
-                    className="rounded-[1.25rem] border border-[var(--line)] bg-white p-5 transition hover:border-[var(--cyan)]/40"
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="text-[10px] font-extrabold uppercase tracking-[0.14em] text-[var(--cyan-deep)]">
-                        {post.category}
-                      </span>
-                      {post.publishedAt && (
-                        <span className="text-xs text-[var(--muted)]">{formatShortDate(post.publishedAt)}</span>
-                      )}
-                    </div>
-                    <h3 className="mt-3 font-display text-lg font-extrabold tracking-[-0.02em]">{post.title}</h3>
-                    {post.excerpt && <p className="mt-2 line-clamp-2 text-sm leading-6 text-[var(--muted)]">{post.excerpt}</p>}
-                  </Link>
-                ))}
-              </div>
-            </div>
+          {posts.length === 0 ? (
+            <p className="mt-10 max-w-xl border-l-2 border-[var(--navy)] pl-5 text-[15px] leading-7 text-[var(--muted)]">
+              Em breve, atualizações da pré-candidatura e da escuta na Região Tocantina.
+            </p>
           ) : (
-            <div className="mt-10 rounded-[1.5rem] border border-dashed border-[var(--line)] bg-white px-6 py-12 text-center">
-              <p className="font-display text-xl font-extrabold">Em breve, as primeiras atualizações</p>
-              <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-[var(--muted)]">
-                Notícias e ações oficiais serão publicadas aqui pela equipe.
-              </p>
+            <div className="mt-10 grid gap-10 lg:grid-cols-[1.35fr_1fr]">
+              {featured && (
+                <article>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted)]">
+                    {featured.publishedAt ? formatShortDate(featured.publishedAt) : featured.category}
+                  </p>
+                  <h3 className="mt-3 font-display text-2xl font-bold tracking-[-0.03em] sm:text-3xl">
+                    <Link href={`/noticias/${featured.slug}`} className="hover:text-[var(--coral)]">
+                      {featured.title}
+                    </Link>
+                  </h3>
+                  {featured.excerpt && (
+                    <p className="mt-3 max-w-xl text-[15px] leading-7 text-[var(--muted)]">{featured.excerpt}</p>
+                  )}
+                  <Link
+                    href={`/noticias/${featured.slug}`}
+                    className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[var(--navy)]"
+                  >
+                    Ler matéria <ArrowRight size={14} aria-hidden />
+                  </Link>
+                </article>
+              )}
+              {secondary.length > 0 && (
+                <ul className="divide-y divide-[var(--line)] border-t border-[var(--line)] lg:border-t-0 lg:border-l lg:pl-10">
+                  {secondary.map((post) => (
+                    <li key={post.id} className="py-5 first:pt-0 lg:first:pt-0">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted)]">
+                        {post.publishedAt ? formatShortDate(post.publishedAt) : post.category}
+                      </p>
+                      <h3 className="mt-2 font-display text-lg font-bold tracking-[-0.02em]">
+                        <Link href={`/noticias/${post.slug}`} className="hover:text-[var(--coral)]">
+                          {post.title}
+                        </Link>
+                      </h3>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           )}
         </Container>
       </section>
 
-      {/* ——— CANAL DIRETO ——— */}
-      <section className="border-y border-[var(--line)] bg-white py-14 sm:py-16">
+      {/* 6. Canal direto */}
+      <section className="border-t border-[var(--line)] bg-[var(--surface)] py-16 sm:py-20">
         <Container>
-          <div className="grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:items-center">
-            <div>
-              <p className="text-[12px] font-extrabold uppercase tracking-[0.16em] text-[var(--coral)]">Participação</p>
-              <h2 className="mt-3 font-display text-[clamp(1.7rem,3.5vw,2.6rem)] font-extrabold tracking-[-0.04em]">
-                Um canal direto para ouvir você.
-              </h2>
-              <p className="mt-4 max-w-md text-sm leading-7 text-[var(--muted)]">
-                Conte a prioridade do seu município. A equipe registra e devolve um protocolo de acompanhamento.
-              </p>
-              <Link
-                href="/demandas"
-                className="mt-6 inline-flex h-11 items-center gap-2 rounded-full bg-[var(--coral)] px-6 text-sm font-extrabold text-white"
-              >
-                Enviar demanda <ArrowRight size={16} aria-hidden />
-              </Link>
-            </div>
-            <ol className="grid gap-3 sm:grid-cols-2">
-              {[
-                { n: "1", t: "Conte o que está acontecendo" },
-                { n: "2", t: "A equipe registra sua demanda" },
-                { n: "3", t: "Você recebe um protocolo" },
-                { n: "4", t: "Isso ajuda a organizar prioridades" },
-              ].map((s) => (
-                <li key={s.n} className="flex items-start gap-3 rounded-2xl bg-[var(--bg-soft)] px-5 py-4">
-                  <span className="font-display text-xl font-extrabold text-[var(--cyan)]">{s.n}</span>
-                  <span className="pt-0.5 text-sm font-bold leading-6 text-[var(--ink)]">{s.t}</span>
-                </li>
-              ))}
-            </ol>
+          <div className="max-w-2xl">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--coral)]">Escuta</p>
+            <h2 className="section-title mt-3">
+              Um canal direto para ouvir você.
+            </h2>
+            <p className="mt-4 text-[15px] leading-7 text-[var(--muted)]">
+              Demanda com protocolo, retorno da equipe e acompanhamento — sem fila invisível.
+            </p>
           </div>
+
+          <ol className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {canalPassos.map((passo) => (
+              <li key={passo.n}>
+                <p className="font-display text-sm font-extrabold text-[var(--coral)]">{passo.n}</p>
+                <h3 className="mt-2 font-display text-lg font-bold tracking-[-0.02em]">{passo.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{passo.text}</p>
+              </li>
+            ))}
+          </ol>
+
+          <Link
+            href="/demandas"
+            className="mt-10 inline-flex h-12 items-center justify-center gap-2 bg-[var(--coral)] px-7 text-sm font-bold text-white transition hover:brightness-95"
+          >
+            Enviar demanda agora <ArrowRight size={16} aria-hidden />
+          </Link>
         </Container>
       </section>
 
-      {/* ——— PARTICIPAÇÃO FINAL ——— */}
-      <section className="py-16 sm:py-20">
-        <Container>
-          <div
-            className={`grid overflow-hidden rounded-[1.75rem] bg-[linear-gradient(125deg,#e9f7fc_0%,#fff_48%,#ffe9e1_100%)] ${
-              showParticipatePhoto ? "lg:grid-cols-[1.15fr_0.85fr]" : ""
-            }`}
-          >
-            <div className="flex flex-col justify-center p-8 sm:p-10 lg:p-12">
-              <p className="text-[12px] font-extrabold uppercase tracking-[0.16em] text-[var(--coral)]">Participe</p>
-              <h2 className="mt-3 font-display text-[clamp(1.7rem,3.5vw,2.7rem)] font-extrabold tracking-[-0.04em]">
-                Sua cidade tem voz. Vamos juntos.
-              </h2>
-              <p className="mt-4 max-w-md text-sm leading-7 text-[var(--muted)]">
-                Envie uma demanda, acompanhe a caminhada e fale com a equipe pelos canais oficiais.
-              </p>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Link
-                  href="/demandas"
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[var(--coral)] px-6 text-sm font-extrabold text-white"
-                >
-                  Enviar demanda <ArrowRight size={16} aria-hidden />
-                </Link>
-                {content.contact.whatsapp ? (
+      {/* 7. Participação */}
+      <section className="relative overflow-hidden border-t border-[var(--line)] bg-[var(--navy)] py-16 text-white sm:py-20">
+        <Container className={`relative grid items-center gap-10 ${showParticipatePhoto ? "lg:grid-cols-[1fr_0.85fr]" : ""}`}>
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/45">Participe</p>
+            <h2 className="section-title mt-3 text-white">
+              Sua demanda pode virar prioridade
+            </h2>
+            <p className="mt-4 max-w-lg text-[15px] leading-7 text-white/65">
+              Conte o que falta no seu município. A escuta começa aqui — e o retorno também.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link
+                href="/demandas"
+                className="inline-flex h-12 items-center justify-center gap-2 bg-[var(--coral)] px-7 text-sm font-bold text-white transition hover:brightness-95"
+              >
+                Envie sua demanda <ArrowRight size={16} aria-hidden />
+              </Link>
+              <Link
+                href="/compromissos"
+                className="inline-flex h-12 items-center justify-center border border-white/25 px-7 text-sm font-bold text-white transition hover:border-white/50"
+              >
+                Ver compromissos
+              </Link>
+            </div>
+            {hasSocial && (
+              <div className="mt-8 flex flex-wrap gap-4 text-sm font-semibold text-white/55">
+                {content.contact.whatsapp && (
                   <a
                     href={`https://wa.me/${content.contact.whatsapp}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex h-12 items-center justify-center rounded-full border-2 border-[var(--ink)]/10 bg-white px-6 text-sm font-extrabold"
+                    className="hover:text-white"
                   >
                     WhatsApp
                   </a>
-                ) : (
-                  <Link
-                    href="/sobre"
-                    className="inline-flex h-12 items-center justify-center rounded-full border-2 border-[var(--ink)]/10 bg-white px-6 text-sm font-extrabold"
-                  >
-                    Conhecer Luzia
-                  </Link>
+                )}
+                {content.social.instagram && (
+                  <a href={content.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                    Instagram
+                  </a>
+                )}
+                {content.social.facebook && (
+                  <a href={content.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                    Facebook
+                  </a>
+                )}
+                {content.social.youtube && (
+                  <a href={content.social.youtube} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                    YouTube
+                  </a>
                 )}
               </div>
-            </div>
-            {showParticipatePhoto && (
-              <Photo
-                src={participateSrc}
-                alt={`${content.candidate.ballotName} convida à participação`}
-                className="min-h-[280px] w-full lg:h-full"
-                objectPosition="center center"
-              />
             )}
           </div>
+          {showParticipatePhoto && (
+            <Photo
+              src={participateSrc}
+              alt={`${content.candidate.ballotName} convida à participação`}
+              className="aspect-[4/5] w-full max-w-md justify-self-end shadow-[0_24px_50px_rgba(0,0,0,0.35)] lg:max-w-none"
+              objectPosition="center top"
+            />
+          )}
         </Container>
       </section>
     </>

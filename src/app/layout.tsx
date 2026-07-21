@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
+import { Archivo, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { content } from "@/config/site";
 import { getSiteUrl } from "@/lib/site-url";
 
-const display = Outfit({
+const display = Archivo({
   subsets: ["latin"],
-  variable: "--font-outfit",
+  variable: "--font-archivo",
   display: "swap",
+  weight: ["500", "600", "700", "800"],
 });
 
 const body = Plus_Jakarta_Sans({

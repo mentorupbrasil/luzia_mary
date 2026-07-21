@@ -26,15 +26,7 @@ export function Photo({
 
   if (!exists) {
     if (fallback === "hide") return null;
-    return (
-      <div
-        className={cn("relative overflow-hidden bg-[linear-gradient(145deg,#d8eff8,#e8f4ff,#fff)]", className)}
-        aria-hidden
-      >
-        <div className="absolute -right-8 top-10 h-40 w-40 rounded-full bg-[var(--cyan)]/20 blur-2xl" />
-        <div className="absolute -bottom-10 left-6 h-36 w-36 rounded-full bg-[var(--coral)]/15 blur-2xl" />
-      </div>
-    );
+    return <div className={cn("relative overflow-hidden bg-[var(--navy)]", className)} aria-hidden />;
   }
 
   return (

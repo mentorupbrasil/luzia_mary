@@ -33,11 +33,11 @@ export function SiteHeader() {
   const moreActive = navSecondary.some((i) => pathname === i.href || pathname.startsWith(`${i.href}/`));
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--bg)_88%,white)] backdrop-blur-xl">
-      <Container className="flex h-[70px] items-center justify-between gap-3">
+    <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--bg)_92%,white)] backdrop-blur-lg">
+      <Container className="flex h-[68px] items-center justify-between gap-3">
         <SiteLogo />
 
-        <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Navegação principal">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegação principal">
           {navPrimary.map((item) => {
             const active = item.href === "/" ? pathname === "/" : pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
@@ -45,8 +45,10 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "rounded-full px-3.5 py-2 text-[13px] font-bold transition",
-                  active ? "bg-[var(--bg-soft)] text-[var(--blue-deep)]" : "text-[var(--muted)] hover:text-[var(--ink)]",
+                  "px-3 py-2 text-[13px] font-semibold transition",
+                  active
+                    ? "text-[var(--navy)] underline decoration-[var(--coral)] decoration-2 underline-offset-8"
+                    : "text-[var(--muted)] hover:text-[var(--ink)]",
                 )}
               >
                 {item.label}
@@ -57,8 +59,8 @@ export function SiteHeader() {
             <button
               type="button"
               className={cn(
-                "inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-[13px] font-bold",
-                moreActive || moreOpen ? "bg-[var(--bg-soft)] text-[var(--blue-deep)]" : "text-[var(--muted)]",
+                "inline-flex items-center gap-1 px-3 py-2 text-[13px] font-semibold",
+                moreActive || moreOpen ? "text-[var(--navy)]" : "text-[var(--muted)]",
               )}
               aria-expanded={moreOpen}
               onClick={() => setMoreOpen((v) => !v)}
@@ -66,14 +68,17 @@ export function SiteHeader() {
               Mais <ChevronDown size={14} className={cn(moreOpen && "rotate-180")} aria-hidden />
             </button>
             {moreOpen && (
-              <div role="menu" className="absolute right-0 top-full mt-2 min-w-[200px] rounded-2xl border border-[var(--line)] bg-white p-2 shadow-[var(--glow)]">
+              <div
+                role="menu"
+                className="absolute right-0 top-full mt-2 min-w-[200px] border border-[var(--line)] bg-white p-1.5 shadow-[var(--lift)]"
+              >
                 {navSecondary.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     role="menuitem"
                     onClick={() => setMoreOpen(false)}
-                    className="block rounded-xl px-3 py-2.5 text-sm font-semibold hover:bg-[var(--bg-soft)]"
+                    className="block px-3 py-2.5 text-sm font-semibold hover:bg-[var(--bg-soft)]"
                   >
                     {item.label}
                   </Link>
@@ -86,13 +91,13 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <Link
             href="/demandas"
-            className="hidden h-11 items-center rounded-full bg-[var(--coral)] px-5 text-sm font-extrabold text-white transition hover:brightness-95 sm:inline-flex"
+            className="hidden h-10 items-center bg-[var(--coral)] px-5 text-sm font-bold text-white transition hover:brightness-95 sm:inline-flex"
           >
             Envie sua demanda
           </Link>
           <button
             type="button"
-            className="grid h-11 w-11 place-items-center rounded-full border border-[var(--line)] bg-white lg:hidden"
+            className="grid h-10 w-10 place-items-center border border-[var(--line)] bg-white lg:hidden"
             onClick={() => setOpen(!open)}
             aria-expanded={open}
             aria-controls="menu-mobile"
@@ -104,7 +109,10 @@ export function SiteHeader() {
       </Container>
 
       {open && (
-        <div id="menu-mobile" className="fixed inset-x-0 top-[70px] z-40 h-[calc(100dvh-70px)] overflow-y-auto border-t border-[var(--line)] bg-[var(--bg)] px-5 py-6 lg:hidden">
+        <div
+          id="menu-mobile"
+          className="fixed inset-x-0 top-[68px] z-40 h-[calc(100dvh-68px)] overflow-y-auto border-t border-[var(--line)] bg-[var(--bg)] px-5 py-6 lg:hidden"
+        >
           <nav className="grid gap-1" aria-label="Menu mobile">
             {[...navPrimary, ...navSecondary].map((item) => (
               <Link
@@ -116,7 +124,11 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            <Link href="/demandas" onClick={() => setOpen(false)} className="mt-5 rounded-2xl bg-[var(--coral)] px-5 py-4 text-center text-sm font-extrabold text-white">
+            <Link
+              href="/demandas"
+              onClick={() => setOpen(false)}
+              className="mt-5 bg-[var(--coral)] px-5 py-4 text-center text-sm font-bold text-white"
+            >
               Envie sua demanda
             </Link>
           </nav>
