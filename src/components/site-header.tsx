@@ -33,23 +33,23 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const lightText = false;
+  const heroMode = onHome && !scrolled && !open;
 
   return (
     <header
       className={cn(
-        "campaign-header z-50 transition-all duration-300",
+        "people-header z-50 transition-all duration-300",
         onHome ? "fixed inset-x-0 top-0" : "sticky top-0",
-        scrolled || open || !onHome ? "campaign-header-solid" : "campaign-header-transparent",
+        heroMode ? "people-header-transparent" : "people-header-solid",
       )}
     >
       <Container className="flex h-[82px] items-center justify-between gap-4">
-        <Link href="/" className="campaign-brand" aria-label={`${content.candidate.ballotName} — Início`}>
-          <span className="campaign-brand-name">
-            <strong>Luzia</strong>
-            <strong>Mary</strong>
+        <Link href="/" className="people-brand" aria-label={`${content.candidate.ballotName} — Início`}>
+          <span className="people-brand-name">
+            <strong>L</strong><span>uzia</span>
+            <strong>M</strong><span>ary</span>
           </span>
-          <span className="campaign-brand-place">Imperatriz · Maranhão</span>
+          <span className="people-brand-tagline">A mulher do povo!</span>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegação principal">
@@ -63,7 +63,7 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={cn("campaign-nav-link", active && "campaign-nav-link-active")}
+                className={cn("people-nav-link", active && "people-nav-link-active")}
               >
                 {item.label}
               </Link>
@@ -72,13 +72,13 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link href="/demandas" className="campaign-header-cta hidden sm:inline-flex">
+          <Link href="/demandas" className="people-header-cta hidden sm:inline-flex">
             Envie sua demanda
           </Link>
 
           <button
             type="button"
-            className={cn("campaign-menu-button lg:hidden", lightText && "text-white")}
+            className="people-menu-button lg:hidden"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-controls="menu-mobile"
@@ -90,7 +90,7 @@ export function SiteHeader() {
       </Container>
 
       {open && (
-        <div id="menu-mobile" className="campaign-mobile-menu lg:hidden">
+        <div id="menu-mobile" className="people-mobile-menu lg:hidden">
           <Container>
             <nav className="grid" aria-label="Menu mobile">
               {[...navPrimary, ...navSecondary].map((item) => (
@@ -98,12 +98,12 @@ export function SiteHeader() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="campaign-mobile-link"
+                  className="people-mobile-link"
                 >
                   {item.label}
                 </Link>
               ))}
-              <Link href="/demandas" onClick={() => setOpen(false)} className="campaign-mobile-cta">
+              <Link href="/demandas" onClick={() => setOpen(false)} className="people-mobile-cta">
                 Envie sua demanda
               </Link>
             </nav>

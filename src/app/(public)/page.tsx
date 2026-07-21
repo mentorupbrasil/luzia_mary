@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Check, MapPin, MessageCircle } from "lucide-react";
+import { ArrowRight, Check, MapPin, MessageCircle, Sparkles } from "lucide-react";
 import { Container } from "@/components/container";
 import { Photo, hasPhoto } from "@/components/photo";
 import { content } from "@/config/site";
@@ -9,23 +9,18 @@ import { formatShortDate } from "@/lib/utils";
 const listeningSteps = [
   {
     n: "01",
-    title: "Conte o que está acontecendo",
-    text: "Registre a necessidade do seu bairro, município ou comunidade de forma direta.",
+    title: "Conte a realidade da sua comunidade",
+    text: "Registre o problema, a necessidade ou a proposta de forma simples e direta.",
   },
   {
     n: "02",
-    title: "Receba seu protocolo",
-    text: "A contribuição é organizada por tema e localidade para não se perder em uma conversa.",
+    title: "Receba um protocolo",
+    text: "A demanda fica organizada por tema e localidade, sem se perder em mensagens soltas.",
   },
   {
     n: "03",
-    title: "Ajude a definir prioridades",
-    text: "As demandas registradas ajudam a orientar propostas, posicionamentos e articulações.",
-  },
-  {
-    n: "04",
-    title: "Mantenha o canal aberto",
-    text: "O protocolo permite que a equipe identifique o registro e organize o retorno.",
+    title: "Ajude a construir prioridades",
+    text: "As contribuições ajudam a orientar propostas e ações conectadas com a vida real.",
   },
 ] as const;
 
@@ -51,111 +46,122 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="campaign-hero relative isolate overflow-hidden">
-        <div className="campaign-grain pointer-events-none absolute inset-0" aria-hidden />
-        <div className="campaign-hero-word pointer-events-none" aria-hidden>
-          Maranhão
+      <section className="people-hero relative isolate overflow-hidden">
+        <div className="people-grid pointer-events-none absolute inset-0" aria-hidden />
+        <div className="people-hero-orbit people-hero-orbit-one" aria-hidden />
+        <div className="people-hero-orbit people-hero-orbit-two" aria-hidden />
+        <div className="people-hero-word" aria-hidden>
+          Povo
         </div>
 
-        <Container className="campaign-hero-layout relative min-h-[min(900px,100svh)] pt-[104px]">
-          <div className="campaign-hero-copy relative z-20 self-center pb-14 pt-12 lg:pb-24 lg:pt-16">
-            <p className="anim-rise campaign-eyebrow">
-              <MapPin size={14} aria-hidden />
-              {content.candidate.city} · {content.candidate.region}
+        <Container className="people-hero-layout relative min-h-[min(900px,100svh)] pt-[92px]">
+          <div className="people-hero-copy relative z-20 flex flex-col justify-center py-12 lg:py-20">
+            <p className="people-location anim-rise">
+              <MapPin size={15} aria-hidden />
+              {content.candidate.city} · {content.candidate.region} · {content.candidate.state}
             </p>
 
-            <p className="anim-rise anim-d1 campaign-office">{content.candidate.office}</p>
+            <p className="people-office anim-rise anim-d1">{content.candidate.office}</p>
 
-            <h1 className="campaign-name anim-rise anim-d1" aria-label={content.candidate.ballotName}>
-              <span className="campaign-name-first">Luzia</span>
-              <span className="campaign-name-last">Mary</span>
+            <h1 className="people-name anim-rise anim-d1" aria-label={content.candidate.ballotName}>
+              <span>Luzia</span>
+              <strong>Mary</strong>
             </h1>
 
-            <div className="campaign-statement anim-rise anim-d2">
-              <span aria-hidden />
-              <p>{content.candidate.slogan}</p>
+            <div className="people-tagline anim-rise anim-d2">
+              <Sparkles size={18} aria-hidden />
+              <span>A mulher do povo!</span>
             </div>
 
-            <p className="anim-rise anim-d2 campaign-lead">{content.candidate.homeLead}</p>
+            <h2 className="people-slogan anim-rise anim-d2">{content.candidate.slogan}</h2>
+            <p className="people-lead anim-rise anim-d3">{content.candidate.homeLead}</p>
 
-            <div className="anim-rise anim-d3 campaign-actions">
-              <Link href="/sobre" className="campaign-button campaign-button-primary">
-                Conheça Luzia <ArrowRight size={17} aria-hidden />
+            <div className="people-actions anim-rise anim-d3">
+              <Link href="/demandas" className="people-button people-button-lime">
+                Envie sua demanda <ArrowRight size={18} aria-hidden />
               </Link>
-              <Link href="/demandas" className="campaign-button campaign-button-secondary">
-                Envie sua demanda
+              <Link href="/sobre" className="people-button people-button-ghost">
+                Conheça Luzia
               </Link>
+            </div>
+
+            <div className="people-hero-signature anim-rise anim-d3" aria-label="Compromissos centrais">
+              <span>Escuta</span>
+              <i aria-hidden />
+              <span>Presença</span>
+              <i aria-hidden />
+              <span>Trabalho</span>
             </div>
           </div>
 
-          <div className="campaign-portrait-stage relative z-10 flex min-h-[500px] items-end justify-center lg:min-h-0">
-            <div className="campaign-sun" aria-hidden />
-            <div className="campaign-portrait-line" aria-hidden />
-            <p className="campaign-vertical-note" aria-hidden>
-              Imperatriz · Maranhão
-            </p>
+          <div className="people-portrait-stage relative z-10 flex min-h-[520px] items-end justify-center lg:min-h-0">
+            <div className="people-portrait-shape" aria-hidden />
+            <div className="people-portrait-lime" aria-hidden />
+            <div className="people-portrait-ribbon" aria-hidden>
+              Imperatriz • Região Tocantina • Maranhão •
+            </div>
 
             {showHeroPhoto ? (
               <Photo
                 src={heroSrc}
                 alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
                 priority
-                className="campaign-portrait anim-rise anim-d1 relative z-10 aspect-[3/4] w-full"
+                className="people-portrait anim-rise anim-d1 relative z-10 aspect-[3/4] w-full"
                 imgClassName="object-contain object-bottom"
                 objectPosition="center bottom"
               />
             ) : (
-              <div className="relative z-10 h-[72vh] w-full" aria-hidden />
+              <div className="relative z-10 h-[70vh] w-full" aria-hidden />
             )}
 
-            <div className="campaign-photo-tag">
-              <span>Uma voz da</span>
-              <strong>Região Tocantina</strong>
+            <div className="people-photo-seal">
+              <span>Uma voz</span>
+              <strong>firme</strong>
+              <small>pelo Maranhão</small>
             </div>
           </div>
         </Container>
 
-        <div className="campaign-territory-strip relative z-30">
-          <Container className="campaign-territory-inner">
-            <p>De Imperatriz para todo o Maranhão</p>
-            <span aria-hidden />
-            <p>Escuta · Presença · Responsabilidade</p>
-            <Link href="/demandas">
-              Participe <ArrowRight size={15} aria-hidden />
+        <div className="people-hero-footer relative z-30">
+          <Container className="people-hero-footer-inner">
+            <p>Política feita perto das pessoas.</p>
+            <Link href="/propostas">
+              Conheça as prioridades <ArrowRight size={16} aria-hidden />
             </Link>
           </Container>
         </div>
       </section>
 
-      <section className="campaign-intro overflow-hidden bg-[var(--campaign-paper)] py-20 sm:py-24 lg:py-32">
-        <Container className="grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
+      <section className="people-intro overflow-hidden bg-white py-20 sm:py-24 lg:py-32">
+        <Container className="grid items-center gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-24">
           {showAboutPhoto && (
-            <div className="campaign-about-visual relative mx-auto w-full max-w-[520px] lg:mx-0">
-              <div className="campaign-about-block" aria-hidden />
+            <div className="people-about-visual relative mx-auto w-full max-w-[540px] lg:mx-0">
+              <div className="people-about-blue" aria-hidden />
+              <div className="people-about-lime" aria-hidden />
               <Photo
                 src={aboutSrc}
                 alt={`${content.candidate.ballotName} em Imperatriz`}
-                className="campaign-about-photo aspect-[4/5] w-full"
+                className="people-about-photo aspect-[4/5] w-full"
                 imgClassName="object-contain object-bottom"
                 objectPosition="center bottom"
               />
-              <p className="campaign-about-caption">Política feita perto das pessoas.</p>
+              <p className="people-about-caption">De Imperatriz para todo o Maranhão.</p>
             </div>
           )}
 
           <div>
-            <p className="campaign-section-kicker">Quem é Luzia Mary</p>
-            <h2 className="campaign-display-title mt-5 max-w-3xl">
-              Uma trajetória que começa no território e mantém as pessoas no centro das decisões.
+            <p className="people-kicker">Quem é Luzia Mary</p>
+            <h2 className="people-title mt-5 max-w-3xl">
+              Uma mulher presente, que conhece de perto a força e as necessidades do nosso povo.
             </h2>
 
-            <div className="mt-8 max-w-2xl space-y-5 text-base leading-8 text-[var(--muted)]">
+            <div className="mt-8 max-w-2xl space-y-5 text-base leading-8 text-[var(--people-muted)]">
               {content.candidate.bio.slice(0, 2).map((paragraph) => (
                 <p key={paragraph.slice(0, 40)}>{paragraph}</p>
               ))}
             </div>
 
-            <ul className="campaign-values mt-10">
+            <ul className="people-values mt-10">
               {values.map((item, index) => (
                 <li key={item.title}>
                   <span>{String(index + 1).padStart(2, "0")}</span>
@@ -167,7 +173,7 @@ export default async function HomePage() {
               ))}
             </ul>
 
-            <Link href="/sobre" className="campaign-text-link mt-9">
+            <Link href="/sobre" className="people-text-link mt-9">
               Conheça a trajetória completa <ArrowRight size={16} aria-hidden />
             </Link>
           </div>
@@ -175,67 +181,63 @@ export default async function HomePage() {
       </section>
 
       {priorities.length > 0 && (
-        <section className="campaign-priorities relative overflow-hidden bg-[var(--campaign-navy)] py-20 text-white sm:py-24 lg:py-32">
-          <div className="campaign-priorities-word" aria-hidden>
-            Pautas
-          </div>
+        <section className="people-priorities relative overflow-hidden py-20 text-white sm:py-24 lg:py-32">
+          <div className="people-priorities-glow" aria-hidden />
           <Container className="relative">
             <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
               <div>
-                <p className="campaign-section-kicker campaign-section-kicker-light">Prioridades</p>
-                <h2 className="campaign-display-title mt-5 max-w-2xl text-white">
-                  Bandeiras claras para problemas que não podem continuar esperando.
+                <p className="people-kicker people-kicker-light">Bandeiras</p>
+                <h2 className="people-title mt-5 max-w-2xl text-white">
+                  Prioridades que nascem da escuta e precisam virar ação.
                 </h2>
               </div>
-              <p className="max-w-xl text-base leading-8 text-white/62 lg:justify-self-end">
-                Propostas apresentadas com linguagem direta, ligação com a realidade local e espaço para
-                acompanhamento público.
+              <p className="max-w-xl text-base leading-8 text-white/70 lg:justify-self-end">
+                Propostas apresentadas de forma clara, ligadas à realidade de Imperatriz, da Região Tocantina e do Maranhão.
               </p>
             </div>
 
-            <div className="campaign-priority-list mt-14">
+            <div className="people-priority-grid mt-14">
               {priorities.map((item, index) => (
-                <article key={item.id} className="campaign-priority-row group">
-                  <span className="campaign-priority-index">{String(index + 1).padStart(2, "0")}</span>
-                  <div className="campaign-priority-main">
+                <article key={item.id} className="people-priority-card group">
+                  <div className="people-priority-top">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
                     <p>{item.category}</p>
-                    <h3>{item.title}</h3>
                   </div>
-                  <p className="campaign-priority-summary">{item.summary}</p>
+                  <h3>{item.title}</h3>
+                  <p className="people-priority-summary">{item.summary}</p>
                   <Link href={`/propostas/${item.slug}`} aria-label={`Ver proposta: ${item.title}`}>
-                    <ArrowRight size={22} aria-hidden />
+                    Ver proposta <ArrowRight size={17} aria-hidden />
                   </Link>
                 </article>
               ))}
             </div>
 
-            <Link href="/propostas" className="campaign-text-link campaign-text-link-light mt-10">
+            <Link href="/propostas" className="people-text-link people-text-link-light mt-10">
               Ver todas as bandeiras <ArrowRight size={16} aria-hidden />
             </Link>
           </Container>
         </section>
       )}
 
-      <section className="campaign-listening overflow-hidden bg-[var(--campaign-cyan)] text-[var(--campaign-navy)]">
-        <Container className="grid lg:grid-cols-[0.82fr_1.18fr]">
-          <div className="campaign-listening-intro py-20 sm:py-24 lg:py-28 lg:pr-16">
-            <div className="campaign-message-icon" aria-hidden>
+      <section className="people-listening overflow-hidden">
+        <Container className="people-listening-layout">
+          <div className="people-listening-copy py-20 sm:py-24 lg:py-28">
+            <div className="people-message-icon" aria-hidden>
               <MessageCircle size={28} />
             </div>
-            <p className="campaign-section-kicker mt-8 text-[var(--campaign-navy)]">Gabinete digital</p>
-            <h2 className="campaign-display-title mt-5 max-w-xl">
-              Sua demanda precisa de registro, não de promessa solta.
+            <p className="people-kicker mt-8">Gabinete digital</p>
+            <h2 className="people-title mt-5 max-w-xl">
+              A voz da comunidade não pode se perder em uma conversa.
             </h2>
-            <p className="mt-6 max-w-lg text-base leading-8 text-[color-mix(in_srgb,var(--campaign-navy)_72%,transparent)]">
-              O canal de participação reúne contribuições por tema e localidade, gera protocolo e ajuda
-              a transformar escuta em prioridade de trabalho.
+            <p className="mt-6 max-w-lg text-base leading-8 text-[var(--people-muted)]">
+              Envie sua demanda, receba um protocolo e ajude a transformar as necessidades da sua região em prioridades organizadas.
             </p>
-            <Link href="/demandas" className="campaign-button campaign-button-dark mt-9">
-              Enviar uma demanda <ArrowRight size={17} aria-hidden />
+            <Link href="/demandas" className="people-button people-button-blue mt-9">
+              Registrar uma demanda <ArrowRight size={17} aria-hidden />
             </Link>
           </div>
 
-          <ol className="campaign-listening-steps lg:border-l lg:border-[rgba(5,33,58,0.2)] lg:pl-16">
+          <ol className="people-listening-steps">
             {listeningSteps.map((step) => (
               <li key={step.n}>
                 <span>{step.n}</span>
@@ -251,18 +253,18 @@ export default async function HomePage() {
       </section>
 
       {achievements.length > 0 && (
-        <section className="border-b border-[var(--line)] bg-white py-20 sm:py-24">
+        <section className="border-b border-[var(--people-line)] bg-white py-20 sm:py-24">
           <Container>
-            <p className="campaign-section-kicker">Trajetória pública</p>
-            <h2 className="campaign-display-title mt-5">Resultados que podem ser conferidos.</h2>
+            <p className="people-kicker">Trajetória pública</p>
+            <h2 className="people-title mt-5">Resultados que podem ser conferidos.</h2>
             <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {achievements.map((item) => (
-                <li key={item.label} className="border-t-2 border-[var(--campaign-navy)] pt-5">
-                  <p className="font-display text-4xl font-black tracking-[-0.055em] text-[var(--campaign-navy)]">
+                <li key={item.label} className="border-t-4 border-[var(--people-lime)] pt-5">
+                  <p className="font-display text-4xl font-black tracking-[-0.055em] text-[var(--people-blue)]">
                     {item.value}
                   </p>
-                  <p className="mt-2 text-sm font-extrabold text-[var(--ink)]">{item.label}</p>
-                  {item.detail && <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{item.detail}</p>}
+                  <p className="mt-2 text-sm font-extrabold text-[var(--people-ink)]">{item.label}</p>
+                  {item.detail && <p className="mt-2 text-sm leading-6 text-[var(--people-muted)]">{item.detail}</p>}
                 </li>
               ))}
             </ul>
@@ -271,34 +273,34 @@ export default async function HomePage() {
       )}
 
       {posts.length > 0 && (
-        <section className="bg-[var(--campaign-paper)] py-20 sm:py-24 lg:py-28">
+        <section className="bg-[var(--people-soft)] py-20 sm:py-24 lg:py-28">
           <Container>
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="campaign-section-kicker">Notícias</p>
-                <h2 className="campaign-display-title mt-5">Acompanhe a pré-candidatura.</h2>
+                <p className="people-kicker">Notícias</p>
+                <h2 className="people-title mt-5">Acompanhe a caminhada.</h2>
               </div>
-              <Link href="/noticias" className="campaign-text-link">
+              <Link href="/noticias" className="people-text-link">
                 Ver todas as notícias <ArrowRight size={16} aria-hidden />
               </Link>
             </div>
 
-            <div className="campaign-news-grid mt-12">
+            <div className="people-news-grid mt-12">
               {featured && (
-                <article className="campaign-news-featured">
+                <article className="people-news-featured">
                   <p>{featured.publishedAt ? formatShortDate(featured.publishedAt) : featured.category}</p>
                   <h3>
                     <Link href={`/noticias/${featured.slug}`}>{featured.title}</Link>
                   </h3>
                   {featured.excerpt && <div>{featured.excerpt}</div>}
-                  <Link href={`/noticias/${featured.slug}`} className="campaign-text-link mt-7">
+                  <Link href={`/noticias/${featured.slug}`} className="people-text-link mt-7">
                     Ler matéria <ArrowRight size={16} aria-hidden />
                   </Link>
                 </article>
               )}
 
               {secondary.length > 0 && (
-                <ul className="campaign-news-secondary">
+                <ul className="people-news-secondary">
                   {secondary.map((post) => (
                     <li key={post.id}>
                       <p>{post.publishedAt ? formatShortDate(post.publishedAt) : post.category}</p>
@@ -314,35 +316,30 @@ export default async function HomePage() {
         </section>
       )}
 
-      <section className="campaign-closing relative isolate overflow-hidden bg-[var(--campaign-coral)] text-white">
-        <div className="campaign-closing-word" aria-hidden>
+      <section className="people-closing relative isolate overflow-hidden text-white">
+        <div className="people-closing-word" aria-hidden>
           Participe
         </div>
-        <Container
-          className={`relative grid items-end gap-10 ${
-            showParticipatePhoto ? "lg:grid-cols-[1.04fr_0.96fr]" : ""
-          }`}
-        >
+        <Container className={`relative grid items-end gap-10 ${showParticipatePhoto ? "lg:grid-cols-[1.02fr_0.98fr]" : ""}`}>
           <div className="py-20 sm:py-24 lg:py-28">
-            <p className="campaign-section-kicker campaign-section-kicker-light">Faça parte</p>
-            <h2 className="campaign-closing-title mt-5 max-w-3xl">
-              O Maranhão avança quando a política começa ouvindo.
+            <div className="people-closing-tag">A mulher do povo!</div>
+            <h2 className="people-closing-title mt-6 max-w-3xl">
+              Vamos construir uma voz forte para Imperatriz e para o Maranhão.
             </h2>
-            <p className="mt-6 max-w-xl text-base leading-8 text-white/76">
-              Conte o que falta no seu município. Sua contribuição ajuda a construir prioridades mais
-              próximas da vida real.
+            <p className="mt-6 max-w-xl text-base leading-8 text-white/78">
+              Conte o que sua comunidade precisa. Participação de verdade começa com escuta, presença e compromisso.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link href="/demandas" className="campaign-button campaign-button-light">
+              <Link href="/demandas" className="people-button people-button-lime">
                 Quero participar <ArrowRight size={17} aria-hidden />
               </Link>
-              <Link href="/compromissos" className="campaign-button campaign-button-outline-light">
+              <Link href="/compromissos" className="people-button people-button-outline-light">
                 Ver compromissos
               </Link>
             </div>
 
             {hasSocial && (
-              <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold text-white/70">
+              <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold text-white/72">
                 {content.contact.whatsapp && (
                   <a href={`https://wa.me/${content.contact.whatsapp}`} target="_blank" rel="noopener noreferrer">
                     WhatsApp
@@ -368,8 +365,8 @@ export default async function HomePage() {
           </div>
 
           {showParticipatePhoto && (
-            <div className="campaign-closing-photo relative flex min-h-[540px] items-end justify-center lg:min-h-[690px]">
-              <div aria-hidden />
+            <div className="people-closing-photo relative flex min-h-[520px] items-end justify-center lg:min-h-[690px]">
+              <div className="people-closing-lime" aria-hidden />
               <Photo
                 src={participateSrc}
                 alt={`${content.candidate.ballotName} convida à participação`}
