@@ -17,6 +17,13 @@
   --people-line: rgba(7, 21, 54, 0.13);
   --people-shadow: 0 28px 80px rgba(0, 71, 184, 0.2);
 
+  /* Hero tipografia / cores de referência */
+  --hero-blue: #001a3f;
+  --hero-blue-dark: #00132f;
+  --hero-yellow: #ffd31a;
+  --hero-green: #08a64b;
+  --hero-white: #ffffff;
+
   --bg: var(--people-white);
   --bg-soft: var(--people-soft);
   --surface: var(--people-white);
@@ -51,8 +58,8 @@
 
 @theme inline {
   --font-sans: var(--font-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-archivo), "Archivo", ui-sans-serif, system-ui, sans-serif;
-  --font-script: var(--font-caveat), "Caveat", cursive;
+  --font-display: var(--font-league-spartan), "League Spartan", ui-sans-serif, system-ui, sans-serif;
+  --font-script: var(--font-yellowtail), "Yellowtail", cursive;
   --color-background: var(--bg);
   --color-foreground: var(--ink);
 }
@@ -77,8 +84,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   outline-offset: 3px;
 }
 
-.font-display { font-family: var(--font-archivo), "Archivo", ui-sans-serif, system-ui, sans-serif; }
-.font-script { font-family: var(--font-caveat), "Caveat", cursive; }
+.font-display { font-family: var(--font-league-spartan), "League Spartan", ui-sans-serif, system-ui, sans-serif; }
+.font-script { font-family: var(--font-yellowtail), "Yellowtail", cursive; }
 
 .sr-only {
   position: absolute;
@@ -129,7 +136,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .campaign-header-hero {
-  background: #001a33;
+  background: var(--hero-blue);
   border-bottom: 1px solid rgba(255, 255, 255, .08);
 }
 
@@ -170,17 +177,54 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .campaign-lockup {
   display: flex;
   flex-direction: column;
-  gap: .28rem;
+  gap: 0;
   text-decoration: none;
   color: inherit;
   line-height: 1;
 }
 
+.header-logo-name {
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: clamp(27px, 2.85vw, 46px);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  color: var(--hero-white);
+  text-transform: uppercase;
+}
+
+.header-logo-l {
+  position: relative;
+  display: inline-block;
+  padding-left: 0.28em;
+}
+
+.header-logo-l::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  bottom: 0.12em;
+  width: 0.14em;
+  background: linear-gradient(180deg, var(--hero-green) 0 55%, var(--hero-yellow) 55% 100%);
+}
+
+.header-logo-subtitle {
+  margin-top: 7px;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(7px, 0.62vw, 10px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+}
+
 .campaign-lockup-name {
-  font-family: var(--font-archivo), "Archivo", sans-serif;
-  font-size: clamp(1.15rem, 1.7vw, 1.45rem);
-  font-weight: 900;
-  letter-spacing: -.03em;
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: clamp(27px, 2.85vw, 46px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
   text-transform: uppercase;
 }
 
@@ -196,7 +240,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   right: 0;
   bottom: .08em;
   height: .22em;
-  background: #ffcc00;
+  background: var(--hero-yellow);
 }
 
 .campaign-lockup-role {
@@ -216,13 +260,46 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .campaign-nav {
   display: none;
   align-items: center;
-  gap: .15rem;
+  gap: 1.35rem;
 }
 
 @media (min-width: 1024px) {
   .campaign-nav {
     display: flex;
   }
+}
+
+.header-nav-link {
+  position: relative;
+  padding: 26px 0;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(12px, 1.05vw, 17px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--hero-white);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 180ms ease;
+}
+
+.header-nav-link:hover,
+.header-nav-link.active {
+  color: var(--hero-yellow);
+}
+
+.header-nav-link.active {
+  font-weight: 700;
+}
+
+.header-nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  height: 3px;
+  background: var(--hero-yellow);
 }
 
 .campaign-nav-link {
@@ -239,7 +316,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-nav-link:hover,
 .campaign-nav-link-active {
-  color: #ffcc00;
+  color: var(--hero-yellow);
 }
 
 .campaign-nav-link::after {
@@ -250,7 +327,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   bottom: .28rem;
   height: 2px;
   transform: scaleX(0);
-  background: #ffcc00;
+  background: var(--hero-yellow);
   transition: transform 180ms ease;
 }
 
@@ -287,7 +364,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   overflow-y: auto;
   padding: 1.2rem 0 2.4rem;
   color: white;
-  background: #001a33;
+  background: var(--hero-blue);
   border-top: 1px solid rgba(255, 255, 255, .1);
 }
 
@@ -305,26 +382,28 @@ button, a { -webkit-tap-highlight-color: transparent; }
   border-bottom: 1px solid rgba(255, 255, 255, .12);
   padding: 1rem 0;
   color: rgba(255, 255, 255, .9);
-  font-family: var(--font-archivo), "Archivo", sans-serif;
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
   font-size: 1.35rem;
   font-weight: 800;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .campaign-mobile-link-active,
 .campaign-mobile-link:hover {
-  color: #ffcc00;
+  color: var(--hero-yellow);
 }
 
 .campaign-mobile-cta {
   margin-top: 1.4rem;
   padding: .95rem 1.2rem;
   border-radius: .35rem;
-  color: #001a33;
-  background: #ffcc00;
+  color: #003066;
+  background: var(--hero-yellow);
   text-align: center;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
   font-size: .78rem;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: .04em;
   text-transform: uppercase;
   text-decoration: none;
@@ -341,7 +420,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   flex-direction: column;
   overflow: hidden;
   color: white;
-  background: #001a33;
+  background: var(--hero-blue);
 }
 
 .campaign-crowd,
@@ -410,97 +489,114 @@ button, a { -webkit-tap-highlight-color: transparent; }
   position: relative;
   z-index: 12;
   display: flex;
-  max-width: 38rem;
+  max-width: min(52rem, 100%);
   flex-direction: column;
   align-items: flex-start;
   padding: 1.1rem 0;
-}
-
-.campaign-office {
-  margin: 0 0 1rem;
-  color: #ffcc00;
-  font-size: clamp(.62rem, .9vw, .74rem);
-  font-weight: 800;
-  letter-spacing: .14em;
-  line-height: 1.4;
-  text-transform: uppercase;
 }
 
 .campaign-nameplate {
   position: relative;
   width: max-content;
   max-width: 100%;
-  margin-bottom: 1.55rem;
+  margin-bottom: 1.35rem;
+  z-index: 5;
 }
 
-.campaign-luzia {
+.hero-eyebrow {
+  margin: 0 0 1rem;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(10px, 0.95vw, 15px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--hero-yellow);
+}
+
+.hero-luzia {
   margin: 0;
-  color: #fff;
-  font-family: var(--font-archivo), "Archivo", sans-serif;
-  font-size: clamp(4.4rem, 9.6vw, 8.4rem);
+  position: relative;
+  z-index: 4;
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: clamp(105px, 18vw, 292px);
   font-weight: 900;
-  line-height: .84;
-  letter-spacing: -.045em;
+  line-height: 0.78;
+  letter-spacing: -0.065em;
+  color: var(--hero-white);
   text-transform: uppercase;
   white-space: nowrap;
 }
 
-.campaign-mary {
+.hero-mary {
   position: absolute;
-  left: 46%;
-  bottom: -.32em;
-  color: #ffcc00;
-  font-family: var(--font-caveat), "Caveat", cursive;
-  font-size: clamp(3.4rem, 7vw, 5.9rem);
-  font-weight: 700;
-  line-height: .7;
-  transform: rotate(-8deg);
-  text-shadow: 0 10px 24px rgba(0, 10, 30, .35);
+  left: 52%;
+  bottom: -0.08em;
+  z-index: 6;
+  font-family: var(--font-yellowtail), "Yellowtail", cursive;
+  font-size: clamp(72px, 9.3vw, 152px);
+  font-weight: 400;
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  color: var(--hero-yellow);
+  transform: rotate(-4deg);
+  white-space: nowrap;
   pointer-events: none;
 }
 
-.campaign-tagline {
-  max-width: 27rem;
+.hero-slogan {
+  max-width: 28rem;
   margin: 0 0 1.7rem;
-  color: rgba(255, 255, 255, .94);
-  font-size: clamp(1.02rem, 1.5vw, 1.28rem);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(21px, 2.05vw, 33px);
   font-weight: 500;
-  line-height: 1.38;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--hero-white);
 }
 
-.campaign-tagline strong {
-  color: #ffcc00;
-  font-weight: 800;
+.hero-slogan strong,
+.hero-slogan .highlight {
+  font-weight: 700;
+  color: var(--hero-yellow);
 }
 
-.campaign-cta {
+.hero-button {
   display: inline-flex;
-  min-height: 3rem;
   align-items: center;
-  gap: .55rem;
-  padding: 0 1.55rem;
+  justify-content: center;
+  gap: 22px;
+  min-width: 290px;
+  height: 72px;
+  padding: 0 42px;
+  border: 0;
   border-radius: 999px;
-  color: #001a33;
-  background: #ffcc00;
-  font-size: .76rem;
-  font-weight: 900;
-  letter-spacing: .05em;
-  text-transform: uppercase;
+  background: var(--hero-yellow);
+  color: #003066;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(14px, 1.1vw, 18px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
   text-decoration: none;
-  box-shadow: 0 10px 28px rgba(0, 12, 40, .22);
-  transition: transform 180ms ease, filter 180ms ease;
+  box-shadow: 0 10px 28px rgba(0, 12, 40, .18);
+  transition:
+    transform 180ms ease,
+    filter 180ms ease,
+    box-shadow 180ms ease;
 }
 
-.campaign-cta svg {
+.hero-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.2);
+}
+
+.hero-button svg {
   transition: transform 180ms ease;
 }
 
-.campaign-cta:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.04);
-}
-
-.campaign-cta:hover svg {
+.hero-button:hover svg {
   transform: translateX(2px);
 }
 
@@ -574,13 +670,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .campaign-strip-yellow {
-  color: #001a33;
-  background: #ffcc00;
+  color: #003066;
+  background: var(--hero-yellow);
 }
 
 .campaign-strip-green {
   color: white;
-  background: #006837;
+  background: var(--hero-green);
 }
 
 .campaign-strip-navy {
@@ -588,22 +684,62 @@ button, a { -webkit-tap-highlight-color: transparent; }
   z-index: 26;
   justify-content: flex-start;
   color: white;
-  background: #001a33;
+  background: var(--hero-blue);
   padding-left: clamp(1.2rem, 3vw, 2.5rem);
 }
 
 .campaign-strip-heart,
 .campaign-strip-pin {
-  color: #ffcc00;
+  color: var(--hero-yellow);
+}
+
+.bottom-slogan {
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(16px, 1.45vw, 23px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: #003066;
+  text-transform: uppercase;
+}
+
+.bottom-location-label {
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(9px, 0.8vw, 13px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.bottom-location-name {
+  margin-top: 5px;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(20px, 1.8vw, 29px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  text-transform: none;
+}
+
+.bottom-values {
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(13px, 1.17vw, 19px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.bottom-values .separator {
+  color: var(--hero-yellow);
 }
 
 .campaign-strip-item strong {
-  font-family: var(--font-archivo), "Archivo", sans-serif;
-  font-size: clamp(.88rem, 1.25vw, 1.08rem);
-  font-weight: 900;
-  letter-spacing: .02em;
-  text-transform: uppercase;
-  white-space: nowrap;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
 }
 
 .campaign-strip-green p {
@@ -614,18 +750,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .campaign-strip-green span {
-  font-size: .62rem;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  opacity: .92;
-}
-
-.campaign-strip-green strong {
-  margin-top: .15rem;
-  font-size: clamp(.98rem, 1.35vw, 1.18rem);
-  text-transform: none;
-  letter-spacing: -.02em;
+  opacity: 1;
 }
 
 .campaign-strip-item svg {
@@ -633,18 +758,19 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 @media (max-width: 1100px) {
-  .campaign-strip-navy strong {
-    font-size: .78rem;
+  .bottom-values {
+    font-size: clamp(12px, 1.1vw, 16px);
   }
 }
 
 @media (max-width: 1023px) {
-  .campaign-luzia {
-    font-size: clamp(3.8rem, 10vw, 6.2rem);
+  .hero-luzia {
+    font-size: clamp(92px, 14vw, 180px);
   }
 
-  .campaign-mary {
-    font-size: clamp(2.8rem, 7vw, 4.2rem);
+  .hero-mary {
+    left: 48%;
+    font-size: clamp(64px, 8vw, 110px);
   }
 
   .campaign-portrait-slot {
@@ -656,7 +782,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
     gap: .55rem;
   }
 
-  .campaign-brand-role {
+  .header-logo-subtitle {
     max-width: 13rem;
   }
 }
@@ -718,41 +844,44 @@ button, a { -webkit-tap-highlight-color: transparent; }
     inset: 4.55rem 0 0;
   }
 
-  .campaign-brand-role {
+  .header-logo-subtitle {
     max-width: 11rem;
-    font-size: .4rem;
-  }
-
-  .campaign-lockup-role {
-    max-width: 11rem;
-    font-size: .42rem;
   }
 
   .campaign-stage {
     padding-top: 4.7rem;
   }
 
-  .campaign-office {
+  .hero-eyebrow {
     max-width: 16rem;
-    font-size: .58rem;
+    letter-spacing: 0.18em;
   }
 
-  .campaign-luzia {
-    font-size: clamp(3.3rem, 15vw, 4.6rem);
+  .hero-luzia {
+    font-size: clamp(82px, 22vw, 115px);
   }
 
-  .campaign-mary {
+  .hero-mary {
     position: relative;
     left: auto;
     bottom: auto;
     display: inline-block;
-    margin-top: .12rem;
-    font-size: clamp(2.5rem, 12vw, 3.3rem);
+    margin-top: .1rem;
+    font-size: clamp(58px, 16vw, 82px);
+    transform: rotate(-4deg);
   }
 
-  .campaign-tagline {
+  .hero-slogan {
     max-width: 17rem;
-    font-size: .95rem;
+    font-size: clamp(18px, 5vw, 21px);
+  }
+
+  .hero-button {
+    min-width: 0;
+    width: auto;
+    height: 54px;
+    gap: 14px;
+    padding: 0 28px;
   }
 
   .campaign-portrait-slot {
@@ -764,17 +893,18 @@ button, a { -webkit-tap-highlight-color: transparent; }
     min-height: 3.5rem;
   }
 
-  .campaign-strip-item strong {
+  .bottom-slogan,
+  .bottom-values {
     white-space: normal;
   }
 }
 
 @media (max-width: 360px) {
-  .campaign-luzia {
-    font-size: clamp(2.9rem, 14vw, 3.8rem);
+  .hero-luzia {
+    font-size: clamp(72px, 20vw, 96px);
   }
 
-  .campaign-lockup-name {
+  .header-logo-name {
     font-size: 1.05rem;
   }
 }

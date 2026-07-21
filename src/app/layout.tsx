@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, Caveat, Plus_Jakarta_Sans } from "next/font/google";
+import { Archivo, League_Spartan, Montserrat, Plus_Jakarta_Sans, Yellowtail } from "next/font/google";
 import "./globals.css";
 import { content } from "@/config/site";
 import { getSiteUrl } from "@/lib/site-url";
@@ -11,11 +11,25 @@ const display = Archivo({
   weight: ["500", "600", "700", "800", "900"],
 });
 
-const script = Caveat({
+const leagueSpartan = League_Spartan({
   subsets: ["latin"],
-  variable: "--font-caveat",
+  variable: "--font-league-spartan",
   display: "swap",
-  weight: ["600", "700"],
+  weight: ["600", "700", "800", "900"],
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const yellowtail = Yellowtail({
+  subsets: ["latin"],
+  variable: "--font-yellowtail",
+  display: "swap",
+  weight: "400",
 });
 
 const body = Plus_Jakarta_Sans({
@@ -59,7 +73,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${display.variable} ${script.variable} ${body.variable}`}>
+    <html
+      lang="pt-BR"
+      className={`${display.variable} ${leagueSpartan.variable} ${montserrat.variable} ${yellowtail.variable} ${body.variable}`}
+    >
       <body className={`${body.className} antialiased`}>{children}</body>
     </html>
   );

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import Image from "next/image";
 import { Container } from "@/components/container";
 import { content } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -22,16 +21,11 @@ export function CampaignHomeHeader() {
   return (
     <header className="campaign-header campaign-header-hero">
       <Container className="campaign-header-bar">
-        <Link href="/" className="campaign-brand" aria-label={`${content.candidate.ballotName} — início`}>
-          <Image
-            src="/images/luzia-mary-logo.png"
-            alt="Luzia Mary"
-            width={800}
-            height={110}
-            priority
-            className="campaign-brand-logo"
-          />
-          <span className="campaign-brand-role">
+        <Link href="/" className="campaign-lockup" aria-label={`${content.candidate.ballotName} — início`}>
+          <span className="header-logo-name">
+            <span className="header-logo-l">LUZIA</span> MARY
+          </span>
+          <span className="header-logo-subtitle">
             Pré-candidata a Deputada Federal pelo Maranhão
           </span>
         </Link>
@@ -43,7 +37,7 @@ export function CampaignHomeHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={cn("campaign-nav-link", active && "campaign-nav-link-active")}
+                className={cn("header-nav-link", active && "active")}
               >
                 {item.label}
               </Link>
