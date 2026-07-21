@@ -105,7 +105,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .anim-d3 { animation-delay: 270ms; }
 
 /* =========================================================
-   Campaign header + Hero (reference match)
+   Campaign header + Hero (reference lock)
    ========================================================= */
 
 .campaign-header {
@@ -122,7 +122,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .campaign-header-hero {
-  background: linear-gradient(180deg, rgba(2, 20, 55, .92) 0%, rgba(2, 20, 55, .55) 70%, transparent 100%);
+  background: linear-gradient(180deg, rgba(2, 20, 55, .95) 0%, rgba(2, 20, 55, .5) 75%, transparent 100%);
 }
 
 .campaign-header-solid {
@@ -301,7 +301,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   position: relative;
   isolation: isolate;
   display: flex;
-  min-height: clamp(680px, 100svh, 820px);
+  min-height: clamp(700px, 100svh, 840px);
   flex-direction: column;
   overflow: hidden;
   color: white;
@@ -319,27 +319,29 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-crowd {
   z-index: 0;
-  width: 58%;
+  width: 62%;
   right: auto;
+  mask-image: linear-gradient(90deg, #000 0%, #000 55%, transparent 100%);
 }
 
 .campaign-crowd-img {
   object-fit: cover;
   object-position: center center;
-  filter: saturate(.35) brightness(.45) contrast(1.05);
-  opacity: .55;
+  filter: saturate(.25) brightness(.42) contrast(1.08) hue-rotate(8deg);
+  opacity: .7;
 }
 
 .campaign-place {
   z-index: 0;
-  left: 38%;
-  width: 62%;
+  left: 32%;
+  width: 68%;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 28%, #000 100%);
 }
 
 .campaign-place-img {
   object-fit: cover;
-  object-position: 70% 40%;
-  filter: saturate(.75) brightness(.7) contrast(1.05);
+  object-position: 72% 38%;
+  filter: saturate(.55) brightness(.62) contrast(1.02);
 }
 
 .campaign-place-fallback {
@@ -353,38 +355,33 @@ button, a { -webkit-tap-highlight-color: transparent; }
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, #021937 0%, rgba(2, 25, 55, .92) 30%, rgba(2, 25, 55, .45) 55%, rgba(2, 25, 55, .2) 75%, rgba(2, 25, 55, .35) 100%),
-    linear-gradient(180deg, rgba(2, 25, 55, .55) 0%, transparent 24%, transparent 62%, rgba(2, 25, 55, .55) 100%);
+    linear-gradient(90deg, #021937 0%, rgba(2, 25, 55, .88) 26%, rgba(2, 25, 55, .35) 52%, rgba(2, 25, 55, .12) 72%, rgba(2, 25, 55, .28) 100%),
+    linear-gradient(180deg, rgba(2, 25, 55, .5) 0%, transparent 22%, transparent 68%, rgba(2, 25, 55, .4) 100%);
 }
 
 .campaign-stage {
   position: relative;
   z-index: 10;
-  display: grid;
+  display: flex;
   flex: 1 1 auto;
   width: 100%;
   align-items: center;
   padding-top: 5.25rem;
-  padding-bottom: 1.5rem;
-}
-
-.campaign-stage-split {
-  grid-template-columns: minmax(0, 1fr) minmax(0, .95fr);
-  gap: 1rem;
+  padding-bottom: 5.5rem;
 }
 
 .campaign-copy {
   position: relative;
-  z-index: 5;
+  z-index: 12;
   display: flex;
-  max-width: 34rem;
+  max-width: 36rem;
   flex-direction: column;
   align-items: flex-start;
-  padding: 1.5rem 0 2rem;
+  padding: 1.25rem 0;
 }
 
 .campaign-office {
-  margin: 0 0 1rem;
+  margin: 0 0 .95rem;
   color: #efd22a;
   font-size: clamp(.62rem, .9vw, .72rem);
   font-weight: 800;
@@ -397,39 +394,39 @@ button, a { -webkit-tap-highlight-color: transparent; }
   position: relative;
   width: max-content;
   max-width: 100%;
-  margin-bottom: 1.35rem;
+  margin-bottom: 1.45rem;
 }
 
 .campaign-luzia {
   margin: 0;
   color: #fff;
   font-family: var(--font-archivo), "Archivo", sans-serif;
-  font-size: clamp(4rem, 9vw, 7.8rem);
+  font-size: clamp(4.2rem, 9.2vw, 8rem);
   font-weight: 900;
   line-height: .86;
-  letter-spacing: -.035em;
+  letter-spacing: -.04em;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
 .campaign-mary {
   position: absolute;
-  left: 52%;
-  bottom: -.22em;
+  left: 48%;
+  bottom: -.28em;
   color: #efd22a;
   font-family: var(--font-caveat), "Caveat", cursive;
-  font-size: clamp(3rem, 6.2vw, 5.2rem);
+  font-size: clamp(3.2rem, 6.8vw, 5.6rem);
   font-weight: 700;
   line-height: .7;
-  transform: rotate(-6deg);
+  transform: rotate(-7deg);
   pointer-events: none;
 }
 
 .campaign-tagline {
-  max-width: 24rem;
-  margin: 0 0 1.55rem;
-  color: rgba(255, 255, 255, .9);
-  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  max-width: 26rem;
+  margin: 0 0 1.6rem;
+  color: rgba(255, 255, 255, .92);
+  font-size: clamp(1.02rem, 1.45vw, 1.22rem);
   font-weight: 500;
   line-height: 1.4;
 }
@@ -441,10 +438,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-cta {
   display: inline-flex;
-  min-height: 2.85rem;
+  min-height: 2.9rem;
   align-items: center;
   gap: .5rem;
-  padding: 0 1.35rem;
+  padding: 0 1.4rem;
   border-radius: 999px;
   color: #021937;
   background: #efd22a;
@@ -469,15 +466,19 @@ button, a { -webkit-tap-highlight-color: transparent; }
   transform: translateX(2px);
 }
 
+/* Portrait — absolute, overlaps strip lightly, soft integration */
 .campaign-portrait-slot {
-  position: relative;
-  z-index: 6;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 18;
   display: none;
-  height: 100%;
-  min-height: 560px;
+  width: min(48%, 560px);
+  height: calc(100% - 4.2rem);
   align-items: flex-end;
   justify-content: center;
-  margin-bottom: -4.5rem;
+  padding-bottom: 2.4rem;
+  pointer-events: none;
 }
 
 @media (min-width: 900px) {
@@ -486,27 +487,50 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 }
 
+.campaign-portrait-glow {
+  position: absolute;
+  right: 8%;
+  bottom: 18%;
+  z-index: 0;
+  width: 70%;
+  height: 55%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(40, 90, 160, .35) 0%, transparent 70%);
+  filter: blur(18px);
+}
+
 .campaign-portrait {
   position: relative !important;
-  width: min(100%, 480px);
-  height: min(92%, 640px);
-  overflow: hidden !important;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: visible !important;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, #000 12%, #000 100%),
+    linear-gradient(180deg, #000 0%, #000 82%, transparent 100%);
+  mask-image:
+    linear-gradient(90deg, transparent 0%, #000 12%, #000 100%),
+    linear-gradient(180deg, #000 0%, #000 82%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  filter: drop-shadow(0 18px 40px rgba(0, 12, 40, .28));
 }
 
 .campaign-portrait-img {
   object-fit: cover;
-  object-position: center 8%;
-  filter: saturate(.96) contrast(1.04);
+  object-position: center 4%;
+  filter: saturate(.88) contrast(1.02) brightness(.98);
 }
 
-/* Bottom strip — reference match */
+/* Strip — always readable */
 .campaign-strip {
   position: relative;
-  z-index: 20;
+  z-index: 25;
   display: grid;
   flex: 0 0 auto;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  min-height: 4.6rem;
+  min-height: 4.75rem;
+  box-shadow: 0 -8px 24px rgba(0, 10, 30, .18);
 }
 
 .campaign-strip-item {
@@ -514,8 +538,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   min-width: 0;
   align-items: center;
   justify-content: center;
-  gap: .75rem;
-  padding: 1rem 1.25rem;
+  gap: .8rem;
+  padding: 1.05rem 1.4rem;
 }
 
 .campaign-strip-yellow {
@@ -529,16 +553,25 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .campaign-strip-navy {
+  position: relative;
+  z-index: 26;
+  justify-content: flex-start;
   color: white;
   background: #021937;
+  padding-left: clamp(1.2rem, 3vw, 2.5rem);
+}
+
+.campaign-strip-heart {
+  color: #efd22a;
 }
 
 .campaign-strip-item strong {
   font-family: var(--font-archivo), "Archivo", sans-serif;
-  font-size: clamp(.85rem, 1.2vw, 1.05rem);
+  font-size: clamp(.88rem, 1.25vw, 1.08rem);
   font-weight: 900;
   letter-spacing: .02em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .campaign-strip-green p {
@@ -553,12 +586,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
   font-weight: 700;
   letter-spacing: .12em;
   text-transform: uppercase;
-  opacity: .9;
+  opacity: .92;
 }
 
 .campaign-strip-green strong {
   margin-top: .15rem;
-  font-size: clamp(.95rem, 1.3vw, 1.15rem);
+  font-size: clamp(.98rem, 1.35vw, 1.18rem);
   text-transform: none;
   letter-spacing: -.02em;
 }
@@ -567,68 +600,73 @@ button, a { -webkit-tap-highlight-color: transparent; }
   flex: 0 0 auto;
 }
 
-@media (max-width: 1023px) {
-  .campaign-luzia {
-    font-size: clamp(3.6rem, 10vw, 6rem);
-  }
-
-  .campaign-mary {
-    font-size: clamp(2.6rem, 7vw, 4rem);
-  }
-
-  .campaign-strip-item {
-    padding: .9rem .8rem;
-    gap: .55rem;
-  }
-
-  .campaign-strip-item strong {
+@media (max-width: 1100px) {
+  .campaign-strip-navy strong {
     font-size: .78rem;
   }
 }
 
+@media (max-width: 1023px) {
+  .campaign-luzia {
+    font-size: clamp(3.8rem, 10vw, 6.2rem);
+  }
+
+  .campaign-mary {
+    font-size: clamp(2.8rem, 7vw, 4.2rem);
+  }
+
+  .campaign-portrait-slot {
+    width: min(50%, 460px);
+  }
+
+  .campaign-strip-item {
+    padding: .9rem .85rem;
+    gap: .55rem;
+  }
+}
+
 @media (max-width: 899px) {
-  .campaign-stage,
-  .campaign-stage-split {
-    grid-template-columns: 1fr;
-  }
-
-  .campaign-crowd {
-    width: 100%;
-  }
-
+  .campaign-crowd,
   .campaign-place {
     left: 0;
     width: 100%;
-    opacity: .55;
+    mask-image: none;
+  }
+
+  .campaign-place {
+    opacity: .5;
   }
 
   .campaign-place-veil {
     background:
-      linear-gradient(180deg, rgba(2, 25, 55, .7) 0%, rgba(2, 25, 55, .55) 40%, rgba(2, 25, 55, .82) 100%),
-      linear-gradient(90deg, rgba(2, 25, 55, .88) 0%, rgba(2, 25, 55, .55) 100%);
+      linear-gradient(180deg, rgba(2, 25, 55, .75) 0%, rgba(2, 25, 55, .55) 45%, rgba(2, 25, 55, .88) 100%),
+      linear-gradient(90deg, rgba(2, 25, 55, .9) 0%, rgba(2, 25, 55, .55) 100%);
+  }
+
+  .campaign-stage {
+    padding-bottom: 1.5rem;
   }
 
   .campaign-copy {
     max-width: 28rem;
-    padding-bottom: 1.5rem;
+    z-index: 20;
   }
 
   .campaign-portrait-slot {
-    position: absolute;
-    right: -4%;
-    bottom: 4.2rem;
-    z-index: 3;
     display: flex;
-    width: min(58vw, 280px);
-    height: min(52vh, 400px);
-    min-height: 0;
-    margin: 0;
-    opacity: .35;
-    pointer-events: none;
+    width: min(62vw, 300px);
+    height: min(58vh, 430px);
+    opacity: .38;
+    padding-bottom: 5rem;
   }
 
   .campaign-strip {
     grid-template-columns: 1fr;
+  }
+
+  .campaign-strip-navy {
+    justify-content: center;
+    padding-left: 1.05rem;
   }
 }
 
@@ -656,7 +694,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .campaign-luzia {
-    font-size: clamp(3.2rem, 15vw, 4.5rem);
+    font-size: clamp(3.3rem, 15vw, 4.6rem);
   }
 
   .campaign-mary {
@@ -664,8 +702,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
     left: auto;
     bottom: auto;
     display: inline-block;
-    margin-top: .1rem;
-    font-size: clamp(2.4rem, 12vw, 3.2rem);
+    margin-top: .12rem;
+    font-size: clamp(2.5rem, 12vw, 3.3rem);
   }
 
   .campaign-tagline {
@@ -674,19 +712,23 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .campaign-portrait-slot {
-    bottom: 12.5rem;
-    opacity: .28;
+    opacity: .3;
+    padding-bottom: 14rem;
   }
 
   .campaign-strip-item {
     justify-content: flex-start;
-    min-height: 3.4rem;
+    min-height: 3.5rem;
+  }
+
+  .campaign-strip-item strong {
+    white-space: normal;
   }
 }
 
 @media (max-width: 360px) {
   .campaign-luzia {
-    font-size: clamp(2.8rem, 14vw, 3.7rem);
+    font-size: clamp(2.9rem, 14vw, 3.8rem);
   }
 
   .campaign-lockup-name {

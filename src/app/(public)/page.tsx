@@ -68,14 +68,14 @@ export default async function HomePage() {
             priority
             className="campaign-place"
             imgClassName="campaign-place-img"
-            objectPosition="70% 40%"
+            objectPosition="72% 38%"
           />
         ) : (
           <div className="campaign-place-fallback" aria-hidden />
         )}
         <div className="campaign-place-veil" aria-hidden />
 
-        <Container className={`campaign-stage${showHeroPhoto ? " campaign-stage-split" : ""}`}>
+        <Container className="campaign-stage">
           <div className="campaign-copy anim-rise">
             <p className="campaign-office">Pré-candidata a Deputada Federal pelo Maranhão</p>
 
@@ -97,35 +97,36 @@ export default async function HomePage() {
               <ArrowRight size={16} aria-hidden />
             </Link>
           </div>
-
-          {showHeroPhoto && (
-            <div className="campaign-portrait-slot anim-rise anim-d1">
-              <Photo
-                src={heroSrc}
-                alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
-                priority
-                className="campaign-portrait"
-                imgClassName="campaign-portrait-img"
-                objectPosition="center 10%"
-              />
-            </div>
-          )}
         </Container>
+
+        {showHeroPhoto && (
+          <div className="campaign-portrait-slot anim-rise anim-d1">
+            <div className="campaign-portrait-glow" aria-hidden />
+            <Photo
+              src={heroSrc}
+              alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
+              priority
+              className="campaign-portrait"
+              imgClassName="campaign-portrait-img"
+              objectPosition="center 6%"
+            />
+          </div>
+        )}
 
         <div className="campaign-strip">
           <div className="campaign-strip-item campaign-strip-yellow">
-            <Users size={22} strokeWidth={2.2} aria-hidden />
+            <Users size={24} strokeWidth={2.1} aria-hidden />
             <strong>A mulher do povo!</strong>
           </div>
           <div className="campaign-strip-item campaign-strip-green">
-            <MapPin size={22} strokeWidth={2.2} aria-hidden />
+            <MapPin size={24} strokeWidth={2.1} aria-hidden />
             <p>
               <span>De Imperatriz</span>
               <strong>para o Maranhão</strong>
             </p>
           </div>
           <div className="campaign-strip-item campaign-strip-navy">
-            <Heart size={22} strokeWidth={2.2} aria-hidden />
+            <Heart size={24} strokeWidth={2.1} className="campaign-strip-heart" aria-hidden />
             <strong>Trabalho · Fé · Família</strong>
           </div>
         </div>
