@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { Container } from "@/components/container";
 import { content } from "@/config/site";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +19,7 @@ export function CampaignHomeHeader() {
 
   return (
     <header className="campaign-header campaign-header-hero">
-      <Container className="campaign-header-bar">
+      <div className="campaign-header-bar">
         <Link href="/" className="campaign-lockup" aria-label={`${content.candidate.ballotName} — início`}>
           <span className="header-logo-name">
             <span className="header-logo-l">LUZIA</span> MARY
@@ -55,11 +54,11 @@ export function CampaignHomeHeader() {
         >
           {open ? <X size={20} aria-hidden /> : <Menu size={20} aria-hidden />}
         </button>
-      </Container>
+      </div>
 
       {open && (
         <div id="campaign-mobile-menu" className="campaign-mobile-menu">
-          <Container>
+          <div className="campaign-header-bar" style={{ height: "auto", display: "block", paddingTop: "0.5rem", paddingBottom: "1.5rem" }}>
             <nav className="campaign-mobile-nav" aria-label="Menu mobile">
               {campaignNav.map((item) => {
                 const active = item.href === "/";
@@ -74,11 +73,8 @@ export function CampaignHomeHeader() {
                   </Link>
                 );
               })}
-              <Link href="/demandas" onClick={() => setOpen(false)} className="campaign-mobile-cta">
-                Participe
-              </Link>
             </nav>
-          </Container>
+          </div>
         </div>
       )}
     </header>

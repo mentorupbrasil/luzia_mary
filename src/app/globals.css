@@ -112,7 +112,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .anim-d3 { animation-delay: 270ms; }
 
 /* =========================================================
-   Campaign header + Hero (reference lock)
+   Campaign header + Hero (gabarito: /referencias/hero-exata.png)
+   Viewport de referência: 1619 × 972
    ========================================================= */
 
 .campaign-header {
@@ -122,56 +123,28 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-header-bar {
   display: flex;
-  height: 5.1rem;
-  align-items: center;
+  height: 108px;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 1.5rem;
+  padding-top: 28px;
+  padding-left: clamp(40px, 3.3vw, 53px);
+  padding-right: clamp(40px, 3.3vw, 53px);
+  max-width: none;
+  width: 100%;
+  margin: 0;
 }
 
 .campaign-hero-chrome {
   position: absolute;
   inset: 0 0 auto;
-  z-index: 30;
+  z-index: 40;
   width: 100%;
 }
 
 .campaign-header-hero {
   background: var(--hero-blue);
-  border-bottom: 1px solid rgba(255, 255, 255, .08);
-}
-
-.campaign-brand {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: .28rem;
-  text-decoration: none;
-  color: inherit;
-}
-
-.campaign-brand-logo {
-  width: auto;
-  height: clamp(1.55rem, 2.1vw, 1.9rem);
-  object-fit: contain;
-  object-position: left center;
-}
-
-.campaign-brand-role {
-  max-width: 17rem;
-  color: rgba(255, 255, 255, .72);
-  font-size: .48rem;
-  font-weight: 700;
-  letter-spacing: .1em;
-  line-height: 1.25;
-  text-transform: uppercase;
-}
-
-.campaign-header-solid {
-  color: var(--people-blue-dark);
-  background: rgba(255, 255, 255, .96);
-  border-bottom-color: rgba(7, 21, 54, .08);
-  box-shadow: 0 10px 28px rgba(0, 40, 110, .08);
-  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, .14);
 }
 
 .campaign-lockup {
@@ -196,71 +169,45 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .header-logo-l {
   position: relative;
   display: inline-block;
-  padding-left: 0.28em;
+  padding-left: 0.3em;
 }
 
 .header-logo-l::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 0.1em;
-  bottom: 0.12em;
-  width: 0.14em;
-  background: linear-gradient(180deg, var(--hero-green) 0 55%, var(--hero-yellow) 55% 100%);
+  top: 0.08em;
+  width: 0.16em;
+  height: 0.42em;
+  background: var(--hero-yellow);
+}
+
+.header-logo-l::after {
+  content: "";
+  position: absolute;
+  left: 0.16em;
+  top: 0.08em;
+  width: 0.28em;
+  height: 0.14em;
+  background: var(--hero-green);
 }
 
 .header-logo-subtitle {
   margin-top: 7px;
+  max-width: 17rem;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
   font-size: clamp(7px, 0.62vw, 10px);
   font-weight: 600;
-  line-height: 1;
+  line-height: 1.15;
   letter-spacing: -0.015em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.9);
 }
 
-.campaign-lockup-name {
-  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
-  font-size: clamp(27px, 2.85vw, 46px);
-  font-weight: 800;
-  letter-spacing: -0.045em;
-  text-transform: uppercase;
-}
-
-.campaign-lockup-l {
-  position: relative;
-  display: inline-block;
-}
-
-.campaign-lockup-l::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: .08em;
-  height: .22em;
-  background: var(--hero-yellow);
-}
-
-.campaign-lockup-role {
-  max-width: 15rem;
-  color: color-mix(in srgb, currentColor 72%, transparent);
-  font-size: .52rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-  line-height: 1.25;
-  text-transform: uppercase;
-}
-
-.campaign-header-solid .campaign-lockup-l::after {
-  background: var(--people-lime);
-}
-
 .campaign-nav {
   display: none;
   align-items: center;
-  gap: 1.35rem;
+  gap: clamp(1.6rem, 2.4vw, 2.75rem);
 }
 
 @media (min-width: 1024px) {
@@ -271,7 +218,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .header-nav-link {
   position: relative;
-  padding: 26px 0;
+  padding: 8px 0 26px;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
   font-size: clamp(12px, 1.05vw, 17px);
   font-weight: 600;
@@ -297,47 +244,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 12px;
+  bottom: 14px;
   height: 3px;
   background: var(--hero-yellow);
-}
-
-.campaign-nav-link {
-  position: relative;
-  padding: .7rem .9rem;
-  color: rgba(255, 255, 255, .86);
-  font-size: .68rem;
-  font-weight: 800;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: color 160ms ease;
-}
-
-.campaign-nav-link:hover,
-.campaign-nav-link-active {
-  color: var(--hero-yellow);
-}
-
-.campaign-nav-link::after {
-  content: "";
-  position: absolute;
-  left: .9rem;
-  right: .9rem;
-  bottom: .28rem;
-  height: 2px;
-  transform: scaleX(0);
-  background: var(--hero-yellow);
-  transition: transform 180ms ease;
-}
-
-.campaign-header-solid .campaign-nav-link::after {
-  background: var(--people-blue);
-}
-
-.campaign-nav-link:hover::after,
-.campaign-nav-link-active::after {
-  transform: scaleX(1);
 }
 
 .campaign-menu-button {
@@ -359,8 +268,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-mobile-menu {
   position: fixed;
-  inset: 5.1rem 0 0;
-  z-index: 40;
+  inset: 108px 0 0;
+  z-index: 50;
   overflow-y: auto;
   padding: 1.2rem 0 2.4rem;
   color: white;
@@ -394,147 +303,122 @@ button, a { -webkit-tap-highlight-color: transparent; }
   color: var(--hero-yellow);
 }
 
-.campaign-mobile-cta {
-  margin-top: 1.4rem;
-  padding: .95rem 1.2rem;
-  border-radius: .35rem;
-  color: #003066;
-  background: var(--hero-yellow);
-  text-align: center;
-  font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: .78rem;
-  font-weight: 700;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-
-/* Hero — um frame = mock (header + conteúdo + faixa) */
+/* ---------- Hero shell (1619×972) ---------- */
 .campaign-hero {
   position: relative;
   isolation: isolate;
   display: flex;
-  height: 100dvh;
-  min-height: 680px;
-  max-height: 980px;
   flex-direction: column;
+  width: 100%;
+  height: 972px;
+  min-height: 972px;
+  max-height: 972px;
   overflow: hidden;
   color: white;
   background: var(--hero-blue);
 }
 
-.campaign-crowd,
-.campaign-place,
-.campaign-place-fallback {
+.hero-bg,
+.hero-bg-fallback {
   position: absolute !important;
   inset: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
+  pointer-events: none;
 }
 
-.campaign-crowd {
-  z-index: 0;
-  width: 55%;
-  right: auto;
-  mask-image: linear-gradient(90deg, #000 0%, #000 42%, transparent 92%);
+.hero-bg-img {
+  object-fit: cover !important;
+  object-position: 72% 42% !important;
 }
 
-.campaign-crowd-img {
-  object-fit: cover;
-  object-position: 40% center;
-  filter: grayscale(1) brightness(.45) contrast(1.15);
-  opacity: .55;
+.hero-bg-fallback {
+  background: linear-gradient(110deg, var(--hero-blue) 30%, #05345f 70%, #032a3a 100%);
 }
 
-.campaign-place {
-  z-index: 0;
-  left: 26%;
-  width: 74%;
-  mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
-}
-
-.campaign-place-img {
-  object-fit: cover;
-  object-position: 70% 40%;
-  filter: saturate(.75) brightness(.78) contrast(1.06);
-}
-
-.campaign-place-fallback {
-  z-index: 0;
-  background: linear-gradient(110deg, #001a33 30%, #05345f 70%, #032a3a 100%);
-}
-
-.campaign-place-veil {
+.hero-bg-veil {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, #001a33 0%, rgba(0, 26, 51, .88) 22%, rgba(0, 26, 51, .38) 46%, rgba(0, 26, 51, .08) 68%, rgba(0, 26, 51, .18) 100%),
-    linear-gradient(180deg, rgba(0, 26, 51, .5) 0%, transparent 16%, transparent 72%, rgba(0, 26, 51, .28) 100%);
+    linear-gradient(
+      90deg,
+      rgba(0, 22, 55, 0.97) 0%,
+      rgba(0, 32, 70, 0.88) 38%,
+      rgba(0, 30, 65, 0.48) 67%,
+      rgba(0, 20, 48, 0.38) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 15, 38, 0.18) 0%,
+      rgba(0, 15, 38, 0.02) 48%,
+      rgba(0, 15, 38, 0.78) 100%
+    );
 }
 
-.campaign-stage {
+.hero-crowd {
+  position: absolute !important;
+  left: 0;
+  bottom: 110px;
+  z-index: 2;
+  width: 52%;
+  height: 48%;
+  pointer-events: none;
+  overflow: hidden !important;
+  -webkit-mask-image:
+    linear-gradient(to right, #000 0%, #000 62%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 38%, #000 100%);
+  mask-image:
+    linear-gradient(to right, #000 0%, #000 62%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 38%, #000 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+.hero-crowd-img {
+  object-fit: cover !important;
+  object-position: center bottom !important;
+  opacity: 0.28;
+  filter: grayscale(1) sepia(1) hue-rotate(165deg) saturate(2.1) brightness(0.72);
+  mix-blend-mode: soft-light;
+}
+
+.hero-main {
   position: relative;
-  z-index: 10;
-  display: flex;
+  z-index: 3;
   flex: 1 1 auto;
+  min-height: 0;
   width: 100%;
-  align-items: center;
-  padding-top: 5.2rem;
-  padding-bottom: 1.2rem;
 }
 
-.campaign-copy {
-  position: relative;
-  z-index: 12;
-  display: flex;
-  max-width: min(52rem, 100%);
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 1.1rem 0;
-}
-
-.campaign-nameplate {
-  position: relative;
-  width: max-content;
-  max-width: 100%;
-  margin-bottom: 1.35rem;
-  z-index: 5;
-}
-
-.hero-eyebrow {
-  margin: 0 0 1rem;
-  font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(10px, 0.95vw, 15px);
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--hero-yellow);
-}
+/* Desktop lock — topos em px (hero fixa em 972px); horizontais fluidas */
 
 .hero-luzia {
+  position: absolute;
+  left: clamp(1.5rem, 6.92vw, 112px);
+  top: 268px;
+  z-index: 3;
   margin: 0;
-  position: relative;
-  z-index: 4;
   font-family: var(--font-league-spartan), "League Spartan", sans-serif;
-  font-size: clamp(105px, 18vw, 292px);
+  font-size: clamp(140px, 19.64vw, 318px);
   font-weight: 900;
   line-height: 0.78;
   letter-spacing: -0.065em;
   color: var(--hero-white);
   text-transform: uppercase;
   white-space: nowrap;
+  pointer-events: none;
 }
 
 .hero-mary {
   position: absolute;
-  left: 52%;
-  bottom: -0.08em;
-  z-index: 6;
+  left: clamp(12rem, 31.2vw, 505px);
+  top: 458px;
+  z-index: 5;
   font-family: var(--font-yellowtail), "Yellowtail", cursive;
-  font-size: clamp(72px, 9.3vw, 152px);
+  font-size: clamp(88px, 10.87vw, 176px);
   font-weight: 400;
   line-height: 0.8;
   letter-spacing: -0.02em;
@@ -542,13 +426,39 @@ button, a { -webkit-tap-highlight-color: transparent; }
   transform: rotate(-4deg);
   white-space: nowrap;
   pointer-events: none;
+  text-shadow: 0 2px 8px rgba(0, 20, 48, 0.35);
+}
+
+.hero-copy {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  position: absolute;
+  left: clamp(1.5rem, 6.73vw, 109px);
+  top: 224px;
+  margin: 0;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(10px, 0.93vw, 15px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--hero-yellow);
+  white-space: nowrap;
 }
 
 .hero-slogan {
+  position: absolute;
+  left: clamp(1.5rem, 6.86vw, 111px);
+  top: 590px;
+  margin: 0;
   max-width: 28rem;
-  margin: 0 0 1.7rem;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(21px, 2.05vw, 33px);
+  font-size: clamp(22px, 2.04vw, 33px);
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -0.025em;
@@ -562,24 +472,28 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .hero-button {
+  position: absolute;
+  left: clamp(1.5rem, 6.86vw, 111px);
+  top: 708px;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 22px;
-  min-width: 290px;
-  height: 72px;
-  padding: 0 42px;
+  justify-content: space-between;
+  width: min(314px, 90vw);
+  height: 70px;
+  margin: 0;
+  padding: 0 36px 0 42px;
   border: 0;
   border-radius: 999px;
   background: var(--hero-yellow);
   color: #003066;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(14px, 1.1vw, 18px);
+  font-size: 18px;
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.01em;
   text-decoration: none;
-  box-shadow: 0 10px 28px rgba(0, 12, 40, .18);
+  text-transform: uppercase;
+  pointer-events: auto;
   transition:
     transform 180ms ease,
     filter 180ms ease,
@@ -592,81 +506,66 @@ button, a { -webkit-tap-highlight-color: transparent; }
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.2);
 }
 
-.hero-button svg {
-  transition: transform 180ms ease;
-}
-
-.hero-button:hover svg {
-  transform: translateX(2px);
-}
-
-/* Portrait — right side, overlaps strip like mock */
-.campaign-portrait-slot {
+.hero-candidate {
   position: absolute;
-  right: 0;
-  bottom: 3.4rem;
-  z-index: 18;
+  right: clamp(1.25rem, 6.18vw, 100px);
+  bottom: 0;
+  z-index: 4;
   display: none;
-  width: min(46%, 540px);
-  height: calc(100% - 5.1rem - 2.2rem);
-  align-items: flex-end;
-  justify-content: flex-end;
-  padding-right: clamp(.25rem, 1.5vw, 1.2rem);
+  width: auto;
+  height: min(46.63vw, 755px);
+  max-height: 755px;
+  aspect-ratio: 687 / 1060;
   pointer-events: none;
 }
 
 @media (min-width: 900px) {
-  .campaign-portrait-slot {
-    display: flex;
+  .hero-candidate {
+    display: block;
   }
 }
 
-.campaign-portrait-glow {
-  position: absolute;
-  right: 12%;
-  bottom: 12%;
-  z-index: 0;
-  width: 62%;
-  height: 48%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(30, 80, 150, .32) 0%, transparent 72%);
-  filter: blur(18px);
-}
-
-.campaign-portrait {
-  position: relative !important;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
+.hero-candidate-photo {
+  width: 100% !important;
+  height: 100% !important;
   overflow: visible !important;
   background: transparent !important;
-  filter: drop-shadow(0 16px 32px rgba(0, 12, 40, .28));
 }
 
-.campaign-portrait-img {
+.hero-candidate-img {
   object-fit: contain !important;
-  object-position: right bottom;
-  filter: saturate(.94) contrast(1.04) brightness(1.01);
+  object-position: bottom center !important;
+  filter: none !important;
 }
 
-/* Strip — flush bottom of first viewport */
+.hero-strip-rule {
+  position: relative;
+  z-index: 30;
+  flex: 0 0 3px;
+  width: 100%;
+  height: 3px;
+  background: var(--hero-yellow);
+}
+
 .campaign-strip {
   position: relative;
-  z-index: 25;
+  z-index: 30;
   display: grid;
-  flex: 0 0 auto;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  min-height: 4.85rem;
-  box-shadow: 0 -8px 24px rgba(0, 10, 30, .18);
+  flex: 0 0 110px;
+  grid-template-columns: 34fr 30fr 36fr;
+  width: 100%;
+  height: 110px;
+  min-height: 110px;
 }
 
 .campaign-strip-item {
   display: flex;
   min-width: 0;
+  height: 100%;
   align-items: center;
   justify-content: center;
-  gap: .8rem;
-  padding: 1.05rem 1.4rem;
+  gap: 0.9rem;
+  padding: 0 1.4rem;
 }
 
 .campaign-strip-yellow {
@@ -680,12 +579,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .campaign-strip-navy {
-  position: relative;
-  z-index: 26;
   justify-content: flex-start;
   color: white;
   background: var(--hero-blue);
-  padding-left: clamp(1.2rem, 3vw, 2.5rem);
+  padding-left: clamp(1.4rem, 3vw, 2.8rem);
 }
 
 .campaign-strip-heart,
@@ -701,6 +598,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   letter-spacing: -0.025em;
   color: #003066;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .bottom-location-label {
@@ -732,14 +630,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   letter-spacing: 0.04em;
   color: #ffffff;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .bottom-values .separator {
   color: var(--hero-yellow);
-}
-
-.campaign-strip-item strong {
-  font-family: var(--font-montserrat), "Montserrat", sans-serif;
 }
 
 .campaign-strip-green p {
@@ -749,148 +644,184 @@ button, a { -webkit-tap-highlight-color: transparent; }
   line-height: 1.1;
 }
 
-.campaign-strip-green span {
-  opacity: 1;
-}
-
 .campaign-strip-item svg {
   flex: 0 0 auto;
 }
 
-@media (max-width: 1100px) {
-  .bottom-values {
-    font-size: clamp(12px, 1.1vw, 16px);
+/* Desktop abaixo de 1619: escala proporcional */
+@media (max-width: 1618px) and (min-width: 1024px) {
+  .campaign-hero {
+    height: min(100dvh, 972px);
+    min-height: 780px;
+    max-height: 972px;
+  }
+
+  .campaign-header-bar {
+    height: clamp(88px, 11.1vh, 108px);
+    padding-top: clamp(18px, 2.9vh, 28px);
+  }
+
+  .campaign-strip {
+    flex-basis: clamp(96px, 11.3vh, 110px);
+    height: clamp(96px, 11.3vh, 110px);
+    min-height: clamp(96px, 11.3vh, 110px);
+  }
+
+  .hero-crowd {
+    bottom: clamp(96px, 11.3vh, 110px);
   }
 }
 
 @media (max-width: 1023px) {
+  .campaign-hero {
+    height: auto;
+    min-height: 100dvh;
+    max-height: none;
+  }
+
+  .campaign-header-bar {
+    height: 76px;
+    align-items: center;
+    padding-top: 0;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .campaign-mobile-menu {
+    inset: 76px 0 0;
+  }
+
+  .hero-main {
+    min-height: 70vh;
+    padding-bottom: 1rem;
+  }
+
+  .hero-copy {
+    position: relative;
+    inset: auto;
+    z-index: 6;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 1.25rem 1.5rem;
+    max-width: 36rem;
+    pointer-events: none;
+  }
+
+  .hero-eyebrow,
+  .hero-slogan,
+  .hero-button {
+    position: relative;
+    left: auto;
+    top: auto;
+  }
+
+  .hero-eyebrow {
+    white-space: normal;
+    max-width: 22rem;
+    margin: 5.5rem 0 0;
+    padding-left: 1.25rem;
+  }
+
   .hero-luzia {
-    font-size: clamp(92px, 14vw, 180px);
+    position: relative;
+    left: auto;
+    top: auto;
+    margin: 0.4rem 0 0;
+    font-size: clamp(110px, 16vw, 180px);
+    padding-left: 1.25rem;
   }
 
   .hero-mary {
-    left: 48%;
-    font-size: clamp(64px, 8vw, 110px);
+    left: 42%;
+    top: 38%;
+    font-size: clamp(72px, 10vw, 110px);
   }
 
-  .campaign-portrait-slot {
-    width: min(50%, 460px);
+  .hero-slogan {
+    margin-top: 1.2rem;
+    font-size: clamp(22px, 3vw, 28px);
   }
 
-  .campaign-strip-item {
-    padding: .9rem .85rem;
-    gap: .55rem;
+  .hero-button {
+    width: min(311px, 100%);
+    height: 64px;
+    margin-top: 1.2rem;
+    font-size: 16px;
   }
 
-  .header-logo-subtitle {
-    max-width: 13rem;
-  }
-}
-
-@media (max-width: 899px) {
-  .campaign-crowd,
-  .campaign-place {
-    left: 0;
-    width: 100%;
-    mask-image: none;
-  }
-
-  .campaign-place {
-    opacity: .48;
-  }
-
-  .campaign-place-veil {
-    background:
-      linear-gradient(180deg, rgba(0, 26, 51, .78) 0%, rgba(0, 26, 51, .58) 45%, rgba(0, 26, 51, .9) 100%),
-      linear-gradient(90deg, rgba(0, 26, 51, .92) 0%, rgba(0, 26, 51, .55) 100%);
-  }
-
-  .campaign-stage {
-    padding-bottom: 1.5rem;
-  }
-
-  .campaign-copy {
-    max-width: 28rem;
-    z-index: 20;
-  }
-
-  .campaign-portrait-slot {
+  .hero-candidate {
     display: flex;
     right: 0;
-    bottom: auto;
-    top: 5.1rem;
-    width: min(58vw, 280px);
-    height: min(52vh, 400px);
-    opacity: .34;
-    padding-right: 0;
+    bottom: 0;
+    width: min(48vw, 320px);
+    height: min(56vh, 420px);
+    aspect-ratio: auto;
+    opacity: 0.95;
+  }
+
+  .hero-crowd {
+    bottom: 0;
+    width: 70%;
+    height: 40%;
   }
 
   .campaign-strip {
+    flex-basis: auto;
+    height: auto;
+    min-height: 0;
     grid-template-columns: 1fr;
+  }
+
+  .campaign-strip-item {
+    min-height: 72px;
+    height: auto;
+    padding: 1rem 1.2rem;
   }
 
   .campaign-strip-navy {
     justify-content: center;
-    padding-left: 1.05rem;
+    padding-left: 1.2rem;
   }
 }
 
 @media (max-width: 639px) {
-  .campaign-header-bar {
-    height: 4.55rem;
-  }
-
-  .campaign-mobile-menu {
-    inset: 4.55rem 0 0;
-  }
-
-  .header-logo-subtitle {
-    max-width: 11rem;
-  }
-
-  .campaign-stage {
-    padding-top: 4.7rem;
-  }
-
-  .hero-eyebrow {
-    max-width: 16rem;
-    letter-spacing: 0.18em;
+  .hero-copy {
+    padding-top: 5rem;
+    padding-bottom: 1rem;
   }
 
   .hero-luzia {
     font-size: clamp(82px, 22vw, 115px);
+    padding-left: 1rem;
   }
 
   .hero-mary {
     position: relative;
     left: auto;
-    bottom: auto;
-    display: inline-block;
-    margin-top: .1rem;
+    top: auto;
+    display: block;
+    margin: 0.15rem 0 0 1rem;
     font-size: clamp(58px, 16vw, 82px);
-    transform: rotate(-4deg);
+    transform: rotate(-3deg);
   }
 
   .hero-slogan {
-    max-width: 17rem;
-    font-size: clamp(18px, 5vw, 21px);
+    margin-top: 1rem;
+    font-size: 21px;
   }
 
   .hero-button {
-    min-width: 0;
-    width: auto;
     height: 54px;
-    gap: 14px;
+    margin-top: 1.1rem;
     padding: 0 28px;
+    font-size: 14px;
   }
 
-  .campaign-portrait-slot {
-    opacity: .28;
-  }
-
-  .campaign-strip-item {
-    justify-content: flex-start;
-    min-height: 3.5rem;
+  .hero-candidate {
+    width: min(58vw, 240px);
+    height: min(42vh, 300px);
+    opacity: 0.4;
   }
 
   .bottom-slogan,
@@ -899,15 +830,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 }
 
-@media (max-width: 360px) {
-  .hero-luzia {
-    font-size: clamp(72px, 20vw, 96px);
-  }
-
-  .header-logo-name {
-    font-size: 1.05rem;
-  }
-}
 
 /* Títulos e links */
 .people-kicker {

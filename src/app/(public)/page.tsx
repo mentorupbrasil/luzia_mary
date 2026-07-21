@@ -52,88 +52,89 @@ export default async function HomePage() {
   return (
     <>
       <section className="campaign-hero">
-        {showCrowdPhoto && (
-          <Photo
-            src={crowdSrc}
-            alt=""
-            priority
-            className="campaign-crowd"
-            imgClassName="campaign-crowd-img"
-            objectPosition="center center"
-          />
-        )}
         {showPlacePhoto ? (
           <Photo
             src={placeSrc}
             alt=""
             priority
-            className="campaign-place"
-            imgClassName="campaign-place-img"
-            objectPosition="68% 42%"
+            className="hero-bg"
+            imgClassName="hero-bg-img"
+            objectPosition="72% 42%"
           />
         ) : (
-          <div className="campaign-place-fallback" aria-hidden />
+          <div className="hero-bg hero-bg-fallback" aria-hidden />
         )}
-        <div className="campaign-place-veil" aria-hidden />
+        <div className="hero-bg-veil" aria-hidden />
+
+        {showCrowdPhoto && (
+          <Photo
+            src={crowdSrc}
+            alt=""
+            priority
+            className="hero-crowd"
+            imgClassName="hero-crowd-img"
+            objectPosition="center bottom"
+          />
+        )}
 
         <div className="campaign-hero-chrome">
           <CampaignHomeHeader />
         </div>
 
-        <Container className="campaign-stage">
-          <div className="campaign-copy anim-rise">
-            <p className="hero-eyebrow">Pré-candidata a Deputada Federal pelo Maranhão</p>
+        <div className="hero-main">
+          <p className="hero-eyebrow">Pré-candidata a Deputada Federal pelo Maranhão</p>
 
-            <div className="campaign-nameplate">
-              <h1 className="hero-luzia" aria-label={content.candidate.ballotName}>
-                LUZIA
-              </h1>
-              <span className="hero-mary" aria-hidden>
-                Mary
-              </span>
+          <h1 className="hero-luzia" aria-label={content.candidate.ballotName}>
+            LUZIA
+          </h1>
+
+          {showHeroPhoto && (
+            <div className="hero-candidate">
+              <Photo
+                src={heroSrc}
+                alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
+                priority
+                className="hero-candidate-photo"
+                imgClassName="hero-candidate-img"
+                objectPosition="center bottom"
+              />
             </div>
+          )}
 
-            <p className="hero-slogan anim-rise anim-d1">
+          <span className="hero-mary" aria-hidden>
+            Mary
+          </span>
+
+          <div className="hero-copy">
+            <p className="hero-slogan">
               A mulher do povo,
               <br />
               de <strong>Imperatriz</strong> para o <strong>Maranhão.</strong>
             </p>
 
-            <Link href="/sobre" className="hero-button anim-rise anim-d2">
-              Conheça Luzia
-              <ArrowRight size={22} strokeWidth={2.4} aria-hidden />
+            <Link href="/sobre" className="hero-button">
+              <span>Conheça Luzia</span>
+              <ArrowRight size={22} strokeWidth={2.2} aria-hidden />
             </Link>
           </div>
-        </Container>
+        </div>
 
-        {showHeroPhoto && (
-          <div className="campaign-portrait-slot anim-rise anim-d1">
-            <div className="campaign-portrait-glow" aria-hidden />
-            <Photo
-              src={heroSrc}
-              alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
-              priority
-              className="campaign-portrait"
-              imgClassName="campaign-portrait-img"
-              objectPosition="center top"
-            />
-          </div>
-        )}
+        <div className="hero-strip-rule" aria-hidden />
 
         <div className="campaign-strip">
           <div className="campaign-strip-item campaign-strip-yellow">
-            <Users size={24} strokeWidth={2.1} aria-hidden />
+            <Users size={26} strokeWidth={2.2} aria-hidden />
             <strong className="bottom-slogan">A mulher do povo!</strong>
           </div>
           <div className="campaign-strip-item campaign-strip-green">
-            <MapPin size={22} strokeWidth={2.1} className="campaign-strip-pin" aria-hidden />
+            <MapPin size={24} strokeWidth={2.2} className="campaign-strip-pin" aria-hidden />
             <p>
               <span className="bottom-location-label">De Imperatriz</span>
               <strong className="bottom-location-name">para o Maranhão</strong>
             </p>
           </div>
           <div className="campaign-strip-item campaign-strip-navy">
-            <Heart size={22} strokeWidth={2.1} className="campaign-strip-heart" aria-hidden />
+            <Heart size={24} strokeWidth={2.2} className="campaign-strip-heart" aria-hidden />
             <span className="bottom-values">
               Trabalho <span className="separator">•</span> Fé <span className="separator">•</span>{" "}
               Família
