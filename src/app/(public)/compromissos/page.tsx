@@ -1,13 +1,83 @@
-import { CheckCircle2, Gauge, Target } from "lucide-react";
 import { Container } from "@/components/container";
-import { PageHero } from "@/components/page-hero";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { PublicPageHero } from "@/components/page-hero";
+import { commitmentStatusLabel } from "@/lib/commitments";
 import { getCommitments } from "@/lib/data";
+import { formatShortDate } from "@/lib/utils";
 
 export const metadata = { title: "Compromissos" };
 
 export default async function CommitmentsPage() {
   const items = await getCommitments();
-  return <><PageHero eyebrow="Compromissos públicos" title="Promessas precisam virar metas acompanháveis" description="Os compromissos desta plataforma combinam objetivo, indicador e atualização de andamento. Durante a campanha, o painel mostra o que está sendo preparado; no mandato, poderá registrar a execução."/><Container className="py-14"><div className="grid gap-5 lg:grid-cols-2">{items.map(item=><Card key={item.id}><CardContent className="p-6 sm:p-7"><div className="flex items-start justify-between gap-4"><span className="grid h-12 w-12 place-items-center rounded-2xl bg-[var(--brand-soft)] text-[var(--brand)]"><Target size={22}/></span><Badge tone={item.progress >= 100 ? "success" : item.progress > 0 ? "warning" : "neutral"}>{item.status}</Badge></div><h2 className="mt-5 text-2xl font-bold tracking-[-.03em]">{item.title}</h2><p className="mt-3 text-sm leading-7 text-black/58">{item.summary}</p><div className="mt-6 grid gap-3 rounded-2xl bg-[var(--surface)] p-4 sm:grid-cols-2"><div><p className="text-xs font-bold uppercase tracking-wider text-black/35">Indicador</p><p className="mt-1 text-sm font-semibold">{item.metric}</p></div><div><p className="text-xs font-bold uppercase tracking-wider text-black/35">Meta</p><p className="mt-1 text-sm font-semibold">{item.target}</p></div></div><div className="mt-6"><div className="mb-2 flex items-center justify-between text-xs font-bold"><span className="flex items-center gap-2 text-black/45"><Gauge size={14}/> Preparação</span><span>{item.progress}%</span></div><div className="h-2 rounded-full bg-black/[.06]"><div className="h-2 rounded-full bg-[var(--brand)]" style={{ width: `${Math.min(100, Math.max(0, item.progress))}%` }}/></div></div></CardContent></Card>)}</div><div className="mt-8 rounded-[28px] border border-black/[.07] bg-white p-6"><div className="flex gap-4"><CheckCircle2 className="mt-0.5 shrink-0 text-[var(--brand)]"/><div><h3 className="font-bold">Compromissos editáveis, histórico preservado</h3><p className="mt-2 text-sm leading-7 text-black/55">O painel administrativo permite atualizar o andamento. Mudanças importantes devem ser explicadas em notícia ou relatório, evitando que metas desapareçam sem justificativa.</p></div></div></div></Container></>;
+
+  return (
+    <>
+      <PublicPageHero
+        eyebrow="Compromissos públicos"
+        title="Promessas precisam virar metas acompanháveis"
+        description="Cada compromisso combina objetivo, indicador e situação atual. Quando ainda não houver execução, o status permanece honesto e transparente."
+      />
+
+      <Container className="py-14 sm:py-16">
+        <div className="border-t border-[var(--border)]">
+          {items.map((item, index) => (
+            <article
+              key={item.id}
+              className="grid gap-6 border-b border-[var(--border)] py-10 lg:grid-cols-[88px_1fr]"
+            >
+              <span className="font-display text-3xl font-semibold text-[var(--accent)]">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <span
+                    className="bg-[var(--brand-soft)] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--brand-dark)]"
+                    style={{ borderRadius: "999px" }}
+                  >
+                    {commitmentStatusLabel(item.status, item.progress)}
+                  </span>
+                  {item.dueDate && (
+                    <span className="text-xs text-[var(--text-muted)]">
+                      Revisão: {formatShortDate(item.dueDate)}
+                    </span>
+                  )}
+                </div>
+                <h2 className="mt-4 font-display text-[clamp(1.6rem,2.8vw,2.3rem)] font-semibold tracking-[-0.025em]">
+                  {item.title}
+                </h2>
+                <p className="mt-3 max-w-3xl text-base leading-8 text-[var(--text-muted)]">
+                  {item.summary}
+                </p>
+                <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                  <div className="border border-[var(--border)] bg-[var(--surface)] p-4" style={{ borderRadius: "var(--radius)" }}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                      Indicador
+                    </p>
+                    <p className="mt-2 text-sm font-semibold text-[var(--ink)]">{item.metric}</p>
+                  </div>
+                  <div className="border border-[var(--border)] bg-[var(--surface)] p-4" style={{ borderRadius: "var(--radius)" }}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                      Forma de acompanhamento
+                    </p>
+                    <p className="mt-2 text-sm font-semibold text-[var(--ink)]">{item.target}</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div
+          className="mt-10 border border-[var(--border)] bg-[var(--surface)] p-6"
+          style={{ borderRadius: "var(--radius)" }}
+        >
+          <h3 className="font-display text-xl font-semibold">Transparência da informação</h3>
+          <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">
+            O painel administrativo permite atualizar o andamento. Mudanças importantes devem ser
+            explicadas em notícia ou relatório, evitando que metas desapareçam sem justificativa.
+            Resultados só serão publicados quando existirem dados reais.
+          </p>
+        </div>
+      </Container>
+    </>
+  );
 }

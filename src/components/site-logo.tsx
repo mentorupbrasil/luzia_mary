@@ -2,20 +2,48 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
-export function SiteLogo({ compact = false, inverted = false }: { compact?: boolean; inverted?: boolean }) {
+export function SiteLogo({
+  compact = false,
+  inverted = false,
+}: {
+  compact?: boolean;
+  inverted?: boolean;
+}) {
   return (
-    <Link href="/" className="group inline-flex items-center gap-3" aria-label={`${siteConfig.candidate.ballotName} — página inicial`}>
-      <span className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-full bg-[var(--accent)] text-xs font-black tracking-[.12em] text-white shadow-[0_12px_28px_rgba(241,93,67,.22)]">
-        <span className="absolute inset-1 rounded-full border border-white/35" aria-hidden />
+    <Link
+      href="/"
+      className="group inline-flex items-center gap-3.5"
+      aria-label={`${siteConfig.candidate.ballotName} — página inicial`}
+    >
+      <span
+        className={cn(
+          "relative grid h-10 w-10 place-items-center overflow-hidden text-[11px] font-bold tracking-[0.14em] text-white",
+          inverted ? "bg-[var(--accent)]" : "bg-[var(--brand-dark)]",
+        )}
+        style={{ borderRadius: "40% 60% 55% 45% / 45% 40% 60% 55%" }}
+        aria-hidden
+      >
+        <span className="absolute inset-[3px] border border-white/25" style={{ borderRadius: "inherit" }} />
         <span className="relative">{siteConfig.candidate.initials}</span>
       </span>
+
       {!compact && (
         <span className="leading-none">
-          <strong className={cn("block font-display text-xl font-semibold tracking-[-.035em]", inverted ? "text-white" : "text-[var(--ink)]")}>
+          <strong
+            className={cn(
+              "block font-display text-[1.35rem] font-semibold tracking-[-0.03em]",
+              inverted ? "text-white" : "text-[var(--ink)]",
+            )}
+          >
             {siteConfig.candidate.ballotName}
           </strong>
-          <span className={cn("mt-1 block text-[10px] font-bold uppercase tracking-[.16em]", inverted ? "text-white/45" : "text-black/42")}>
-            {siteConfig.candidate.office}
+          <span
+            className={cn(
+              "mt-1.5 block text-[10px] font-semibold uppercase tracking-[0.18em]",
+              inverted ? "text-white/45" : "text-[var(--text-muted)]",
+            )}
+          >
+            {siteConfig.candidate.partyAcronym} · Maranhão
           </span>
         </span>
       )}

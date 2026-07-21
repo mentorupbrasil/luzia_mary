@@ -1,10 +1,22 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+import { DM_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
+import { getSiteUrl } from "@/lib/site-url";
 
-const publicUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://luzia-mary.vercel.app";
+const display = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+
+const sans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+
+const publicUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(publicUrl),
@@ -27,6 +39,7 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     type: "website",
     siteName: siteConfig.candidate.ballotName,
+    url: publicUrl,
   },
   twitter: {
     card: "summary_large_image",
@@ -39,8 +52,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body className={`${GeistSans.className} antialiased`}>{children}</body>
+    <html lang="pt-BR" className={`${display.variable} ${sans.variable}`}>
+      <body className={`${sans.className} antialiased`}>{children}</body>
     </html>
   );
 }
