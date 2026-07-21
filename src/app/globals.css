@@ -330,12 +330,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
   text-decoration: none;
 }
 
-/* Hero */
+/* Hero — um frame = mock (header + conteúdo + faixa) */
 .campaign-hero {
   position: relative;
   isolation: isolate;
   display: flex;
-  min-height: clamp(720px, 100svh, 880px);
+  height: 100dvh;
+  min-height: 680px;
+  max-height: 980px;
   flex-direction: column;
   overflow: hidden;
   color: white;
@@ -353,29 +355,29 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-crowd {
   z-index: 0;
-  width: 58%;
+  width: 55%;
   right: auto;
-  mask-image: linear-gradient(90deg, #000 0%, #000 48%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 42%, transparent 92%);
 }
 
 .campaign-crowd-img {
   object-fit: cover;
-  object-position: center center;
-  filter: saturate(.2) brightness(.38) contrast(1.1) hue-rotate(12deg);
-  opacity: .78;
+  object-position: 40% center;
+  filter: grayscale(1) brightness(.45) contrast(1.15);
+  opacity: .55;
 }
 
 .campaign-place {
   z-index: 0;
-  left: 28%;
-  width: 72%;
-  mask-image: linear-gradient(90deg, transparent 0%, #000 24%, #000 100%);
+  left: 26%;
+  width: 74%;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
 }
 
 .campaign-place-img {
   object-fit: cover;
-  object-position: 68% 42%;
-  filter: saturate(.7) brightness(.72) contrast(1.05);
+  object-position: 70% 40%;
+  filter: saturate(.75) brightness(.78) contrast(1.06);
 }
 
 .campaign-place-fallback {
@@ -389,8 +391,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, #001a33 0%, rgba(0, 26, 51, .92) 24%, rgba(0, 26, 51, .42) 48%, rgba(0, 26, 51, .12) 70%, rgba(0, 26, 51, .22) 100%),
-    linear-gradient(180deg, rgba(0, 26, 51, .55) 0%, transparent 18%, transparent 70%, rgba(0, 26, 51, .35) 100%);
+    linear-gradient(90deg, #001a33 0%, rgba(0, 26, 51, .88) 22%, rgba(0, 26, 51, .38) 46%, rgba(0, 26, 51, .08) 68%, rgba(0, 26, 51, .18) 100%),
+    linear-gradient(180deg, rgba(0, 26, 51, .5) 0%, transparent 16%, transparent 72%, rgba(0, 26, 51, .28) 100%);
 }
 
 .campaign-stage {
@@ -400,8 +402,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   flex: 1 1 auto;
   width: 100%;
   align-items: center;
-  padding-top: 5.6rem;
-  padding-bottom: 5.8rem;
+  padding-top: 5.2rem;
+  padding-bottom: 1.2rem;
 }
 
 .campaign-copy {
@@ -502,18 +504,18 @@ button, a { -webkit-tap-highlight-color: transparent; }
   transform: translateX(2px);
 }
 
-/* Portrait — absolute, overlaps strip lightly, soft integration */
+/* Portrait — right side, overlaps strip like mock */
 .campaign-portrait-slot {
   position: absolute;
-  right: clamp(0%, 2vw, 3%);
-  bottom: 0;
+  right: 0;
+  bottom: 3.4rem;
   z-index: 18;
   display: none;
-  width: min(46%, 560px);
-  height: calc(100% - 4.6rem);
+  width: min(46%, 540px);
+  height: calc(100% - 5.1rem - 2.2rem);
   align-items: flex-end;
-  justify-content: center;
-  padding-bottom: 1.1rem;
+  justify-content: flex-end;
+  padding-right: clamp(.25rem, 1.5vw, 1.2rem);
   pointer-events: none;
 }
 
@@ -525,13 +527,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-portrait-glow {
   position: absolute;
-  right: 10%;
-  bottom: 16%;
+  right: 12%;
+  bottom: 12%;
   z-index: 0;
-  width: 68%;
-  height: 52%;
+  width: 62%;
+  height: 48%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(30, 80, 150, .38) 0%, transparent 72%);
+  background: radial-gradient(circle, rgba(30, 80, 150, .32) 0%, transparent 72%);
   filter: blur(18px);
 }
 
@@ -541,24 +543,17 @@ button, a { -webkit-tap-highlight-color: transparent; }
   width: 100%;
   height: 100%;
   overflow: visible !important;
-  -webkit-mask-image:
-    linear-gradient(90deg, transparent 0%, #000 8%, #000 100%),
-    linear-gradient(180deg, #000 0%, #000 88%, transparent 100%);
-  mask-image:
-    linear-gradient(90deg, transparent 0%, #000 8%, #000 100%),
-    linear-gradient(180deg, #000 0%, #000 88%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
-  filter: drop-shadow(0 18px 36px rgba(0, 12, 40, .3));
+  background: transparent !important;
+  filter: drop-shadow(0 16px 32px rgba(0, 12, 40, .28));
 }
 
 .campaign-portrait-img {
   object-fit: contain !important;
-  object-position: center bottom;
-  filter: saturate(.92) contrast(1.03) brightness(1);
+  object-position: right bottom;
+  filter: saturate(.94) contrast(1.04) brightness(1.01);
 }
 
-/* Strip — always readable */
+/* Strip — flush bottom of first viewport */
 .campaign-strip {
   position: relative;
   z-index: 25;
@@ -695,10 +690,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
   .campaign-portrait-slot {
     display: flex;
-    width: min(62vw, 300px);
-    height: min(58vh, 430px);
-    opacity: .38;
-    padding-bottom: 5rem;
+    right: 0;
+    bottom: auto;
+    top: 5.1rem;
+    width: min(58vw, 280px);
+    height: min(52vh, 400px);
+    opacity: .34;
+    padding-right: 0;
   }
 
   .campaign-strip {
@@ -758,8 +756,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .campaign-portrait-slot {
-    opacity: .3;
-    padding-bottom: 14rem;
+    opacity: .28;
   }
 
   .campaign-strip-item {

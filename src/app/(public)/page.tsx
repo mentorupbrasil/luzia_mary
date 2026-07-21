@@ -132,7 +132,7 @@ export default async function HomePage() {
           </div>
           <div className="campaign-strip-item campaign-strip-navy">
             <Heart size={22} strokeWidth={2.1} className="campaign-strip-heart" aria-hidden />
-            <strong>Trabalho · Fé · Família</strong>
+            <strong>Trabalho • Fé • Família</strong>
           </div>
         </div>
       </section>
