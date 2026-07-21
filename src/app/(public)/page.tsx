@@ -31,11 +31,9 @@ export default async function HomePage() {
   const secondary = rest.slice(0, 2);
 
   const heroSrc = content.candidate.photos.hero;
-  const heroCrowdSrc = content.candidate.photos.heroCrowd;
   const aboutSrc = content.candidate.photos.about;
   const participateSrc = content.candidate.photos.participate;
   const showHeroPhoto = hasPhoto(heroSrc);
-  const showHeroCrowd = hasPhoto(heroCrowdSrc);
   const showAboutPhoto = hasPhoto(aboutSrc);
   const showParticipatePhoto = hasPhoto(participateSrc);
   const achievements = content.achievements;
@@ -48,55 +46,32 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="campaign-hero relative isolate overflow-hidden">
-        {showHeroCrowd ? (
-          <Photo
-            src={heroCrowdSrc}
-            alt=""
-            priority
-            className="campaign-crowd"
-            imgClassName="object-cover object-center"
-            objectPosition="center center"
-          />
-        ) : (
-          <div className="campaign-crowd-fallback" aria-hidden />
-        )}
-        <div className="campaign-crowd-veil" aria-hidden />
+      <section className="campaign-hero-v9 relative isolate overflow-hidden">
+        <div className="campaign-hero-art" aria-hidden />
+        <div className="campaign-hero-top-mask" aria-hidden />
 
-        <Container className="campaign-stage relative z-10">
-          <div className="campaign-name-composition">
-            <h1 className="campaign-luzia anim-rise" aria-label={content.candidate.ballotName}>
-              LUZIA
-            </h1>
+        <div className="campaign-office-v9">
+          <p>{content.candidate.office} pelo {content.candidate.state}</p>
+        </div>
 
-            {showHeroPhoto ? (
-              <Photo
-                src={heroSrc}
-                alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
-                priority
-                className="campaign-portrait anim-rise anim-d1"
-                imgClassName="object-contain object-bottom"
-                objectPosition="center bottom"
-              />
-            ) : (
-              <div className="campaign-portrait-placeholder" aria-hidden />
-            )}
+        <h1 className="sr-only">
+          {content.candidate.ballotName} — {content.candidate.office} pelo {content.candidate.state}
+        </h1>
 
-            <span className="campaign-mary anim-rise anim-d2" aria-hidden>
-              Mary
-            </span>
+        <div className="campaign-band-v9">
+          <div className="campaign-band-v9-blue">
+            <strong>A mulher do povo!</strong>
           </div>
-        </Container>
 
-        <div className="campaign-band relative z-20">
-          <div className="campaign-band-green" aria-hidden />
-          <div className="campaign-band-yellow" aria-hidden />
-          <div className="campaign-band-inner">
-            <p className="campaign-band-slogan">A mulher do povo!</p>
-            <Link href="/sobre" className="campaign-band-cta">
-              Veja mais
-            </Link>
+          <div className="campaign-band-v9-green">
+            <span>De Imperatriz</span>
+            <strong>para o Maranhão</strong>
           </div>
+
+          <Link href="/sobre" className="campaign-band-v9-yellow">
+            <span>Conheça Luzia</span>
+            <ArrowRight size={22} aria-hidden />
+          </Link>
         </div>
       </section>
 

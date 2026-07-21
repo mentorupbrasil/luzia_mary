@@ -4,14 +4,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { content, navPrimary, navSecondary } from "@/config/site";
+import { navPrimary, navSecondary } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Container } from "./container";
 
 const desktopLinks = [
-  { href: "/sobre", label: "Quem é Luzia" },
-  { href: "/propostas", label: "Bandeiras" },
-  { href: "/noticias", label: "Notícias" },
+  { href: "/", label: "Início" },
+  { href: "/sobre", label: "Biografia" },
+  { href: "/propostas", label: "Propostas" },
+  { href: "/agenda", label: "Agenda" },
   { href: "/demandas", label: "Participe" },
 ] as const;
 
@@ -49,17 +50,18 @@ export function SiteHeader() {
       )}
     >
       <Container className="flex h-[92px] items-center justify-between gap-6">
-        <Link href="/" className="campaign-brand" aria-label="Luzia Mary — Início">
-          <span className="campaign-brand-office">{content.candidate.office}</span>
-          <span className="campaign-brand-name">
-            <strong>LUZIA</strong>
-            <em>MARY</em>
-          </span>
+        <Link href="/" className="campaign-mark" aria-label="Luzia Mary — Início">
+          <span className="campaign-mark-green" aria-hidden />
+          <span className="campaign-mark-yellow" aria-hidden />
+          <span className="sr-only">Luzia Mary</span>
         </Link>
 
         <nav className="campaign-nav hidden items-center lg:flex" aria-label="Navegação principal">
           {desktopLinks.map((item) => {
-            const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+            const active =
+              item.href === "/"
+                ? pathname === "/"
+                : pathname === item.href || pathname.startsWith(`${item.href}/`);
 
             return (
               <Link
