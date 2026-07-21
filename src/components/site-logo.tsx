@@ -1,29 +1,14 @@
 import Link from "next/link";
-import { siteConfig } from "@/config/site";
-import { cn } from "@/lib/utils";
+import { content } from "@/config/site";
 
-export function SiteLogo({ inverted = false }: { inverted?: boolean }) {
+export function SiteLogo({ light = false }: { light?: boolean }) {
   return (
-    <Link
-      href="/"
-      className="group inline-flex flex-col leading-none"
-      aria-label={`${siteConfig.candidate.ballotName} — página inicial`}
-    >
-      <span
-        className={cn(
-          "font-display text-[1.35rem] font-bold tracking-[-0.04em] sm:text-[1.45rem]",
-          inverted ? "text-white" : "text-[var(--ink)]",
-        )}
-      >
-        Luzia <span className={inverted ? "text-white/80" : "text-[var(--brand)]"}>Mary</span>
+    <Link href="/" className="group inline-flex flex-col leading-none" aria-label={`${content.candidate.ballotName} — início`}>
+      <span className={`font-display text-[1.4rem] font-extrabold tracking-[-0.045em] sm:text-[1.55rem] ${light ? "text-white" : "text-[var(--ink)]"}`}>
+        Luzia <span className={light ? "text-white/85" : "text-[var(--cyan)]"}>Mary</span>
       </span>
-      <span
-        className={cn(
-          "mt-1 text-[10px] font-semibold uppercase tracking-[0.16em]",
-          inverted ? "text-white/45" : "text-[var(--text-muted)]",
-        )}
-      >
-        {siteConfig.candidate.partyAcronym} · {siteConfig.candidate.state}
+      <span className={`mt-1 text-[10px] font-bold uppercase tracking-[0.14em] ${light ? "text-white/45" : "text-[var(--muted)]"}`}>
+        {content.candidate.city} · {content.candidate.state}
       </span>
     </Link>
   );

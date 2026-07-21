@@ -1,1 +1,1 @@
-export { CandidatePhoto as CandidateVisual } from "./candidate-photo";
+export { Photo as CandidateVisual } from "./photo";

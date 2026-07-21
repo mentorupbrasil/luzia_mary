@@ -1,50 +1,49 @@
 import type { Metadata } from "next";
-import { Manrope, Sora } from "next/font/google";
+import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { siteConfig } from "@/config/site";
+import { content } from "@/config/site";
 import { getSiteUrl } from "@/lib/site-url";
 
-const display = Sora({
+const display = Outfit({
   subsets: ["latin"],
-  variable: "--font-sora",
+  variable: "--font-outfit",
   display: "swap",
 });
 
-const sans = Manrope({
+const body = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-manrope",
+  variable: "--font-jakarta",
   display: "swap",
 });
 
-const publicUrl = getSiteUrl();
+const url = getSiteUrl();
 
 export const metadata: Metadata = {
-  metadataBase: new URL(publicUrl),
+  metadataBase: new URL(url),
   title: {
-    default: `${siteConfig.candidate.ballotName} | ${siteConfig.candidate.office}`,
-    template: `%s | ${siteConfig.candidate.ballotName}`,
+    default: `${content.candidate.ballotName} | ${content.candidate.office}`,
+    template: `%s | ${content.candidate.ballotName}`,
   },
-  description: siteConfig.candidate.shortBio,
+  description: content.candidate.shortBio,
   keywords: [
-    siteConfig.candidate.ballotName,
+    content.candidate.ballotName,
     "Deputada Federal",
-    "Maranhão",
-    "Imperatriz",
-    "Região Tocantina",
-    siteConfig.candidate.party,
+    content.candidate.state,
+    content.candidate.city,
+    content.candidate.region,
   ],
   openGraph: {
-    title: `${siteConfig.candidate.ballotName} | ${siteConfig.candidate.office}`,
-    description: siteConfig.candidate.shortBio,
+    title: `${content.candidate.ballotName} | ${content.candidate.office}`,
+    description: content.candidate.shortBio,
     locale: "pt_BR",
     type: "website",
-    siteName: siteConfig.candidate.ballotName,
-    url: publicUrl,
+    siteName: content.candidate.ballotName,
+    url,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.candidate.ballotName} | ${siteConfig.candidate.office}`,
-    description: siteConfig.candidate.shortBio,
+    title: `${content.candidate.ballotName} | ${content.candidate.office}`,
+    description: content.candidate.shortBio,
   },
   robots: { index: true, follow: true },
   alternates: { canonical: "/" },
@@ -52,8 +51,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${display.variable} ${sans.variable}`}>
-      <body className={`${sans.className} antialiased`}>{children}</body>
+    <html lang="pt-BR" className={`${display.variable} ${body.variable}`}>
+      <body className={`${body.className} antialiased`}>{children}</body>
     </html>
   );
 }

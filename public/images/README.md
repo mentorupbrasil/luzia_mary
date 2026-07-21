@@ -1,16 +1,11 @@
-# Fotografias oficiais — Luzia Mary
+# Fotografias — Luzia Mary
 
-Coloque os arquivos reais nestes caminhos:
+Coloque os arquivos reais nestes caminhos (mesmo nome):
 
-| Arquivo | Uso no site |
-|---------|-------------|
-| `luzia-mary-hero.jpg` | Hero da página inicial (em pé, mãos na cintura) |
-| `luzia-mary-trajetoria.jpg` | Seção “Quem é” e página Conheça (sentada) |
-| `luzia-mary-participe.jpg` | Seção final de participação (polegares positivos) |
+| Arquivo | Seção |
+|---------|--------|
+| `luzia-mary-hero.jpg` | Hero (em pé, mãos na cintura) |
+| `luzia-mary-trajetoria.jpg` | Quem é Luzia (sentada) |
+| `luzia-mary-participe.jpg` | Participação (polegares) |
 
-Recomendações:
-- JPG ou WebP
-- Retrato vertical (hero/trajetória): mínimo ~1200×1500
-- Participação: pode ser um pouco mais larga
-
-Enquanto o arquivo não existir, o site usa um bloco visual abstrato limpo — sem textos técnicos.
+Enquanto o arquivo não existir, o bloco da foto é omitido ou substituído por um painel gráfico da marca — sem textos técnicos.
