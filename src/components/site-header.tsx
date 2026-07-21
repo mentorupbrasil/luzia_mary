@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { navPrimary, navSecondary } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { BrandLogo } from "./brand-logo";
 import { Container } from "./container";
 
 const desktopLinks = [
@@ -49,11 +49,9 @@ export function SiteHeader() {
         heroMode ? "campaign-header-transparent" : "campaign-header-solid",
       )}
     >
-      <Container className="flex h-[92px] items-center justify-between gap-6">
-        <Link href="/" className="campaign-mark" aria-label="Luzia Mary — Início">
-          <span className="campaign-mark-green" aria-hidden />
-          <span className="campaign-mark-yellow" aria-hidden />
-          <span className="sr-only">Luzia Mary</span>
+      <Container className="campaign-header-bar flex items-center justify-between gap-6">
+        <Link href="/" className="campaign-brand-link" aria-label="Luzia Mary — Início">
+          <BrandLogo size="lg" priority />
         </Link>
 
         <nav className="campaign-nav hidden items-center lg:flex" aria-label="Navegação principal">
@@ -91,12 +89,16 @@ export function SiteHeader() {
         <div id="menu-mobile" className="campaign-mobile-menu lg:hidden">
           <Container>
             <nav className="grid" aria-label="Menu mobile">
-              {[...navPrimary, ...navSecondary].map((item) => (
+              {desktopLinks.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="campaign-mobile-link"
+                  className={cn(
+                    "campaign-mobile-link",
+                    (item.href === "/" ? pathname === "/" : pathname === item.href || pathname.startsWith(`${item.href}/`)) &&
+                      "campaign-mobile-link-active",
+                  )}
                 >
                   {item.label}
                 </Link>

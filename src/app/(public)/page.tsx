@@ -53,8 +53,8 @@ export default async function HomePage() {
             alt=""
             priority
             className="campaign-place"
-            imgClassName="object-cover object-[center_42%]"
-            objectPosition="center 42%"
+            imgClassName="campaign-place-img object-cover"
+            objectPosition="center 38%"
           />
         ) : (
           <div className="campaign-place-fallback" aria-hidden />
@@ -84,9 +84,11 @@ export default async function HomePage() {
             <span>De Imperatriz</span>
             <strong>para o Maranhão</strong>
           </div>
-          <Link href="/sobre" className="campaign-band-yellow">
-            <span>Conheça Luzia</span>
-            <ArrowRight size={22} aria-hidden />
+          <Link href="/sobre" className="campaign-band-cta">
+            <span>
+              Conheça Luzia
+              <ArrowRight size={18} aria-hidden />
+            </span>
           </Link>
         </div>
       </section>
