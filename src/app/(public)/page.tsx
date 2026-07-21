@@ -1,51 +1,31 @@
 import Link from "next/link";
-import { ArrowRight, Check, MapPin } from "lucide-react";
+import { ArrowRight, Check, MapPin, MessageCircle } from "lucide-react";
 import { Container } from "@/components/container";
 import { Photo, hasPhoto } from "@/components/photo";
 import { content } from "@/config/site";
 import { getPosts, getProposals } from "@/lib/data";
 import { formatShortDate } from "@/lib/utils";
 
-const priorityAccent = ["#5ed6f3", "#ff8f70", "#9fdcf0", "#f4c4b5"] as const;
-
-const heroPrinciples = [
-  {
-    n: "01",
-    title: "Escuta que vira prioridade",
-    text: "As necessidades da região precisam orientar o trabalho político.",
-  },
-  {
-    n: "02",
-    title: "Presença no território",
-    text: "Imperatriz e a Região Tocantina no centro das decisões.",
-  },
-  {
-    n: "03",
-    title: "Informação aberta",
-    text: "Compromissos explicados com clareza e acompanhamento público.",
-  },
-] as const;
-
 const listeningSteps = [
   {
     n: "01",
-    title: "Você conta",
-    text: "Descreva a necessidade do seu município, bairro ou comunidade.",
+    title: "Conte o que está acontecendo",
+    text: "Registre a necessidade do seu bairro, município ou comunidade de forma direta.",
   },
   {
     n: "02",
-    title: "A equipe organiza",
-    text: "A demanda recebe protocolo e é classificada por tema e localidade.",
+    title: "Receba seu protocolo",
+    text: "A contribuição é organizada por tema e localidade para não se perder em uma conversa.",
   },
   {
     n: "03",
-    title: "A prioridade é analisada",
-    text: "O registro ajuda a orientar propostas, articulações e posicionamentos.",
+    title: "Ajude a definir prioridades",
+    text: "As demandas registradas ajudam a orientar propostas, posicionamentos e articulações.",
   },
   {
     n: "04",
-    title: "Você acompanha",
-    text: "O protocolo mantém a contribuição identificada para retorno da equipe.",
+    title: "Mantenha o canal aberto",
+    text: "O protocolo permite que a equipe identifique o registro e organize o retorno.",
   },
 ] as const;
 
@@ -71,230 +51,199 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="home-hero relative isolate overflow-hidden text-white">
-        <div className="home-hero-grid pointer-events-none absolute inset-0" aria-hidden />
-        <div className="home-hero-glow home-hero-glow-left" aria-hidden />
-        <div className="home-hero-glow home-hero-glow-right" aria-hidden />
+      <section className="campaign-hero relative isolate overflow-hidden">
+        <div className="campaign-grain pointer-events-none absolute inset-0" aria-hidden />
+        <div className="campaign-hero-word pointer-events-none" aria-hidden>
+          Maranhão
+        </div>
 
-        <Container className="relative grid min-h-[min(900px,100svh)] gap-10 pb-10 pt-[108px] lg:grid-cols-[0.92fr_1.08fr] lg:items-end lg:gap-0 lg:pb-0">
-          <div className="relative z-20 pb-4 lg:pb-24">
-            <p className="anim-rise inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-white/60">
-              <MapPin size={13} className="text-[var(--sky)]" aria-hidden />
-              {content.candidate.city} · {content.candidate.region} · {content.candidate.state}
+        <Container className="campaign-hero-layout relative min-h-[min(900px,100svh)] pt-[104px]">
+          <div className="campaign-hero-copy relative z-20 self-center pb-14 pt-12 lg:pb-24 lg:pt-16">
+            <p className="anim-rise campaign-eyebrow">
+              <MapPin size={14} aria-hidden />
+              {content.candidate.city} · {content.candidate.region}
             </p>
 
-            <p className="anim-rise anim-d1 mt-8 text-xs font-extrabold uppercase tracking-[0.2em] text-[var(--sky)]">
-              {content.candidate.office}
-            </p>
+            <p className="anim-rise anim-d1 campaign-office">{content.candidate.office}</p>
 
-            <h1 className="home-hero-name anim-rise anim-d1 mt-4">
-              Luzia
-              <span>Mary</span>
+            <h1 className="campaign-name anim-rise anim-d1" aria-label={content.candidate.ballotName}>
+              <span className="campaign-name-first">Luzia</span>
+              <span className="campaign-name-last">Mary</span>
             </h1>
 
-            <p className="anim-rise anim-d2 mt-7 max-w-xl font-display text-[clamp(1.45rem,2.6vw,2.25rem)] font-bold leading-[1.08] tracking-[-0.035em] text-white">
-              {content.candidate.slogan}
-            </p>
-            <p className="anim-rise anim-d2 mt-5 max-w-lg text-base leading-8 text-white/65">
-              {content.candidate.homeLead}
-            </p>
+            <div className="campaign-statement anim-rise anim-d2">
+              <span aria-hidden />
+              <p>{content.candidate.slogan}</p>
+            </div>
 
-            <div className="anim-rise anim-d3 mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Link
-                href="/demandas"
-                className="inline-flex h-13 items-center justify-center gap-2 bg-[var(--sky)] px-7 text-sm font-extrabold text-[var(--navy)] transition hover:-translate-y-0.5 hover:brightness-110"
-              >
-                Envie sua demanda <ArrowRight size={16} aria-hidden />
+            <p className="anim-rise anim-d2 campaign-lead">{content.candidate.homeLead}</p>
+
+            <div className="anim-rise anim-d3 campaign-actions">
+              <Link href="/sobre" className="campaign-button campaign-button-primary">
+                Conheça Luzia <ArrowRight size={17} aria-hidden />
               </Link>
-              <Link
-                href="/sobre"
-                className="inline-flex h-13 items-center justify-center gap-2 border border-white/25 px-7 text-sm font-bold text-white transition hover:border-white/55 hover:bg-white/5"
-              >
-                Conheça a trajetória
+              <Link href="/demandas" className="campaign-button campaign-button-secondary">
+                Envie sua demanda
               </Link>
             </div>
           </div>
 
-          <div className="relative z-10 flex min-h-[510px] items-end justify-center lg:min-h-[calc(100svh-108px)] lg:justify-end">
-            <p className="home-hero-monogram" aria-hidden>
-              LM
+          <div className="campaign-portrait-stage relative z-10 flex min-h-[500px] items-end justify-center lg:min-h-0">
+            <div className="campaign-sun" aria-hidden />
+            <div className="campaign-portrait-line" aria-hidden />
+            <p className="campaign-vertical-note" aria-hidden>
+              Imperatriz · Maranhão
             </p>
-            <div className="home-portrait-halo" aria-hidden />
+
             {showHeroPhoto ? (
               <Photo
                 src={heroSrc}
                 alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
                 priority
-                className="anim-rise anim-d1 relative z-10 aspect-[3/4] w-full max-w-[540px] lg:max-w-[650px]"
-                imgClassName="object-contain object-bottom drop-shadow-[0_30px_60px_rgba(0,0,0,0.42)]"
+                className="campaign-portrait anim-rise anim-d1 relative z-10 aspect-[3/4] w-full"
+                imgClassName="object-contain object-bottom"
                 objectPosition="center bottom"
               />
             ) : (
-              <div className="relative z-10 h-[62vh] w-full max-w-[560px]" aria-hidden />
+              <div className="relative z-10 h-[72vh] w-full" aria-hidden />
             )}
-            <div className="home-photo-caption absolute bottom-6 right-0 z-20 hidden lg:block">
-              <span>De Imperatriz</span>
-              <strong>para o Maranhão</strong>
+
+            <div className="campaign-photo-tag">
+              <span>Uma voz da</span>
+              <strong>Região Tocantina</strong>
             </div>
           </div>
         </Container>
 
-        <div className="home-principles relative z-30">
-          <Container>
-            <ul className="grid lg:grid-cols-3">
-              {heroPrinciples.map((item) => (
-                <li key={item.n} className="home-principle-item">
-                  <span>{item.n}</span>
-                  <div>
-                    <p>{item.title}</p>
-                    <small>{item.text}</small>
-                  </div>
-                </li>
-              ))}
-            </ul>
+        <div className="campaign-territory-strip relative z-30">
+          <Container className="campaign-territory-inner">
+            <p>De Imperatriz para todo o Maranhão</p>
+            <span aria-hidden />
+            <p>Escuta · Presença · Responsabilidade</p>
+            <Link href="/demandas">
+              Participe <ArrowRight size={15} aria-hidden />
+            </Link>
           </Container>
         </div>
       </section>
 
-      <section className="overflow-hidden bg-[var(--bg)] py-20 sm:py-24 lg:py-28">
-        <Container className="grid items-center gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-20">
+      <section className="campaign-intro overflow-hidden bg-[var(--campaign-paper)] py-20 sm:py-24 lg:py-32">
+        <Container className="grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
           {showAboutPhoto && (
-            <div className="home-about-photo relative mx-auto w-full max-w-[520px] lg:mx-0">
-              <div className="absolute -left-5 -top-5 h-28 w-28 border-l-2 border-t-2 border-[var(--coral)]" aria-hidden />
+            <div className="campaign-about-visual relative mx-auto w-full max-w-[520px] lg:mx-0">
+              <div className="campaign-about-block" aria-hidden />
               <Photo
                 src={aboutSrc}
                 alt={`${content.candidate.ballotName} em Imperatriz`}
-                className="aspect-[4/5] w-full bg-[var(--navy)]"
+                className="campaign-about-photo aspect-[4/5] w-full"
                 imgClassName="object-contain object-bottom"
                 objectPosition="center bottom"
               />
-              <div className="absolute -bottom-6 -right-4 max-w-[230px] bg-[var(--sky)] p-5 text-[var(--navy)] sm:-right-8">
-                <p className="font-display text-xl font-extrabold leading-tight tracking-[-0.03em]">
-                  Política com os pés no território.
-                </p>
-              </div>
+              <p className="campaign-about-caption">Política feita perto das pessoas.</p>
             </div>
           )}
 
           <div>
-            <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--coral)]">
-              Quem é Luzia Mary
-            </p>
-            <h2 className="section-title mt-4 max-w-2xl">
-              Uma trajetória construída perto de quem precisa que o poder público funcione.
+            <p className="campaign-section-kicker">Quem é Luzia Mary</p>
+            <h2 className="campaign-display-title mt-5 max-w-3xl">
+              Uma trajetória que começa no território e mantém as pessoas no centro das decisões.
             </h2>
-            <div className="mt-7 max-w-2xl space-y-4 text-base leading-8 text-[var(--muted)]">
+
+            <div className="mt-8 max-w-2xl space-y-5 text-base leading-8 text-[var(--muted)]">
               {content.candidate.bio.slice(0, 2).map((paragraph) => (
                 <p key={paragraph.slice(0, 40)}>{paragraph}</p>
               ))}
             </div>
 
-            <ul className="mt-9 grid gap-4 sm:grid-cols-3">
-              {values.map((item) => (
-                <li key={item.title} className="border-t-2 border-[var(--navy)] pt-4">
-                  <p className="font-display text-lg font-extrabold tracking-[-0.03em] text-[var(--navy)]">
-                    {item.title}
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{item.text}</p>
+            <ul className="campaign-values mt-10">
+              {values.map((item, index) => (
+                <li key={item.title}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </div>
                 </li>
               ))}
             </ul>
 
-            <Link
-              href="/sobre"
-              className="mt-9 inline-flex items-center gap-2 text-sm font-extrabold text-[var(--navy)] underline decoration-[var(--coral)] decoration-2 underline-offset-8 transition hover:text-[var(--coral)]"
-            >
-              Conheça a história completa <ArrowRight size={15} aria-hidden />
+            <Link href="/sobre" className="campaign-text-link mt-9">
+              Conheça a trajetória completa <ArrowRight size={16} aria-hidden />
             </Link>
           </div>
         </Container>
       </section>
 
-      <section className="relative overflow-hidden bg-[var(--navy)] py-20 text-white sm:py-24 lg:py-28">
-        <div className="home-section-orbit" aria-hidden />
-        <Container className="relative">
-          <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
-            <div>
-              <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--sky)]">
-                Bandeiras
+      {priorities.length > 0 && (
+        <section className="campaign-priorities relative overflow-hidden bg-[var(--campaign-navy)] py-20 text-white sm:py-24 lg:py-32">
+          <div className="campaign-priorities-word" aria-hidden>
+            Pautas
+          </div>
+          <Container className="relative">
+            <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+              <div>
+                <p className="campaign-section-kicker campaign-section-kicker-light">Prioridades</p>
+                <h2 className="campaign-display-title mt-5 max-w-2xl text-white">
+                  Bandeiras claras para problemas que não podem continuar esperando.
+                </h2>
+              </div>
+              <p className="max-w-xl text-base leading-8 text-white/62 lg:justify-self-end">
+                Propostas apresentadas com linguagem direta, ligação com a realidade local e espaço para
+                acompanhamento público.
               </p>
-              <h2 className="section-title mt-4 max-w-xl text-white">
-                Prioridades para o Maranhão que começa na Região Tocantina.
-              </h2>
             </div>
-            <p className="max-w-xl text-base leading-8 text-white/60 lg:justify-self-end">
-              Cada bandeira parte de um problema concreto e apresenta um caminho de atuação federal,
-              sem esconder a proposta atrás de discurso genérico.
-            </p>
-          </div>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-2">
-            {priorities.map((item, index) => (
-              <article key={item.id} className="home-priority-card group">
-                <span className="home-priority-number" aria-hidden>
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div className="relative z-10">
-                  <p
-                    className="text-[11px] font-extrabold uppercase tracking-[0.18em]"
-                    style={{ color: priorityAccent[index % priorityAccent.length] }}
-                  >
-                    {item.category}
-                  </p>
-                  <h3 className="mt-5 max-w-md font-display text-[clamp(1.6rem,3vw,2.35rem)] font-extrabold leading-[1.06] tracking-[-0.04em]">
-                    {item.title}
-                  </h3>
-                  <p className="mt-4 max-w-xl text-[15px] leading-7 text-white/60">{item.summary}</p>
-                  <Link
-                    href={`/propostas/${item.slug}`}
-                    className="mt-8 inline-flex items-center gap-2 text-sm font-extrabold text-white transition group-hover:text-[var(--sky)]"
-                  >
-                    Ver proposta <ArrowRight size={15} aria-hidden />
+            <div className="campaign-priority-list mt-14">
+              {priorities.map((item, index) => (
+                <article key={item.id} className="campaign-priority-row group">
+                  <span className="campaign-priority-index">{String(index + 1).padStart(2, "0")}</span>
+                  <div className="campaign-priority-main">
+                    <p>{item.category}</p>
+                    <h3>{item.title}</h3>
+                  </div>
+                  <p className="campaign-priority-summary">{item.summary}</p>
+                  <Link href={`/propostas/${item.slug}`} aria-label={`Ver proposta: ${item.title}`}>
+                    <ArrowRight size={22} aria-hidden />
                   </Link>
-                </div>
-              </article>
-            ))}
-          </div>
+                </article>
+              ))}
+            </div>
 
-          <Link
-            href="/propostas"
-            className="mt-9 inline-flex items-center gap-2 text-sm font-extrabold text-white underline decoration-[var(--coral)] decoration-2 underline-offset-8"
-          >
-            Ver todas as bandeiras <ArrowRight size={15} aria-hidden />
-          </Link>
-        </Container>
-      </section>
+            <Link href="/propostas" className="campaign-text-link campaign-text-link-light mt-10">
+              Ver todas as bandeiras <ArrowRight size={16} aria-hidden />
+            </Link>
+          </Container>
+        </section>
+      )}
 
-      <section className="bg-[var(--surface)] py-20 sm:py-24 lg:py-28">
-        <Container className="grid gap-14 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--coral)]">
-              Gabinete digital
-            </p>
-            <h2 className="section-title mt-4 max-w-xl">
-              Seu problema não deve cair em uma fila invisível.
+      <section className="campaign-listening overflow-hidden bg-[var(--campaign-cyan)] text-[var(--campaign-navy)]">
+        <Container className="grid lg:grid-cols-[0.82fr_1.18fr]">
+          <div className="campaign-listening-intro py-20 sm:py-24 lg:py-28 lg:pr-16">
+            <div className="campaign-message-icon" aria-hidden>
+              <MessageCircle size={28} />
+            </div>
+            <p className="campaign-section-kicker mt-8 text-[var(--campaign-navy)]">Gabinete digital</p>
+            <h2 className="campaign-display-title mt-5 max-w-xl">
+              Sua demanda precisa de registro, não de promessa solta.
             </h2>
-            <p className="mt-5 max-w-lg text-base leading-8 text-[var(--muted)]">
-              O canal de participação organiza contribuições por tema e localidade, gera protocolo e
-              ajuda a transformar escuta em prioridade de trabalho.
+            <p className="mt-6 max-w-lg text-base leading-8 text-[color-mix(in_srgb,var(--campaign-navy)_72%,transparent)]">
+              O canal de participação reúne contribuições por tema e localidade, gera protocolo e ajuda
+              a transformar escuta em prioridade de trabalho.
             </p>
-            <Link
-              href="/demandas"
-              className="mt-8 inline-flex h-13 items-center justify-center gap-2 bg-[var(--coral)] px-7 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:brightness-95"
-            >
-              Enviar uma demanda <ArrowRight size={16} aria-hidden />
+            <Link href="/demandas" className="campaign-button campaign-button-dark mt-9">
+              Enviar uma demanda <ArrowRight size={17} aria-hidden />
             </Link>
           </div>
 
-          <ol className="border-t border-[var(--line)]">
+          <ol className="campaign-listening-steps lg:border-l lg:border-[rgba(5,33,58,0.2)] lg:pl-16">
             {listeningSteps.map((step) => (
-              <li key={step.n} className="home-listening-step">
+              <li key={step.n}>
                 <span>{step.n}</span>
                 <div>
                   <h3>{step.title}</h3>
                   <p>{step.text}</p>
                 </div>
-                <Check size={20} className="hidden text-[var(--coral)] sm:block" aria-hidden />
+                <Check size={20} aria-hidden />
               </li>
             ))}
           </ol>
@@ -302,16 +251,14 @@ export default async function HomePage() {
       </section>
 
       {achievements.length > 0 && (
-        <section className="border-t border-[var(--line)] bg-[var(--bg-soft)] py-20 sm:py-24">
+        <section className="border-b border-[var(--line)] bg-white py-20 sm:py-24">
           <Container>
-            <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--coral)]">
-              Trajetória pública
-            </p>
-            <h2 className="section-title mt-4">Resultados que podem ser conferidos.</h2>
-            <ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <p className="campaign-section-kicker">Trajetória pública</p>
+            <h2 className="campaign-display-title mt-5">Resultados que podem ser conferidos.</h2>
+            <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {achievements.map((item) => (
-                <li key={item.label} className="border-t-2 border-[var(--navy)] pt-5">
-                  <p className="font-display text-4xl font-extrabold tracking-[-0.05em] text-[var(--navy)]">
+                <li key={item.label} className="border-t-2 border-[var(--campaign-navy)] pt-5">
+                  <p className="font-display text-4xl font-black tracking-[-0.055em] text-[var(--campaign-navy)]">
                     {item.value}
                   </p>
                   <p className="mt-2 text-sm font-extrabold text-[var(--ink)]">{item.label}</p>
@@ -324,57 +271,39 @@ export default async function HomePage() {
       )}
 
       {posts.length > 0 && (
-        <section className="border-t border-[var(--line)] bg-[var(--bg)] py-20 sm:py-24 lg:py-28">
+        <section className="bg-[var(--campaign-paper)] py-20 sm:py-24 lg:py-28">
           <Container>
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--coral)]">
-                  Notícias
-                </p>
-                <h2 className="section-title mt-4">Acompanhe a pré-candidatura.</h2>
+                <p className="campaign-section-kicker">Notícias</p>
+                <h2 className="campaign-display-title mt-5">Acompanhe a pré-candidatura.</h2>
               </div>
-              <Link
-                href="/noticias"
-                className="text-sm font-extrabold text-[var(--navy)] underline decoration-2 underline-offset-8"
-              >
-                Ver todas as notícias
+              <Link href="/noticias" className="campaign-text-link">
+                Ver todas as notícias <ArrowRight size={16} aria-hidden />
               </Link>
             </div>
 
-            <div className="mt-12 grid gap-10 lg:grid-cols-[1.3fr_0.7fr]">
+            <div className="campaign-news-grid mt-12">
               {featured && (
-                <article className="border-t-2 border-[var(--navy)] pt-6">
-                  <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[var(--muted)]">
-                    {featured.publishedAt ? formatShortDate(featured.publishedAt) : featured.category}
-                  </p>
-                  <h3 className="mt-4 max-w-3xl font-display text-[clamp(2rem,4vw,3.3rem)] font-extrabold leading-[1.04] tracking-[-0.045em]">
-                    <Link href={`/noticias/${featured.slug}`} className="transition hover:text-[var(--coral)]">
-                      {featured.title}
-                    </Link>
+                <article className="campaign-news-featured">
+                  <p>{featured.publishedAt ? formatShortDate(featured.publishedAt) : featured.category}</p>
+                  <h3>
+                    <Link href={`/noticias/${featured.slug}`}>{featured.title}</Link>
                   </h3>
-                  {featured.excerpt && (
-                    <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--muted)]">{featured.excerpt}</p>
-                  )}
-                  <Link
-                    href={`/noticias/${featured.slug}`}
-                    className="mt-7 inline-flex items-center gap-2 text-sm font-extrabold text-[var(--navy)]"
-                  >
-                    Ler matéria <ArrowRight size={15} aria-hidden />
+                  {featured.excerpt && <div>{featured.excerpt}</div>}
+                  <Link href={`/noticias/${featured.slug}`} className="campaign-text-link mt-7">
+                    Ler matéria <ArrowRight size={16} aria-hidden />
                   </Link>
                 </article>
               )}
 
               {secondary.length > 0 && (
-                <ul className="divide-y divide-[var(--line)] border-y border-[var(--line)] lg:border-y-0 lg:border-l lg:pl-10">
+                <ul className="campaign-news-secondary">
                   {secondary.map((post) => (
-                    <li key={post.id} className="py-7 first:pt-0 lg:first:pt-0">
-                      <p className="text-[11px] font-extrabold uppercase tracking-[0.15em] text-[var(--muted)]">
-                        {post.publishedAt ? formatShortDate(post.publishedAt) : post.category}
-                      </p>
-                      <h3 className="mt-3 font-display text-xl font-extrabold leading-tight tracking-[-0.03em]">
-                        <Link href={`/noticias/${post.slug}`} className="transition hover:text-[var(--coral)]">
-                          {post.title}
-                        </Link>
+                    <li key={post.id}>
+                      <p>{post.publishedAt ? formatShortDate(post.publishedAt) : post.category}</p>
+                      <h3>
+                        <Link href={`/noticias/${post.slug}`}>{post.title}</Link>
                       </h3>
                     </li>
                   ))}
@@ -385,63 +314,52 @@ export default async function HomePage() {
         </section>
       )}
 
-      <section className="home-closing relative overflow-hidden bg-[var(--navy)] text-white">
-        <div className="home-closing-glow" aria-hidden />
+      <section className="campaign-closing relative isolate overflow-hidden bg-[var(--campaign-coral)] text-white">
+        <div className="campaign-closing-word" aria-hidden>
+          Participe
+        </div>
         <Container
-          className={`relative grid items-end gap-10 pt-20 sm:pt-24 ${
-            showParticipatePhoto ? "lg:grid-cols-[1fr_0.88fr] lg:pt-0" : "pb-20 sm:pb-24"
+          className={`relative grid items-end gap-10 ${
+            showParticipatePhoto ? "lg:grid-cols-[1.04fr_0.96fr]" : ""
           }`}
         >
-          <div className="pb-20 sm:pb-24 lg:py-28">
-            <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--sky)]">
-              Participe
-            </p>
-            <h2 className="mt-4 max-w-3xl font-display text-[clamp(2.5rem,5vw,4.6rem)] font-extrabold leading-[0.98] tracking-[-0.055em]">
-              A política começa quando alguém é ouvido.
+          <div className="py-20 sm:py-24 lg:py-28">
+            <p className="campaign-section-kicker campaign-section-kicker-light">Faça parte</p>
+            <h2 className="campaign-closing-title mt-5 max-w-3xl">
+              O Maranhão avança quando a política começa ouvindo.
             </h2>
-            <p className="mt-6 max-w-xl text-base leading-8 text-white/65">
+            <p className="mt-6 max-w-xl text-base leading-8 text-white/76">
               Conte o que falta no seu município. Sua contribuição ajuda a construir prioridades mais
-              próximas da realidade do Maranhão.
+              próximas da vida real.
             </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Link
-                href="/demandas"
-                className="inline-flex h-13 items-center justify-center gap-2 bg-[var(--sky)] px-7 text-sm font-extrabold text-[var(--navy)] transition hover:-translate-y-0.5 hover:brightness-110"
-              >
-                Quero participar <ArrowRight size={16} aria-hidden />
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Link href="/demandas" className="campaign-button campaign-button-light">
+                Quero participar <ArrowRight size={17} aria-hidden />
               </Link>
-              <Link
-                href="/compromissos"
-                className="inline-flex h-13 items-center justify-center border border-white/25 px-7 text-sm font-bold text-white transition hover:border-white/55 hover:bg-white/5"
-              >
+              <Link href="/compromissos" className="campaign-button campaign-button-outline-light">
                 Ver compromissos
               </Link>
             </div>
 
             {hasSocial && (
-              <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-white/55">
+              <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold text-white/70">
                 {content.contact.whatsapp && (
-                  <a
-                    href={`https://wa.me/${content.contact.whatsapp}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-white"
-                  >
+                  <a href={`https://wa.me/${content.contact.whatsapp}`} target="_blank" rel="noopener noreferrer">
                     WhatsApp
                   </a>
                 )}
                 {content.social.instagram && (
-                  <a href={content.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                  <a href={content.social.instagram} target="_blank" rel="noopener noreferrer">
                     Instagram
                   </a>
                 )}
                 {content.social.facebook && (
-                  <a href={content.social.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                  <a href={content.social.facebook} target="_blank" rel="noopener noreferrer">
                     Facebook
                   </a>
                 )}
                 {content.social.youtube && (
-                  <a href={content.social.youtube} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                  <a href={content.social.youtube} target="_blank" rel="noopener noreferrer">
                     YouTube
                   </a>
                 )}
@@ -450,12 +368,12 @@ export default async function HomePage() {
           </div>
 
           {showParticipatePhoto && (
-            <div className="relative flex h-full min-h-[520px] items-end justify-center lg:min-h-[680px]">
-              <div className="absolute inset-x-8 bottom-0 top-16 bg-white/[0.045]" aria-hidden />
+            <div className="campaign-closing-photo relative flex min-h-[540px] items-end justify-center lg:min-h-[690px]">
+              <div aria-hidden />
               <Photo
                 src={participateSrc}
                 alt={`${content.candidate.ballotName} convida à participação`}
-                className="relative z-10 aspect-[4/5] w-full max-w-[520px]"
+                className="relative z-10 aspect-[4/5] w-full max-w-[530px]"
                 imgClassName="object-contain object-bottom"
                 objectPosition="center bottom"
               />
