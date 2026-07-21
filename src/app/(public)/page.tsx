@@ -46,50 +46,50 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="campaign-hero relative isolate overflow-hidden">
+      <section className="campaign-hero">
         {showPlacePhoto ? (
           <Photo
             src={placeSrc}
             alt=""
             priority
             className="campaign-place"
-            imgClassName="campaign-place-img object-cover"
-            objectPosition="center 38%"
+            imgClassName="campaign-place-img"
+            objectPosition="center 45%"
           />
         ) : (
           <div className="campaign-place-fallback" aria-hidden />
         )}
         <div className="campaign-place-veil" aria-hidden />
+        <div className="campaign-place-grain" aria-hidden />
 
-        <Container className="campaign-stage relative z-10">
+        <div className="campaign-stage">
           <p className="campaign-office anim-rise">
             {content.candidate.office} pelo {content.candidate.state}
           </p>
 
-          <div className="campaign-name-composition">
-            <h1 className="campaign-luzia anim-rise anim-d1" aria-label={content.candidate.ballotName}>
+          <div className="campaign-nameplate anim-rise anim-d1">
+            <h1 className="campaign-luzia" aria-label={content.candidate.ballotName}>
               LUZIA
             </h1>
             <span className="campaign-mary anim-rise anim-d2" aria-hidden>
               Mary
             </span>
           </div>
-        </Container>
+        </div>
 
-        <div className="campaign-band relative z-20">
-          <div className="campaign-band-blue">
-            <strong>A mulher do povo!</strong>
-          </div>
-          <div className="campaign-band-green">
-            <span>De Imperatriz</span>
-            <strong>para o Maranhão</strong>
-          </div>
-          <Link href="/sobre" className="campaign-band-cta">
-            <span>
+        <div className="campaign-band">
+          <div className="campaign-band-rail" aria-hidden />
+          <div className="campaign-band-inner">
+            <p className="campaign-band-slogan">A mulher do povo!</p>
+            <div className="campaign-band-place">
+              <span>De Imperatriz</span>
+              <strong>para o Maranhão</strong>
+            </div>
+            <Link href="/sobre" className="campaign-band-cta">
               Conheça Luzia
-              <ArrowRight size={18} aria-hidden />
-            </span>
-          </Link>
+              <ArrowRight size={17} aria-hidden />
+            </Link>
+          </div>
         </div>
       </section>
 

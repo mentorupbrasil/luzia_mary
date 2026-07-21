@@ -8,7 +8,7 @@ const display = Archivo({
   subsets: ["latin"],
   variable: "--font-archivo",
   display: "swap",
-  weight: ["500", "600", "700", "800"],
+  weight: ["500", "600", "700", "800", "900"],
 });
 
 const script = Caveat({

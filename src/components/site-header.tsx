@@ -31,7 +31,7 @@ export function SiteHeader() {
 
   useEffect(() => {
     function onScroll() {
-      setScrolled(window.scrollY > 34);
+      setScrolled(window.scrollY > 28);
     }
 
     onScroll();
@@ -44,17 +44,17 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "campaign-header z-50 transition-all duration-300",
+        "campaign-header z-50 transition-[background-color,box-shadow,color,backdrop-filter] duration-300",
         onHome ? "fixed inset-x-0 top-0" : "sticky top-0",
         heroMode ? "campaign-header-transparent" : "campaign-header-solid",
       )}
     >
-      <Container className="campaign-header-bar flex items-center justify-between gap-6">
+      <Container className="campaign-header-bar">
         <Link href="/" className="campaign-brand-link" aria-label="Luzia Mary — Início">
           <BrandLogo size="lg" priority />
         </Link>
 
-        <nav className="campaign-nav hidden items-center lg:flex" aria-label="Navegação principal">
+        <nav className="campaign-nav" aria-label="Navegação principal">
           {desktopLinks.map((item) => {
             const active =
               item.href === "/"
@@ -75,34 +75,37 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="campaign-menu-button lg:hidden"
+          className="campaign-menu-button"
           onClick={() => setOpen((value) => !value)}
           aria-expanded={open}
           aria-controls="menu-mobile"
           aria-label={open ? "Fechar menu" : "Abrir menu"}
         >
-          {open ? <X size={23} /> : <Menu size={23} />}
+          {open ? <X size={22} strokeWidth={2.25} /> : <Menu size={22} strokeWidth={2.25} />}
         </button>
       </Container>
 
       {open && (
-        <div id="menu-mobile" className="campaign-mobile-menu lg:hidden">
+        <div id="menu-mobile" className="campaign-mobile-menu">
           <Container>
-            <nav className="grid" aria-label="Menu mobile">
-              {desktopLinks.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    "campaign-mobile-link",
-                    (item.href === "/" ? pathname === "/" : pathname === item.href || pathname.startsWith(`${item.href}/`)) &&
-                      "campaign-mobile-link-active",
-                  )}
-                >
-                  {item.label}
-                </Link>
-              ))}
+            <nav className="campaign-mobile-nav" aria-label="Menu mobile">
+              {desktopLinks.map((item) => {
+                const active =
+                  item.href === "/"
+                    ? pathname === "/"
+                    : pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className={cn("campaign-mobile-link", active && "campaign-mobile-link-active")}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
               <Link href="/demandas" onClick={() => setOpen(false)} className="campaign-mobile-cta">
                 Envie sua demanda
               </Link>
