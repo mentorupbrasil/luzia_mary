@@ -51,7 +51,7 @@ export function SiteHeader() {
     >
       <Container className="campaign-header-bar">
         <Link href="/" className="campaign-brand-link" aria-label="Luzia Mary — Início">
-          <BrandLogo size="lg" priority />
+          <BrandLogo size="md" priority />
         </Link>
 
         <nav className="campaign-nav" aria-label="Navegação principal">

@@ -56,61 +56,52 @@ export default async function HomePage() {
             priority
             className="campaign-place"
             imgClassName="campaign-place-img"
-            objectPosition="center 45%"
+            objectPosition="68% 42%"
           />
         ) : (
           <div className="campaign-place-fallback" aria-hidden />
         )}
         <div className="campaign-place-veil" aria-hidden />
-        <div className="campaign-place-grain" aria-hidden />
 
-        <div className={`campaign-stage${showHeroPhoto ? " campaign-stage-with-portrait" : ""}`}>
-          <div className="campaign-copy">
-            <p className="campaign-office anim-rise">
+        <Container className={`campaign-stage${showHeroPhoto ? " campaign-stage-split" : ""}`}>
+          <div className="campaign-copy anim-rise">
+            <p className="campaign-office">
               {content.candidate.office} pelo {content.candidate.state}
             </p>
 
-            <div className="campaign-nameplate anim-rise anim-d1">
+            <div className="campaign-nameplate">
               <h1 className="campaign-luzia" aria-label={content.candidate.ballotName}>
                 LUZIA
               </h1>
-              <span className="campaign-mary anim-rise anim-d2" aria-hidden>
+              <span className="campaign-mary" aria-hidden>
                 Mary
               </span>
             </div>
+
+            <p className="campaign-tagline anim-rise anim-d1">
+              A mulher do povo, de Imperatriz para o Maranhão.
+            </p>
+
+            <Link href="/sobre" className="campaign-cta anim-rise anim-d2">
+              Conheça Luzia
+              <ArrowRight size={16} aria-hidden />
+            </Link>
           </div>
 
           {showHeroPhoto && (
-            <div className="campaign-portrait-wrap anim-rise anim-d1">
-              <div className="campaign-portrait-fade" aria-hidden />
+            <div className="campaign-portrait-slot anim-rise anim-d1">
+              <div className="campaign-portrait-shade" aria-hidden />
               <Photo
                 src={heroSrc}
                 alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
                 priority
                 className="campaign-portrait"
                 imgClassName="campaign-portrait-img"
-                objectPosition="center top"
+                objectPosition="center 12%"
               />
             </div>
           )}
-        </div>
-
-        <div className="campaign-band">
-          <div className="campaign-band-rail" aria-hidden />
-          <div className="campaign-band-inner">
-            <p className="campaign-band-slogan">A mulher do povo!</p>
-            <div className="campaign-band-divider" aria-hidden />
-            <div className="campaign-band-place">
-              <span>De Imperatriz</span>
-              <strong>para o Maranhão</strong>
-            </div>
-            <div className="campaign-band-divider" aria-hidden />
-            <Link href="/sobre" className="campaign-band-cta">
-              Conheça Luzia
-              <ArrowRight size={16} aria-hidden />
-            </Link>
-          </div>
-        </div>
+        </Container>
       </section>
 
       <section className="people-intro overflow-hidden bg-white py-20 sm:py-24 lg:py-32">

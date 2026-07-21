@@ -8,9 +8,9 @@ type Props = {
 };
 
 const sizes = {
-  sm: { className: "h-8 w-auto", width: 240, height: 80 },
-  md: { className: "h-10 w-auto sm:h-11", width: 300, height: 100 },
-  lg: { className: "h-11 w-auto sm:h-12", width: 360, height: 120 },
+  sm: { className: "h-8 w-auto", width: 220, height: 73 },
+  md: { className: "h-10 w-auto", width: 260, height: 86 },
+  lg: { className: "h-11 w-auto sm:h-12", width: 320, height: 106 },
 } as const;
 
 export function BrandLogo({ className, size = "md", priority = false }: Props) {
