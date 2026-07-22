@@ -320,16 +320,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
   align-items: center;
   justify-content: space-between;
   gap: 1.25rem;
-  width: clamp(230px, 19vw, 315px);
-  height: clamp(54px, 4.5vw, 72px);
+  width: clamp(210px, 17vw, 280px);
+  height: clamp(46px, 3.6vw, 56px);
   margin: 0;
-  padding: 0 1.6rem 0 1.9rem;
+  padding: 0 1.35rem 0 1.6rem;
   border: 0;
   border-radius: 999px;
   background: var(--hero-yellow);
   color: #003066;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(13px, 1.1vw, 16px);
+  font-size: clamp(12px, 0.95vw, 14px);
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.01em;
@@ -386,10 +386,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
     left: 1.25rem;
     top: auto;
     bottom: 16%;
-    width: min(280px, calc(100% - 2.5rem));
-    height: 56px;
-    padding: 0 28px 0 32px;
-    font-size: 14px;
+    width: min(250px, calc(100% - 2.5rem));
+    height: 48px;
+    padding: 0 24px 0 28px;
+    font-size: 13px;
   }
 }
 
@@ -400,8 +400,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
   .hero-button {
     bottom: 14%;
-    height: 52px;
-    font-size: 13px;
+    height: 46px;
+    font-size: 12px;
   }
 }
 

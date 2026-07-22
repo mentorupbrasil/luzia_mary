@@ -70,7 +70,7 @@ export default async function HomePage() {
 
         <Link href="/sobre" className="hero-button">
           <span>Conheça Luzia</span>
-          <ArrowRight size={22} strokeWidth={2.2} aria-hidden />
+          <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
         </Link>
       </section>
 
