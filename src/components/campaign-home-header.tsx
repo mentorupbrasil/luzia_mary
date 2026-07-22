@@ -22,7 +22,7 @@ export function CampaignHomeHeader() {
     <header className="campaign-header campaign-header-hero">
       <div className="campaign-header-bar">
         <Link href="/" className="campaign-lockup" aria-label={`${content.candidate.ballotName} — início`}>
-          <BrandLogo variant="light" size="md" priority className="campaign-logo" />
+          <BrandLogo variant="light" size="md" priority unoptimized className="campaign-logo" />
         </Link>
 
         <nav className="campaign-nav" aria-label="Navegação principal">

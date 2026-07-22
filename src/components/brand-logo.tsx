@@ -5,6 +5,7 @@ type Props = {
   className?: string;
   size?: "sm" | "md" | "lg";
   priority?: boolean;
+  unoptimized?: boolean;
   /** `light` = logo branco (fundo escuro). `dark` = logo escuro (fundo claro). */
   variant?: "light" | "dark";
 };
@@ -15,7 +16,13 @@ const sizes = {
   lg: { className: "h-10 w-auto sm:h-11", width: 320, height: 44 },
 } as const;
 
-export function BrandLogo({ className, size = "md", priority = false, variant = "dark" }: Props) {
+export function BrandLogo({
+  className,
+  size = "md",
+  priority = false,
+  unoptimized = false,
+  variant = "dark",
+}: Props) {
   const dims = sizes[size];
 
   return (
@@ -25,6 +32,7 @@ export function BrandLogo({ className, size = "md", priority = false, variant = 
       width={dims.width}
       height={dims.height}
       priority={priority}
+      unoptimized={unoptimized}
       className={cn("brand-logo object-contain object-left", dims.className, className)}
     />
   );
