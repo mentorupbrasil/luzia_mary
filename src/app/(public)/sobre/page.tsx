@@ -16,32 +16,16 @@ import { content } from "@/config/site";
 
 export const metadata = { title: "Biografia" };
 
-const BIO_PHOTO = "/images/Sobre.png";
+const BIO_PHOTO = "/images/Sobre-cutout.png";
 
 const pillars: Array<{
   title: string;
-  text: string;
   Icon: LucideIcon;
   tone: "yellow" | "blue" | "green";
 }> = [
-  {
-    title: "Escuta",
-    text: "das comunidades",
-    Icon: MessageCircle,
-    tone: "yellow",
-  },
-  {
-    title: "Presença",
-    text: "onde o povo está",
-    Icon: MapPin,
-    tone: "blue",
-  },
-  {
-    title: "Compromisso",
-    text: "com resultados",
-    Icon: HeartHandshake,
-    tone: "green",
-  },
+  { title: "Escuta", Icon: MessageCircle, tone: "yellow" },
+  { title: "Presença", Icon: MapPin, tone: "blue" },
+  { title: "Compromisso", Icon: HeartHandshake, tone: "green" },
 ];
 
 const trajectory: Array<{ text: string; Icon: LucideIcon }> = [
@@ -97,14 +81,7 @@ export default function AboutPage() {
         <Container className="bio-open-shell">
           <div className="bio-open-grid">
             <div className="bio-visual">
-              <div className="bio-visual-deco" aria-hidden="true">
-                <span className="bio-blob" />
-                <span className="bio-arc bio-arc--yellow" />
-                <span className="bio-arc bio-arc--green" />
-                <span className="bio-soft-blue" />
-                <span className="bio-dots bio-dots--a" />
-                <span className="bio-dots bio-dots--b" />
-              </div>
+              <span className="bio-visual-dots" aria-hidden="true" />
               <Image
                 src={BIO_PHOTO}
                 alt={`${content.candidate.ballotName} — biografia`}
@@ -112,7 +89,7 @@ export default function AboutPage() {
                 height={1402}
                 priority
                 unoptimized
-                sizes="(max-width: 899px) 86vw, 52vw"
+                sizes="(max-width: 899px) 86vw, 42vw"
                 className="bio-photo"
               />
             </div>
@@ -139,21 +116,17 @@ export default function AboutPage() {
             </p>
 
             <ul className="bio-pillars" aria-label="Pilares">
-              {pillars.map(({ title, text, Icon, tone }) => (
+              {pillars.map(({ title, Icon, tone }) => (
                 <li key={title} className={`bio-pillar bio-pillar--${tone}`}>
                   <span className="bio-pillar-icon" aria-hidden="true">
-                    <Icon size={18} strokeWidth={2.2} />
+                    <Icon size={16} strokeWidth={2.2} />
                   </span>
-                  <span className="bio-pillar-copy">
-                    <strong>{title}</strong>
-                    <span>{text}</span>
-                  </span>
+                  <span>{title}</span>
                 </li>
               ))}
             </ul>
           </div>
         </Container>
-        <div className="bio-open-curve" aria-hidden="true" />
       </section>
 
       <section className="bio-body" aria-label="Trajetória e experiência">
