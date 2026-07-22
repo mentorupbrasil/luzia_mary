@@ -32,7 +32,7 @@ export default async function HomePage() {
   const [featured, ...rest] = posts;
   const secondary = rest.slice(0, 2);
 
-  const aboutSrc = "/images/luzia-mary-about-panel-v2.jpg";
+  const aboutSrc = "/images/luzia-mary-about-final.jpg";
   const participateSrc = content.candidate.photos.participate;
   const showAboutPhoto = hasPhoto(aboutSrc);
   const showParticipatePhoto = hasPhoto(participateSrc);
@@ -96,24 +96,15 @@ export default async function HomePage() {
           {showAboutPhoto && (
             <div className="about-photo-col">
               <figure className="about-photo-stage">
-                <div className="about-photo-plate" aria-hidden />
-                <div className="about-photo-frame">
-                  <span className="about-photo-accent" aria-hidden />
-                  <div className="about-photo-well">
-                    <Photo
-                      src={aboutSrc}
-                      alt={`${content.candidate.ballotName} em pose frontal, com blusa verde e braços cruzados`}
-                      className="about-photo"
-                      imgClassName="about-photo-img"
-                      objectPosition="center 42%"
-                      priority
-                    />
-                  </div>
-                  <div className="about-photo-tag">
-                    <span className="about-photo-tag-line" aria-hidden />
-                    De Imperatriz para todo o Maranhão.
-                  </div>
-                </div>
+                <Image
+                  src={aboutSrc}
+                  alt={`${content.candidate.ballotName} em pose frontal, com blusa verde — De Imperatriz para todo o Maranhão`}
+                  width={819}
+                  height={1024}
+                  priority
+                  sizes="(max-width: 768px) 90vw, (max-width: 1280px) 420px, 460px"
+                  className="about-photo-img"
+                />
                 <figcaption className="sr-only">
                   De Imperatriz para todo o Maranhão.
                 </figcaption>
