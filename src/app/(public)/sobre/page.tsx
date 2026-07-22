@@ -16,7 +16,7 @@ import { content } from "@/config/site";
 
 export const metadata = { title: "Biografia" };
 
-const BIO_PHOTO = "/images/Sobre-cutout.png";
+const BIO_PHOTO = "/images/ultima-tentativa.png";
 
 const pillars: Array<{
   title: string;
