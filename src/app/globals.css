@@ -466,8 +466,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .about-photo-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  max-width: 380px;
+  max-width: 420px;
   margin-inline: auto;
 }
 
@@ -590,23 +593,27 @@ button, a { -webkit-tap-highlight-color: transparent; }
   align-items: center;
   justify-content: center;
   gap: 0.85rem;
+  width: 100%;
+  max-width: 100%;
   height: 56px;
-  margin-top: 2rem;
-  padding: 0 1.85rem;
+  margin-top: 1.35rem;
+  padding: 0 1.5rem;
   border-radius: 999px;
   background: #003a88;
   color: white;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   text-decoration: none;
   text-transform: uppercase;
+  text-align: center;
   transition: background-color 180ms ease, box-shadow 180ms ease;
 }
 
 .about-cta svg {
   color: var(--hero-yellow);
+  flex-shrink: 0;
 }
 
 .about-cta:hover {
@@ -624,7 +631,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .about-photo-col {
-    max-width: 380px;
+    max-width: 440px;
   }
 
   .about-values {
@@ -640,36 +647,36 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .about-section-grid {
-    grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
-    gap: 3.85rem;
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+    gap: 3.5rem;
     align-items: start;
   }
 
   .about-photo-col {
-    max-width: 380px;
+    max-width: 460px;
     margin: 0;
     justify-self: start;
-    transform: translateY(-22px);
+    transform: translateY(28px);
+  }
+
+  .about-cta {
+    margin-top: 1.5rem;
   }
 
   .about-title {
     max-width: 24ch;
     font-size: clamp(38px, 3.55vw, 54px);
   }
-
-  .about-cta {
-    margin-top: 2.1rem;
-  }
 }
 
 @media (min-width: 1280px) {
   .about-section-grid {
-    gap: 4.25rem;
+    gap: 3.85rem;
   }
 
   .about-photo-col {
-    max-width: 400px;
-    transform: translateY(-26px);
+    max-width: 480px;
+    transform: translateY(32px);
   }
 }
 
@@ -679,7 +686,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .about-photo-col {
-    max-width: 340px;
+    max-width: 380px;
   }
 
   .about-title {
@@ -688,9 +695,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .about-cta {
-    width: 100%;
     height: 52px;
-    padding: 0 1.4rem;
+    margin-top: 1.15rem;
+    padding: 0 1.25rem;
+    font-size: 0.72rem;
   }
 }
 

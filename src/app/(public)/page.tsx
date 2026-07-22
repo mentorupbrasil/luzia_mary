@@ -103,13 +103,17 @@ export default async function HomePage() {
                   height={1402}
                   priority
                   unoptimized
-                  sizes="(max-width: 768px) 90vw, (max-width: 1280px) 400px, 440px"
+                  sizes="(max-width: 768px) 90vw, (max-width: 1280px) 440px, 480px"
                   className="about-photo-img"
                 />
                 <figcaption className="sr-only">
                   De Imperatriz para todo o Maranhão.
                 </figcaption>
               </figure>
+              <Link href="/sobre" className="about-cta">
+                Conheça a trajetória completa
+                <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
+              </Link>
             </div>
           )}
 
@@ -139,10 +143,12 @@ export default async function HomePage() {
               ))}
             </ul>
 
-            <Link href="/sobre" className="about-cta">
-              Conheça a trajetória completa
-              <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
-            </Link>
+            {!showAboutPhoto && (
+              <Link href="/sobre" className="about-cta">
+                Conheça a trajetória completa
+                <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
+              </Link>
+            )}
           </div>
         </Container>
       </section>
