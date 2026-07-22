@@ -32,7 +32,7 @@ export default async function HomePage() {
   const [featured, ...rest] = posts;
   const secondary = rest.slice(0, 2);
 
-  const aboutSrc = "/images/luzia-mary-about-integrated.png";
+  const aboutSrc = "/images/luzia-mary-about-final-art.png";
   const participateSrc = content.candidate.photos.participate;
   const showAboutPhoto = hasPhoto(aboutSrc);
   const showParticipatePhoto = hasPhoto(participateSrc);
@@ -98,16 +98,16 @@ export default async function HomePage() {
               <figure className="about-photo-stage">
                 <Image
                   src={aboutSrc}
-                  alt={`${content.candidate.ballotName} em pose frontal, com blusa verde e braços cruzados`}
-                  width={960}
-                  height={1380}
+                  alt={`${content.candidate.ballotName} — De Imperatriz para todo o Maranhão`}
+                  width={1122}
+                  height={1402}
                   priority
                   unoptimized
                   sizes="(max-width: 768px) 90vw, (max-width: 1280px) 400px, 440px"
                   className="about-photo-img"
                 />
                 <figcaption className="sr-only">
-                  Luzia Mary, pré-candidata a deputada federal.
+                  De Imperatriz para todo o Maranhão.
                 </figcaption>
               </figure>
             </div>
