@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/container";
+import { FlagDetailSideNav } from "@/components/flag-detail-side-nav";
 import {
   bandeiras,
   federalAtuacaoResumo,
@@ -149,90 +150,86 @@ export default async function ProposalDetailPage({
       </section>
 
       <Container className="flag-detail-layout">
-        <div className="flag-detail-main">
-          <section
-            id="por-que-importa"
-            className="flag-editorial"
-            aria-labelledby="why-heading"
-          >
-            <p className="flag-block-eyebrow">Por que essa bandeira importa</p>
-            <h2 id="why-heading" className="flag-block-title">
-              Uma prioridade ligada à vida real
-            </h2>
-            <p className="flag-block-text">{bandeira.whyItMatters}</p>
-          </section>
+        <div className="flag-detail-top">
+          <div className="flag-detail-main">
+            <section
+              id="por-que-importa"
+              className="flag-editorial"
+              aria-labelledby="why-heading"
+            >
+              <p className="flag-block-eyebrow">Por que essa bandeira importa</p>
+              <h2 id="why-heading" className="flag-block-title">
+                Uma prioridade ligada à vida real
+              </h2>
+              <p className="flag-block-text">{bandeira.whyItMatters}</p>
+            </section>
 
-          <section
-            id="compromissos"
-            className="flag-commitments"
-            aria-labelledby="defend-heading"
-          >
-            <p className="flag-block-eyebrow">O que Luzia Mary vai defender</p>
-            <h2 id="defend-heading" className="flag-block-title">
-              Compromissos objetivos desta bandeira
-            </h2>
-            <ul className="flag-check-list">
-              {bandeira.commitments.map((item) => (
-                <li key={item}>
-                  <span className="flag-check" aria-hidden>
-                    <Check size={14} strokeWidth={2.5} />
-                  </span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section
-            id="atuacao-federal"
-            className="flag-federal"
-            aria-labelledby="federal-heading"
-          >
-            <p className="flag-block-eyebrow">Como uma deputada federal pode atuar</p>
-            <h2 id="federal-heading" className="flag-block-title">
-              Instrumentos do mandato parlamentar
-            </h2>
-            <p className="flag-block-text">{federalAtuacaoResumo}</p>
-            <ul className="flag-federal-grid">
-              {bandeira.howFederalActs.map((item, index) => {
-                const FederalIcon = federalIcons[index % federalIcons.length];
-                return (
+            <section
+              id="compromissos"
+              className="flag-commitments"
+              aria-labelledby="defend-heading"
+            >
+              <p className="flag-block-eyebrow">O que Luzia Mary vai defender</p>
+              <h2 id="defend-heading" className="flag-block-title">
+                Compromissos objetivos desta bandeira
+              </h2>
+              <ul className="flag-check-list">
+                {bandeira.commitments.map((item) => (
                   <li key={item}>
-                    <span className="flag-federal-icon" aria-hidden>
-                      <FederalIcon size={18} strokeWidth={1.75} />
+                    <span className="flag-check" aria-hidden>
+                      <Check size={14} strokeWidth={2.5} />
                     </span>
-                    <div>
-                      <p className="flag-federal-title">{instrumentTitles[index]}</p>
-                      <p className="flag-federal-desc">{item}</p>
-                    </div>
+                    <span>{item}</span>
                   </li>
-                );
-              })}
-            </ul>
-          </section>
+                ))}
+              </ul>
+            </section>
+          </div>
+
+          <aside className="flag-detail-side" aria-label="Nesta bandeira">
+            <div className="flag-detail-side-inner">
+              <p className="flag-side-eyebrow">Nesta bandeira</p>
+              <FlagDetailSideNav items={sideNav} />
+
+              <div className="flag-side-panel">
+                <p className="flag-side-panel-label">Compromisso central</p>
+                <p className="flag-side-panel-text">{bandeira.summary}</p>
+                <Link href={demandHref} className="flag-side-panel-btn">
+                  Enviar uma contribuição
+                  <ArrowRight size={15} aria-hidden />
+                </Link>
+              </div>
+            </div>
+          </aside>
         </div>
 
-        <aside className="flag-detail-side" aria-label="Nesta bandeira">
-          <div className="flag-detail-side-inner">
-            <p className="flag-side-eyebrow">Nesta bandeira</p>
-            <nav className="flag-side-nav" aria-label="Navegação da proposta">
-              {sideNav.map((item) => (
-                <a key={item.href} href={item.href} className="flag-side-nav-link">
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-
-            <div className="flag-side-panel">
-              <p className="flag-side-panel-label">Compromisso central</p>
-              <p className="flag-side-panel-text">{bandeira.summary}</p>
-              <Link href={demandHref} className="flag-side-panel-btn">
-                Enviar uma contribuição
-                <ArrowRight size={15} aria-hidden />
-              </Link>
-            </div>
-          </div>
-        </aside>
+        <section
+          id="atuacao-federal"
+          className="flag-federal"
+          aria-labelledby="federal-heading"
+        >
+          <p className="flag-block-eyebrow">Como uma deputada federal pode atuar</p>
+          <h2 id="federal-heading" className="flag-block-title">
+            Instrumentos do mandato parlamentar
+          </h2>
+          <p className="flag-block-text flag-federal-lead">{federalAtuacaoResumo}</p>
+          <ul className="flag-federal-grid">
+            {bandeira.howFederalActs.map((item, index) => {
+              const FederalIcon = federalIcons[index % federalIcons.length];
+              return (
+                <li key={item}>
+                  <span className="flag-federal-icon" aria-hidden>
+                    <FederalIcon size={18} strokeWidth={1.75} />
+                  </span>
+                  <div>
+                    <p className="flag-federal-title">{instrumentTitles[index]}</p>
+                    <p className="flag-federal-desc">{item}</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
 
         <section
           id="transparencia"
