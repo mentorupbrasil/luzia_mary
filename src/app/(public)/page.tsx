@@ -103,7 +103,7 @@ export default async function HomePage() {
                   height={1402}
                   priority
                   unoptimized
-                  sizes="(max-width: 768px) 90vw, (max-width: 1280px) 440px, 480px"
+                  sizes="(max-width: 768px) 90vw, (max-width: 1280px) 380px, 400px"
                   className="about-photo-img"
                 />
                 <figcaption className="sr-only">

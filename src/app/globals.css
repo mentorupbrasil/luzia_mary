@@ -470,7 +470,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 420px;
+  max-width: 360px;
   margin-inline: auto;
 }
 
@@ -631,7 +631,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .about-photo-col {
-    max-width: 440px;
+    max-width: 370px;
   }
 
   .about-values {
@@ -647,13 +647,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .about-section-grid {
-    grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+    grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
     gap: 3.5rem;
     align-items: start;
   }
 
   .about-photo-col {
-    max-width: 460px;
+    max-width: 380px;
     margin: 0;
     justify-self: start;
     transform: translateY(28px);
@@ -675,7 +675,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .about-photo-col {
-    max-width: 480px;
+    max-width: 400px;
     transform: translateY(32px);
   }
 }
@@ -686,7 +686,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .about-photo-col {
-    max-width: 380px;
+    max-width: 320px;
   }
 
   .about-title {
