@@ -48,7 +48,7 @@ export default async function HomePage() {
     <>
       <section className="campaign-hero" aria-labelledby="hero-title">
         <Image
-          src="/hero/hero-base-wide.png"
+          src="/hero/hero-base-ultrawide.png"
           alt=""
           fill
           priority
