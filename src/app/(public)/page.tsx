@@ -49,11 +49,12 @@ export default async function HomePage() {
       <section className="campaign-hero" aria-labelledby="hero-title">
         <div className="hero-base" aria-hidden>
           <Image
-            src="/hero/hero-base.png"
+            src="/images/hero-base.png"
             alt=""
             fill
             priority
             sizes="100vw"
+            unoptimized
             className="hero-base-img"
           />
         </div>
