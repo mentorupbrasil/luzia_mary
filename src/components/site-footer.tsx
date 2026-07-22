@@ -286,7 +286,8 @@ export function SiteFooter() {
           </p>
           <nav className="lm-footer-legal-links" aria-label="Links legais">
             <Link href="/privacidade">Política de Privacidade</Link>
-            <Link href="/privacidade">Termos de Uso</Link>
+            {/* Termos de Uso: link removido temporariamente até existir rota própria /termos.
+                Não apontar para /privacidade. */}
           </nav>
         </div>
       </div>
