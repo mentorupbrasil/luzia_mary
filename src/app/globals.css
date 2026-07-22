@@ -2670,20 +2670,19 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 }
 
+
 /* =========================================================
-   Página Biografia (/sobre)
+   Página Biografia (/sobre) — composição contínua sem moldura
    ========================================================= */
 
 .bio-page {
   --bio-navy: #001a3f;
   --bio-blue: #063e99;
-  --bio-blue-soft: #eaf2ff;
+  --bio-blue-soft: #e8f1ff;
   --bio-yellow: #ffd31a;
   --bio-green: #08a64b;
-  --bio-beige: #f3efe6;
-  --bio-beige-deep: #e8e1d4;
   --bio-ink-soft: rgba(0, 26, 63, 0.74);
-  background: #fbfbfd;
+  background: #ffffff;
   color: var(--bio-navy);
   overflow-x: hidden;
 }
@@ -2709,118 +2708,166 @@ button, a { -webkit-tap-highlight-color: transparent; }
   background: var(--bio-yellow);
 }
 
-.bio-section-title {
-  margin: 0.85rem 0 0;
-  color: var(--bio-navy);
-  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
-  font-size: clamp(2rem, 3.4vw, 3rem);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-
-.bio-hero {
+.bio-open {
   position: relative;
-  padding: clamp(2.5rem, 5vw, 4.5rem) 0 clamp(3rem, 6vw, 5rem);
+  isolation: isolate;
   background:
-    radial-gradient(circle at 12% 18%, rgba(255, 211, 26, 0.16), transparent 28%),
-    linear-gradient(165deg, #f7f4ee 0%, #eef4ff 48%, #fbfbfd 100%);
+    radial-gradient(circle at 22% 45%, rgba(255, 222, 74, 0.22), transparent 31%),
+    radial-gradient(circle at 5% 80%, rgba(35, 112, 240, 0.20), transparent 27%),
+    linear-gradient(135deg, #f6f8fc 0%, #ffffff 58%, #f7f9fd 100%);
+  padding: clamp(1.5rem, 3vw, 2.4rem) 0 0;
 }
 
-.bio-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto auto 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, var(--bio-yellow) 0%, var(--bio-green) 42%, transparent 78%);
+.bio-open-shell {
+  position: relative;
+  z-index: 1;
 }
 
-.bio-hero-grid {
+.bio-open-grid {
   display: grid;
-  gap: clamp(2rem, 4vw, 4rem);
-  align-items: center;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "eyebrow"
+    "title"
+    "visual"
+    "lead"
+    "place"
+    "pillars";
+  column-gap: clamp(1.5rem, 3vw, 3rem);
+  row-gap: 0.95rem;
+  align-items: end;
 }
 
-.bio-photo-col {
-  width: 100%;
-  max-width: 460px;
-  margin-inline: auto;
-}
+.bio-visual { grid-area: visual; }
+.bio-eyebrow { grid-area: eyebrow; }
+.bio-title { grid-area: title; }
+.bio-lead { grid-area: lead; }
+.bio-place { grid-area: place; }
+.bio-pillars { grid-area: pillars; }
 
-.bio-photo-stage {
+.bio-visual {
   position: relative;
-  margin: 0;
-  padding: clamp(1rem, 2vw, 1.35rem) clamp(1rem, 2vw, 1.35rem) 0;
-  border-radius: 28px 28px 18px 18px;
-  background:
-    linear-gradient(180deg, #f7f2e8 0%, var(--bio-beige) 55%, var(--bio-beige-deep) 100%);
-  box-shadow: 0 22px 48px rgba(0, 26, 63, 0.1);
-  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  max-width: 520px;
+  margin-inline: auto;
+  min-height: 0;
 }
 
-.bio-photo-glow {
+.bio-visual-deco {
   position: absolute;
-  width: 70%;
-  height: 42%;
-  left: 15%;
+  inset: 4% 2% 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bio-blob {
+  position: absolute;
+  left: 6%;
   top: 8%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.55), transparent 70%);
-  pointer-events: none;
+  width: 88%;
+  height: 78%;
+  border-radius: 54% 46% 42% 58% / 48% 52% 44% 56%;
+  background:
+    radial-gradient(circle at 40% 35%, rgba(255, 236, 176, 0.55), transparent 58%),
+    linear-gradient(160deg, rgba(243, 232, 205, 0.7), rgba(255, 255, 255, 0.05));
 }
 
-.bio-photo-arc {
+.bio-arc {
   position: absolute;
-  width: 180px;
-  height: 180px;
-  right: -48px;
-  top: -36px;
-  border: 1.5px solid rgba(0, 88, 214, 0.16);
   border-radius: 50%;
-  pointer-events: none;
+  border-style: solid;
+  border-color: transparent;
 }
 
-.bio-photo-dot {
+.bio-arc--yellow {
+  width: min(78%, 360px);
+  aspect-ratio: 1;
+  left: -4%;
+  top: 2%;
+  border-width: 2px;
+  border-top-color: rgba(255, 211, 26, 0.72);
+  border-right-color: rgba(255, 211, 26, 0.28);
+  transform: rotate(-18deg);
+}
+
+.bio-arc--green {
+  width: min(70%, 320px);
+  aspect-ratio: 1;
+  right: -2%;
+  bottom: 10%;
+  border-width: 2px;
+  border-bottom-color: rgba(8, 166, 75, 0.55);
+  border-left-color: rgba(8, 166, 75, 0.22);
+  transform: rotate(12deg);
+}
+
+.bio-soft-blue {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  left: 1.1rem;
-  top: 1.1rem;
-  border-radius: 50%;
-  background: var(--bio-yellow);
-  box-shadow: 0 0 0 6px rgba(255, 211, 26, 0.18);
-  pointer-events: none;
+  left: 8%;
+  right: 8%;
+  bottom: 0;
+  height: 28%;
+  border-radius: 50% 50% 0 0;
+  background: radial-gradient(ellipse at center bottom, rgba(35, 112, 240, 0.16), transparent 72%);
 }
 
-.bio-photo-img {
+.bio-dots {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  opacity: 0.35;
+  background-image: radial-gradient(circle, rgba(6, 62, 153, 0.55) 1.4px, transparent 1.6px);
+  background-size: 14px 14px;
+}
+
+.bio-dots--a {
+  top: 12%;
+  right: 4%;
+}
+
+.bio-dots--b {
+  left: 2%;
+  bottom: 18%;
+  opacity: 0.22;
+}
+
+.bio-photo {
   position: relative;
   z-index: 1;
   display: block;
   width: 100%;
   height: auto;
+  max-width: 100%;
   object-fit: contain;
   object-position: center bottom;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  filter: none;
 }
 
-.bio-hero-copy {
-  min-width: 0;
-}
-
-.bio-hero-title {
-  margin: 1rem 0 0;
-  max-width: 16ch;
+.bio-title {
+  margin: 0;
+  max-width: 13ch;
   color: var(--bio-navy);
   font-family: var(--font-league-spartan), "League Spartan", sans-serif;
-  font-size: clamp(2.05rem, 3.8vw, 3.35rem);
+  font-size: clamp(2.15rem, 4.6vw, 3.75rem);
   font-weight: 800;
-  line-height: 0.98;
+  line-height: 0.96;
   letter-spacing: -0.045em;
 }
 
-.bio-hero-lead {
-  margin: 1.25rem 0 0;
-  max-width: 38rem;
+.bio-title span {
+  color: var(--bio-green);
+}
+
+.bio-lead {
+  margin: 0.35rem 0 0;
+  max-width: 36rem;
   color: var(--bio-ink-soft);
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
   font-size: clamp(1rem, 1.15vw, 1.125rem);
@@ -2828,213 +2875,258 @@ button, a { -webkit-tap-highlight-color: transparent; }
   line-height: 1.72;
 }
 
-.bio-hero-place {
-  margin: 1.35rem 0 0;
+.bio-place {
+  margin: 0.55rem 0 0;
   color: var(--bio-blue);
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: 0.92rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.bio-hero-place span {
+.bio-place span {
   margin: 0 0.45rem;
-  color: var(--bio-green);
+  color: var(--bio-yellow);
 }
 
 .bio-pillars {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-  margin: 1.6rem 0 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+  margin: 0.85rem 0 1.4rem;
   padding: 0;
   list-style: none;
 }
 
-.bio-pillars li {
-  display: inline-flex;
+.bio-pillar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
   align-items: center;
-  gap: 0.45rem;
-  min-height: 2.5rem;
-  padding: 0.45rem 0.95rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(0, 26, 63, 0.08);
-  color: var(--bio-navy);
-  font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: 0.84rem;
-  font-weight: 700;
+  min-width: 0;
 }
 
-.bio-pillars svg {
-  color: var(--bio-blue);
-}
-
-.bio-trajectory {
-  padding: clamp(3.25rem, 6vw, 5.25rem) 0;
-  background: white;
-}
-
-.bio-trajectory-inner {
-  max-width: 46rem;
-}
-
-.bio-trajectory-copy {
-  display: grid;
-  gap: 1.15rem;
-  margin-top: 1.6rem;
-}
-
-.bio-trajectory-copy p {
-  margin: 0;
-  color: var(--bio-ink-soft);
-  font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(1rem, 1.1vw, 1.125rem);
-  font-weight: 500;
-  line-height: 1.75;
-}
-
-.bio-trajectory-copy p:first-child::first-letter {
-  color: var(--bio-blue);
-  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
-  font-size: 1.35em;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-}
-
-.bio-experience {
-  padding: clamp(3.25rem, 6vw, 5.25rem) 0;
-  background:
-    radial-gradient(circle at 90% 10%, rgba(255, 211, 26, 0.12), transparent 24%),
-    linear-gradient(180deg, #f5f8ff 0%, #eef3fb 100%);
-}
-
-.bio-experience-header {
-  max-width: 34rem;
-}
-
-.bio-experience-grid {
-  display: grid;
-  gap: 1rem;
-  margin: 2rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.bio-experience-card {
-  display: grid;
-  gap: 0.7rem;
-  align-content: start;
-  min-height: 100%;
-  padding: 1.45rem 1.4rem 1.55rem;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(0, 26, 63, 0.06);
-  box-shadow: 0 10px 28px rgba(0, 26, 63, 0.04);
-}
-
-.bio-experience-icon {
+.bio-pillar-icon {
   display: grid;
   place-items: center;
-  width: 2.7rem;
-  height: 2.7rem;
-  border-radius: 14px;
-  background: var(--bio-blue-soft);
-  color: var(--bio-blue);
+  width: 2.55rem;
+  height: 2.55rem;
+  border-radius: 999px;
+  color: var(--bio-navy);
 }
 
-.bio-experience-card h3 {
-  margin: 0;
+.bio-pillar--yellow .bio-pillar-icon {
+  background: var(--bio-yellow);
+}
+
+.bio-pillar--blue .bio-pillar-icon {
+  background: #2f79f0;
+  color: white;
+}
+
+.bio-pillar--green .bio-pillar-icon {
+  background: var(--bio-green);
+  color: white;
+}
+
+.bio-pillar-copy {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.bio-pillar-copy strong {
   color: var(--bio-navy);
   font-family: var(--font-league-spartan), "League Spartan", sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.05rem;
   font-weight: 800;
   letter-spacing: -0.03em;
+  line-height: 1.1;
 }
 
-.bio-experience-card p {
+.bio-pillar-copy span {
+  color: rgba(0, 26, 63, 0.62);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.bio-open-curve {
+  position: relative;
+  z-index: 2;
+  height: 56px;
+  margin-top: -1px;
+  background: #ffffff;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  box-shadow: 0 -18px 40px rgba(0, 26, 63, 0.03);
+}
+
+.bio-body {
+  background: #ffffff;
+  padding: 0.5rem 0 clamp(3rem, 6vw, 4.75rem);
+}
+
+.bio-body-grid {
+  display: grid;
+  gap: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+.bio-timeline {
+  position: relative;
+  margin: 1.35rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bio-timeline::before {
+  content: "";
+  position: absolute;
+  left: 1.15rem;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(255, 211, 26, 0.85), rgba(8, 166, 75, 0.55), rgba(6, 62, 153, 0.25));
+}
+
+.bio-timeline li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.35rem 1fr;
+  gap: 0.95rem;
+  align-items: start;
+  padding: 0.55rem 0 1.15rem;
+}
+
+.bio-timeline-mark {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1.5px solid rgba(6, 62, 153, 0.16);
+  color: var(--bio-blue);
+  box-shadow: 0 0 0 6px #ffffff;
+}
+
+.bio-timeline li:nth-child(even) .bio-timeline-mark {
+  color: var(--bio-green);
+  border-color: rgba(8, 166, 75, 0.28);
+}
+
+.bio-timeline p {
   margin: 0;
   color: var(--bio-ink-soft);
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: 0.98rem;
+  font-size: 0.95rem;
   font-weight: 500;
   line-height: 1.65;
 }
 
+.bio-timeline-num {
+  display: block;
+  margin-bottom: 0.28rem;
+  color: var(--bio-green);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.bio-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+  margin: 1.35rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bio-card {
+  display: grid;
+  gap: 0.55rem;
+  align-content: start;
+  min-height: 100%;
+  padding: 1.25rem 1.2rem 1.35rem;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 26, 63, 0.06);
+  box-shadow: 0 8px 24px rgba(0, 26, 63, 0.035);
+}
+
+.bio-card-icon {
+  display: grid;
+  place-items: center;
+  width: 2.45rem;
+  height: 2.45rem;
+  border-radius: 12px;
+  background: var(--bio-blue-soft);
+  color: var(--bio-blue);
+}
+
+.bio-card:nth-child(even) .bio-card-icon {
+  background: rgba(8, 166, 75, 0.1);
+  color: var(--bio-green);
+}
+
+.bio-card h2 {
+  margin: 0;
+  color: var(--bio-navy);
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.bio-card p {
+  margin: 0;
+  color: var(--bio-ink-soft);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
 .bio-cta {
+  padding: 0 0 clamp(3rem, 6vw, 4.5rem);
+  background: #ffffff;
+}
+
+.bio-cta-panel {
   position: relative;
   overflow: hidden;
-  padding: clamp(3.5rem, 7vw, 5.5rem) 0;
-  color: white;
+  max-width: 72rem;
+  padding: clamp(1.85rem, 3.5vw, 2.6rem) clamp(1.35rem, 3vw, 2.4rem);
+  border-radius: 28px;
   background:
-    radial-gradient(circle at 85% 20%, rgba(0, 102, 255, 0.34), transparent 36%),
-    linear-gradient(135deg, #001f4d 0%, #004bb3 55%, #086cf1 100%);
-}
-
-.bio-cta-bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.bio-cta-glow {
-  position: absolute;
-  width: 22rem;
-  height: 22rem;
-  left: -6rem;
-  top: 18%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(8, 108, 241, 0.35), transparent 68%);
-  filter: blur(10px);
-}
-
-.bio-cta-arc {
-  position: absolute;
-  width: min(48vw, 520px);
-  aspect-ratio: 1;
-  right: -16%;
-  bottom: -42%;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 3.5rem rgba(255, 255, 255, 0.02),
-    0 0 0 7rem rgba(255, 255, 255, 0.015);
-}
-
-.bio-cta-dots {
-  position: absolute;
-  top: 18%;
-  left: 8%;
-  width: 100px;
-  height: 100px;
-  opacity: 0.2;
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.7) 1px, transparent 1.5px);
-  background-size: 13px 13px;
-}
-
-.bio-cta-inner {
-  position: relative;
-  z-index: 1;
-  max-width: 46rem;
+    radial-gradient(circle at 88% 18%, rgba(255, 211, 26, 0.22), transparent 28%),
+    radial-gradient(circle at 8% 85%, rgba(35, 112, 240, 0.12), transparent 32%),
+    linear-gradient(145deg, #f4f7ff 0%, #ffffff 55%, #f7fafc 100%);
+  border: 1px solid rgba(0, 26, 63, 0.06);
 }
 
 .bio-cta-title {
   margin: 0;
-  max-width: 16ch;
-  color: white;
+  max-width: 14ch;
+  color: var(--bio-navy);
   font-family: var(--font-league-spartan), "League Spartan", sans-serif;
-  font-size: clamp(2rem, 3.8vw, 3.15rem);
+  font-size: clamp(1.85rem, 3.4vw, 2.85rem);
   font-weight: 800;
   line-height: 0.98;
   letter-spacing: -0.045em;
 }
 
 .bio-cta-lead {
-  margin: 1.2rem 0 0;
-  max-width: 38rem;
-  color: rgba(255, 255, 255, 0.78);
+  margin: 1rem 0 0;
+  max-width: 40rem;
+  color: var(--bio-ink-soft);
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(1rem, 1.1vw, 1.1rem);
+  font-size: clamp(0.98rem, 1.1vw, 1.08rem);
   font-weight: 500;
   line-height: 1.7;
 }
@@ -3043,7 +3135,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   display: flex;
   flex-wrap: wrap;
   gap: 0.85rem;
-  margin-top: 1.85rem;
+  margin-top: 1.55rem;
 }
 
 .bio-cta-btn {
@@ -3060,7 +3152,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   letter-spacing: 0.02em;
   text-decoration: none;
   text-transform: uppercase;
-  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
 
 .bio-cta-btn--primary {
@@ -3074,14 +3166,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .bio-cta-btn--secondary {
-  background: transparent;
-  color: white;
-  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  background: #ffffff;
+  color: var(--bio-navy);
+  border: 1.5px solid rgba(6, 62, 153, 0.45);
 }
 
 .bio-cta-btn--secondary:hover {
-  border-color: rgba(255, 255, 255, 0.7);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--bio-blue);
+  background: #f7faff;
 }
 
 .bio-cta-btn:focus-visible {
@@ -3089,59 +3181,97 @@ button, a { -webkit-tap-highlight-color: transparent; }
   outline-offset: 3px;
 }
 
-@media (min-width: 900px) {
-  .bio-hero-grid {
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-    gap: clamp(2.5rem, 4.5vw, 4.5rem);
+@media (min-width: 760px) {
+  .bio-pillars {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
   }
 
-  .bio-photo-col {
-    margin-inline: 0;
+  .bio-pillar {
+    padding-right: 1rem;
   }
 
-  .bio-experience-grid {
+  .bio-pillar + .bio-pillar {
+    padding-left: 1rem;
+    border-left: 1px solid rgba(0, 26, 63, 0.1);
+  }
+
+  .bio-cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.15rem;
   }
 }
 
-@media (min-width: 1100px) {
-  .bio-experience-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+@media (min-width: 980px) {
+  .bio-open {
+    padding-top: clamp(1.8rem, 2.6vw, 2.8rem);
   }
 
-  .bio-hero-title {
-    max-width: 15ch;
+  .bio-open-grid {
+    grid-template-columns: minmax(0, 0.52fr) minmax(0, 0.48fr);
+    grid-template-areas:
+      "visual eyebrow"
+      "visual title"
+      "visual lead"
+      "visual place"
+      "visual pillars";
+    align-items: end;
+    min-height: clamp(540px, 68vh, 720px);
+    column-gap: clamp(1.5rem, 3vw, 3.25rem);
+    row-gap: 0.75rem;
+  }
+
+  .bio-visual {
+    align-self: end;
+    justify-content: flex-start;
+    max-width: none;
+    margin-inline: 0;
+    height: 100%;
+  }
+
+  .bio-photo {
+    width: min(100%, 540px);
+    max-height: min(680px, 74vh);
+  }
+
+  .bio-title {
+    max-width: 15.5ch;
+    font-size: clamp(3.2rem, 4.1vw, 4.25rem);
+    line-height: 0.94;
+  }
+
+  .bio-eyebrow,
+  .bio-title,
+  .bio-lead,
+  .bio-place,
+  .bio-pillars {
+    align-self: start;
+  }
+
+  .bio-eyebrow { margin-top: clamp(1.5rem, 4vh, 3rem); }
+  .bio-pillars { margin-bottom: 1.6rem; }
+
+  .bio-body-grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(2rem, 4vw, 3.75rem);
+    align-items: start;
+  }
+
+  .bio-open-curve {
+    height: 72px;
   }
 }
 
-@media (max-width: 899px) {
-  .bio-photo-col {
-    max-width: 380px;
-  }
-
-  .bio-hero-title {
-    max-width: 18ch;
-  }
-}
-
-@media (max-width: 640px) {
-  .bio-photo-stage {
-    border-radius: 24px 24px 16px 16px;
-    padding: 0.85rem 0.85rem 0;
-  }
-
-  .bio-pillars li {
-    flex: 1 1 calc(50% - 0.7rem);
-    justify-content: center;
-  }
-
+@media (max-width: 759px) {
   .bio-cta-actions {
     flex-direction: column;
   }
 
   .bio-cta-btn {
     width: 100%;
+  }
+
+  .bio-visual {
+    max-width: 360px;
   }
 }
 
@@ -3154,4 +3284,3 @@ button, a { -webkit-tap-highlight-color: transparent; }
     transform: none;
   }
 }
-

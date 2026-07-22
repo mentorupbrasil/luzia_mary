@@ -2,7 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
+  Flag,
   HeartHandshake,
+  Landmark,
   MapPin,
   MessageCircle,
   ShieldCheck,
@@ -16,25 +18,56 @@ export const metadata = { title: "Biografia" };
 
 const BIO_PHOTO = "/images/luzia-mary-biografia.png";
 
-const pillars: Array<{ label: string; Icon: LucideIcon }> = [
-  { label: "Escuta", Icon: MessageCircle },
-  { label: "Presença", Icon: MapPin },
-  { label: "Compromisso", Icon: HeartHandshake },
-];
-
-const trajectory = [
-  "Antes de disputar eleições, Luzia Mary já participava da vida pública pela base, ouvindo famílias, acompanhando demandas reais e defendendo melhorias para as comunidades de Imperatriz.",
-  "Ao longo de sua caminhada, consolidou uma atuação marcada pela proximidade com as pessoas, pela defesa da dignidade social e pelo compromisso com soluções concretas para o cotidiano da população.",
-  "Sua experiência inclui participação em pautas ligadas à assistência social, ao acolhimento de famílias, à defesa de comunidades, ao diálogo com lideranças locais e à busca por melhorias em serviços e direitos básicos.",
-  "Nas eleições municipais de 2024, colocou seu nome à disposição da cidade, ampliando ainda mais sua rede de diálogo com lideranças, mulheres, jovens e comunidades da Região Tocantina.",
-  "Agora, apresenta sua pré-candidatura a deputada federal com o propósito de transformar escuta em prioridade, presença em trabalho e compromisso em resultado para o Maranhão.",
-] as const;
-
-const experience: Array<{
+const pillars: Array<{
   title: string;
   text: string;
   Icon: LucideIcon;
+  tone: "yellow" | "blue" | "green";
 }> = [
+  {
+    title: "Escuta",
+    text: "das comunidades",
+    Icon: MessageCircle,
+    tone: "yellow",
+  },
+  {
+    title: "Presença",
+    text: "onde o povo está",
+    Icon: MapPin,
+    tone: "blue",
+  },
+  {
+    title: "Compromisso",
+    text: "com resultados",
+    Icon: HeartHandshake,
+    tone: "green",
+  },
+];
+
+const trajectory: Array<{ text: string; Icon: LucideIcon }> = [
+  {
+    text: "Antes de disputar eleições, Luzia Mary já participava da vida pública pela base, ouvindo famílias, acompanhando demandas reais e defendendo melhorias para as comunidades de Imperatriz.",
+    Icon: Users,
+  },
+  {
+    text: "Ao longo de sua caminhada, consolidou uma atuação marcada pela proximidade com as pessoas, pela defesa da dignidade social e pelo compromisso com soluções concretas para o cotidiano da população.",
+    Icon: HeartHandshake,
+  },
+  {
+    text: "Sua experiência inclui participação em pautas ligadas à assistência social, ao acolhimento de famílias, à defesa de comunidades, ao diálogo com lideranças locais e à busca por melhorias em serviços e direitos básicos.",
+    Icon: ShieldCheck,
+  },
+  {
+    text: "Nas eleições municipais de 2024, colocou seu nome à disposição da cidade, ampliando sua rede de diálogo com lideranças, mulheres, jovens e comunidades da Região Tocantina.",
+    Icon: Landmark,
+  },
+  {
+    text: "Agora, apresenta sua pré-candidatura a deputada federal com o propósito de transformar escuta em prioridade, presença em trabalho e compromisso em resultado para o Maranhão.",
+    Icon: Flag,
+  },
+];
+
+const experience: Array<{ title: string; text: string; Icon: LucideIcon }> = [
   {
     title: "Liderança comunitária",
     text: "Atuação próxima das comunidades, com escuta ativa e defesa das necessidades reais da população.",
@@ -60,13 +93,18 @@ const experience: Array<{
 export default function AboutPage() {
   return (
     <div className="bio-page">
-      <section className="bio-hero" aria-labelledby="bio-hero-title">
-        <Container className="bio-hero-grid">
-          <div className="bio-photo-col">
-            <figure className="bio-photo-stage">
-              <span className="bio-photo-glow" aria-hidden />
-              <span className="bio-photo-arc" aria-hidden />
-              <span className="bio-photo-dot" aria-hidden />
+      <section className="bio-open" aria-labelledby="bio-hero-title">
+        <Container className="bio-open-shell">
+          <div className="bio-open-grid">
+            <div className="bio-visual">
+              <div className="bio-visual-deco" aria-hidden="true">
+                <span className="bio-blob" />
+                <span className="bio-arc bio-arc--yellow" />
+                <span className="bio-arc bio-arc--green" />
+                <span className="bio-soft-blue" />
+                <span className="bio-dots bio-dots--a" />
+                <span className="bio-dots bio-dots--b" />
+              </div>
               <Image
                 src={BIO_PHOTO}
                 alt={`${content.candidate.ballotName} — biografia`}
@@ -74,31 +112,79 @@ export default function AboutPage() {
                 height={1536}
                 priority
                 unoptimized
-                sizes="(max-width: 768px) 88vw, (max-width: 1200px) 42vw, 460px"
-                className="bio-photo-img"
+                sizes="(max-width: 899px) 86vw, 52vw"
+                className="bio-photo"
               />
-            </figure>
-          </div>
+            </div>
 
-          <div className="bio-hero-copy">
             <p className="bio-eyebrow">Quem é Luzia Mary</p>
-            <h1 id="bio-hero-title" className="bio-hero-title">
-              Uma trajetória construída ouvindo as pessoas e agindo pela comunidade.
+
+            <h1 id="bio-hero-title" className="bio-title">
+              Uma trajetória construída
+              <br />
+              ouvindo as pessoas e
+              <br />
+              <span>agindo pela comunidade.</span>
             </h1>
-            <p className="bio-hero-lead">
+
+            <p className="bio-lead">
               Luzia Mary construiu sua história pública em Imperatriz a partir da escuta, da presença
               nas comunidades e do compromisso com quem mais precisa. Sua trajetória reúne liderança
               comunitária, experiência em gestão social e atuação próxima das famílias, sempre
               conectada à realidade da Região Tocantina e do Maranhão.
             </p>
-            <p className="bio-hero-place">
+
+            <p className="bio-place">
               Imperatriz <span aria-hidden>•</span> Região Tocantina <span aria-hidden>•</span> Maranhão
             </p>
+
             <ul className="bio-pillars" aria-label="Pilares">
-              {pillars.map(({ label, Icon }) => (
-                <li key={label}>
-                  <Icon size={16} strokeWidth={2.2} aria-hidden />
-                  <span>{label}</span>
+              {pillars.map(({ title, text, Icon, tone }) => (
+                <li key={title} className={`bio-pillar bio-pillar--${tone}`}>
+                  <span className="bio-pillar-icon" aria-hidden="true">
+                    <Icon size={18} strokeWidth={2.2} />
+                  </span>
+                  <span className="bio-pillar-copy">
+                    <strong>{title}</strong>
+                    <span>{text}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Container>
+        <div className="bio-open-curve" aria-hidden="true" />
+      </section>
+
+      <section className="bio-body" aria-label="Trajetória e experiência">
+        <Container className="bio-body-grid">
+          <div className="bio-timeline-col">
+            <p className="bio-eyebrow">Trajetória</p>
+            <ol className="bio-timeline">
+              {trajectory.map(({ text, Icon }, index) => (
+                <li key={text}>
+                  <span className="bio-timeline-mark" aria-hidden="true">
+                    <Icon size={16} strokeWidth={2.1} />
+                  </span>
+                  <p>
+                    <span className="bio-timeline-num">{String(index + 1).padStart(2, "0")}</span>
+                    {text}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="bio-cards-col">
+            <p className="bio-eyebrow">Experiência e atuação</p>
+            <ul className="bio-cards">
+              {experience.map(({ title, text, Icon }) => (
+                <li key={title} className="bio-card">
+                  <span className="bio-card-icon" aria-hidden="true">
+                    <Icon size={20} strokeWidth={1.9} />
+                  </span>
+                  <h2>{title}</h2>
+                  <p>{text}</p>
                 </li>
               ))}
             </ul>
@@ -106,51 +192,12 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="bio-trajectory" aria-labelledby="bio-trajectory-title">
-        <Container className="bio-trajectory-inner">
-          <p className="bio-eyebrow">Caminhada</p>
-          <h2 id="bio-trajectory-title" className="bio-section-title">
-            Trajetória
-          </h2>
-          <div className="bio-trajectory-copy">
-            {trajectory.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="bio-experience" aria-labelledby="bio-experience-title">
-        <Container>
-          <div className="bio-experience-header">
-            <p className="bio-eyebrow">Atuação</p>
-            <h2 id="bio-experience-title" className="bio-section-title">
-              Experiência e atuação
-            </h2>
-          </div>
-          <ul className="bio-experience-grid">
-            {experience.map(({ title, text, Icon }) => (
-              <li key={title} className="bio-experience-card">
-                <span className="bio-experience-icon" aria-hidden>
-                  <Icon size={22} strokeWidth={1.9} />
-                </span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </section>
-
       <section className="bio-cta" aria-labelledby="bio-cta-title">
-        <div className="bio-cta-bg" aria-hidden>
-          <span className="bio-cta-glow" />
-          <span className="bio-cta-arc" />
-          <span className="bio-cta-dots" />
-        </div>
-        <Container className="bio-cta-inner">
+        <Container className="bio-cta-panel">
           <h2 id="bio-cta-title" className="bio-cta-title">
-            Uma trajetória feita com presença, diálogo e compromisso.
+            Uma trajetória feita com
+            <br />
+            presença, diálogo e compromisso.
           </h2>
           <p className="bio-cta-lead">
             Conheça as propostas, acompanhe a caminhada e participe da construção de um projeto
