@@ -535,7 +535,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   display: grid;
   gap: 1rem;
   margin-top: 1.35rem;
-  max-width: 38rem;
+  max-width: none;
+  width: 100%;
 }
 
 .about-bio p {
