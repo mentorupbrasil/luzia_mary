@@ -2858,15 +2858,15 @@ button, a { -webkit-tap-highlight-color: transparent; }
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 0.65rem;
   width: 100%;
-  min-height: 76px;
-  margin-top: -4.75rem;
-  padding: 0.95rem 1.15rem;
+  min-height: 70px;
+  margin-top: calc(-4.75rem - 32px);
+  padding: 0.7rem 1.15rem;
   border-radius: 16px;
   background: rgba(248, 249, 251, 0.94);
   border-top: 2px solid var(--bio-yellow);
-  box-shadow: 0 10px 28px rgba(0, 26, 63, 0.06);
+  box-shadow: 0 14px 35px rgba(0, 31, 77, 0.08);
 }
 
 .bio-rail-place {
@@ -2881,7 +2881,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .bio-rail-sep {
-  margin: 0 0.35rem;
+  margin: 0 0.7rem;
 }
 
 .bio-rail-sep--yellow {
@@ -2913,8 +2913,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .bio-rail-pillar + .bio-rail-pillar {
-  padding-left: 0.85rem;
-  border-left: 1px solid rgba(0, 26, 63, 0.12);
+  padding-left: 0.9rem;
+  border-left: 1px solid rgba(0, 26, 63, 0.05);
 }
 
 .bio-rail-pillar-icon {
@@ -2973,7 +2973,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   grid-template-columns: 2.35rem 1fr;
   gap: 0.95rem;
   align-items: start;
-  padding: 0.55rem 0 1.15rem;
+  padding: 0.45rem 0 1rem;
+}
+
+.bio-timeline li:last-child {
+  padding-bottom: 0;
 }
 
 .bio-timeline-mark {
@@ -3070,7 +3074,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .bio-cta {
-  padding: 0 0 clamp(3rem, 6vw, 4.5rem);
+  padding: 0 0 clamp(2.25rem, 4.5vw, 3.5rem);
   background: #ffffff;
 }
 
@@ -3078,32 +3082,96 @@ button, a { -webkit-tap-highlight-color: transparent; }
   position: relative;
   overflow: hidden;
   max-width: 72rem;
-  padding: clamp(1.85rem, 3.5vw, 2.6rem) clamp(1.35rem, 3vw, 2.4rem);
-  border-radius: 28px;
+  padding: clamp(1.45rem, 2.6vw, 2rem) clamp(1.25rem, 2.8vw, 2.1rem);
+  border-radius: 24px;
   background:
-    radial-gradient(circle at 88% 18%, rgba(255, 211, 26, 0.22), transparent 28%),
-    radial-gradient(circle at 8% 85%, rgba(35, 112, 240, 0.12), transparent 32%),
-    linear-gradient(145deg, #f4f7ff 0%, #ffffff 55%, #f7fafc 100%);
-  border: 1px solid rgba(0, 26, 63, 0.06);
+    radial-gradient(circle at 92% 18%, rgba(255, 211, 26, 0.12), transparent 32%),
+    radial-gradient(circle at 10% 88%, rgba(35, 112, 240, 0.07), transparent 36%),
+    linear-gradient(145deg, #f7f9fc 0%, #ffffff 58%, #f8fafc 100%);
+  border: 1px solid rgba(0, 26, 63, 0.05);
+}
+
+.bio-cta-deco {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bio-cta-arc {
+  position: absolute;
+  width: min(38vw, 280px);
+  aspect-ratio: 1;
+  right: -6%;
+  top: 8%;
+  border-radius: 50%;
+  border: 1.5px solid rgba(6, 62, 153, 0.16);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  transform: rotate(18deg);
+}
+
+.bio-cta-arc::after {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  background-image: radial-gradient(circle, rgba(6, 62, 153, 0.18) 1.25px, transparent 1.4px);
+  background-size: 18px 18px;
+  background-position: center;
+  opacity: 0.45;
+  mask-image: radial-gradient(circle at 70% 30%, #000 0%, transparent 68%);
+}
+
+.bio-cta-word {
+  position: absolute;
+  right: 3.5%;
+  bottom: 10%;
+  color: rgba(0, 26, 63, 0.07);
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  line-height: 0.9;
+  user-select: none;
+}
+
+.bio-cta-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1.25rem;
+  align-items: center;
 }
 
 .bio-cta-title {
   margin: 0;
-  max-width: 14ch;
   color: var(--bio-navy);
   font-family: var(--font-league-spartan), "League Spartan", sans-serif;
-  font-size: clamp(1.85rem, 3.4vw, 2.85rem);
+  font-size: clamp(1.75rem, 3vw, 2.55rem);
   font-weight: 800;
-  line-height: 0.98;
+  line-height: 1.02;
   letter-spacing: -0.045em;
 }
 
+.bio-cta-line {
+  display: block;
+}
+
+.bio-cta-side {
+  min-width: 0;
+  display: grid;
+  gap: 1.15rem;
+  align-content: center;
+}
+
 .bio-cta-lead {
-  margin: 1rem 0 0;
-  max-width: 40rem;
+  margin: 0;
+  max-width: 36rem;
   color: var(--bio-ink-soft);
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(0.98rem, 1.1vw, 1.08rem);
+  font-size: clamp(0.98rem, 1.1vw, 1.06rem);
   font-weight: 500;
   line-height: 1.7;
 }
@@ -3111,8 +3179,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .bio-cta-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.85rem;
-  margin-top: 1.55rem;
+  gap: 0.75rem;
 }
 
 .bio-cta-btn {
@@ -3120,8 +3187,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   align-items: center;
   justify-content: center;
   gap: 0.65rem;
-  min-height: 3.15rem;
-  padding: 0.85rem 1.45rem;
+  min-height: 3rem;
+  padding: 0.8rem 1.35rem;
   border-radius: 999px;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
   font-size: 0.84rem;
@@ -3159,6 +3226,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 @media (min-width: 760px) {
+  .bio-cta-grid {
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: clamp(1.75rem, 4vw, 3.25rem);
+    align-items: center;
+  }
+
+  .bio-cta-line {
+    white-space: nowrap;
+  }
+
   .bio-cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3168,7 +3245,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
     align-items: center;
     justify-content: space-between;
     gap: 1rem 1.5rem;
-    min-height: 78px;
+    height: 72px;
+    min-height: 72px;
     padding: 0 1.35rem;
   }
 }
@@ -3177,6 +3255,18 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .bio-open {
     padding-top: clamp(2rem, 3vw, 3rem);
     padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  .bio-open-compose::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 36px;
+    background: #f3f4f6;
+    z-index: 4;
+    pointer-events: none;
   }
 
   .bio-open-grid {
@@ -3195,7 +3285,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .bio-copy {
     align-self: start;
     padding-top: clamp(1.25rem, 3vh, 2.5rem);
-    padding-bottom: 5.75rem;
+    padding-bottom: 7.25rem;
   }
 
   .bio-photo {
@@ -3215,27 +3305,66 @@ button, a { -webkit-tap-highlight-color: transparent; }
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 36px;
+    width: 100%;
     margin-top: 0;
-    height: 80px;
-    min-height: 80px;
+    height: 72px;
+    min-height: 72px;
     padding: 0 1.5rem;
+    align-items: center;
   }
 
   .bio-body-grid {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
     gap: clamp(2rem, 4vw, 3.75rem);
-    align-items: start;
+    align-items: stretch;
+  }
+
+  .bio-timeline-col,
+  .bio-cards-col {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .bio-timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.15rem;
+  }
+
+  .bio-cards {
+    flex: 1;
+    grid-template-rows: 1fr 1fr;
+    gap: clamp(1rem, 1.6vw, 1.35rem);
+    align-content: stretch;
+  }
+
+  .bio-card {
+    height: 100%;
   }
 }
 
 @media (max-width: 759px) {
+  .bio-cta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bio-cta-word {
+    font-size: clamp(2.2rem, 14vw, 3.4rem);
+    right: 3%;
+    bottom: 5%;
+  }
+
   .bio-cta-actions {
     flex-direction: column;
   }
 
   .bio-cta-btn {
     width: 100%;
+    max-width: 22rem;
   }
 
   .bio-visual {
@@ -3253,7 +3382,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .bio-rail {
-    margin-top: -4.25rem;
+    margin-top: calc(-4.25rem - 32px);
+    min-height: 70px;
   }
 
   .bio-rail-pillar + .bio-rail-pillar {

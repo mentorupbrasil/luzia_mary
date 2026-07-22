@@ -177,24 +177,32 @@ export default function AboutPage() {
 
       <section className="bio-cta" aria-labelledby="bio-cta-title">
         <Container className="bio-cta-panel">
-          <h2 id="bio-cta-title" className="bio-cta-title">
-            Uma trajetória feita com
-            <br />
-            presença, diálogo e compromisso.
-          </h2>
-          <p className="bio-cta-lead">
-            Conheça as propostas, acompanhe a caminhada e participe da construção de um projeto
-            conectado à realidade de Imperatriz, da Região Tocantina e do Maranhão.
-          </p>
-          <div className="bio-cta-actions">
-            <Link href="/propostas" className="bio-cta-btn bio-cta-btn--primary">
-              Ver propostas
-              <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
-            </Link>
-            <Link href="/demandas" className="bio-cta-btn bio-cta-btn--secondary">
-              Participar
-              <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
-            </Link>
+          <div className="bio-cta-deco" aria-hidden="true">
+            <span className="bio-cta-arc" />
+            <span className="bio-cta-word">Maranhão</span>
+          </div>
+          <div className="bio-cta-grid">
+            <h2 id="bio-cta-title" className="bio-cta-title">
+              <span className="bio-cta-line">Uma trajetória feita{"\u00A0"}com</span>
+              <span className="bio-cta-line">presença, diálogo{"\u00A0"}e</span>
+              <span className="bio-cta-line">compromisso.</span>
+            </h2>
+            <div className="bio-cta-side">
+              <p className="bio-cta-lead">
+                Conheça as propostas, acompanhe a caminhada e participe da construção de um projeto
+                conectado à realidade de Imperatriz, da Região Tocantina e do Maranhão.
+              </p>
+              <div className="bio-cta-actions">
+                <Link href="/propostas" className="bio-cta-btn bio-cta-btn--primary">
+                  Ver propostas
+                  <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
+                </Link>
+                <Link href="/demandas" className="bio-cta-btn bio-cta-btn--secondary">
+                  Participar
+                  <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
+                </Link>
+              </div>
+            </div>
           </div>
         </Container>
       </section>
