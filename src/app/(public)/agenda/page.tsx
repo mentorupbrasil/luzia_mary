@@ -1,64 +1,140 @@
-import { CalendarDays, Clock3, MapPin } from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
+import {
+  CalendarDays,
+  MapPin,
+  MessageCircle,
+} from "lucide-react";
 import { Container } from "@/components/container";
-import { EmptyState } from "@/components/empty-state";
-import { PublicPageHero } from "@/components/page-hero";
-import { getEvents } from "@/lib/data";
-import { formatDate } from "@/lib/utils";
+import { AgendaUpcomingSection } from "@/components/agenda-upcoming";
+import { agendaMeta } from "@/config/agenda";
+import { content } from "@/config/site";
+import {
+  formatAgendaDayParts,
+  getPublishableAgendaEvents,
+  partitionAgendaEvents,
+} from "@/lib/agenda";
+import { getSiteUrl } from "@/lib/site-url";
 
-export const metadata = { title: "Agenda" };
+export const metadata: Metadata = {
+  title: agendaMeta.title,
+  description: agendaMeta.description,
+  alternates: {
+    canonical: "/agenda",
+  },
+  openGraph: {
+    title: `${agendaMeta.title} | Luzia Mary`,
+    description: agendaMeta.description,
+    url: `${getSiteUrl()}/agenda`,
+  },
+};
 
-export default async function AgendaPage() {
-  const items = await getEvents();
+const inviteMailto = `mailto:${content.contact.email}?subject=${encodeURIComponent(
+  "Convite para evento",
+)}&body=${encodeURIComponent(
+  "Olá,\n\nGostaria de convidar Luzia Mary para uma atividade.\n\nNome do evento:\nData:\nHorário:\nLocal / município:\nDescrição breve:\nContato para retorno:\n\nObrigado(a).",
+)}`;
+
+export default function AgendaPage() {
+  const publishable = getPublishableAgendaEvents();
+  const { upcomingList, past, featured } = partitionAgendaEvents(publishable);
 
   return (
-    <>
-      <PublicPageHero
-        eyebrow="Agenda"
-        title="Compromissos públicos"
-        description="Encontros e agendas divulgados pela equipe. Eventos sujeitos a alteração."
-      />
-      <Container className="py-12">
-        {items.length === 0 ? (
-          <EmptyState
-            title="Agenda em atualização"
-            description="Novos compromissos públicos serão publicados aqui."
-          />
-        ) : (
-          <div className="space-y-4">
-            {items.map((item) => (
-              <article
-                key={item.id}
-                className="rounded-[1.5rem] border border-[var(--border)] bg-white p-6"
-              >
-                <div className="flex items-start gap-4">
-                  <span className="grid h-11 w-11 place-items-center rounded-2xl bg-[var(--brand-soft)] text-[var(--brand)]">
-                    <CalendarDays size={20} aria-hidden />
-                  </span>
-                  <div>
-                    <span className="rounded-full bg-[var(--accent-soft)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em]">
-                      {item.status}
-                    </span>
-                    <h2 className="mt-3 font-display text-xl font-bold">{item.title}</h2>
-                    {item.description && (
-                      <p className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{item.description}</p>
-                    )}
-                    <div className="mt-4 grid gap-2 text-sm text-[var(--text-muted)]">
-                      <span className="flex items-center gap-2">
-                        <Clock3 size={15} aria-hidden /> {formatDate(item.startAt, true)}
-                      </span>
-                      <span className="flex items-center gap-2">
-                        <MapPin size={15} aria-hidden />
-                        {item.location ? `${item.location} · ` : ""}
-                        {item.city}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            ))}
+    <div className="agenda-page">
+      <section className="agenda-hero" aria-labelledby="agenda-hero-title">
+        <div className="agenda-hero-atmosphere" aria-hidden>
+          <span className="agenda-hero-glow agenda-hero-glow--blue" />
+          <span className="agenda-hero-glow agenda-hero-glow--green" />
+          <span className="agenda-hero-arc agenda-hero-arc--1" />
+          <span className="agenda-hero-arc agenda-hero-arc--2" />
+          <span className="agenda-hero-icons">
+            <span className="agenda-hero-icon agenda-hero-icon--cal">
+              <CalendarDays size={22} strokeWidth={1.8} />
+            </span>
+            <span className="agenda-hero-icon agenda-hero-icon--pin">
+              <MapPin size={20} strokeWidth={1.8} />
+            </span>
+            <span className="agenda-hero-icon agenda-hero-icon--chat">
+              <MessageCircle size={20} strokeWidth={1.8} />
+            </span>
+          </span>
+        </div>
+
+        <Container className="agenda-shell">
+          <div className="agenda-hero-copy">
+            <p className="agenda-hero-eyebrow">AGENDA</p>
+            <h1 id="agenda-hero-title" className="agenda-hero-title">
+              Compromissos públicos
+              <br />
+              <em>e encontros com as comunidades.</em>
+            </h1>
+            <p className="agenda-hero-lead">
+              Acompanhe os próximos compromissos, encontros, visitas e atividades públicas de
+              Luzia Mary em Imperatriz, na Região Tocantina e no Maranhão.
+            </p>
           </div>
-        )}
-      </Container>
-    </>
+        </Container>
+      </section>
+
+      <AgendaUpcomingSection featured={featured} events={upcomingList} />
+
+      {past.length > 0 ? (
+        <section className="agenda-past" aria-labelledby="agenda-past-title">
+          <Container className="agenda-shell">
+            <div className="agenda-section-head">
+              <p className="agenda-section-eyebrow">AGENDA REALIZADA</p>
+              <h2 id="agenda-past-title" className="agenda-section-title">
+                Compromissos já realizados
+              </h2>
+            </div>
+            <ul className="agenda-past-list">
+              {past.map((event) => {
+                const parts = formatAgendaDayParts(event.date);
+                return (
+                  <li key={event.id} className="agenda-past-item">
+                    <div className="agenda-past-date" aria-hidden>
+                      <span>{parts.day}</span>
+                      <small>{parts.month}</small>
+                    </div>
+                    <div className="agenda-past-body">
+                      <h3>{event.title}</h3>
+                      <p>
+                        {event.location}
+                        {event.city ? ` · ${event.city}` : ""}
+                      </p>
+                      {event.description ? <p>{event.description}</p> : null}
+                      {event.postUrl ? (
+                        <Link href={event.postUrl} className="agenda-past-link">
+                          VER REGISTRO
+                        </Link>
+                      ) : null}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </Container>
+        </section>
+      ) : null}
+
+      <section className="agenda-cta" aria-labelledby="agenda-cta-title">
+        <Container className="agenda-shell">
+          <div className="agenda-cta-panel">
+            <div>
+              <h2 id="agenda-cta-title" className="agenda-cta-title">
+                Quer convidar Luzia Mary para uma atividade?
+              </h2>
+              <p className="agenda-cta-text">
+                Envie informações sobre encontros comunitários, reuniões, visitas e eventos
+                realizados em Imperatriz, na Região Tocantina e no Maranhão.
+              </p>
+            </div>
+            <a href={inviteMailto} className="agenda-btn agenda-btn--cta">
+              ENVIAR UM CONVITE
+            </a>
+          </div>
+        </Container>
+      </section>
+    </div>
   );
 }
