@@ -133,7 +133,7 @@ export default function ProposalsPage() {
       </section>
 
       <section className="flags-grid-section" aria-label="Bandeiras prioritárias">
-        <Container>
+        <Container className="flags-section-shell">
           <div className="flags-grid">
             {bandeiras.map((item) => {
               const Icon = iconMap[item.icon];
@@ -159,6 +159,31 @@ export default function ProposalsPage() {
                 </article>
               );
             })}
+          </div>
+        </Container>
+      </section>
+
+      <section className="flags-closing" aria-labelledby="flags-closing-title">
+        <Container className="flags-section-shell">
+          <div className="flags-closing-panel">
+            <div className="flags-closing-copy">
+              <h2 id="flags-closing-title" className="flags-closing-title">
+                Sua comunidade também vive uma dessas prioridades?
+              </h2>
+              <p className="flags-closing-text">
+                Participe, envie sua contribuição e ajude a construir uma agenda conectada à
+                realidade de Imperatriz, da Região Tocantina e do Maranhão.
+              </p>
+            </div>
+            <div className="flags-closing-actions">
+              <Link href="/demandas" className="flags-closing-btn flags-closing-btn--primary">
+                Enviar uma contribuição
+                <ArrowRight size={16} aria-hidden />
+              </Link>
+              <Link href="/agenda" className="flags-closing-btn flags-closing-btn--secondary">
+                Acompanhar a agenda
+              </Link>
+            </div>
           </div>
         </Container>
       </section>
