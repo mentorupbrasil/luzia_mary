@@ -468,7 +468,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .about-photo-col {
   width: 100%;
-  max-width: 420px;
+  max-width: 380px;
   margin-inline: auto;
 }
 
@@ -476,38 +476,15 @@ button, a { -webkit-tap-highlight-color: transparent; }
   position: relative;
   margin: 0;
   width: 100%;
-  isolation: isolate;
-}
-
-.about-photo-stage::after {
-  content: "";
-  position: absolute;
-  left: 12%;
-  right: 12%;
-  bottom: -10px;
-  z-index: 0;
-  height: 28px;
-  border-radius: 999px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(0, 32, 80, 0.16) 0%,
-    rgba(0, 32, 80, 0.05) 45%,
-    transparent 72%
-  );
-  filter: blur(10px);
-  pointer-events: none;
 }
 
 .about-photo-img {
-  position: relative;
-  z-index: 1;
   display: block;
   width: 100%;
   height: auto;
   max-width: 100%;
   object-fit: contain;
-  object-position: center center;
-  filter: drop-shadow(0 14px 32px rgba(0, 28, 72, 0.1));
+  object-position: center top;
 }
 
 .about-copy {
@@ -642,7 +619,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .about-photo-col {
-    max-width: 400px;
+    max-width: 380px;
   }
 
   .about-values {
@@ -664,10 +641,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .about-photo-col {
-    max-width: 400px;
+    max-width: 380px;
     margin: 0;
     justify-self: start;
-    transform: translateY(-28px);
+    transform: translateY(-22px);
   }
 
   .about-title {
@@ -686,8 +663,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .about-photo-col {
-    max-width: 420px;
-    transform: translateY(-32px);
+    max-width: 400px;
+    transform: translateY(-26px);
   }
 }
 
@@ -698,11 +675,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
   .about-photo-col {
     max-width: 340px;
-  }
-
-  .about-photo-stage::after {
-    bottom: -8px;
-    height: 22px;
   }
 
   .about-title {
