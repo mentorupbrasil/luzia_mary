@@ -32,7 +32,7 @@ export default async function HomePage() {
   const [featured, ...rest] = posts;
   const secondary = rest.slice(0, 2);
 
-  const aboutSrc = content.candidate.photos.about;
+  const aboutSrc = "/images/luzia-mary-about.png";
   const participateSrc = content.candidate.photos.participate;
   const showAboutPhoto = hasPhoto(aboutSrc);
   const showParticipatePhoto = hasPhoto(participateSrc);
@@ -99,10 +99,10 @@ export default async function HomePage() {
                 <span className="about-photo-accent" aria-hidden />
                 <Photo
                   src={aboutSrc}
-                  alt={`${content.candidate.ballotName} em Imperatriz, vestindo blusa azul`}
+                  alt={`${content.candidate.ballotName} em pose frontal, com blusa verde e braços cruzados`}
                   className="about-photo"
                   imgClassName="about-photo-img"
-                  objectPosition="center bottom"
+                  objectPosition="center 18%"
                   priority
                 />
                 <p className="about-photo-tag">
