@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Check, Heart, MapPin, MessageCircle, Users } from "lucide-react";
+import { ArrowRight, Check, MessageCircle } from "lucide-react";
 import { CampaignHomeHeader } from "@/components/campaign-home-header";
 import { Container } from "@/components/container";
 import { Photo, hasPhoto } from "@/components/photo";
@@ -31,16 +32,10 @@ export default async function HomePage() {
   const [featured, ...rest] = posts;
   const secondary = rest.slice(0, 2);
 
-  const heroSrc = content.candidate.photos.hero;
   const aboutSrc = content.candidate.photos.about;
   const participateSrc = content.candidate.photos.participate;
-  const placeSrc = content.candidate.photos.heroPlace;
-  const crowdSrc = "/images/luzia-crowd-subtle.jpg";
-  const showHeroPhoto = hasPhoto(heroSrc);
   const showAboutPhoto = hasPhoto(aboutSrc);
   const showParticipatePhoto = hasPhoto(participateSrc);
-  const showPlacePhoto = hasPhoto(placeSrc);
-  const showCrowdPhoto = hasPhoto(crowdSrc);
   const achievements = content.achievements;
   const values = content.values.slice(0, 3);
   const hasSocial =
@@ -51,94 +46,33 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="campaign-hero">
-        {showPlacePhoto ? (
-          <Photo
-            src={placeSrc}
+      <section className="campaign-hero" aria-labelledby="hero-title">
+        <div className="hero-base" aria-hidden>
+          <Image
+            src="/hero/hero-base.png"
             alt=""
+            fill
             priority
-            className="hero-bg"
-            imgClassName="hero-bg-img"
-            objectPosition="74% center"
+            sizes="100vw"
+            className="hero-base-img"
           />
-        ) : (
-          <div className="hero-bg hero-bg-fallback" aria-hidden />
-        )}
-        <div className="hero-bg-veil" aria-hidden />
+        </div>
 
         <div className="campaign-hero-chrome">
           <CampaignHomeHeader />
         </div>
 
-        <div className="hero-main">
-          {showCrowdPhoto && (
-            <Photo
-              src={crowdSrc}
-              alt=""
-              priority
-              className="hero-crowd"
-              imgClassName="hero-crowd-img"
-              objectPosition="center bottom"
-            />
-          )}
+        <h1 id="hero-title" className="sr-only">
+          Luzia Mary — pré-candidata a deputada federal pelo Maranhão
+        </h1>
+        <p className="sr-only">
+          A mulher do povo, de Imperatriz para o Maranhão. Trabalho, fé e família.
+        </p>
 
-          <p className="hero-eyebrow">Pré-candidata a Deputada Federal pelo Maranhão</p>
-
-          <h1 className="hero-luzia" aria-label={content.candidate.ballotName}>
-            LUZIA
-          </h1>
-
-          {showHeroPhoto && (
-            <div className="hero-candidate">
-              <Photo
-                src={heroSrc}
-                alt={`${content.candidate.ballotName}, ${content.candidate.office}`}
-                priority
-                className="hero-candidate-photo"
-                imgClassName="hero-candidate-img"
-                objectPosition="center bottom"
-              />
-            </div>
-          )}
-
-          <span className="hero-mary" aria-hidden>
-            Mary
-          </span>
-
-          <div className="hero-copy">
-            <p className="hero-slogan">
-              A mulher do povo,
-              <br />
-              de <strong>Imperatriz</strong> para o <strong>Maranhão.</strong>
-            </p>
-
-            <Link href="/sobre" className="hero-button">
-              <span>Conheça Luzia</span>
-              <ArrowRight size={22} strokeWidth={2.2} aria-hidden />
-            </Link>
-          </div>
-        </div>
-
-        <div className="campaign-strip">
-          <div className="campaign-strip-item campaign-strip-yellow">
-            <Users size={22} strokeWidth={2.2} aria-hidden />
-            <strong className="bottom-slogan">A mulher do povo!</strong>
-          </div>
-          <div className="campaign-strip-item campaign-strip-green">
-            <MapPin size={20} strokeWidth={2.2} className="campaign-strip-pin" aria-hidden />
-            <p>
-              <span className="bottom-location-label">De Imperatriz</span>
-              <strong className="bottom-location-name">para o Maranhão</strong>
-            </p>
-          </div>
-          <div className="campaign-strip-item campaign-strip-navy">
-            <Heart size={20} strokeWidth={2.2} className="campaign-strip-heart" aria-hidden />
-            <span className="bottom-values">
-              Trabalho <span className="separator">•</span> Fé <span className="separator">•</span>{" "}
-              Família
-            </span>
-          </div>
-        </div>
+        <Link href="/sobre" className="hero-button">
+          <span>Conheça Luzia</span>
+          <ArrowRight size={22} strokeWidth={2.2} aria-hidden />
+        </Link>
       </section>
 
       <section className="people-intro overflow-hidden bg-white py-20 sm:py-24 lg:py-32">

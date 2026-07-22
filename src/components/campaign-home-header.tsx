@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { BrandLogo } from "@/components/brand-logo";
 import { content } from "@/config/site";
 import { cn } from "@/lib/utils";
 
@@ -21,12 +22,7 @@ export function CampaignHomeHeader() {
     <header className="campaign-header campaign-header-hero">
       <div className="campaign-header-bar">
         <Link href="/" className="campaign-lockup" aria-label={`${content.candidate.ballotName} — início`}>
-          <span className="header-logo-name">
-            <span className="header-logo-l">LUZIA</span> MARY
-          </span>
-          <span className="header-logo-subtitle">
-            Pré-candidata a Deputada Federal pelo Maranhão
-          </span>
+          <BrandLogo variant="light" size="md" priority className="campaign-logo" />
         </Link>
 
         <nav className="campaign-nav" aria-label="Navegação principal">
@@ -58,7 +54,7 @@ export function CampaignHomeHeader() {
 
       {open && (
         <div id="campaign-mobile-menu" className="campaign-mobile-menu">
-          <div className="campaign-header-bar" style={{ height: "auto", display: "block", paddingTop: "0.5rem", paddingBottom: "1.5rem" }}>
+          <div className="campaign-header-bar campaign-mobile-menu-inner">
             <nav className="campaign-mobile-nav" aria-label="Menu mobile">
               {campaignNav.map((item) => {
                 const active = item.href === "/";
