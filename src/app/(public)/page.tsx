@@ -1,12 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Check, MessageCircle } from "lucide-react";
+import {
+  ArrowRight,
+  BriefcaseBusiness,
+  Check,
+  HeartPulse,
+  MessageCircle,
+  Route,
+  ShieldCheck,
+  type LucideIcon,
+} from "lucide-react";
 import { CampaignHomeHeader } from "@/components/campaign-home-header";
 import { Container } from "@/components/container";
 import { Photo, hasPhoto } from "@/components/photo";
 import { content } from "@/config/site";
 import { getPosts, getProposals } from "@/lib/data";
 import { formatShortDate } from "@/lib/utils";
+
+const priorityIcons: Record<string, LucideIcon> = {
+  "heart-pulse": HeartPulse,
+  "briefcase-business": BriefcaseBusiness,
+  route: Route,
+  "shield-check": ShieldCheck,
+};
 
 const listeningSteps = [
   {
@@ -154,39 +170,71 @@ export default async function HomePage() {
       </section>
 
       {priorities.length > 0 && (
-        <section className="people-priorities relative overflow-hidden py-20 text-white sm:py-24 lg:py-32">
-          <div className="people-priorities-glow" aria-hidden />
-          <Container className="relative">
-            <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
-              <div>
-                <p className="people-kicker people-kicker-light">Bandeiras</p>
-                <h2 className="people-title mt-5 max-w-2xl text-white">
-                  Prioridades que nascem da escuta e precisam virar ação.
-                </h2>
-              </div>
-              <p className="max-w-xl text-base leading-8 text-white/70 lg:justify-self-end">
-                Propostas apresentadas de forma clara, ligadas à realidade de Imperatriz, da Região Tocantina e do Maranhão.
+        <section className="bandeiras" aria-labelledby="bandeiras-heading">
+          <div className="bandeiras-deco" aria-hidden>
+            <span className="bandeiras-deco-arc" />
+            <span className="bandeiras-deco-dots" />
+            <span className="bandeiras-deco-line" />
+            <span className="bandeiras-deco-glow" />
+          </div>
+
+          <Container className="bandeiras-container relative max-w-[1220px]">
+            <header className="bandeiras-header">
+              <p className="bandeiras-eyebrow">
+                <span className="bandeiras-eyebrow-mark" aria-hidden />
+                Bandeiras
               </p>
+              <h2 id="bandeiras-heading" className="bandeiras-title">
+                <span className="bandeiras-title-line">Prioridades que nascem da escuta</span>
+                <span className="bandeiras-title-line">
+                  e <em>viram ação</em>.
+                </span>
+              </h2>
+              <p className="bandeiras-lead">
+                Propostas construídas com diálogo e ligadas à realidade de Imperatriz, da Região
+                Tocantina e do Maranhão.
+              </p>
+            </header>
+
+            <div className="bandeiras-grid">
+              {priorities.map((item, index) => {
+                const Icon = priorityIcons[item.icon ?? ""] ?? HeartPulse;
+                const n = String(index + 1).padStart(2, "0");
+                return (
+                  <article
+                    key={item.id}
+                    className={`bandeiras-card bandeiras-card--${index + 1} group`}
+                  >
+                    <div className="bandeiras-card-meta">
+                      <span className="bandeiras-card-icon" aria-hidden>
+                        <Icon size={30} strokeWidth={1.75} />
+                      </span>
+                      <p className="bandeiras-card-label">
+                        <span className="bandeiras-card-num">{n}</span>
+                        <span className="bandeiras-card-dot" aria-hidden>
+                          ·
+                        </span>
+                        <span>{item.category}</span>
+                      </p>
+                    </div>
+                    <h3 className="bandeiras-card-title">{item.title}</h3>
+                    <p className="bandeiras-card-summary">{item.summary}</p>
+                    <Link
+                      href={`/propostas/${item.slug}`}
+                      className="bandeiras-card-link"
+                      aria-label={`Ver proposta: ${item.title}`}
+                    >
+                      Ver proposta
+                      <ArrowRight size={16} aria-hidden />
+                    </Link>
+                  </article>
+                );
+              })}
             </div>
 
-            <div className="people-priority-grid mt-14">
-              {priorities.map((item, index) => (
-                <article key={item.id} className="people-priority-card group">
-                  <div className="people-priority-top">
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <p>{item.category}</p>
-                  </div>
-                  <h3>{item.title}</h3>
-                  <p className="people-priority-summary">{item.summary}</p>
-                  <Link href={`/propostas/${item.slug}`} aria-label={`Ver proposta: ${item.title}`}>
-                    Ver proposta <ArrowRight size={17} aria-hidden />
-                  </Link>
-                </article>
-              ))}
-            </div>
-
-            <Link href="/propostas" className="people-text-link people-text-link-light mt-10">
-              Ver todas as bandeiras <ArrowRight size={16} aria-hidden />
+            <Link href="/propostas" className="bandeiras-cta">
+              Ver todas as bandeiras
+              <ArrowRight size={18} aria-hidden />
             </Link>
           </Container>
         </section>
