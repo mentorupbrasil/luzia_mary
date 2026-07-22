@@ -36,8 +36,25 @@ export default async function HomePage() {
   const participateSrc = content.candidate.photos.participate;
   const showAboutPhoto = hasPhoto(aboutSrc);
   const showParticipatePhoto = hasPhoto(participateSrc);
+  const aboutValues = [
+    {
+      title: "Clareza",
+      text: "Posições e decisões explicadas de forma simples.",
+    },
+    {
+      title: "Presença",
+      text: "Diálogo permanente com municípios e comunidades.",
+    },
+    {
+      title: "Responsabilidade",
+      text: "Compromissos tratados com seriedade e transparência.",
+    },
+  ] as const;
+  const aboutParagraphs = [
+    "Luzia Mary de Araújo construiu sua trajetória em Imperatriz, conhecendo de perto os desafios da gestão pública, das famílias e de quem precisa que o poder público funcione de verdade.",
+    "Nas eleições municipais de 2024, ampliou uma rede de diálogo com lideranças, profissionais, mulheres, jovens e comunidades da Região Tocantina.",
+  ] as const;
   const achievements = content.achievements;
-  const values = content.values.slice(0, 3);
   const hasSocial =
     Boolean(content.social.instagram) ||
     Boolean(content.social.facebook) ||
@@ -74,49 +91,57 @@ export default async function HomePage() {
         </Link>
       </section>
 
-      <section className="people-intro overflow-hidden bg-white py-20 sm:py-24 lg:py-32">
-        <Container className="grid items-center gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-24">
+      <section className="about-section" aria-labelledby="about-title">
+        <Container className="about-section-grid">
           {showAboutPhoto && (
-            <div className="people-about-visual relative mx-auto w-full max-w-[540px] lg:mx-0">
-              <div className="people-about-blue" aria-hidden />
-              <div className="people-about-lime" aria-hidden />
-              <Photo
-                src={aboutSrc}
-                alt={`${content.candidate.ballotName} em Imperatriz`}
-                className="people-about-photo aspect-[4/5] w-full"
-                imgClassName="object-contain object-bottom"
-                objectPosition="center bottom"
-              />
-              <p className="people-about-caption">De Imperatriz para todo o Maranhão.</p>
+            <div className="about-photo-col">
+              <div className="about-photo-frame">
+                <span className="about-photo-accent" aria-hidden />
+                <Photo
+                  src={aboutSrc}
+                  alt={`${content.candidate.ballotName} em Imperatriz, vestindo blusa azul`}
+                  className="about-photo"
+                  imgClassName="about-photo-img"
+                  objectPosition="center bottom"
+                  priority
+                />
+                <p className="about-photo-tag">
+                  <span className="about-photo-tag-line" aria-hidden />
+                  De Imperatriz para todo o Maranhão.
+                </p>
+              </div>
             </div>
           )}
 
-          <div>
-            <p className="people-kicker">Quem é Luzia Mary</p>
-            <h2 className="people-title mt-5 max-w-3xl">
-              Uma mulher presente, que conhece de perto a força e as necessidades do nosso povo.
+          <div className="about-copy">
+            <p className="about-kicker">Quem é Luzia Mary</p>
+            <h2 id="about-title" className="about-title">
+              Presença para ouvir.
+              <br />
+              Coragem para representar.
+              <br />
+              Trabalho para transformar.
             </h2>
 
-            <div className="mt-8 max-w-2xl space-y-5 text-base leading-8 text-[var(--people-muted)]">
-              {content.candidate.bio.slice(0, 2).map((paragraph) => (
-                <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+            <div className="about-bio">
+              {aboutParagraphs.map((paragraph) => (
+                <p key={paragraph.slice(0, 48)}>{paragraph}</p>
               ))}
             </div>
 
-            <ul className="people-values mt-10">
-              {values.map((item, index) => (
+            <ul className="about-values">
+              {aboutValues.map((item, index) => (
                 <li key={item.title}>
                   <span>{String(index + 1).padStart(2, "0")}</span>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
-                  </div>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
                 </li>
               ))}
             </ul>
 
-            <Link href="/sobre" className="people-text-link mt-9">
-              Conheça a trajetória completa <ArrowRight size={16} aria-hidden />
+            <Link href="/sobre" className="about-cta">
+              Conheça a trajetória completa
+              <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
             </Link>
           </div>
         </Container>
