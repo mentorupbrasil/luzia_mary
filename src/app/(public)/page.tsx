@@ -32,7 +32,7 @@ export default async function HomePage() {
   const [featured, ...rest] = posts;
   const secondary = rest.slice(0, 2);
 
-  const aboutSrc = "/images/luzia-mary-about-final-art.png";
+  const aboutSrc = "/images/quem-e-luzia.png";
   const participateSrc = content.candidate.photos.participate;
   const showAboutPhoto = hasPhoto(aboutSrc);
   const showParticipatePhoto = hasPhoto(participateSrc);
