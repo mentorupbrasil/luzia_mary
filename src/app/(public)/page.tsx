@@ -59,29 +59,29 @@ export default async function HomePage() {
             priority
             className="hero-bg"
             imgClassName="hero-bg-img"
-            objectPosition="72% 42%"
+            objectPosition="63% center"
           />
         ) : (
           <div className="hero-bg hero-bg-fallback" aria-hidden />
         )}
         <div className="hero-bg-veil" aria-hidden />
 
-        {showCrowdPhoto && (
-          <Photo
-            src={crowdSrc}
-            alt=""
-            priority
-            className="hero-crowd"
-            imgClassName="hero-crowd-img"
-            objectPosition="center bottom"
-          />
-        )}
-
         <div className="campaign-hero-chrome">
           <CampaignHomeHeader />
         </div>
 
         <div className="hero-main">
+          {showCrowdPhoto && (
+            <Photo
+              src={crowdSrc}
+              alt=""
+              priority
+              className="hero-crowd"
+              imgClassName="hero-crowd-img"
+              objectPosition="center bottom"
+            />
+          )}
+
           <p className="hero-eyebrow">Pré-candidata a Deputada Federal pelo Maranhão</p>
 
           <h1 className="hero-luzia" aria-label={content.candidate.ballotName}>
@@ -119,22 +119,20 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="hero-strip-rule" aria-hidden />
-
         <div className="campaign-strip">
           <div className="campaign-strip-item campaign-strip-yellow">
-            <Users size={26} strokeWidth={2.2} aria-hidden />
+            <Users size={22} strokeWidth={2.2} aria-hidden />
             <strong className="bottom-slogan">A mulher do povo!</strong>
           </div>
           <div className="campaign-strip-item campaign-strip-green">
-            <MapPin size={24} strokeWidth={2.2} className="campaign-strip-pin" aria-hidden />
+            <MapPin size={20} strokeWidth={2.2} className="campaign-strip-pin" aria-hidden />
             <p>
               <span className="bottom-location-label">De Imperatriz</span>
               <strong className="bottom-location-name">para o Maranhão</strong>
             </p>
           </div>
           <div className="campaign-strip-item campaign-strip-navy">
-            <Heart size={24} strokeWidth={2.2} className="campaign-strip-heart" aria-hidden />
+            <Heart size={20} strokeWidth={2.2} className="campaign-strip-heart" aria-hidden />
             <span className="bottom-values">
               Trabalho <span className="separator">•</span> Fé <span className="separator">•</span>{" "}
               Família

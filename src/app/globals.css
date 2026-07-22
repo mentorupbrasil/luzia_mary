@@ -123,11 +123,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-header-bar {
   display: flex;
-  height: 108px;
-  align-items: flex-start;
+  height: 82px;
+  align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding-top: 28px;
+  padding-top: 0;
   padding-left: clamp(40px, 3.3vw, 53px);
   padding-right: clamp(40px, 3.3vw, 53px);
   max-width: none;
@@ -136,10 +136,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .campaign-hero-chrome {
-  position: absolute;
-  inset: 0 0 auto;
+  position: relative;
   z-index: 40;
   width: 100%;
+  height: 82px;
 }
 
 .campaign-header-hero {
@@ -158,7 +158,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .header-logo-name {
   font-family: var(--font-league-spartan), "League Spartan", sans-serif;
-  font-size: clamp(27px, 2.85vw, 46px);
+  font-size: clamp(24px, 2.4vw, 38px);
   font-weight: 800;
   line-height: 0.9;
   letter-spacing: -0.045em;
@@ -193,10 +193,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .header-logo-subtitle {
-  margin-top: 7px;
+  margin-top: 4px;
   max-width: 17rem;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(7px, 0.62vw, 10px);
+  font-size: clamp(7px, 0.58vw, 9px);
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.015em;
@@ -218,9 +218,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .header-nav-link {
   position: relative;
-  padding: 8px 0 26px;
+  padding: 6px 0 14px;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(12px, 1.05vw, 17px);
+  font-size: clamp(12px, 1.05vw, 16px);
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.01em;
@@ -244,7 +244,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 14px;
+  bottom: 6px;
   height: 3px;
   background: var(--hero-yellow);
 }
@@ -268,7 +268,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-mobile-menu {
   position: fixed;
-  inset: 108px 0 0;
+  inset: 76px 0 0;
   z-index: 50;
   overflow-y: auto;
   padding: 1.2rem 0 2.4rem;
@@ -303,16 +303,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
   color: var(--hero-yellow);
 }
 
-/* ---------- Hero shell (1619×972) ---------- */
+/* ---------- Hero shell: cabeçalho + main + faixa = 100svh ---------- */
 .campaign-hero {
   position: relative;
   isolation: isolate;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 82px minmax(0, 1fr) 98px;
   width: 100%;
-  height: 972px;
-  min-height: 972px;
-  max-height: 972px;
+  height: 100svh;
+  min-height: 650px;
+  max-height: 900px;
   overflow: hidden;
   color: white;
   background: var(--hero-blue);
@@ -330,7 +330,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .hero-bg-img {
   object-fit: cover !important;
-  object-position: 72% 42% !important;
+  object-position: 63% center !important;
 }
 
 .hero-bg-fallback {
@@ -345,26 +345,26 @@ button, a { -webkit-tap-highlight-color: transparent; }
   background:
     linear-gradient(
       90deg,
-      rgba(0, 22, 55, 0.97) 0%,
-      rgba(0, 32, 70, 0.88) 38%,
-      rgba(0, 30, 65, 0.48) 67%,
-      rgba(0, 20, 48, 0.38) 100%
+      rgba(0, 23, 58, 0.98) 0%,
+      rgba(0, 29, 67, 0.9) 40%,
+      rgba(0, 28, 65, 0.5) 68%,
+      rgba(0, 20, 48, 0.34) 100%
     ),
     linear-gradient(
       180deg,
-      rgba(0, 15, 38, 0.18) 0%,
-      rgba(0, 15, 38, 0.02) 48%,
-      rgba(0, 15, 38, 0.78) 100%
+      rgba(0, 15, 38, 0.15) 0%,
+      rgba(0, 15, 38, 0.03) 50%,
+      rgba(0, 15, 38, 0.75) 100%
     );
 }
 
 .hero-crowd {
   position: absolute !important;
   left: 0;
-  bottom: 110px;
+  bottom: 0;
   z-index: 2;
-  width: 52%;
-  height: 48%;
+  width: 50%;
+  height: 47%;
   pointer-events: none;
   overflow: hidden !important;
   -webkit-mask-image:
@@ -380,7 +380,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .hero-crowd-img {
   object-fit: cover !important;
   object-position: center bottom !important;
-  opacity: 0.28;
+  opacity: 0.3;
   filter: grayscale(1) sepia(1) hue-rotate(165deg) saturate(2.1) brightness(0.72);
   mix-blend-mode: soft-light;
 }
@@ -388,23 +388,21 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .hero-main {
   position: relative;
   z-index: 3;
-  flex: 1 1 auto;
   min-height: 0;
+  overflow: hidden;
   width: 100%;
 }
 
-/* Desktop lock — topos em px (hero fixa em 972px); horizontais fluidas */
-
 .hero-luzia {
   position: absolute;
-  left: clamp(1.5rem, 6.92vw, 112px);
-  top: 268px;
+  left: 6.7vw;
+  top: 23%;
   z-index: 3;
   margin: 0;
   font-family: var(--font-league-spartan), "League Spartan", sans-serif;
-  font-size: clamp(140px, 19.64vw, 318px);
+  font-size: clamp(170px, 17.5vw, 240px);
   font-weight: 900;
-  line-height: 0.78;
+  line-height: 0.76;
   letter-spacing: -0.065em;
   color: var(--hero-white);
   text-transform: uppercase;
@@ -414,13 +412,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .hero-mary {
   position: absolute;
-  left: clamp(12rem, 31.2vw, 505px);
-  top: 458px;
-  z-index: 5;
+  left: 31%;
+  top: 48%;
+  z-index: 6;
   font-family: var(--font-yellowtail), "Yellowtail", cursive;
-  font-size: clamp(88px, 10.87vw, 176px);
+  font-size: clamp(92px, 9.5vw, 132px);
   font-weight: 400;
-  line-height: 0.8;
+  line-height: 0.75;
   letter-spacing: -0.02em;
   color: var(--hero-yellow);
   transform: rotate(-4deg);
@@ -432,17 +430,18 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .hero-copy {
   position: absolute;
   inset: 0;
-  z-index: 6;
+  z-index: 7;
   pointer-events: none;
 }
 
 .hero-eyebrow {
   position: absolute;
-  left: clamp(1.5rem, 6.73vw, 109px);
-  top: 224px;
+  left: 6.7vw;
+  top: 16%;
+  z-index: 7;
   margin: 0;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(10px, 0.93vw, 15px);
+  font-size: clamp(10px, 0.93vw, 14px);
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: 0.28em;
@@ -453,12 +452,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .hero-slogan {
   position: absolute;
-  left: clamp(1.5rem, 6.86vw, 111px);
-  top: 590px;
+  left: 6.7vw;
+  top: 69%;
   margin: 0;
   max-width: 28rem;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(22px, 2.04vw, 33px);
+  font-size: clamp(23px, 2.25vw, 31px);
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -0.025em;
@@ -473,21 +472,21 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .hero-button {
   position: absolute;
-  left: clamp(1.5rem, 6.86vw, 111px);
-  top: 708px;
+  left: 6.7vw;
+  top: 82%;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  width: min(314px, 90vw);
-  height: 70px;
+  width: 290px;
+  height: 64px;
   margin: 0;
-  padding: 0 36px 0 42px;
+  padding: 0 32px 0 38px;
   border: 0;
   border-radius: 999px;
   background: var(--hero-yellow);
   color: #003066;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.01em;
@@ -508,13 +507,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .hero-candidate {
   position: absolute;
-  right: clamp(1.25rem, 6.18vw, 100px);
+  right: 5.5%;
   bottom: 0;
-  z-index: 4;
+  z-index: 5;
   display: none;
   width: auto;
-  height: min(46.63vw, 755px);
-  max-height: 755px;
+  height: 96%;
+  max-height: none;
   aspect-ratio: 687 / 1060;
   pointer-events: none;
 }
@@ -538,24 +537,17 @@ button, a { -webkit-tap-highlight-color: transparent; }
   filter: none !important;
 }
 
-.hero-strip-rule {
-  position: relative;
-  z-index: 30;
-  flex: 0 0 3px;
-  width: 100%;
-  height: 3px;
-  background: var(--hero-yellow);
-}
-
 .campaign-strip {
   position: relative;
   z-index: 30;
   display: grid;
-  flex: 0 0 110px;
   grid-template-columns: 34fr 30fr 36fr;
   width: 100%;
-  height: 110px;
-  min-height: 110px;
+  height: 98px;
+  min-height: 98px;
+  max-height: 98px;
+  border-top: 3px solid var(--hero-yellow);
+  box-sizing: border-box;
 }
 
 .campaign-strip-item {
@@ -564,8 +556,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   height: 100%;
   align-items: center;
   justify-content: center;
-  gap: 0.9rem;
-  padding: 0 1.4rem;
+  gap: 0.7rem;
+  padding: 0 1.1rem;
 }
 
 .campaign-strip-yellow {
@@ -582,7 +574,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   justify-content: flex-start;
   color: white;
   background: var(--hero-blue);
-  padding-left: clamp(1.4rem, 3vw, 2.8rem);
+  padding-left: clamp(1.2rem, 2.5vw, 2.4rem);
 }
 
 .campaign-strip-heart,
@@ -592,7 +584,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .bottom-slogan {
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(16px, 1.45vw, 23px);
+  font-size: clamp(14px, 1.3vw, 20px);
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.025em;
@@ -603,7 +595,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .bottom-location-label {
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(9px, 0.8vw, 13px);
+  font-size: clamp(9px, 0.75vw, 12px);
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.04em;
@@ -612,9 +604,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .bottom-location-name {
-  margin-top: 5px;
+  margin-top: 4px;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(20px, 1.8vw, 29px);
+  font-size: clamp(17px, 1.55vw, 24px);
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.025em;
@@ -624,7 +616,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .bottom-values {
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(13px, 1.17vw, 19px);
+  font-size: clamp(12px, 1.05vw, 17px);
   font-weight: 600;
   line-height: 1;
   letter-spacing: 0.04em;
@@ -648,35 +640,40 @@ button, a { -webkit-tap-highlight-color: transparent; }
   flex: 0 0 auto;
 }
 
-/* Desktop abaixo de 1619: escala proporcional */
-@media (max-width: 1618px) and (min-width: 1024px) {
-  .campaign-hero {
-    height: min(100dvh, 972px);
-    min-height: 780px;
-    max-height: 972px;
+@media (max-height: 720px) and (min-width: 1024px) {
+  .hero-luzia {
+    top: 20%;
+    font-size: clamp(160px, 16.5vw, 222px);
   }
 
-  .campaign-header-bar {
-    height: clamp(88px, 11.1vh, 108px);
-    padding-top: clamp(18px, 2.9vh, 28px);
+  .hero-mary {
+    top: 46%;
+    font-size: clamp(84px, 8.8vw, 118px);
   }
 
-  .campaign-strip {
-    flex-basis: clamp(96px, 11.3vh, 110px);
-    height: clamp(96px, 11.3vh, 110px);
-    min-height: clamp(96px, 11.3vh, 110px);
+  .hero-slogan {
+    top: 68%;
+    font-size: 26px;
   }
 
-  .hero-crowd {
-    bottom: clamp(96px, 11.3vh, 110px);
+  .hero-button {
+    top: 81%;
+    height: 58px;
   }
 }
 
 @media (max-width: 1023px) {
   .campaign-hero {
+    display: flex;
+    flex-direction: column;
     height: auto;
-    min-height: 100dvh;
+    min-height: 100svh;
     max-height: none;
+    overflow: hidden;
+  }
+
+  .campaign-hero-chrome {
+    height: 76px;
   }
 
   .campaign-header-bar {
@@ -692,14 +689,15 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .hero-main {
-    min-height: 70vh;
-    padding-bottom: 1rem;
+    flex: 1 1 auto;
+    min-height: 58vh;
+    overflow: hidden;
   }
 
   .hero-copy {
     position: relative;
     inset: auto;
-    z-index: 6;
+    z-index: 7;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -719,7 +717,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .hero-eyebrow {
     white-space: normal;
     max-width: 22rem;
-    margin: 5.5rem 0 0;
+    margin: 1.25rem 0 0;
     padding-left: 1.25rem;
   }
 
@@ -744,7 +742,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .hero-button {
-    width: min(311px, 100%);
+    width: min(290px, 100%);
     height: 64px;
     margin-top: 1.2rem;
     font-size: 16px;
@@ -761,22 +759,21 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .hero-crowd {
-    bottom: 0;
     width: 70%;
     height: 40%;
   }
 
   .campaign-strip {
-    flex-basis: auto;
     height: auto;
     min-height: 0;
+    max-height: none;
     grid-template-columns: 1fr;
   }
 
   .campaign-strip-item {
-    min-height: 72px;
+    min-height: 68px;
     height: auto;
-    padding: 1rem 1.2rem;
+    padding: 0.9rem 1.2rem;
   }
 
   .campaign-strip-navy {
@@ -786,9 +783,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 @media (max-width: 639px) {
-  .hero-copy {
-    padding-top: 5rem;
-    padding-bottom: 1rem;
+  .hero-eyebrow {
+    margin-top: 1rem;
+    padding-left: 1rem;
   }
 
   .hero-luzia {
