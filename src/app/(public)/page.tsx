@@ -32,7 +32,7 @@ export default async function HomePage() {
   const [featured, ...rest] = posts;
   const secondary = rest.slice(0, 2);
 
-  const aboutSrc = "/images/luzia-mary-about.png";
+  const aboutSrc = "/images/luzia-mary-about-panel-v2.jpg";
   const participateSrc = content.candidate.photos.participate;
   const showAboutPhoto = hasPhoto(aboutSrc);
   const showParticipatePhoto = hasPhoto(participateSrc);
@@ -95,21 +95,29 @@ export default async function HomePage() {
         <Container className="about-section-grid">
           {showAboutPhoto && (
             <div className="about-photo-col">
-              <div className="about-photo-frame">
-                <span className="about-photo-accent" aria-hidden />
-                <Photo
-                  src={aboutSrc}
-                  alt={`${content.candidate.ballotName} em pose frontal, com blusa verde e braços cruzados`}
-                  className="about-photo"
-                  imgClassName="about-photo-img"
-                  objectPosition="center 18%"
-                  priority
-                />
-                <p className="about-photo-tag">
-                  <span className="about-photo-tag-line" aria-hidden />
+              <figure className="about-photo-stage">
+                <div className="about-photo-plate" aria-hidden />
+                <div className="about-photo-frame">
+                  <span className="about-photo-accent" aria-hidden />
+                  <div className="about-photo-well">
+                    <Photo
+                      src={aboutSrc}
+                      alt={`${content.candidate.ballotName} em pose frontal, com blusa verde e braços cruzados`}
+                      className="about-photo"
+                      imgClassName="about-photo-img"
+                      objectPosition="center center"
+                      priority
+                    />
+                  </div>
+                  <div className="about-photo-tag">
+                    <span className="about-photo-tag-line" aria-hidden />
+                    De Imperatriz para todo o Maranhão.
+                  </div>
+                </div>
+                <figcaption className="sr-only">
                   De Imperatriz para todo o Maranhão.
-                </p>
-              </div>
+                </figcaption>
+              </figure>
             </div>
           )}
 
