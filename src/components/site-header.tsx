@@ -32,6 +32,9 @@ export function SiteHeader() {
     return () => document.removeEventListener("mousedown", onPointerDown);
   }, []);
 
+  // A home possui cabeçalho integrado à arte da Hero.
+  if (pathname === "/") return null;
+
   const moreActive = navSecondary.some((item) => pathname === item.href || pathname.startsWith(`${item.href}/`));
 
   return (
@@ -122,7 +125,7 @@ export function SiteHeader() {
       {open && (
         <div
           id="menu-mobile"
-          className="fixed inset-x-0 top-[calc(76px+2.4rem)] z-40 h-[calc(100dvh-76px-2.4rem)] overflow-y-auto border-t border-[var(--border)] bg-[var(--background)] px-5 py-6 xl:hidden"
+          className="fixed inset-x-0 top-[76px] z-40 h-[calc(100dvh-76px)] overflow-y-auto border-t border-[var(--border)] bg-[var(--background)] px-5 py-6 xl:hidden"
         >
           <nav className="mx-auto grid max-w-7xl gap-1" aria-label="Menu mobile">
             {[...navPrimary, ...navSecondary].map((item) => {

@@ -1,16 +1,15 @@
-# Fotografias oficiais
+# Fotografias — Luzia Mary
 
-Coloque aqui os arquivos reais da campanha:
+Cutouts com fundo transparente (padrão Marina Helou / Nikolas Ferreira):
 
-| Arquivo | Uso |
-|---------|-----|
-| `luzia-mary-retrato.jpg` | Retrato principal do hero e da página Conheça |
-| `luzia-mary-og.jpg` | (opcional) imagem de compartilhamento customizada |
+| Arquivo | Seção |
+|---------|--------|
+| `luzia-mary-hero.png` | Hero (em pé, mãos na cintura) |
+| `luzia-mary-trajetoria.png` | Quem é Luzia (sentada) |
+| `luzia-mary-participe.png` | Participação (polegares) |
 
-Recomendações:
-- Retrato vertical, proporção aproximada 4:5
-- Resolução mínima 1200×1500
-- Fundo limpo ou ambiente institucional
-- Formato JPG ou WebP
+Originais em `raw/`. Regenerar cutouts:
 
-Enquanto o arquivo não existir, o site exibe um placeholder editorial sem simular o rosto da candidata.
+```bash
+python scripts/prepare_cutouts.py
+```

@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/container";
-import { Badge } from "@/components/ui/badge";
 import { getProposalBySlug, getProposals } from "@/lib/data";
 
 export async function generateStaticParams() {
@@ -21,69 +20,43 @@ export default async function ProposalDetailPage({
 
   return (
     <>
-      <section className="border-b border-[var(--border)] bg-[var(--hero)] py-14 text-white sm:py-16">
+      <section className="border-b border-[var(--border)] bg-[linear-gradient(160deg,#eef4ff_0%,#faf9f7_70%)] py-12 sm:py-14">
         <Container>
-          <Link href="/propostas" className="inline-flex items-center gap-2 text-sm font-bold text-white/70 hover:text-white">
-            <ArrowLeft size={16} aria-hidden /> Voltar às prioridades
+          <Link href="/propostas" className="inline-flex items-center gap-2 text-sm font-bold text-[var(--brand)]">
+            <ArrowLeft size={16} aria-hidden /> Voltar às bandeiras
           </Link>
-          <div className="mt-8">
-            <Badge tone="brand" className="bg-white/10 text-white">
-              {proposal.category}
-            </Badge>
-          </div>
-          <h1 className="mt-6 max-w-4xl font-display text-[clamp(2.2rem,5vw,4rem)] font-semibold tracking-[-0.035em]">
+          <p className="mt-8 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--accent)]">
+            {proposal.category}
+          </p>
+          <h1 className="mt-3 max-w-3xl font-display text-[clamp(2rem,4.5vw,3.4rem)] font-bold tracking-[-0.04em]">
             {proposal.title}
           </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-white/60">{proposal.summary}</p>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--text-muted)]">{proposal.summary}</p>
         </Container>
       </section>
 
-      <Container className="grid gap-12 py-14 lg:grid-cols-[1fr_0.42fr]">
+      <Container className="grid gap-10 py-12 lg:grid-cols-[1fr_0.4fr]">
         <article className="prose-public">
-          <h2>O problema</h2>
+          <h2>Contexto</h2>
           <p>{proposal.summary}</p>
-
-          <h2>A proposta</h2>
+          <h2>Caminho de atuação</h2>
           <p>{proposal.body}</p>
-
-          <h2>Atuação possível</h2>
+          <h2>Como acompanhar</h2>
           <ul>
-            <li>Definição clara do problema e do resultado esperado.</li>
-            <li>Uso de instrumentos compatíveis com o mandato federal: legislação, fiscalização, orçamento e articulação institucional.</li>
-            <li>Publicação de indicadores e atualizações em linguagem acessível.</li>
+            <li>Atualizações em notícias e compromissos públicos.</li>
+            <li>Canal de demandas para contribuições relacionadas ao tema.</li>
+            <li>Prestação de contas em linguagem acessível.</li>
           </ul>
-
-          <h2>Acompanhamento</h2>
-          <p>
-            O andamento desta prioridade poderá ser acompanhado por meio dos compromissos públicos,
-            notícias oficiais e do canal de participação desta plataforma.
-          </p>
-
-          <h2>Impacto esperado</h2>
-          <p>
-            Melhor organização das demandas do território e respostas públicas mais claras sobre o
-            caminho entre escuta, prioridade e resultado.
-          </p>
         </article>
-
         <aside>
-          <div
-            className="sticky top-28 border border-[var(--border)] bg-[var(--brand-dark)] p-7 text-white"
-            style={{ borderRadius: "var(--radius)" }}
-          >
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--accent)]">
-              Participe
-            </p>
-            <h2 className="mt-4 font-display text-2xl font-semibold tracking-[-0.025em]">
-              Ajude a aperfeiçoar esta prioridade
-            </h2>
+          <div className="sticky top-24 rounded-3xl bg-[var(--brand-dark)] p-6 text-white">
+            <h2 className="font-display text-xl font-bold">Contribua com esta bandeira</h2>
             <p className="mt-3 text-sm leading-7 text-white/60">
-              Envie uma experiência, necessidade ou sugestão relacionada a este tema.
+              Envie uma experiência ou sugestão relacionada a este tema.
             </p>
             <Link
               href={`/demandas?tema=${encodeURIComponent(proposal.category)}`}
-              className="mt-6 inline-flex items-center gap-2 bg-[var(--accent)] px-5 py-3 text-sm font-bold text-white"
-              style={{ borderRadius: "999px" }}
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-3 text-sm font-bold"
             >
               Participar <ArrowRight size={16} aria-hidden />
             </Link>

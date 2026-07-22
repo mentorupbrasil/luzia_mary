@@ -19,10 +19,30 @@ export const fallbackFactChecks = [
   { id: "f2", slug: "propostas-publicadas", claim: "As propostas podem ser alteradas sem registro ou explicação.", verdict: "Falso", explanation: "A plataforma foi preparada para manter propostas e compromissos organizados. Mudanças relevantes devem ser explicadas publicamente pela equipe.", sources: [], published: true, publishedAt: new Date(), createdAt: new Date() },
 ];
 
-export const fallbackEvents = [
-  { id: "e1", title: "Lançamento da plataforma de participação", description: "Apresentação dos canais digitais e da metodologia de escuta.", location: "Canal oficial", city: "Imperatriz", startAt: new Date("2026-08-16T19:00:00-03:00"), endAt: null, status: "a confirmar", public: true, createdAt: new Date() },
-];
+/** Sem eventos ou notícias demonstrativas apresentados como reais */
+export const fallbackEvents: Array<{
+  id: string;
+  title: string;
+  description: string | null;
+  location: string | null;
+  city: string;
+  startAt: Date;
+  endAt: Date | null;
+  status: string;
+  public: boolean;
+  createdAt: Date;
+}> = [];
 
-export const fallbackPosts = [
-  { id: "n1", slug: "uma-campanha-que-escuta-e-presta-contas", title: "Uma campanha que escuta e presta contas", excerpt: "Conheça a proposta de uma plataforma pública para organizar demandas, compromissos e informações oficiais.", body: "Esta plataforma nasce para tornar a participação mais simples e a informação mais acessível. Aqui, a população poderá conhecer propostas, acompanhar compromissos, consultar a agenda pública, enviar demandas e verificar informações oficiais.", category: "Institucional", imageUrl: null, published: true, publishedAt: new Date(), createdAt: new Date(), updatedAt: new Date() },
-];
+export const fallbackPosts: Array<{
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string | null;
+  body: string;
+  category: string;
+  imageUrl: string | null;
+  published: boolean;
+  publishedAt: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
+}> = [];

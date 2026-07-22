@@ -1,4 +1,3 @@
-import { CampaignBanner } from "@/components/campaign-banner";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
@@ -13,7 +12,6 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       >
         Ir para o conteúdo
       </a>
-      <CampaignBanner />
       <SiteHeader />
       <main id="conteudo">{children}</main>
       <SiteFooter />

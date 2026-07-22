@@ -1,8 +1,8 @@
 import { ImageResponse } from "next/og";
-import { siteConfig } from "@/config/site";
+import { content } from "@/config/site";
 
 export const runtime = "edge";
-export const alt = `${siteConfig.candidate.ballotName} | ${siteConfig.candidate.office}`;
+export const alt = `${content.candidate.ballotName} | ${content.candidate.office}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -14,47 +14,43 @@ export default function OpenGraphImage() {
           width: "100%",
           height: "100%",
           display: "flex",
-          background: "#071833",
-          color: "white",
-          padding: "64px",
-          position: "relative",
+          background: "linear-gradient(125deg, #e9f7fc 0%, #fffdf9 50%, #ffe9e1 100%)",
+          color: "#152033",
+          padding: 64,
         }}
       >
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "65%" }}>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ fontSize: 20, letterSpacing: 3, textTransform: "uppercase", color: "#0b6f99", fontWeight: 800 }}>
+              {content.candidate.office}
+            </div>
+            <div style={{ marginTop: 20, fontSize: 84, fontWeight: 800, lineHeight: 0.95, letterSpacing: -3 }}>
+              Luzia Mary
+            </div>
+            <div style={{ marginTop: 24, fontSize: 28, lineHeight: 1.35, color: "#5a667a", maxWidth: 540 }}>
+              {content.candidate.slogan}
+            </div>
+          </div>
+          <div style={{ fontSize: 18, letterSpacing: 2, textTransform: "uppercase", color: "#5a667a", fontWeight: 700 }}>
+            {content.candidate.city} · {content.candidate.region} · {content.candidate.state}
+          </div>
+        </div>
         <div
           style={{
-            position: "absolute",
-            right: 0,
-            top: 0,
-            bottom: 0,
-            width: "38%",
-            background: "linear-gradient(160deg, #12305a 0%, #0a2858 55%, #071833 100%)",
+            marginLeft: "auto",
+            width: "30%",
+            borderRadius: 28,
+            background: "linear-gradient(160deg, #1aa6d6, #1564c8)",
             display: "flex",
             alignItems: "flex-end",
             justifyContent: "center",
-            padding: "40px",
-            color: "rgba(255,255,255,0.35)",
-            fontSize: 18,
-            letterSpacing: 2,
-            textTransform: "uppercase",
+            padding: 24,
+            color: "white",
+            fontSize: 22,
+            fontWeight: 800,
           }}
         >
-          Espaço para retrato
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "58%" }}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: 18, letterSpacing: 4, textTransform: "uppercase", color: "#c24f38", fontWeight: 700 }}>
-              {siteConfig.candidate.office}
-            </div>
-            <div style={{ marginTop: 28, fontSize: 84, fontWeight: 700, lineHeight: 0.95, letterSpacing: -3 }}>
-              Luzia Mary
-            </div>
-            <div style={{ marginTop: 28, fontSize: 30, lineHeight: 1.35, color: "rgba(255,255,255,0.72)", maxWidth: 560 }}>
-              {siteConfig.candidate.slogan}
-            </div>
-          </div>
-          <div style={{ fontSize: 20, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.45)" }}>
-            {siteConfig.candidate.cityBase} · {siteConfig.candidate.region} · {siteConfig.candidate.state}
-          </div>
+          Luzia Mary
         </div>
       </div>
     ),

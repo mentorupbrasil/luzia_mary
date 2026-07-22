@@ -13,54 +13,45 @@ export default async function AgendaPage() {
   return (
     <>
       <PublicPageHero
-        eyebrow="Agenda pública"
-        title="Onde a candidata estará"
-        description="Compromissos públicos, encontros e transmissões divulgados em um único lugar. Eventos sujeitos a alteração são atualizados pela equipe."
+        eyebrow="Agenda"
+        title="Compromissos públicos"
+        description="Encontros e agendas divulgados pela equipe. Eventos sujeitos a alteração."
       />
-
-      <Container className="py-14 sm:py-16">
+      <Container className="py-12">
         {items.length === 0 ? (
           <EmptyState
             title="Agenda em atualização"
             description="Novos compromissos públicos serão publicados aqui."
           />
         ) : (
-          <div className="border-t border-[var(--border)]">
+          <div className="space-y-4">
             {items.map((item) => (
               <article
                 key={item.id}
-                className="grid gap-5 border-b border-[var(--border)] py-9 sm:grid-cols-[72px_1fr]"
+                className="rounded-[1.5rem] border border-[var(--border)] bg-white p-6"
               >
-                <span className="grid h-12 w-12 place-items-center bg-[var(--brand-soft)] text-[var(--brand)]" style={{ borderRadius: "var(--radius)" }}>
-                  <CalendarDays size={22} aria-hidden />
-                </span>
-                <div>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span
-                      className="bg-[var(--accent-soft)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--ink)]"
-                      style={{ borderRadius: "999px" }}
-                    >
+                <div className="flex items-start gap-4">
+                  <span className="grid h-11 w-11 place-items-center rounded-2xl bg-[var(--brand-soft)] text-[var(--brand)]">
+                    <CalendarDays size={20} aria-hidden />
+                  </span>
+                  <div>
+                    <span className="rounded-full bg-[var(--accent-soft)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em]">
                       {item.status}
                     </span>
-                  </div>
-                  <h2 className="mt-4 font-display text-2xl font-semibold tracking-[-0.025em]">
-                    {item.title}
-                  </h2>
-                  {item.description && (
-                    <p className="mt-3 max-w-3xl text-base leading-8 text-[var(--text-muted)]">
-                      {item.description}
-                    </p>
-                  )}
-                  <div className="mt-5 grid gap-3 text-sm text-[var(--text-muted)]">
-                    <span className="flex items-center gap-3">
-                      <Clock3 size={16} className="text-[var(--brand)]" aria-hidden />
-                      {formatDate(item.startAt, true)}
-                    </span>
-                    <span className="flex items-center gap-3">
-                      <MapPin size={16} className="text-[var(--brand)]" aria-hidden />
-                      {item.location ? `${item.location} · ` : ""}
-                      {item.city}
-                    </span>
+                    <h2 className="mt-3 font-display text-xl font-bold">{item.title}</h2>
+                    {item.description && (
+                      <p className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{item.description}</p>
+                    )}
+                    <div className="mt-4 grid gap-2 text-sm text-[var(--text-muted)]">
+                      <span className="flex items-center gap-2">
+                        <Clock3 size={15} aria-hidden /> {formatDate(item.startAt, true)}
+                      </span>
+                      <span className="flex items-center gap-2">
+                        <MapPin size={15} aria-hidden />
+                        {item.location ? `${item.location} · ` : ""}
+                        {item.city}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </article>
