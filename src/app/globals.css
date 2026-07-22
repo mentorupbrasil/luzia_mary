@@ -2711,7 +2711,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .bio-open {
   position: relative;
   background: #f3f4f6;
-  padding: clamp(1.75rem, 3.2vw, 2.75rem) 0 clamp(2rem, 4vw, 3rem);
+  padding: clamp(1.75rem, 3.2vw, 2.75rem) 0 clamp(1.5rem, 3vw, 2.25rem);
 }
 
 .bio-open-shell {
@@ -2719,27 +2719,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
   z-index: 1;
 }
 
+.bio-open-compose {
+  position: relative;
+}
+
 .bio-open-grid {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-areas:
-    "eyebrow"
-    "title"
-    "visual"
-    "lead"
-    "place"
-    "pillars";
-  column-gap: clamp(1.75rem, 3.5vw, 3.5rem);
-  row-gap: 0.95rem;
-  align-items: center;
+  gap: 1rem 0;
+  align-items: end;
 }
-
-.bio-visual { grid-area: visual; }
-.bio-eyebrow { grid-area: eyebrow; }
-.bio-title { grid-area: title; }
-.bio-lead { grid-area: lead; }
-.bio-place { grid-area: place; }
-.bio-pillars { grid-area: pillars; }
 
 .bio-visual {
   position: relative;
@@ -2747,55 +2736,77 @@ button, a { -webkit-tap-highlight-color: transparent; }
   align-items: flex-end;
   justify-content: center;
   width: 100%;
-  max-width: 420px;
+  max-width: 440px;
   margin-inline: auto;
   min-height: 0;
   background: transparent;
   border: 0;
   box-shadow: none;
   overflow: visible;
+  z-index: 1;
 }
 
-.bio-visual::before {
-  content: "";
+.bio-copy {
+  min-width: 0;
+  padding-bottom: 0.5rem;
+}
+
+.bio-visual-deco {
   position: absolute;
+  inset: 0;
   z-index: 0;
-  left: 10%;
-  top: 12%;
-  width: 74%;
-  height: 68%;
-  border-radius: 48% 52% 45% 55% / 52% 48% 54% 46%;
-  background: radial-gradient(circle at 45% 40%, rgba(237, 230, 215, 0.55), rgba(237, 230, 215, 0.18) 58%, transparent 78%);
   pointer-events: none;
 }
 
-.bio-visual::after {
-  content: "";
+.bio-deco-blob {
   position: absolute;
-  z-index: 0;
+  left: 6%;
+  top: 8%;
+  width: 88%;
+  height: 78%;
+  border-radius: 56% 44% 48% 52% / 48% 54% 46% 52%;
+  background:
+    radial-gradient(circle at 42% 36%, rgba(237, 230, 215, 0.42) 0%, rgba(237, 230, 215, 0.22) 45%, rgba(237, 230, 215, 0.08) 68%, transparent 82%);
+  filter: blur(2px);
+}
+
+.bio-deco-glow {
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 4%;
+  height: 34%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(35, 112, 240, 0.08), transparent 70%);
+}
+
+.bio-deco-arc {
+  position: absolute;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: transparent;
+}
+
+.bio-deco-arc--yellow {
+  width: min(88%, 380px);
+  aspect-ratio: 1;
+  left: -6%;
+  top: -2%;
+  border-width: 2.5px;
+  border-top-color: rgba(255, 211, 26, 0.85);
+  border-right-color: rgba(255, 211, 26, 0.35);
+  transform: rotate(-22deg);
+}
+
+.bio-deco-arc--green {
   width: min(72%, 300px);
   aspect-ratio: 1;
-  left: 4%;
-  top: 6%;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255, 211, 26, 0.35);
-  border-left-color: transparent;
-  border-bottom-color: transparent;
-  transform: rotate(-28deg);
-  pointer-events: none;
-}
-
-.bio-visual-dots {
-  position: absolute;
-  z-index: 0;
-  top: 14%;
-  right: 6%;
-  width: 64px;
-  height: 80px;
-  opacity: 0.28;
-  background-image: radial-gradient(circle, rgba(6, 62, 153, 0.7) 1.3px, transparent 1.5px);
-  background-size: 12px 12px;
-  pointer-events: none;
+  right: -4%;
+  bottom: 8%;
+  border-width: 2px;
+  border-bottom-color: rgba(8, 166, 75, 0.55);
+  border-left-color: rgba(8, 166, 75, 0.22);
+  transform: rotate(16deg);
 }
 
 .bio-photo {
@@ -2806,7 +2817,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   height: auto;
   max-width: 100%;
   object-fit: contain;
-  object-position: center center;
+  object-position: center bottom;
   background: transparent;
   border: 0;
   border-radius: 0;
@@ -2816,7 +2827,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .bio-title {
-  margin: 0;
+  margin: 0.85rem 0 0;
   max-width: 14ch;
   color: var(--bio-navy);
   font-family: var(--font-league-spartan), "League Spartan", sans-serif;
@@ -2831,7 +2842,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .bio-lead {
-  margin: 0.35rem 0 0;
+  margin: 1rem 0 0;
   max-width: 34rem;
   color: var(--bio-ink-soft);
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
@@ -2840,64 +2851,91 @@ button, a { -webkit-tap-highlight-color: transparent; }
   line-height: 1.72;
 }
 
-.bio-place {
-  margin: 0.55rem 0 0;
-  color: var(--bio-blue);
-  font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+.bio-rail {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 76px;
+  margin-top: -4.75rem;
+  padding: 0.95rem 1.15rem;
+  border-radius: 16px;
+  background: rgba(248, 249, 251, 0.94);
+  border-top: 2px solid var(--bio-yellow);
+  box-shadow: 0 10px 28px rgba(0, 26, 63, 0.06);
 }
 
-.bio-place span {
-  margin: 0 0.45rem;
+.bio-rail-place {
+  margin: 0;
+  color: var(--bio-navy);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(0.72rem, 1.1vw, 0.8rem);
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+
+.bio-rail-sep {
+  margin: 0 0.35rem;
+}
+
+.bio-rail-sep--yellow {
   color: var(--bio-yellow);
 }
 
-.bio-pillars {
+.bio-rail-sep--green {
+  color: var(--bio-green);
+}
+
+.bio-rail-pillars {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.65rem;
-  margin: 0.85rem 0 0;
+  align-items: center;
+  gap: 0.55rem 0.85rem;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.bio-pillar {
+.bio-rail-pillar {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  min-height: 2.45rem;
-  padding: 0.4rem 0.9rem 0.4rem 0.45rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(0, 26, 63, 0.06);
+  gap: 0.4rem;
   color: var(--bio-navy);
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
   font-size: 0.86rem;
   font-weight: 700;
 }
 
-.bio-pillar-icon {
+.bio-rail-pillar + .bio-rail-pillar {
+  padding-left: 0.85rem;
+  border-left: 1px solid rgba(0, 26, 63, 0.12);
+}
+
+.bio-rail-pillar-icon {
   display: grid;
   place-items: center;
-  width: 1.85rem;
-  height: 1.85rem;
+  width: 1.7rem;
+  height: 1.7rem;
   border-radius: 999px;
   color: var(--bio-navy);
 }
 
-.bio-pillar--yellow .bio-pillar-icon {
+.bio-rail-pillar--yellow .bio-rail-pillar-icon {
   background: var(--bio-yellow);
 }
 
-.bio-pillar--blue .bio-pillar-icon {
+.bio-rail-pillar--blue .bio-rail-pillar-icon {
   background: #2f79f0;
   color: white;
 }
 
-.bio-pillar--green .bio-pillar-icon {
+.bio-rail-pillar--green .bio-rail-pillar-icon {
   background: var(--bio-green);
   color: white;
 }
@@ -3124,34 +3162,40 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .bio-cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .bio-rail {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 1.5rem;
+    min-height: 78px;
+    padding: 0 1.35rem;
+  }
 }
 
 @media (min-width: 980px) {
   .bio-open {
     padding-top: clamp(2rem, 3vw, 3rem);
-    padding-bottom: clamp(2.25rem, 4vw, 3.5rem);
+    padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
   }
 
   .bio-open-grid {
     grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
-    grid-template-areas:
-      "visual eyebrow"
-      "visual title"
-      "visual lead"
-      "visual place"
-      "visual pillars";
-    align-items: center;
-    min-height: 0;
+    align-items: end;
     column-gap: clamp(1.75rem, 3.5vw, 3.75rem);
-    row-gap: 0.8rem;
+    row-gap: 0;
   }
 
   .bio-visual {
-    align-self: center;
     justify-content: flex-start;
     max-width: none;
     margin-inline: 0;
-    height: auto;
+  }
+
+  .bio-copy {
+    align-self: start;
+    padding-top: clamp(1.25rem, 3vh, 2.5rem);
+    padding-bottom: 5.75rem;
   }
 
   .bio-photo {
@@ -3167,16 +3211,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
     line-height: 0.95;
   }
 
-  .bio-eyebrow,
-  .bio-title,
-  .bio-lead,
-  .bio-place,
-  .bio-pillars {
-    align-self: start;
+  .bio-rail {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-top: 0;
+    height: 80px;
+    min-height: 80px;
+    padding: 0 1.5rem;
   }
-
-  .bio-eyebrow { margin-top: clamp(1.25rem, 3vh, 2.5rem); }
-  .bio-pillars { margin-bottom: 0.5rem; }
 
   .bio-body-grid {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
@@ -3196,6 +3240,24 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
   .bio-visual {
     max-width: 340px;
+    order: 2;
+  }
+
+  .bio-copy {
+    order: 1;
+  }
+
+  .bio-open-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bio-rail {
+    margin-top: -4.25rem;
+  }
+
+  .bio-rail-pillar + .bio-rail-pillar {
+    padding-left: 0.65rem;
   }
 }
 

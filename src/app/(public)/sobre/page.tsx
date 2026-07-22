@@ -16,7 +16,7 @@ import { content } from "@/config/site";
 
 export const metadata = { title: "Biografia" };
 
-const BIO_PHOTO = "/images/ultima-tentativa.png";
+const BIO_PHOTO = "/images/ultima-tentativa-cutout.png";
 
 const pillars: Array<{
   title: string;
@@ -79,52 +79,62 @@ export default function AboutPage() {
     <div className="bio-page">
       <section className="bio-open" aria-labelledby="bio-hero-title">
         <Container className="bio-open-shell">
-          <div className="bio-open-grid">
-            <div className="bio-visual">
-              <span className="bio-visual-dots" aria-hidden="true" />
-              <Image
-                src={BIO_PHOTO}
-                alt={`${content.candidate.ballotName} — biografia`}
-                width={1122}
-                height={1402}
-                priority
-                unoptimized
-                sizes="(max-width: 899px) 86vw, 42vw"
-                className="bio-photo"
-              />
+          <div className="bio-open-compose">
+            <div className="bio-open-grid">
+              <div className="bio-visual">
+                <div className="bio-visual-deco" aria-hidden="true">
+                  <span className="bio-deco-blob" />
+                  <span className="bio-deco-arc bio-deco-arc--yellow" />
+                  <span className="bio-deco-arc bio-deco-arc--green" />
+                  <span className="bio-deco-glow" />
+                </div>
+                <Image
+                  src={BIO_PHOTO}
+                  alt={`${content.candidate.ballotName} — biografia`}
+                  width={1122}
+                  height={1402}
+                  priority
+                  unoptimized
+                  sizes="(max-width: 899px) 86vw, 42vw"
+                  className="bio-photo"
+                />
+              </div>
+
+              <div className="bio-copy">
+                <p className="bio-eyebrow">Quem é Luzia Mary</p>
+                <h1 id="bio-hero-title" className="bio-title">
+                  Uma trajetória construída
+                  <br />
+                  ouvindo as pessoas e
+                  <br />
+                  <span>agindo pela comunidade.</span>
+                </h1>
+                <p className="bio-lead">
+                  Luzia Mary construiu sua história pública em Imperatriz a partir da escuta, da presença
+                  nas comunidades e do compromisso com quem mais precisa. Sua trajetória reúne liderança
+                  comunitária, experiência em gestão social e atuação próxima das famílias, sempre
+                  conectada à realidade da Região Tocantina e do Maranhão.
+                </p>
+              </div>
             </div>
 
-            <p className="bio-eyebrow">Quem é Luzia Mary</p>
-
-            <h1 id="bio-hero-title" className="bio-title">
-              Uma trajetória construída
-              <br />
-              ouvindo as pessoas e
-              <br />
-              <span>agindo pela comunidade.</span>
-            </h1>
-
-            <p className="bio-lead">
-              Luzia Mary construiu sua história pública em Imperatriz a partir da escuta, da presença
-              nas comunidades e do compromisso com quem mais precisa. Sua trajetória reúne liderança
-              comunitária, experiência em gestão social e atuação próxima das famílias, sempre
-              conectada à realidade da Região Tocantina e do Maranhão.
-            </p>
-
-            <p className="bio-place">
-              Imperatriz <span aria-hidden>•</span> Região Tocantina <span aria-hidden>•</span> Maranhão
-            </p>
-
-            <ul className="bio-pillars" aria-label="Pilares">
-              {pillars.map(({ title, Icon, tone }) => (
-                <li key={title} className={`bio-pillar bio-pillar--${tone}`}>
-                  <span className="bio-pillar-icon" aria-hidden="true">
-                    <Icon size={16} strokeWidth={2.2} />
-                  </span>
-                  <span>{title}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="bio-rail">
+              <p className="bio-rail-place">
+                Imperatriz <span className="bio-rail-sep bio-rail-sep--yellow" aria-hidden>•</span>{" "}
+                Região Tocantina <span className="bio-rail-sep bio-rail-sep--green" aria-hidden>•</span>{" "}
+                Maranhão
+              </p>
+              <ul className="bio-rail-pillars" aria-label="Pilares">
+                {pillars.map(({ title, Icon, tone }) => (
+                  <li key={title} className={`bio-rail-pillar bio-rail-pillar--${tone}`}>
+                    <span className="bio-rail-pillar-icon" aria-hidden="true">
+                      <Icon size={15} strokeWidth={2.2} />
+                    </span>
+                    <span>{title}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </Container>
       </section>
