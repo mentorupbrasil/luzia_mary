@@ -396,29 +396,31 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .hero-luzia {
   position: absolute;
   left: 6.7vw;
-  top: 21%;
+  top: 18.5%;
   z-index: 3;
   margin: 0;
   font-family: var(--font-league-spartan), "League Spartan", sans-serif;
-  font-size: clamp(192px, 19.8vw, 275px);
+  font-size: clamp(200px, 20.8vw, 292px);
   font-weight: 900;
-  line-height: 0.74;
-  letter-spacing: -0.065em;
+  line-height: 0.68;
+  letter-spacing: -0.068em;
   color: var(--hero-white);
   text-transform: uppercase;
   white-space: nowrap;
   pointer-events: none;
+  transform: scaleY(1.08);
+  transform-origin: left center;
 }
 
 .hero-mary {
   position: absolute;
-  left: 29%;
-  top: 43%;
+  left: 33%;
+  top: 39%;
   z-index: 6;
   font-family: var(--font-yellowtail), "Yellowtail", cursive;
-  font-size: clamp(104px, 10.8vw, 150px);
+  font-size: clamp(108px, 11.2vw, 156px);
   font-weight: 400;
-  line-height: 0.72;
+  line-height: 0.7;
   letter-spacing: -0.02em;
   color: var(--hero-yellow);
   transform: rotate(-4deg);
@@ -507,12 +509,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .hero-candidate {
   position: absolute;
-  right: 0;
+  right: -3%;
   bottom: 0;
   z-index: 5;
   display: none;
-  width: min(42vw, 580px);
-  height: 100%;
+  width: min(50vw, 680px);
+  height: 102%;
   max-height: none;
   aspect-ratio: auto;
   pointer-events: none;
@@ -533,26 +535,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .hero-candidate-img {
   object-fit: cover !important;
-  object-position: 48% 12% !important;
-  filter: none !important;
-}
-
-@media (min-width: 900px) {
-  .hero-candidate {
-    display: block;
-  }
-}
-
-.hero-candidate-photo {
-  width: 100% !important;
-  height: 100% !important;
-  overflow: visible !important;
-  background: transparent !important;
-}
-
-.hero-candidate-img {
-  object-fit: contain !important;
-  object-position: bottom center !important;
+  object-position: 46% 8% !important;
   filter: none !important;
 }
 
@@ -663,17 +646,18 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 @media (max-height: 720px) and (min-width: 1024px) {
   .hero-luzia {
-    top: 18%;
-    font-size: clamp(180px, 18.5vw, 250px);
+    top: 16.5%;
+    font-size: clamp(186px, 19.2vw, 268px);
   }
 
   .hero-mary {
-    top: 40%;
-    font-size: clamp(96px, 9.8vw, 136px);
+    top: 36%;
+    left: 32%;
+    font-size: clamp(100px, 10.2vw, 142px);
   }
 
   .hero-eyebrow {
-    top: 9.5%;
+    top: 8.5%;
   }
 
   .hero-slogan {
@@ -687,8 +671,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .hero-candidate {
-    transform: none;
-    width: min(42vw, 520px);
+    width: min(48vw, 620px);
+    right: -2%;
   }
 }
 
