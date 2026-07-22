@@ -598,7 +598,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   width: calc(100% - 1.5rem);
   max-width: 100%;
   height: 56px;
-  margin-top: -2.7rem;
+  margin-top: -2.15rem;
   padding: 0 1.5rem;
   border-radius: 999px;
   background: #003a88;
@@ -663,7 +663,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .about-cta {
-    margin-top: -2.85rem;
+    margin-top: -2.25rem;
   }
 
   .about-title {
@@ -699,7 +699,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
   .about-cta {
     height: 52px;
-    margin-top: -2.4rem;
+    margin-top: -1.9rem;
     padding: 0 1.25rem;
     font-size: 0.72rem;
   }
