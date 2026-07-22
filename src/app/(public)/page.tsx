@@ -96,7 +96,7 @@ export default async function HomePage() {
                 priority
                 className="hero-candidate-photo"
                 imgClassName="hero-candidate-img"
-                objectPosition="46% 8%"
+                objectPosition="center bottom"
               />
             </div>
           )}
