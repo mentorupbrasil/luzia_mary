@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { CampaignHomeHeader } from "@/components/campaign-home-header";
 import { Container } from "@/components/container";
-import { Photo, hasPhoto } from "@/components/photo";
+import { hasPhoto } from "@/components/photo";
 import { content } from "@/config/site";
 import { getPosts, getProposals } from "@/lib/data";
 import { formatShortDate } from "@/lib/utils";
@@ -54,9 +54,7 @@ export default async function HomePage() {
   const secondary = rest.slice(0, 2);
 
   const aboutSrc = "/images/imagem-final.png";
-  const participateSrc = content.candidate.photos.participate;
   const showAboutPhoto = hasPhoto(aboutSrc);
-  const showParticipatePhoto = hasPhoto(participateSrc);
   const aboutValues = [
     {
       title: "Clareza",
@@ -76,11 +74,6 @@ export default async function HomePage() {
     "Nas eleições municipais de 2024, ampliou uma rede de diálogo com lideranças, profissionais, mulheres, jovens e comunidades da Região Tocantina.",
   ] as const;
   const achievements = content.achievements;
-  const hasSocial =
-    Boolean(content.social.instagram) ||
-    Boolean(content.social.facebook) ||
-    Boolean(content.social.youtube) ||
-    Boolean(content.contact.whatsapp);
 
   return (
     <>
@@ -381,66 +374,135 @@ export default async function HomePage() {
         </section>
       )}
 
-      <section className="people-closing relative isolate overflow-hidden text-white">
-        <div className="people-closing-word" aria-hidden>
-          Participe
+      <section className="convite" aria-labelledby="convite-heading">
+        <div className="convite-bg" aria-hidden>
+          <span className="convite-glow" />
+          <span className="convite-arc" />
+          <span className="convite-dots" />
+          <span className="convite-curve" />
+          <span className="convite-orb convite-orb--green" />
+          <span className="convite-orb convite-orb--yellow" />
+          <span className="convite-word">Participe</span>
         </div>
-        <Container className={`relative grid items-end gap-10 ${showParticipatePhoto ? "lg:grid-cols-[1.02fr_0.98fr]" : ""}`}>
-          <div className="py-20 sm:py-24 lg:py-28">
-            <div className="people-closing-tag">A mulher do povo!</div>
-            <h2 className="people-closing-title mt-6 max-w-3xl">
-              Vamos construir uma voz forte para Imperatriz e para o Maranhão.
-            </h2>
-            <p className="mt-6 max-w-xl text-base leading-8 text-white/78">
-              Conte o que sua comunidade precisa. Participação de verdade começa com escuta, presença e compromisso.
-            </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link href="/demandas" className="people-button people-button-lime">
-                Quero participar <ArrowRight size={17} aria-hidden />
-              </Link>
-              <Link href="/compromissos" className="people-button people-button-outline-light">
-                Ver compromissos
-              </Link>
-            </div>
 
-            {hasSocial && (
-              <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold text-white/72">
-                {content.contact.whatsapp && (
-                  <a href={`https://wa.me/${content.contact.whatsapp}`} target="_blank" rel="noopener noreferrer">
-                    WhatsApp
-                  </a>
-                )}
-                {content.social.instagram && (
-                  <a href={content.social.instagram} target="_blank" rel="noopener noreferrer">
-                    Instagram
-                  </a>
-                )}
-                {content.social.facebook && (
-                  <a href={content.social.facebook} target="_blank" rel="noopener noreferrer">
-                    Facebook
-                  </a>
-                )}
-                {content.social.youtube && (
-                  <a href={content.social.youtube} target="_blank" rel="noopener noreferrer">
-                    YouTube
-                  </a>
-                )}
+        <Container className="convite-container relative max-w-[1220px]">
+          <div className="convite-layout">
+            <div className="convite-copy">
+              <div className="convite-seal-wrap">
+                <span className="convite-seal-shadow" aria-hidden />
+                <p className="convite-seal">A mulher do povo</p>
               </div>
-            )}
-          </div>
 
-          {showParticipatePhoto && (
-            <div className="people-closing-photo relative flex min-h-[520px] items-end justify-center lg:min-h-[690px]">
-              <div className="people-closing-lime" aria-hidden />
-              <Photo
-                src={participateSrc}
-                alt={`${content.candidate.ballotName} convida à participação`}
-                className="relative z-10 aspect-[4/5] w-full max-w-[530px]"
-                imgClassName="object-contain object-bottom"
-                objectPosition="center bottom"
-              />
+              <h2 id="convite-heading" className="convite-title">
+                <span className="convite-title-line">Vamos construir</span>
+                <span className="convite-title-line">
+                  uma <em>voz forte</em>
+                </span>
+                <span className="convite-title-line">para Imperatriz</span>
+                <span className="convite-title-line">e para o Maranhão.</span>
+              </h2>
+
+              <p className="convite-lead">
+                Conte o que sua comunidade precisa. Participação de verdade começa com escuta, presença e
+                compromisso.
+              </p>
             </div>
-          )}
+
+            <div className="convite-aside">
+              <div className="convite-visual" aria-hidden>
+                <svg className="convite-visual-svg" viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="160" cy="150" r="88" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" />
+                  <circle cx="160" cy="150" r="58" stroke="rgba(229,217,39,0.22)" strokeWidth="1.5" strokeDasharray="4 6" />
+                  <path
+                    d="M52 78C78 42 124 36 160 58"
+                    stroke="rgba(255,255,255,0.2)"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M268 86C242 48 198 40 160 58"
+                    stroke="rgba(39,211,87,0.35)"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M64 214C96 246 132 252 160 236"
+                    stroke="rgba(229,217,39,0.28)"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M256 210C224 248 188 252 160 236"
+                    stroke="rgba(255,255,255,0.16)"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <g className="convite-bubble convite-bubble--1">
+                    <rect x="38" y="48" width="78" height="54" rx="18" fill="rgba(255,255,255,0.14)" />
+                    <path d="M58 102L52 118L74 102" fill="rgba(255,255,255,0.14)" />
+                    <circle cx="62" cy="75" r="4" fill="rgba(229,217,39,0.9)" />
+                    <circle cx="77" cy="75" r="4" fill="rgba(255,255,255,0.55)" />
+                    <circle cx="92" cy="75" r="4" fill="rgba(39,211,87,0.85)" />
+                  </g>
+                  <g className="convite-bubble convite-bubble--2">
+                    <rect x="208" y="42" width="72" height="48" rx="16" fill="rgba(0,105,254,0.45)" />
+                    <path d="M254 90L266 106L242 90" fill="rgba(0,105,254,0.45)" />
+                    <rect x="224" y="60" width="28" height="4" rx="2" fill="rgba(255,255,255,0.55)" />
+                    <rect x="224" y="70" width="40" height="4" rx="2" fill="rgba(255,255,255,0.35)" />
+                  </g>
+                  <g className="convite-bubble convite-bubble--3">
+                    <rect x="214" y="168" width="70" height="48" rx="16" fill="rgba(229,217,39,0.88)" />
+                    <path d="M248 216L258 232L236 216" fill="rgba(229,217,39,0.88)" />
+                    <circle cx="238" cy="192" r="8" fill="#002a66" opacity="0.35" />
+                    <circle cx="256" cy="192" r="8" fill="#002a66" opacity="0.55" />
+                  </g>
+                  <g className="convite-bubble convite-bubble--4">
+                    <rect x="42" y="168" width="66" height="46" rx="15" fill="rgba(39,211,87,0.75)" />
+                    <path d="M68 214L58 230L82 214" fill="rgba(39,211,87,0.75)" />
+                    <rect x="56" y="186" width="36" height="4" rx="2" fill="#002a66" opacity="0.35" />
+                    <rect x="56" y="196" width="24" height="4" rx="2" fill="#002a66" opacity="0.25" />
+                  </g>
+                  <circle cx="160" cy="150" r="22" fill="rgba(255,255,255,0.16)" />
+                  <circle cx="160" cy="150" r="12" fill="#e5d927" />
+                </svg>
+              </div>
+
+              <aside className="convite-panel" aria-label="Formas de participar">
+                <h3 className="convite-panel-title">Faça parte dessa construção</h3>
+                <p className="convite-panel-lead">
+                  Escolha como você quer participar e acompanhe de perto os compromissos com Imperatriz e o
+                  Maranhão.
+                </p>
+
+                <div className="convite-actions">
+                  <Link href="/demandas" className="convite-btn convite-btn--primary">
+                    <MessageCircle size={18} aria-hidden />
+                    Quero participar
+                    <ArrowRight size={17} aria-hidden />
+                  </Link>
+                  <Link href="/compromissos" className="convite-btn convite-btn--secondary">
+                    Ver compromissos
+                    <ArrowRight size={17} aria-hidden />
+                  </Link>
+                </div>
+
+                <ul className="convite-guarantees">
+                  <li>
+                    <CheckCircle2 size={15} aria-hidden />
+                    Escuta ativa
+                  </li>
+                  <li>
+                    <CheckCircle2 size={15} aria-hidden />
+                    Protocolo organizado
+                  </li>
+                  <li>
+                    <CheckCircle2 size={15} aria-hidden />
+                    Compromisso com retorno
+                  </li>
+                </ul>
+              </aside>
+            </div>
+          </div>
         </Container>
       </section>
     </>

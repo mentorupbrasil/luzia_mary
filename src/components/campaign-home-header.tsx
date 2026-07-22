@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrandLogo } from "@/components/brand-logo";
 import { content } from "@/config/site";
 import { cn } from "@/lib/utils";
 
-const campaignNav = [
+export const campaignNav = [
   { href: "/", label: "Início" },
   { href: "/sobre", label: "Biografia" },
   { href: "/propostas", label: "Propostas" },
@@ -15,19 +16,42 @@ const campaignNav = [
   { href: "/demandas", label: "Participe" },
 ] as const;
 
-export function CampaignHomeHeader() {
+type Props = {
+  /** `hero` = transparente sobre a arte. `bar` = faixa fixa nas demais páginas. */
+  variant?: "hero" | "bar";
+};
+
+function isActivePath(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+export function CampaignHomeHeader({ variant = "hero" }: Props) {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
-    <header className="campaign-header campaign-header-hero">
+    <header
+      className={cn(
+        "campaign-header",
+        variant === "hero" ? "campaign-header-hero" : "campaign-header-bar-page",
+      )}
+    >
       <div className="campaign-header-bar">
         <Link href="/" className="campaign-lockup" aria-label={`${content.candidate.ballotName} — início`}>
-          <BrandLogo variant="light" size="md" priority unoptimized className="campaign-logo" />
+          <BrandLogo variant="light" size="md" priority={variant === "hero"} unoptimized className="campaign-logo" />
         </Link>
 
         <nav className="campaign-nav" aria-label="Navegação principal">
           {campaignNav.map((item) => {
-            const active = item.href === "/";
+            const active = isActivePath(pathname, item.href);
             return (
               <Link
                 key={item.href}
@@ -57,7 +81,7 @@ export function CampaignHomeHeader() {
           <div className="campaign-header-bar campaign-mobile-menu-inner">
             <nav className="campaign-mobile-nav" aria-label="Menu mobile">
               {campaignNav.map((item) => {
-                const active = item.href === "/";
+                const active = isActivePath(pathname, item.href);
                 return (
                   <Link
                     key={item.href}
