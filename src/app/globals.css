@@ -3427,7 +3427,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
     radial-gradient(circle at 15% 80%, rgba(0, 171, 93, 0.12), transparent 30%),
     linear-gradient(135deg, #001b42 0%, #063b86 100%);
   color: #ffffff;
-  padding: clamp(5.1rem, 7vw, 6rem) 0 0;
+  padding: clamp(3.75rem, 5.5vw, 4.75rem) 0 clamp(2.75rem, 4vw, 3.5rem);
   overflow: hidden;
 }
 
@@ -3506,7 +3506,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   position: relative;
   z-index: 1;
   max-width: 1220px;
-  padding-bottom: clamp(2.5rem, 4vw, 3.25rem);
+  padding-bottom: 0;
 }
 
 .flags-section-shell {
@@ -3517,7 +3517,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   display: grid;
   grid-template-columns: minmax(0, 0.58fr) minmax(0, 0.42fr);
   gap: clamp(3.75rem, 5.5vw, 4.75rem);
-  align-items: center;
+  align-items: start;
 }
 
 .flags-hero-copy {
@@ -3777,26 +3777,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
   right: 0;
   top: 52%;
   color: #5fe096;
-}
-
-.flags-hero-wave {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: 100%;
-  height: clamp(48px, 6vw, 72px);
-  margin-top: -1px;
-  line-height: 0;
-}
-
-.flags-hero-wave svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.flags-hero-wave path {
-  fill: var(--flags-soft);
 }
 
 .flags-grid-section {
@@ -4640,7 +4620,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 @media (max-width: 1024px) {
   .flags-hero {
-    padding-top: clamp(4.2rem, 6vw, 5.2rem);
+    padding-top: clamp(3.25rem, 5vw, 4rem);
   }
 
   .flags-hero-grid {
@@ -4777,12 +4757,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 @media (max-width: 720px) {
   .flags-hero {
-    padding-top: 3.5rem;
+    padding-top: 3rem;
+    padding-bottom: 2.25rem;
   }
 
   .flags-hero-shell {
     padding-inline: clamp(1.25rem, 5vw, 1.5rem);
-    padding-bottom: 1.75rem;
+    padding-bottom: 0;
   }
 
   .flags-hero-title {

@@ -124,12 +124,6 @@ export default function ProposalsPage() {
             </div>
           </div>
         </Container>
-
-        <div className="flags-hero-wave" aria-hidden>
-          <svg viewBox="0 0 1440 96" preserveAspectRatio="none">
-            <path d="M0,48 C240,96 480,0 720,40 C960,80 1200,16 1440,56 L1440,96 L0,96 Z" />
-          </svg>
-        </div>
       </section>
 
       <section className="flags-grid-section" aria-label="Bandeiras prioritárias">
