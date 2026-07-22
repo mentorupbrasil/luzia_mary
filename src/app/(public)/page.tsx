@@ -3,11 +3,13 @@ import Link from "next/link";
 import {
   ArrowRight,
   BriefcaseBusiness,
-  Check,
+  CheckCircle2,
+  Clock3,
   HeartPulse,
   MessageCircle,
   Route,
   ShieldCheck,
+  Target,
   type LucideIcon,
 } from "lucide-react";
 import { CampaignHomeHeader } from "@/components/campaign-home-header";
@@ -29,16 +31,19 @@ const listeningSteps = [
     n: "01",
     title: "Conte a realidade da sua comunidade",
     text: "Registre o problema, a necessidade ou a proposta de forma simples e direta.",
+    Icon: MessageCircle,
   },
   {
     n: "02",
     title: "Receba um protocolo",
     text: "A demanda fica organizada por tema e localidade, sem se perder em mensagens soltas.",
+    Icon: CheckCircle2,
   },
   {
     n: "03",
     title: "Ajude a construir prioridades",
     text: "As contribuições ajudam a orientar propostas e ações conectadas com a vida real.",
+    Icon: Target,
   },
 ] as const;
 
@@ -240,36 +245,75 @@ export default async function HomePage() {
         </section>
       )}
 
-      <section className="people-listening overflow-hidden">
-        <Container className="people-listening-layout">
-          <div className="people-listening-copy py-20 sm:py-24 lg:py-28">
-            <div className="people-message-icon" aria-hidden>
-              <MessageCircle size={28} />
-            </div>
-            <p className="people-kicker mt-8">Gabinete digital</p>
-            <h2 className="people-title mt-5 max-w-xl">
-              A voz da comunidade não pode se perder em uma conversa.
-            </h2>
-            <p className="mt-6 max-w-lg text-base leading-8 text-[var(--people-muted)]">
-              Envie sua demanda, receba um protocolo e ajude a transformar as necessidades da sua região em prioridades organizadas.
-            </p>
-            <Link href="/demandas" className="people-button people-button-blue mt-9">
-              Registrar uma demanda <ArrowRight size={17} aria-hidden />
-            </Link>
-          </div>
+      <section className="gabinete" aria-labelledby="gabinete-heading">
+        <Container className="gabinete-container relative max-w-[1220px]">
+          <div className="gabinete-layout">
+            <div className="gabinete-copy">
+              <div className="gabinete-icon" aria-hidden>
+                <MessageCircle size={30} strokeWidth={1.75} />
+                <span className="gabinete-icon-accent" />
+              </div>
 
-          <ol className="people-listening-steps">
-            {listeningSteps.map((step) => (
-              <li key={step.n}>
-                <span>{step.n}</span>
-                <div>
-                  <h3>{step.title}</h3>
-                  <p>{step.text}</p>
-                </div>
-                <Check size={20} aria-hidden />
-              </li>
-            ))}
-          </ol>
+              <p className="gabinete-eyebrow">
+                <span className="gabinete-eyebrow-mark" aria-hidden />
+                Gabinete digital
+              </p>
+
+              <h2 id="gabinete-heading" className="gabinete-title">
+                A voz da comunidade
+                <br />
+                precisa <em>virar ação</em>.
+              </h2>
+
+              <p className="gabinete-lead">
+                Envie sua demanda, receba um protocolo e ajude a transformar as necessidades da sua
+                região em prioridades organizadas.
+              </p>
+
+              <Link href="/demandas" className="gabinete-cta">
+                Registrar uma demanda
+                <ArrowRight size={18} aria-hidden />
+              </Link>
+
+              <p className="gabinete-micro">
+                <Clock3 size={14} aria-hidden />
+                Leva menos de 3 minutos.
+              </p>
+            </div>
+
+            <aside className="gabinete-panel" aria-label="Como funciona o Gabinete Digital">
+              <div className="gabinete-panel-deco" aria-hidden>
+                <span className="gabinete-panel-glow" />
+                <span className="gabinete-panel-dots" />
+                <span className="gabinete-panel-line" />
+              </div>
+
+              <div className="gabinete-panel-head">
+                <span className="gabinete-seal">Escuta ativa</span>
+                <h3 className="gabinete-panel-title">Como funciona</h3>
+                <p className="gabinete-panel-lead">
+                  Três passos simples para sua demanda não se perder.
+                </p>
+              </div>
+
+              <ol className="gabinete-steps">
+                {listeningSteps.map(({ n, title, text, Icon }) => (
+                  <li key={n} className="gabinete-step">
+                    <div className="gabinete-step-rail" aria-hidden>
+                      <span className="gabinete-step-num">{n}</span>
+                      <span className="gabinete-step-icon">
+                        <Icon size={18} strokeWidth={1.9} />
+                      </span>
+                    </div>
+                    <div className="gabinete-step-body">
+                      <h4 className="gabinete-step-title">{title}</h4>
+                      <p className="gabinete-step-text">{text}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </aside>
+          </div>
         </Container>
       </section>
 
