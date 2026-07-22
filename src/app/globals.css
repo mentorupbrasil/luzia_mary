@@ -847,7 +847,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   display: flex;
   flex-direction: column;
   min-height: 100%;
-  padding: 2rem 2.1rem 1.9rem;
+  padding: 1.8rem 2.1rem 1.7rem;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 22px;
   background: linear-gradient(
@@ -953,7 +953,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .bandeiras-card-title {
-  margin: 1.7rem 0 0;
+  margin: 1.95rem 0 0;
   max-width: 22rem;
   color: #fff;
   font-family: var(--font-league-spartan), "League Spartan", sans-serif;
@@ -967,7 +967,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   margin: 0.95rem 0 0;
   max-width: 28rem;
   flex: 1;
-  color: rgba(255, 255, 255, 0.76);
+  color: rgba(255, 255, 255, 0.84);
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
   font-size: 0.98rem;
   line-height: 1.65;
@@ -977,8 +977,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  margin-top: 1.55rem;
-  padding: 0.35rem 0;
+  margin-top: auto;
+  padding: 1.35rem 0 0.35rem;
   width: fit-content;
   color: #fff;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
@@ -1089,7 +1089,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .bandeiras-card {
-    padding: 1.7rem 1.75rem 1.6rem;
+    padding: 1.52rem 1.75rem 1.44rem;
   }
 
   .bandeiras-card-title {
@@ -1117,11 +1117,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 
   .bandeiras-card {
-    padding: 1.55rem 1.5rem 1.45rem;
+    padding: 1.4rem 1.5rem 1.3rem;
   }
 
   .bandeiras-card-title {
-    margin-top: 1.45rem;
+    margin-top: 1.7rem;
     font-size: 1.7rem;
   }
 
