@@ -59,7 +59,7 @@ export default async function HomePage() {
             priority
             className="hero-bg"
             imgClassName="hero-bg-img"
-            objectPosition="63% center"
+            objectPosition="74% center"
           />
         ) : (
           <div className="hero-bg hero-bg-fallback" aria-hidden />
@@ -96,7 +96,7 @@ export default async function HomePage() {
                 priority
                 className="hero-candidate-photo"
                 imgClassName="hero-candidate-img"
-                objectPosition="center bottom"
+                objectPosition="48% 12%"
               />
             </div>
           )}
