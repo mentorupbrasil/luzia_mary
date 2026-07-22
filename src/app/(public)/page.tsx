@@ -105,7 +105,7 @@ export default async function HomePage() {
                       alt={`${content.candidate.ballotName} em pose frontal, com blusa verde e braços cruzados`}
                       className="about-photo"
                       imgClassName="about-photo-img"
-                      objectPosition="center center"
+                      objectPosition="center 42%"
                       priority
                     />
                   </div>
