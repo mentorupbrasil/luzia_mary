@@ -16,7 +16,7 @@ import { content } from "@/config/site";
 
 export const metadata = { title: "Biografia" };
 
-const BIO_PHOTO = "/images/luzia-mary-biografia.png";
+const BIO_PHOTO = "/images/Sobre.png";
 
 const pillars: Array<{
   title: string;
@@ -108,8 +108,8 @@ export default function AboutPage() {
               <Image
                 src={BIO_PHOTO}
                 alt={`${content.candidate.ballotName} — biografia`}
-                width={1024}
-                height={1536}
+                width={1122}
+                height={1402}
                 priority
                 unoptimized
                 sizes="(max-width: 899px) 86vw, 52vw"
