@@ -47,17 +47,16 @@ export default async function HomePage() {
   return (
     <>
       <section className="campaign-hero" aria-labelledby="hero-title">
-        <div className="hero-base" aria-hidden>
-          <Image
-            src="/images/hero-base.png"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            unoptimized
-            className="hero-base-img"
-          />
-        </div>
+        <Image
+          src="/images/hero-base.png"
+          alt=""
+          width={1619}
+          height={971}
+          priority
+          sizes="100vw"
+          unoptimized
+          className="hero-base-img"
+        />
 
         <div className="campaign-hero-chrome">
           <CampaignHomeHeader />
