@@ -119,15 +119,17 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .campaign-header {
   color: white;
+  background: transparent;
+  height: 100%;
 }
 
 .campaign-header-bar {
   display: flex;
-  height: 82px;
+  height: 100%;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding-inline: 3.2vw;
+  padding-inline: clamp(44px, 3.3vw, 56px);
   width: 100%;
 }
 
@@ -135,8 +137,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 20;
   width: 100%;
+  height: clamp(72px, 7vw, 108px);
+  background: transparent;
+  pointer-events: none;
+}
+
+.campaign-hero-chrome a,
+.campaign-hero-chrome button {
+  pointer-events: auto;
 }
 
 .campaign-header-hero {
@@ -265,11 +275,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
   color: var(--hero-yellow);
 }
 
-/* Hero full-bleed: imagem inteira no desktop, overlays só funcionais */
+/* Hero: exatamente 100svh — header e imagem em overlay, sem somar altura */
 .campaign-hero {
   position: relative;
   isolation: isolate;
-  width: 100vw;
+  width: 100%;
+  height: 100svh;
+  min-height: 620px;
   max-width: none;
   margin: 0;
   padding: 0;
@@ -279,10 +291,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .hero-base-img {
+  position: absolute !important;
+  inset: 0;
   display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  object-position: center;
 }
 
 .hero-button {
@@ -325,20 +340,21 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 @media (max-width: 1023px) {
   .campaign-hero {
-    width: 100vw;
-    min-height: 100svh;
-  }
-
-  .hero-base-img {
     width: 100%;
     height: 100svh;
     min-height: 640px;
+  }
+
+  .hero-base-img {
     object-fit: cover;
     object-position: 62% center;
   }
 
-  .campaign-header-bar {
+  .campaign-hero-chrome {
     height: 76px;
+  }
+
+  .campaign-header-bar {
     padding-inline: 1.25rem;
   }
 

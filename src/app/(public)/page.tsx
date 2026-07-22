@@ -50,8 +50,7 @@ export default async function HomePage() {
         <Image
           src="/images/hero-base.png"
           alt=""
-          width={1619}
-          height={971}
+          fill
           priority
           sizes="100vw"
           unoptimized
