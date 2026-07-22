@@ -3400,3 +3400,608 @@ button, a { -webkit-tap-highlight-color: transparent; }
     transform: none;
   }
 }
+
+/* =========================================================
+   Bandeiras / Propostas — listagem e detalhe
+   ========================================================= */
+
+.flags-page,
+.flag-detail-page {
+  --flags-navy: #001a3f;
+  --flags-navy-mid: #063e99;
+  --flags-yellow: #ffd31a;
+  --flags-green: #08a64b;
+  --flags-soft: #f6f8fc;
+  --flags-card: #ffffff;
+  --flags-ink-soft: rgba(0, 26, 63, 0.72);
+  --flags-line: rgba(0, 26, 63, 0.12);
+  background: var(--flags-soft);
+  color: var(--flags-navy);
+  overflow-x: hidden;
+}
+
+.flags-hero {
+  position: relative;
+  background:
+    radial-gradient(ellipse 70% 80% at 88% 18%, rgba(8, 166, 75, 0.16), transparent 55%),
+    radial-gradient(ellipse 55% 70% at 8% 90%, rgba(255, 211, 26, 0.12), transparent 50%),
+    linear-gradient(155deg, #00132f 0%, #001a3f 48%, #062a63 100%);
+  color: #ffffff;
+  padding: clamp(2.25rem, 4.5vw, 3.5rem) 0 clamp(2rem, 4vw, 3rem);
+  overflow: hidden;
+}
+
+.flags-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+.flags-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 52rem;
+}
+
+.flags-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(0.72rem, 0.95vw, 0.82rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.flags-hero-eyebrow::before {
+  content: "";
+  width: 1.45rem;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--flags-yellow);
+}
+
+.flags-hero-title {
+  margin: 0.95rem 0 0;
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: clamp(1.9rem, 4.2vw, 3.15rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.flags-hero-title em {
+  font-style: normal;
+  color: var(--flags-yellow);
+}
+
+.flags-hero-lead {
+  margin: 1.05rem 0 0;
+  max-width: 38rem;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(0.95rem, 1.15vw, 1.08rem);
+  font-weight: 500;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.flags-pillars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 0.85rem;
+  list-style: none;
+  margin: 1.45rem 0 0;
+  padding: 0;
+}
+
+.flags-pillar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.flags-pillar-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.flags-pillar--yellow .flags-pillar-dot { background: var(--flags-yellow); }
+.flags-pillar--blue .flags-pillar-dot { background: #4ea1ff; }
+.flags-pillar--green .flags-pillar-dot { background: var(--flags-green); }
+
+.flags-grid-section {
+  padding: clamp(2rem, 4vw, 3.25rem) 0 clamp(3rem, 5vw, 4.5rem);
+}
+
+.flags-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+
+.flags-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 30px;
+  border-radius: 22px;
+  background: var(--flags-card);
+  border: 1px solid rgba(0, 84, 184, 0.14);
+  box-shadow: 0 12px 32px rgba(0, 31, 77, 0.06);
+  transition:
+    transform 220ms cubic-bezier(0.22, 0.7, 0.22, 1),
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.flags-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 211, 26, 0.7);
+  box-shadow: 0 20px 44px rgba(0, 31, 77, 0.12);
+}
+
+.flags-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.flags-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.1rem;
+  height: 3.1rem;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #e8f1ff 0%, #f3f8ff 100%);
+  color: var(--flags-navy-mid);
+  border: 1px solid rgba(6, 62, 153, 0.12);
+}
+
+.flags-card:nth-child(even) .flags-card-icon {
+  background: linear-gradient(145deg, #eaf8f1 0%, #f4fcf8 100%);
+  color: var(--flags-green);
+  border-color: rgba(8, 166, 75, 0.16);
+}
+
+.flags-card-number {
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--flags-yellow);
+  text-shadow: 0 0 0.5px rgba(0, 26, 63, 0.35);
+}
+
+.flags-card-category {
+  margin: 1.15rem 0 0;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(0, 26, 63, 0.55);
+}
+
+.flags-card-title {
+  margin: 0.55rem 0 0;
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: clamp(1.2rem, 1.5vw, 1.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--flags-navy);
+}
+
+.flags-card-summary {
+  margin: 0.75rem 0 0;
+  flex: 1;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.65;
+  color: var(--flags-ink-soft);
+}
+
+.flags-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1.35rem;
+  padding: 0.35rem 0;
+  width: fit-content;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--flags-navy);
+  border-radius: 4px;
+}
+
+.flags-card-cta-arrow {
+  color: var(--flags-yellow);
+  transition: transform 220ms cubic-bezier(0.22, 0.7, 0.22, 1);
+}
+
+.flags-card:hover .flags-card-cta-arrow {
+  transform: translateX(4px);
+}
+
+.flags-card-cta:focus-visible {
+  outline: 3px solid var(--flags-yellow);
+  outline-offset: 4px;
+}
+
+/* Detalhe */
+
+.flag-detail-hero {
+  position: relative;
+  background:
+    radial-gradient(ellipse 60% 70% at 92% 12%, rgba(8, 166, 75, 0.18), transparent 55%),
+    radial-gradient(ellipse 50% 60% at 5% 88%, rgba(255, 211, 26, 0.1), transparent 50%),
+    linear-gradient(155deg, #00132f 0%, #001a3f 50%, #062a63 100%);
+  color: #ffffff;
+  padding: clamp(1.75rem, 3.5vw, 2.75rem) 0 clamp(2rem, 4vw, 3rem);
+}
+
+.flag-detail-hero-inner {
+  max-width: 46rem;
+}
+
+.flag-detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.78);
+  transition: color 180ms ease;
+}
+
+.flag-detail-back:hover {
+  color: var(--flags-yellow);
+}
+
+.flag-detail-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  margin-top: 1.5rem;
+}
+
+.flag-detail-number,
+.flag-detail-category {
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--flags-yellow);
+}
+
+.flag-detail-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.flag-detail-category::before {
+  content: "";
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: rgba(255, 211, 26, 0.55);
+}
+
+.flag-detail-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.flag-detail-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 3.15rem;
+  height: 3.15rem;
+  margin-top: 0.15rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 211, 26, 0.35);
+  color: var(--flags-yellow);
+}
+
+.flag-detail-title {
+  margin: 0;
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: clamp(1.85rem, 4vw, 2.85rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.flag-detail-summary {
+  margin: 1.1rem 0 0;
+  max-width: 40rem;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(0.98rem, 1.15vw, 1.08rem);
+  font-weight: 500;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.flag-detail-body {
+  max-width: 48rem;
+  padding-block: clamp(1.75rem, 3.5vw, 2.75rem) clamp(3rem, 5vw, 4.25rem);
+  display: grid;
+  gap: 1.15rem;
+}
+
+.flag-block {
+  padding: clamp(1.35rem, 2.5vw, 1.75rem);
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid var(--flags-line);
+  box-shadow: 0 10px 28px rgba(0, 31, 77, 0.04);
+}
+
+.flag-block-eyebrow {
+  margin: 0;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--flags-navy-mid);
+}
+
+.flag-block-title {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--flags-navy);
+}
+
+.flag-block-text {
+  margin: 0.85rem 0 0;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.98rem;
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--flags-ink-soft);
+}
+
+.flag-check-list {
+  list-style: none;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.flag-check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--flags-navy);
+}
+
+.flag-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-top: 0.1rem;
+  border-radius: 999px;
+  background: rgba(8, 166, 75, 0.12);
+  color: var(--flags-green);
+}
+
+.flag-federal-grid {
+  list-style: none;
+  margin: 1.15rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.flag-federal-grid li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.85rem 0.9rem;
+  border-radius: 14px;
+  background: var(--flags-soft);
+  border: 1px solid rgba(0, 26, 63, 0.08);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--flags-navy);
+}
+
+.flag-federal-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 9px;
+  background: #ffffff;
+  color: var(--flags-navy-mid);
+  border: 1px solid rgba(6, 62, 153, 0.12);
+}
+
+.flag-block--transparency {
+  border-color: rgba(8, 166, 75, 0.22);
+  background: linear-gradient(160deg, #ffffff 0%, #f3fbf6 100%);
+}
+
+.flag-cta {
+  margin-top: 0.5rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: 22px;
+  background:
+    radial-gradient(ellipse 60% 80% at 90% 10%, rgba(255, 211, 26, 0.16), transparent 55%),
+    linear-gradient(145deg, #00132f 0%, #001a3f 100%);
+  color: #ffffff;
+}
+
+.flag-cta-title {
+  margin: 0;
+  max-width: 22ch;
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.flag-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.flag-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.85rem;
+  padding: 0.7rem 1.25rem;
+  border-radius: 999px;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.flag-cta-btn--primary {
+  background: var(--flags-yellow);
+  color: var(--flags-navy);
+}
+
+.flag-cta-btn--primary:hover {
+  transform: translateY(-2px);
+  background: #ffe14a;
+}
+
+.flag-cta-btn--secondary {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.flag-cta-btn--secondary:hover {
+  border-color: var(--flags-yellow);
+  color: var(--flags-yellow);
+}
+
+.flag-cta-btn:focus-visible {
+  outline: 3px solid var(--flags-yellow);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1024px) {
+  .flags-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 720px) {
+  .flags-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flags-card {
+    padding: 28px;
+  }
+
+  .flag-federal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flag-detail-heading {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .flag-cta-actions {
+    flex-direction: column;
+  }
+
+  .flag-cta-btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flags-card,
+  .flags-card-cta-arrow,
+  .flag-cta-btn {
+    transition: none;
+  }
+
+  .flags-card:hover {
+    transform: none;
+  }
+
+  .flags-card:hover .flags-card-cta-arrow {
+    transform: none;
+  }
+
+  .flag-cta-btn--primary:hover {
+    transform: none;
+  }
+}

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function ProposalCard({
   proposal,
@@ -27,11 +27,11 @@ export function ProposalCard({
           {proposal.title}
         </h3>
         <p className="mt-4 text-sm leading-7 text-[var(--text-muted)]">{proposal.summary}</p>
-        <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[var(--brand-dark)]">
-          Conhecer proposta{" "}
-          <ArrowUpRight
+        <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.06em] text-[var(--brand-dark)]">
+          Conhecer a proposta{" "}
+          <ArrowRight
             size={16}
-            className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            className="text-[var(--accent)] transition group-hover:translate-x-1"
             aria-hidden
           />
         </span>
