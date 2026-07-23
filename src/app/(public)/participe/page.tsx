@@ -86,48 +86,45 @@ export default async function ParticipatePage({
           <span className="participate-hero-glow participate-hero-glow--green" />
           <span className="participate-hero-arc participate-hero-arc--1" />
           <span className="participate-hero-arc participate-hero-arc--2" />
+          <div className="participate-hero-visual">
+            <div className="participate-orbit">
+              <span className="participate-orbit-core">
+                <MessageCircle size={28} strokeWidth={1.8} />
+              </span>
+              <span className="participate-orbit-node participate-orbit-node--1">
+                <MapPin size={18} />
+              </span>
+              <span className="participate-orbit-node participate-orbit-node--2">
+                <FileText size={18} />
+              </span>
+              <span className="participate-orbit-node participate-orbit-node--3">
+                <CheckCircle2 size={18} />
+              </span>
+              <span className="participate-orbit-ring" />
+            </div>
+          </div>
         </div>
 
         <Container className="participate-shell">
-          <div className="participate-hero-grid">
-            <div className="participate-hero-copy">
-              <p className="participate-hero-eyebrow">PARTICIPE</p>
-              <h1 id="participate-hero-title" className="participate-hero-title">
-                Sua voz ajuda a transformar
-                <br />
-                necessidades em <em>prioridades.</em>
-              </h1>
-              <p className="participate-hero-lead">
-                Envie uma demanda, sugestão ou proposta da sua comunidade. A equipe registra,
-                organiza e acompanha cada contribuição com segurança e transparência.
-              </p>
-              <ul className="participate-signals">
-                {heroSignals.map(({ label, Icon }) => (
-                  <li key={label}>
-                    <Icon size={16} strokeWidth={2.2} aria-hidden />
-                    <span>{label}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="participate-hero-visual" aria-hidden>
-              <div className="participate-orbit">
-                <span className="participate-orbit-core">
-                  <MessageCircle size={28} strokeWidth={1.8} />
-                </span>
-                <span className="participate-orbit-node participate-orbit-node--1">
-                  <MapPin size={18} />
-                </span>
-                <span className="participate-orbit-node participate-orbit-node--2">
-                  <FileText size={18} />
-                </span>
-                <span className="participate-orbit-node participate-orbit-node--3">
-                  <CheckCircle2 size={18} />
-                </span>
-                <span className="participate-orbit-ring" />
-              </div>
-            </div>
+          <div className="participate-hero-copy">
+            <p className="participate-hero-eyebrow">PARTICIPE</p>
+            <h1 id="participate-hero-title" className="participate-hero-title">
+              Sua voz ajuda a transformar
+              <br />
+              necessidades em <em>prioridades.</em>
+            </h1>
+            <p className="participate-hero-lead">
+              Envie uma demanda, sugestão ou proposta da sua comunidade. A equipe registra,
+              organiza e acompanha cada contribuição com segurança e transparência.
+            </p>
+            <ul className="participate-signals">
+              {heroSignals.map(({ label, Icon }) => (
+                <li key={label}>
+                  <Icon size={16} strokeWidth={2.2} aria-hidden />
+                  <span>{label}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </Container>
       </section>

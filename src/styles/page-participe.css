@@ -10,18 +10,25 @@
 }
 
 .participate-shell {
+  position: relative;
+  z-index: 1;
   max-width: 1220px;
+  width: 100%;
 }
 
 .participate-hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(3.25rem, 5.5vw, 4.25rem) 0;
+  padding: clamp(4.375rem, 7vw, 5.375rem) 0;
   color: #fff;
   background:
     radial-gradient(circle at 84% 24%, rgba(22, 112, 240, 0.3), transparent 34%),
     radial-gradient(circle at 10% 80%, rgba(8, 166, 75, 0.16), transparent 32%),
     linear-gradient(135deg, #001532 0%, #001a3f 45%, #063b86 100%);
+  min-height: clamp(26.5rem, 42vw, 30rem);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
 }
 
 .participate-hero-atmosphere {
@@ -81,15 +88,6 @@
   transform: rotate(20deg);
 }
 
-.participate-hero-grid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  gap: clamp(1.5rem, 4vw, 3rem);
-  align-items: center;
-}
-
 .participate-hero-eyebrow {
   margin: 0 0 0.85rem;
   font-family: var(--font-league-spartan), sans-serif;
@@ -115,11 +113,17 @@
 }
 
 .participate-hero-lead {
-  margin: 0 0 1.35rem;
+  margin: 0 0 1.15rem;
   max-width: 36rem;
   font-size: clamp(1rem, 1.2vw, 1.125rem);
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.84);
+}
+
+.participate-hero-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 42rem;
 }
 
 .participate-signals {
@@ -135,11 +139,11 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.45rem 0.75rem;
+  padding: 0.4rem 0.7rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.92);
 }
@@ -149,14 +153,20 @@
 }
 
 .participate-hero-visual {
+  position: absolute;
+  right: clamp(1rem, 5vw, 4rem);
+  top: 50%;
+  z-index: 1;
   display: grid;
   place-items: center;
-  min-height: 260px;
+  width: min(30vw, 280px);
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .participate-orbit {
   position: relative;
-  width: min(100%, 280px);
+  width: 100%;
   aspect-ratio: 1;
 }
 
@@ -877,13 +887,13 @@
 }
 
 @media (max-width: 1024px) {
-  .participate-hero-grid {
-    grid-template-columns: 1fr;
+  .participate-hero {
+    min-height: clamp(24rem, 58vw, 28rem);
   }
 
   .participate-hero-visual {
-    min-height: 220px;
-    order: -1;
+    width: min(34vw, 240px);
+    right: 1rem;
   }
 
   .participate-layout {
@@ -921,8 +931,12 @@
     align-items: flex-start;
   }
 
-  .participate-orbit {
-    width: min(100%, 220px);
+  .participate-hero-visual {
+    display: none;
+  }
+
+  .participate-hero {
+    min-height: 0;
   }
 }
 
