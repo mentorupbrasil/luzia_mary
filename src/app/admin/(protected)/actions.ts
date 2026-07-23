@@ -21,9 +21,31 @@ export async function updateDemandAction(formData: FormData) {
 }
 
 export async function createProposalAction(formData: FormData) {
-  const title = text(formData,"title");
-  await dbOrThrow().insert(proposals).values({ title, slug: slugify(text(formData,"slug") || title), summary: text(formData,"summary"), body: text(formData,"body"), category: text(formData,"category"), icon: text(formData,"icon") || "landmark", featured: bool(formData,"featured"), published: bool(formData,"published"), sortOrder: int(formData,"sortOrder") });
-  revalidatePath("/admin/propostas"); revalidatePath("/propostas");
+  const title = text(formData, "title");
+  const lines = (key: string) =>
+    text(formData, key)
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+  const category = text(formData, "category");
+  await dbOrThrow().insert(proposals).values({
+    title,
+    slug: slugify(text(formData, "slug") || title),
+    summary: text(formData, "summary"),
+    body: text(formData, "body"),
+    category,
+    icon: text(formData, "icon") || "landmark",
+    featured: bool(formData, "featured"),
+    published: bool(formData, "published"),
+    sortOrder: int(formData, "sortOrder"),
+    whyItMatters: text(formData, "whyItMatters"),
+    commitments: lines("commitments"),
+    howFederalActs: lines("howFederalActs"),
+    demandTheme: text(formData, "demandTheme") || category,
+  });
+  revalidatePath("/admin/propostas");
+  revalidatePath("/propostas");
+  revalidatePath("/");
 }
 
 export async function createCommitmentAction(formData: FormData) {
@@ -61,4 +83,8 @@ export async function deleteContentAction(formData: FormData) {
   // Drizzle's generic table types are intentionally narrowed at runtime here.
   await dbOrThrow().delete(table as never).where(eq((table as typeof proposals).id,id));
   revalidatePath("/admin"); revalidatePath("/");
+  if (type === "proposal") {
+    revalidatePath("/admin/propostas");
+    revalidatePath("/propostas");
+  }
 }

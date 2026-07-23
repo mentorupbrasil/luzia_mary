@@ -45,6 +45,10 @@ export const proposals = pgTable("proposals", {
   featured: boolean("featured").notNull().default(false),
   published: boolean("published").notNull().default(true),
   sortOrder: integer("sort_order").notNull().default(0),
+  whyItMatters: text("why_it_matters").notNull().default(""),
+  commitments: jsonb("commitments").$type<string[]>().notNull().default([]),
+  howFederalActs: jsonb("how_federal_acts").$type<string[]>().notNull().default([]),
+  demandTheme: text("demand_theme").notNull().default(""),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 });

@@ -2,28 +2,33 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
-  BriefcaseBusiness,
+  Building2,
   CheckCircle2,
   Clock3,
+  HeartHandshake,
   HeartPulse,
+  Home,
   MessageCircle,
-  Route,
-  ShieldCheck,
+  MessagesSquare,
+  Shield,
   Target,
   type LucideIcon,
 } from "lucide-react";
 import { CampaignHomeHeader } from "@/components/campaign-home-header";
 import { Container } from "@/components/container";
 import { hasPhoto } from "@/components/photo";
+import { proposalNumber } from "@/config/bandeiras";
 import { content } from "@/config/site";
 import { getPosts, getProposals } from "@/lib/data";
 import { formatShortDate } from "@/lib/utils";
 
 const priorityIcons: Record<string, LucideIcon> = {
+  "heart-handshake": HeartHandshake,
+  home: Home,
   "heart-pulse": HeartPulse,
-  "briefcase-business": BriefcaseBusiness,
-  route: Route,
-  "shield-check": ShieldCheck,
+  "building-2": Building2,
+  shield: Shield,
+  "messages-square": MessagesSquare,
 };
 
 const listeningSteps = [
@@ -196,8 +201,8 @@ export default async function HomePage() {
 
             <div className="bandeiras-grid">
               {priorities.map((item, index) => {
-                const Icon = priorityIcons[item.icon ?? ""] ?? HeartPulse;
-                const n = String(index + 1).padStart(2, "0");
+                const Icon = priorityIcons[item.icon] ?? HeartPulse;
+                const n = proposalNumber(item.sortOrder);
                 return (
                   <article
                     key={item.id}

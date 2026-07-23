@@ -22,14 +22,14 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/container";
 import { FlagDetailSideNav } from "@/components/flag-detail-side-nav";
 import {
-  bandeiras,
   federalAtuacaoResumo,
-  getBandeiraBySlug,
+  proposalNumber,
   transparenciaCompromisso,
-  type BandeiraIcon,
 } from "@/config/bandeiras";
+import { fallbackProposals } from "@/lib/fallback-data";
+import { getProposalBySlug } from "@/lib/data";
 
-const iconMap: Record<BandeiraIcon, LucideIcon> = {
+const iconMap: Record<string, LucideIcon> = {
   "heart-handshake": HeartHandshake,
   home: Home,
   "heart-pulse": HeartPulse,
@@ -76,7 +76,7 @@ const sideNav = [
 ] as const;
 
 export function generateStaticParams() {
-  return bandeiras.map((item) => ({ slug: item.slug }));
+  return fallbackProposals.map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({
@@ -85,9 +85,9 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const bandeira = getBandeiraBySlug(slug);
-  if (!bandeira) return { title: "Bandeira" };
-  return { title: bandeira.title };
+  const proposal = await getProposalBySlug(slug);
+  if (!proposal) return { title: "Bandeira" };
+  return { title: proposal.title };
 }
 
 export default async function ProposalDetailPage({
@@ -96,11 +96,11 @@ export default async function ProposalDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const bandeira = getBandeiraBySlug(slug);
-  if (!bandeira) notFound();
+  const proposal = await getProposalBySlug(slug);
+  if (!proposal) notFound();
 
-  const Icon = iconMap[bandeira.icon];
-  const demandHref = `/demandas?tema=${encodeURIComponent(bandeira.demandTheme)}`;
+  const Icon = iconMap[proposal.icon] ?? Landmark;
+  const demandHref = `/demandas?tema=${encodeURIComponent(proposal.demandTheme)}`;
 
   return (
     <div className="flag-detail-page">
@@ -114,8 +114,8 @@ export default async function ProposalDetailPage({
               </Link>
 
               <div className="flag-detail-meta">
-                <span className="flag-detail-number">{bandeira.number}</span>
-                <span className="flag-detail-category">{bandeira.category}</span>
+                <span className="flag-detail-number">{proposalNumber(proposal.sortOrder)}</span>
+                <span className="flag-detail-category">{proposal.category}</span>
               </div>
 
               <div className="flag-detail-heading">
@@ -123,11 +123,11 @@ export default async function ProposalDetailPage({
                   <Icon size={28} strokeWidth={1.75} />
                 </span>
                 <h1 id="flag-detail-title" className="flag-detail-title">
-                  {bandeira.title}
+                  {proposal.title}
                 </h1>
               </div>
 
-              <p className="flag-detail-summary">{bandeira.summary}</p>
+              <p className="flag-detail-summary">{proposal.summary}</p>
             </div>
 
             <aside className="flag-detail-hero-panel" aria-label="Pilares do mandato">
@@ -161,7 +161,7 @@ export default async function ProposalDetailPage({
               <h2 id="why-heading" className="flag-block-title">
                 Uma prioridade ligada à vida real
               </h2>
-              <p className="flag-block-text">{bandeira.whyItMatters}</p>
+              <p className="flag-block-text">{proposal.whyItMatters}</p>
             </section>
 
             <section
@@ -174,7 +174,7 @@ export default async function ProposalDetailPage({
                 Compromissos objetivos desta bandeira
               </h2>
               <ul className="flag-check-list">
-                {bandeira.commitments.map((item) => (
+                {proposal.commitments.map((item) => (
                   <li key={item}>
                     <span className="flag-check" aria-hidden>
                       <Check size={14} strokeWidth={2.5} />
@@ -193,7 +193,7 @@ export default async function ProposalDetailPage({
 
               <div className="flag-side-panel">
                 <p className="flag-side-panel-label">Compromisso central</p>
-                <p className="flag-side-panel-text">{bandeira.summary}</p>
+                <p className="flag-side-panel-text">{proposal.summary}</p>
                 <Link href={demandHref} className="flag-side-panel-btn">
                   Enviar uma contribuição
                   <ArrowRight size={15} aria-hidden />
@@ -214,7 +214,7 @@ export default async function ProposalDetailPage({
           </h2>
           <p className="flag-block-text flag-federal-lead">{federalAtuacaoResumo}</p>
           <ul className="flag-federal-grid">
-            {bandeira.howFederalActs.map((item, index) => {
+            {proposal.howFederalActs.map((item, index) => {
               const FederalIcon = federalIcons[index % federalIcons.length];
               return (
                 <li key={item}>

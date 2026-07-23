@@ -17,11 +17,12 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Container } from "@/components/container";
-import { bandeiras, type BandeiraIcon } from "@/config/bandeiras";
+import { proposalNumber } from "@/config/bandeiras";
+import { getProposals } from "@/lib/data";
 
 export const metadata = { title: "Bandeiras" };
 
-const iconMap: Record<BandeiraIcon, LucideIcon> = {
+const iconMap: Record<string, LucideIcon> = {
   "heart-handshake": HeartHandshake,
   home: Home,
   "heart-pulse": HeartPulse,
@@ -36,7 +37,9 @@ const pillars: Array<{ title: string; tone: "yellow" | "blue" | "green"; Icon: L
   { title: "Prestação de contas", tone: "green", Icon: CheckCircle2 },
 ];
 
-export default function ProposalsPage() {
+export default async function ProposalsPage() {
+  const proposals = await getProposals();
+
   return (
     <div className="flags-page">
       <section className="flags-hero" aria-labelledby="flags-hero-title">
@@ -129,15 +132,15 @@ export default function ProposalsPage() {
       <section className="flags-grid-section" aria-label="Bandeiras prioritárias">
         <Container className="flags-section-shell">
           <div className="flags-grid">
-            {bandeiras.map((item) => {
-              const Icon = iconMap[item.icon];
+            {proposals.map((item) => {
+              const Icon = iconMap[item.icon] ?? Landmark;
               return (
                 <article key={item.slug} className="flags-card">
                   <div className="flags-card-top">
                     <span className="flags-card-icon" aria-hidden>
                       <Icon size={26} strokeWidth={1.75} />
                     </span>
-                    <span className="flags-card-number">{item.number}</span>
+                    <span className="flags-card-number">{proposalNumber(item.sortOrder)}</span>
                   </div>
                   <p className="flags-card-category">{item.category}</p>
                   <h2 className="flags-card-title">{item.title}</h2>

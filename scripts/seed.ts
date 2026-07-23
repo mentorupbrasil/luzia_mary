@@ -2,6 +2,7 @@ import { config } from "dotenv";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { commitments, events, factChecks, posts, proposals } from "../src/db/schema";
+import { fallbackProposals } from "../src/lib/fallback-data";
 
 config({ path: ".env.local" });
 config();
@@ -13,14 +14,42 @@ if (!process.env.DATABASE_URL) {
 const db = drizzle(neon(process.env.DATABASE_URL));
 
 async function seed() {
-  await db.insert(proposals).values([
-    { slug: "dignidade-e-protecao-para-as-familias", title: "Dignidade e proteção para as famílias", summary: "Fortalecer políticas sociais, ampliar a proteção de famílias em situação de vulnerabilidade e apoiar ações de acolhimento, segurança alimentar e atendimento humanizado.", body: "Buscar recursos federais, defender programas de proteção social, articular parcerias e prestar contas à população.", category: "Proteção social", icon: "heart-handshake", featured: true, published: true, sortOrder: 1 },
-    { slug: "moradia-digna-e-infraestrutura-nos-bairros", title: "Moradia digna e infraestrutura nos bairros", summary: "Defender recursos, programas e parcerias para habitação, regularização, saneamento, energia, mobilidade e melhoria da infraestrutura das comunidades.", body: "Defender habitação e infraestrutura comunitária por meio de emendas, articulação institucional e fiscalização.", category: "Moradia e comunidades", icon: "home", featured: true, published: true, sortOrder: 2 },
-    { slug: "saude-perto-de-quem-precisa", title: "Saúde perto de quem precisa", summary: "Buscar investimentos para ampliar a atenção básica, a prevenção, os exames, os tratamentos e o acesso regionalizado aos serviços de saúde.", body: "Buscar investimentos e defender políticas de saúde com atuação parlamentar federal.", category: "Saúde", icon: "heart-pulse", featured: true, published: true, sortOrder: 3 },
-    { slug: "servicos-publicos-que-chegam-onde-o-povo-esta", title: "Serviços públicos que chegam onde o povo está", summary: "Apoiar soluções para que água, energia, saneamento, transporte e outros serviços essenciais alcancem bairros e comunidades ainda desassistidos.", body: "Apoiar o alcance de serviços essenciais por meio de recursos federais, articulação e fiscalização.", category: "Serviços essenciais", icon: "building-2", featured: true, published: true, sortOrder: 4 },
-    { slug: "mulheres-protegidas-e-com-oportunidades", title: "Mulheres protegidas e com oportunidades", summary: "Defender políticas de proteção, atendimento especializado, qualificação profissional, autonomia econômica e apoio às mulheres e suas famílias.", body: "Defender proteção e autonomia das mulheres com instrumentos do mandato federal.", category: "Mulheres e autonomia", icon: "shield", published: true, sortOrder: 5 },
-    { slug: "escuta-fiscalizacao-e-transparencia", title: "Escuta, fiscalização e transparência", summary: "Manter diálogo permanente com a população, fiscalizar a aplicação dos recursos públicos e apresentar de forma acessível as ações, votações e resultados do mandato.", body: "Manter escuta permanente, fiscalizar recursos públicos e apresentar resultados em linguagem acessível.", category: "Mandato aberto", icon: "messages-square", published: true, sortOrder: 6 },
-  ]).onConflictDoNothing();
+  await db
+    .insert(proposals)
+    .values(
+      fallbackProposals.map(
+        ({
+          slug,
+          title,
+          summary,
+          body,
+          category,
+          icon,
+          featured,
+          published,
+          sortOrder,
+          whyItMatters,
+          commitments: proposalCommitments,
+          howFederalActs,
+          demandTheme,
+        }) => ({
+          slug,
+          title,
+          summary,
+          body,
+          category,
+          icon,
+          featured,
+          published,
+          sortOrder,
+          whyItMatters,
+          commitments: proposalCommitments,
+          howFederalActs,
+          demandTheme,
+        }),
+      ),
+    )
+    .onConflictDoNothing();
 
   await db.insert(commitments).values([
     { title: "Prestação de contas permanente", summary: "Publicar relatórios periódicos com atividades, despesas, emendas e resultados.", metric: "Relatórios publicados", target: "1 relatório por trimestre", status: "proposto", progress: 0, published: true, sortOrder: 1 },
@@ -40,4 +69,7 @@ async function seed() {
   console.log("Banco inicializado com conteúdo demonstrativo.");
 }
 
-seed().catch(error => { console.error(error); process.exit(1); });
+seed().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
