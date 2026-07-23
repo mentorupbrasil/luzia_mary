@@ -25,7 +25,9 @@
   color: #ffffff;
   padding: clamp(4.375rem, 7vw, 5.375rem) 0;
   overflow: hidden;
+  height: clamp(26.5rem, 42vw, 30rem);
   min-height: clamp(26.5rem, 42vw, 30rem);
+  max-height: clamp(26.5rem, 42vw, 30rem);
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -124,35 +126,25 @@
 }
 
 .flags-hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  margin: 0;
-  font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(0.72rem, 0.95vw, 0.84rem);
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  margin: 0 0 0.85rem;
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.86);
-}
-
-.flags-hero-eyebrow::before {
-  content: "";
-  width: 1.55rem;
-  height: 3px;
-  border-radius: 999px;
-  background: var(--flags-yellow);
+  color: var(--flags-yellow);
 }
 
 .flags-hero-title {
-  margin: 1.05rem 0 0;
-  max-width: 720px;
+  margin: 0 0 1.1rem;
+  max-width: 42rem;
   font-family: var(--font-league-spartan), "League Spartan", sans-serif;
-  font-size: clamp(3.125rem, 9.4cqi, 4.5rem);
+  font-size: clamp(1.7rem, 6.5vw, 3.35rem);
   font-weight: 800;
-  line-height: 0.94;
-  letter-spacing: -0.045em;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   color: #ffffff;
+  text-wrap: balance;
 }
 
 .flags-hero-title-line {
@@ -165,31 +157,31 @@
 }
 
 .flags-hero-lead {
-  margin: 1.2rem 0 0;
-  max-width: 42rem;
+  margin: 0;
+  max-width: 36rem;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(1.0625rem, 1.2vw, 1.1875rem);
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
   font-weight: 500;
-  line-height: 1.72;
-  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .flags-pillars {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
   list-style: none;
-  margin: 1.25rem 0 0;
+  margin: 1.15rem 0 0;
   padding: 0;
 }
 
 .flags-pillar {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  min-height: 2.85rem;
-  padding: 0.55rem 0.75rem;
-  border-radius: 14px;
+  gap: 0.4rem;
+  min-height: 0;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px);
@@ -201,9 +193,9 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 1.85rem;
-  height: 1.85rem;
-  border-radius: 9px;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 999px;
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -226,7 +218,7 @@
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.2;
   letter-spacing: 0.01em;
   color: rgba(255, 255, 255, 0.94);
 }
@@ -1263,13 +1255,14 @@
 
 @media (max-width: 1024px) {
   .flags-hero {
-    padding-top: clamp(2.5rem, 4vw, 3.25rem);
+    height: clamp(24rem, 58vw, 28rem);
     min-height: clamp(24rem, 58vw, 28rem);
+    max-height: clamp(24rem, 58vw, 28rem);
   }
 
   .flags-hero-title {
     font-size: clamp(1.65rem, 6.8vw, 2.75rem);
-    line-height: 1.05;
+    line-height: 1.1;
   }
 
   @media (min-width: 360px) {
@@ -1287,10 +1280,6 @@
     width: 6.8rem;
     height: 6.8rem;
     font-size: 0.64rem;
-  }
-
-  .flags-pillars {
-    gap: 0.7rem;
   }
 
   .flags-pillar-label {
@@ -1386,9 +1375,10 @@
 
 @media (max-width: 720px) {
   .flags-hero {
-    padding-top: 2.35rem;
-    padding-bottom: 1.75rem;
+    height: auto;
     min-height: 0;
+    max-height: none;
+    padding: 2.35rem 0 1.75rem;
   }
 
   .flags-hero-shell {
@@ -1406,12 +1396,7 @@
   }
 
   .flags-pillars {
-    grid-template-columns: 1fr 1fr;
-    gap: 0.7rem;
-  }
-
-  .flags-pillar:last-child {
-    grid-column: 1 / -1;
+    gap: 0.55rem;
   }
 
   .flags-path--funds,
