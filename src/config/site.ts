@@ -162,3 +162,9 @@ export const demandCategories = [
   "Convite para evento",
   "Outro assunto",
 ] as const;
+
+export type DemandCategory = (typeof demandCategories)[number];
+
+export function isDemandCategory(value: string): value is DemandCategory {
+  return (demandCategories as readonly string[]).includes(value);
+}

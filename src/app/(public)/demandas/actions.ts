@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { getDb, hasDatabase } from "@/db";
+import { demandCategorySchema } from "@/lib/demand-category";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { getDemandRateLimitKey } from "@/lib/request-ip";
 
@@ -36,7 +37,7 @@ const schema = z.object({
     }, "Informe um telefone válido com DDD."),
   city: z.string().min(2, "Informe o município.").max(80, "Município muito longo."),
   neighborhood: z.string().max(80, "Localidade muito longa.").optional().or(z.literal("")),
-  category: z.string().min(2, "Escolha um tema."),
+  category: demandCategorySchema,
   title: z
     .string()
     .min(5, "Resuma a demanda em pelo menos 5 caracteres.")

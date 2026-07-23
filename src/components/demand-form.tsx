@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { CheckCircle2, Copy, Loader2, RotateCcw, Send } from "lucide-react";
 import { submitDemand, type DemandState } from "@/app/(public)/demandas/actions";
-import { demandCategories, content } from "@/config/site";
+import { demandCategories, content, isDemandCategory } from "@/config/site";
 
 const initialState: DemandState = { ok: false, message: "" };
 
@@ -18,11 +18,7 @@ export function DemandForm({ defaultCategory = "" }: { defaultCategory?: string 
   const [descriptionLen, setDescriptionLen] = useState(0);
   const [copied, setCopied] = useState(false);
 
-  const categoryValue = demandCategories.includes(
-    defaultCategory as (typeof demandCategories)[number],
-  )
-    ? defaultCategory
-    : "";
+  const categoryValue = isDemandCategory(defaultCategory) ? defaultCategory : "";
 
   useEffect(() => {
     if (state.ok) formRef.current?.reset();
