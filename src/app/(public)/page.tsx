@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { CampaignHomeHeader } from "@/components/campaign-home-header";
 import { Container } from "@/components/container";
-import { hasPhoto } from "@/components/photo";
+import { hasPhoto } from "@/lib/public-asset";
 import { proposalNumber } from "@/config/bandeiras";
 import { content } from "@/config/site";
 import { getPosts, getProposals } from "@/lib/data";
@@ -85,9 +85,18 @@ export default async function HomePage() {
           alt=""
           fill
           priority
-          sizes="100vw"
+          sizes="(max-width: 1023px) 0px, 100vw"
           quality={85}
-          className="hero-base-img"
+          className="hero-base-img hero-base-img--desktop"
+        />
+        <Image
+          src="/images/hero-luzia-mobile.webp"
+          alt=""
+          fill
+          priority
+          sizes="(max-width: 1023px) 100vw, 0px"
+          quality={80}
+          className="hero-base-img hero-base-img--mobile"
         />
 
         <div className="campaign-hero-chrome">
@@ -100,6 +109,16 @@ export default async function HomePage() {
         <p className="sr-only">
           A mulher do povo, de Imperatriz para o Maranhão. Trabalho, fé e família.
         </p>
+
+        <div className="hero-mobile-panel">
+          <p className="hero-mobile-eyebrow">Pré-candidata a deputada federal pelo Maranhão</p>
+          <p className="hero-mobile-name" aria-hidden="true">
+            Luzia <span>Mary</span>
+          </p>
+          <p className="hero-mobile-lead">
+            A mulher do povo, de Imperatriz para o Maranhão.
+          </p>
+        </div>
 
         <Link href="/sobre" className="hero-button">
           <span>Conheça Luzia</span>
@@ -271,7 +290,7 @@ export default async function HomePage() {
 
               <p className="gabinete-micro">
                 <Clock3 size={14} aria-hidden />
-                Leva menos de 3 minutos.
+                Envio rápido e seguro.
               </p>
             </div>
 
@@ -383,7 +402,7 @@ export default async function HomePage() {
           <span className="convite-curve" />
           <span className="convite-orb convite-orb--green" />
           <span className="convite-orb convite-orb--yellow" />
-          <span className="convite-word">Participe</span>
+          <span className="convite-word">Acompanhe</span>
         </div>
 
         <Container className="convite-container relative max-w-[1220px]">
@@ -395,17 +414,17 @@ export default async function HomePage() {
               </div>
 
               <h2 id="convite-heading" className="convite-title">
-                <span className="convite-title-line">Vamos construir</span>
+                <span className="convite-title-line">Acompanhe as</span>
                 <span className="convite-title-line">
-                  uma <em>voz forte</em>
+                  <em>prioridades</em>,
                 </span>
-                <span className="convite-title-line">para Imperatriz</span>
-                <span className="convite-title-line">e para o Maranhão.</span>
+                <span className="convite-title-line">a agenda e os</span>
+                <span className="convite-title-line">compromissos públicos.</span>
               </h2>
 
               <p className="convite-lead">
-                Conte o que sua comunidade precisa. Participação de verdade começa com escuta, presença e
-                compromisso.
+                O Gabinete digital registra demandas. Aqui, o convite é outro: acompanhar o que já está
+                publicado sobre bandeiras, encontros e compromissos com Imperatriz e o Maranhão.
               </p>
             </div>
 
@@ -468,21 +487,19 @@ export default async function HomePage() {
                 </svg>
               </div>
 
-              <aside className="convite-panel" aria-label="Formas de participar">
-                <h3 className="convite-panel-title">Faça parte dessa construção</h3>
+              <aside className="convite-panel" aria-label="Acompanhar propostas, agenda e compromissos">
+                <h3 className="convite-panel-title">Siga a caminhada pública</h3>
                 <p className="convite-panel-lead">
-                  Escolha como você quer participar e acompanhe de perto os compromissos com Imperatriz e o
-                  Maranhão.
+                  Veja as bandeiras, confira a agenda e acompanhe os compromissos já publicados.
                 </p>
 
                 <div className="convite-actions">
-                  <Link href="/participe" className="convite-btn convite-btn--primary">
-                    <MessageCircle size={18} aria-hidden />
-                    Quero participar
+                  <Link href="/propostas" className="convite-btn convite-btn--primary">
+                    Ver propostas
                     <ArrowRight size={17} aria-hidden />
                   </Link>
-                  <Link href="/compromissos" className="convite-btn convite-btn--secondary">
-                    Ver compromissos
+                  <Link href="/agenda" className="convite-btn convite-btn--secondary">
+                    Ver agenda
                     <ArrowRight size={17} aria-hidden />
                   </Link>
                 </div>
@@ -490,15 +507,15 @@ export default async function HomePage() {
                 <ul className="convite-guarantees">
                   <li>
                     <CheckCircle2 size={15} aria-hidden />
-                    Escuta ativa
+                    Bandeiras publicadas
                   </li>
                   <li>
                     <CheckCircle2 size={15} aria-hidden />
-                    Protocolo organizado
+                    Agenda aberta
                   </li>
                   <li>
                     <CheckCircle2 size={15} aria-hidden />
-                    Compromisso com retorno
+                    Compromissos públicos
                   </li>
                 </ul>
               </aside>

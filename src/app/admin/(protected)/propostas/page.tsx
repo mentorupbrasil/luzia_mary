@@ -77,7 +77,7 @@ export default async function AdminProposalsPage() {
             </Button>
             {fromFallback && (
               <p className="text-xs text-black/45">
-                Banco indisponível: o painel exibe o fallback. Configure DATABASE_URL para cadastrar.
+                Banco indisponível: o painel exibe o conteúdo de apoio. Novos cadastros ficam temporariamente desabilitados.
               </p>
             )}
           </form>

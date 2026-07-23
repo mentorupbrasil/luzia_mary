@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1784779492557,
+      "tag": "0000_cold_carlie_cooper",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1784780000000,
+      "tag": "0001_demand_status_priority_enums",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1784781000000,
+      "tag": "0002_updated_at_triggers",
+      "breakpoints": true
+    }
+  ]
+}

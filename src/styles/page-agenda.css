@@ -362,6 +362,20 @@
   background: rgba(8, 166, 75, 0.16);
 }
 
+.agenda-share-feedback {
+  margin: 0;
+  min-height: 1.1rem;
+  color: var(--agenda-green);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.agenda-share-feedback:empty {
+  display: none;
+}
+
 .agenda-btn--cta {
   background: var(--agenda-yellow);
   color: var(--agenda-navy);

@@ -1,7 +1,13 @@
-import { and, asc, desc, eq, sql } from "drizzle-orm";
+import { unstable_cache } from "next/cache";
+import { and, asc, desc, eq, inArray, sql } from "drizzle-orm";
 import { getDb, hasDatabase } from "@/db";
 import { commitments, demands, events, factChecks, posts, proposals } from "@/db/schema";
+import {
+  PUBLIC_DATA_REVALIDATE_SECONDS,
+  cacheTags,
+} from "@/lib/cache-tags";
 import { pickDemandCategory } from "@/lib/demand-category";
+import { publicDemandStatuses } from "@/lib/demand-workflow";
 import {
   fallbackCommitments,
   fallbackFactChecks,
@@ -12,6 +18,29 @@ import {
 
 function publishedOnly<T extends { published: boolean }>(items: T[]) {
   return items.filter((item) => item.published === true);
+}
+
+function asDate(value: Date | string): Date {
+  return value instanceof Date ? value : new Date(value);
+}
+
+/** unstable_cache exige runtime Next; em testes cai no fetch direto. */
+function publicCached<T>(
+  key: string[],
+  tags: string[],
+  fn: () => Promise<T>,
+): () => Promise<T> {
+  const cached = unstable_cache(fn, key, {
+    revalidate: PUBLIC_DATA_REVALIDATE_SECONDS,
+    tags,
+  });
+  return async () => {
+    try {
+      return await cached();
+    } catch {
+      return fn();
+    }
+  };
 }
 
 function normalizeProposal(row: {
@@ -29,8 +58,8 @@ function normalizeProposal(row: {
   commitments?: string[] | null;
   howFederalActs?: string[] | null;
   demandTheme?: string | null;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string;
+  updatedAt: Date | string;
 }): ProposalRecord {
   const fallback = fallbackProposals.find((item) => item.slug === row.slug);
   const demandTheme =
@@ -53,13 +82,12 @@ function normalizeProposal(row: {
     commitments: row.commitments?.length ? row.commitments : fallback?.commitments ?? [],
     howFederalActs: row.howFederalActs?.length ? row.howFederalActs : fallback?.howFederalActs ?? [],
     demandTheme,
-    createdAt: row.createdAt,
-    updatedAt: row.updatedAt,
+    createdAt: asDate(row.createdAt),
+    updatedAt: asDate(row.updatedAt),
   };
 }
 
-/** Propostas publicadas para o site (banco → fallback). */
-export async function getProposals(): Promise<ProposalRecord[]> {
+async function fetchPublishedProposals(): Promise<ProposalRecord[]> {
   if (!hasDatabase()) return publishedOnly(fallbackProposals);
   try {
     const rows = await getDb()
@@ -73,7 +101,18 @@ export async function getProposals(): Promise<ProposalRecord[]> {
   }
 }
 
-/** Todas as propostas para o painel (inclui rascunhos). */
+const cachedPublishedProposals = publicCached(
+  ["public-proposals"],
+  [cacheTags.proposals],
+  fetchPublishedProposals,
+);
+
+/** Propostas publicadas para o site (banco → fallback). */
+export async function getProposals(): Promise<ProposalRecord[]> {
+  return cachedPublishedProposals();
+}
+
+/** Todas as propostas para o painel (inclui rascunhos). Sem cache público. */
 export async function getAllProposals(): Promise<ProposalRecord[]> {
   if (!hasDatabase()) return fallbackProposals;
   try {
@@ -84,7 +123,7 @@ export async function getAllProposals(): Promise<ProposalRecord[]> {
   }
 }
 
-export async function getProposalBySlug(slug: string): Promise<ProposalRecord | null> {
+async function fetchProposalBySlug(slug: string): Promise<ProposalRecord | null> {
   if (!hasDatabase()) {
     return publishedOnly(fallbackProposals).find((item) => item.slug === slug) ?? null;
   }
@@ -100,50 +139,107 @@ export async function getProposalBySlug(slug: string): Promise<ProposalRecord | 
   }
 }
 
-export async function getCommitments() {
+export async function getProposalBySlug(slug: string): Promise<ProposalRecord | null> {
+  return publicCached(
+    ["public-proposal", slug],
+    [cacheTags.proposals],
+    () => fetchProposalBySlug(slug),
+  )();
+}
+
+async function fetchPublishedCommitments() {
   if (!hasDatabase()) return publishedOnly(fallbackCommitments);
   try {
-    return await getDb()
+    const rows = await getDb()
       .select()
       .from(commitments)
       .where(eq(commitments.published, true))
       .orderBy(asc(commitments.sortOrder));
+    return rows.map((row) => ({
+      ...row,
+      createdAt: asDate(row.createdAt),
+      updatedAt: asDate(row.updatedAt),
+      dueDate: row.dueDate ? asDate(row.dueDate) : null,
+    }));
   } catch {
     return publishedOnly(fallbackCommitments);
   }
 }
 
-export async function getFactChecks() {
+const cachedPublishedCommitments = publicCached(
+  ["public-commitments"],
+  [cacheTags.commitments],
+  fetchPublishedCommitments,
+);
+
+export async function getCommitments() {
+  return cachedPublishedCommitments();
+}
+
+async function fetchPublishedFactChecks() {
   if (!hasDatabase()) return publishedOnly(fallbackFactChecks);
   try {
-    return await getDb()
+    const rows = await getDb()
       .select()
       .from(factChecks)
       .where(eq(factChecks.published, true))
       .orderBy(desc(factChecks.publishedAt));
+    return rows.map((row) => ({
+      ...row,
+      createdAt: asDate(row.createdAt),
+      updatedAt: asDate(row.updatedAt),
+      publishedAt: asDate(row.publishedAt),
+    }));
   } catch {
     return publishedOnly(fallbackFactChecks);
   }
 }
 
-export async function getEvents() {
+const cachedPublishedFactChecks = publicCached(
+  ["public-fact-checks"],
+  [cacheTags.factChecks],
+  fetchPublishedFactChecks,
+);
+
+export async function getFactChecks() {
+  return cachedPublishedFactChecks();
+}
+
+async function fetchPublicEvents() {
   if (!hasDatabase()) {
     const { listLocalEvents } = await import("./local-events-store");
     return (await listLocalEvents()).filter((row) => row.public === true);
   }
   try {
-    return await getDb()
+    const rows = await getDb()
       .select()
       .from(events)
       .where(eq(events.public, true))
       .orderBy(asc(events.startAt));
+    return rows.map((row) => ({
+      ...row,
+      startAt: asDate(row.startAt),
+      endAt: row.endAt ? asDate(row.endAt) : null,
+      createdAt: asDate(row.createdAt),
+      updatedAt: asDate(row.updatedAt),
+    }));
   } catch {
     const { listLocalEvents } = await import("./local-events-store");
     return (await listLocalEvents()).filter((row) => row.public === true);
   }
 }
 
-/** Todos os eventos para o painel (inclui privados e não confirmados). */
+const cachedPublicEvents = publicCached(
+  ["public-events"],
+  [cacheTags.agenda],
+  fetchPublicEvents,
+);
+
+export async function getEvents() {
+  return cachedPublicEvents();
+}
+
+/** Todos os eventos para o painel (inclui privados e não confirmados). Sem cache público. */
 export async function getAllEvents() {
   if (!hasDatabase()) {
     const { listLocalEvents } = await import("./local-events-store");
@@ -186,20 +282,36 @@ export async function getAgendaEvents() {
   return getPublishableAgendaEvents(mapped);
 }
 
-export async function getPosts() {
+async function fetchPublishedPosts() {
   if (!hasDatabase()) return publishedOnly(fallbackPosts);
   try {
-    return await getDb()
+    const rows = await getDb()
       .select()
       .from(posts)
       .where(eq(posts.published, true))
       .orderBy(desc(posts.publishedAt));
+    return rows.map((row) => ({
+      ...row,
+      createdAt: asDate(row.createdAt),
+      updatedAt: asDate(row.updatedAt),
+      publishedAt: asDate(row.publishedAt),
+    }));
   } catch {
     return publishedOnly(fallbackPosts);
   }
 }
 
-/** Todas as notícias para o painel (inclui rascunhos). */
+const cachedPublishedPosts = publicCached(
+  ["public-posts"],
+  [cacheTags.posts],
+  fetchPublishedPosts,
+);
+
+export async function getPosts() {
+  return cachedPublishedPosts();
+}
+
+/** Todas as notícias para o painel (inclui rascunhos). Sem cache público. */
 export async function getAllPosts() {
   if (!hasDatabase()) return fallbackPosts;
   try {
@@ -209,8 +321,7 @@ export async function getAllPosts() {
   }
 }
 
-/** Notícia publicada por slug — rascunho retorna null (página pública → notFound). */
-export async function getPostBySlug(slug: string) {
+async function fetchPostBySlug(slug: string) {
   if (!hasDatabase()) {
     return publishedOnly(fallbackPosts).find((item) => item.slug === slug) ?? null;
   }
@@ -220,26 +331,70 @@ export async function getPostBySlug(slug: string) {
       .from(posts)
       .where(and(eq(posts.slug, slug), eq(posts.published, true)))
       .limit(1);
-    return rows[0] ?? null;
+    const row = rows[0];
+    if (!row) return null;
+    return {
+      ...row,
+      createdAt: asDate(row.createdAt),
+      updatedAt: asDate(row.updatedAt),
+      publishedAt: asDate(row.publishedAt),
+    };
   } catch {
     return publishedOnly(fallbackPosts).find((item) => item.slug === slug) ?? null;
   }
 }
 
-export async function getPublicDemandStats() {
-  if (!hasDatabase()) return { total: 0, cities: 0, categories: [] as Array<{ category: string; total: number }> };
+/** Notícia publicada por slug — rascunho retorna null (página pública → notFound). */
+export async function getPostBySlug(slug: string) {
+  return publicCached(
+    ["public-post", slug],
+    [cacheTags.posts],
+    () => fetchPostBySlug(slug),
+  )();
+}
+
+async function fetchPublicDemandStats() {
+  if (!hasDatabase()) {
+    return { total: 0, cities: 0, categories: [] as Array<{ category: string; total: number }> };
+  }
   try {
     const db = getDb();
-    const [totalRow] = await db.select({ total: sql<number>`count(*)::int` }).from(demands);
-    const [citiesRow] = await db.select({ total: sql<number>`count(distinct ${demands.city})::int` }).from(demands);
+    const publicOnly = inArray(demands.status, [...publicDemandStatuses]);
+
+    const [totalRow] = await db
+      .select({ total: sql<number>`count(*)::int` })
+      .from(demands)
+      .where(publicOnly);
+
+    const [citiesRow] = await db
+      .select({ total: sql<number>`count(distinct ${demands.city})::int` })
+      .from(demands)
+      .where(publicOnly);
+
     const categories = await db
       .select({ category: demands.category, total: sql<number>`count(*)::int` })
       .from(demands)
+      .where(publicOnly)
       .groupBy(demands.category)
       .orderBy(desc(sql`count(*)`))
       .limit(6);
-    return { total: totalRow?.total ?? 0, cities: citiesRow?.total ?? 0, categories };
+
+    return {
+      total: totalRow?.total ?? 0,
+      cities: citiesRow?.total ?? 0,
+      categories,
+    };
   } catch {
     return { total: 0, cities: 0, categories: [] as Array<{ category: string; total: number }> };
   }
+}
+
+const cachedPublicDemandStats = publicCached(
+  ["public-demand-stats"],
+  [cacheTags.demandStats],
+  fetchPublicDemandStats,
+);
+
+export async function getPublicDemandStats() {
+  return cachedPublicDemandStats();
 }

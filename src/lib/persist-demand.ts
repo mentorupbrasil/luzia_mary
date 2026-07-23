@@ -44,6 +44,8 @@ export async function writeDemandSubmission(
     title: input.title,
     description: input.description,
     consent: true,
+    status: "recebida",
+    priority: "normal",
   };
 
   if (!shouldPersistContact(input)) {

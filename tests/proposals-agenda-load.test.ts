@@ -20,6 +20,7 @@ const listLocalEvents = vi.fn(async () => [] as Array<{
   category: string;
   region: string | null;
   createdAt: Date;
+  updatedAt: Date;
 }>);
 
 vi.mock("@/db", () => ({
@@ -127,6 +128,7 @@ describe("carregamento de propostas e agenda", () => {
         category: "Mobilização",
         region: "imperatriz",
         createdAt: new Date("2026-01-01T00:00:00.000Z"),
+        updatedAt: new Date("2026-01-01T00:00:00.000Z"),
       },
       {
         id: "local-private",
@@ -142,6 +144,7 @@ describe("carregamento de propostas e agenda", () => {
         category: "Reunião",
         region: "imperatriz",
         createdAt: new Date("2026-01-01T00:00:00.000Z"),
+        updatedAt: new Date("2026-01-01T00:00:00.000Z"),
       },
     ]);
 

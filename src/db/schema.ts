@@ -1,4 +1,15 @@
-import { boolean, integer, jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { boolean, integer, jsonb, pgEnum, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { demandPriorities, demandStatuses } from "@/lib/demand-workflow";
+
+export const demandStatusEnum = pgEnum("demand_status", demandStatuses);
+export const demandPriorityEnum = pgEnum("demand_priority", demandPriorities);
+
+/** Timestamp renovado a cada UPDATE (Drizzle + trigger SQL no banco). */
+const updatedAtColumn = () =>
+  timestamp("updated_at", { withTimezone: true })
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull();
 
 export const demands = pgTable("demands", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -13,12 +24,12 @@ export const demands = pgTable("demands", {
   description: text("description").notNull(),
   consent: boolean("consent").notNull().default(false),
   publicSummary: text("public_summary"),
-  status: text("status").notNull().default("recebida"),
-  priority: text("priority").notNull().default("normal"),
+  status: demandStatusEnum("status").notNull().default("recebida"),
+  priority: demandPriorityEnum("priority").notNull().default("normal"),
   assignedTo: text("assigned_to"),
   internalNotes: text("internal_notes"),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: updatedAtColumn(),
 });
 
 export const contacts = pgTable("contacts", {
@@ -32,6 +43,7 @@ export const contacts = pgTable("contacts", {
   consentText: text("consent_text").notNull(),
   consentAt: timestamp("consent_at", { withTimezone: true }).defaultNow().notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: updatedAtColumn(),
 });
 
 export const proposals = pgTable("proposals", {
@@ -50,7 +62,7 @@ export const proposals = pgTable("proposals", {
   howFederalActs: jsonb("how_federal_acts").$type<string[]>().notNull().default([]),
   demandTheme: text("demand_theme").notNull().default(""),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: updatedAtColumn(),
 });
 
 export const commitments = pgTable("commitments", {
@@ -65,7 +77,7 @@ export const commitments = pgTable("commitments", {
   published: boolean("published").notNull().default(true),
   sortOrder: integer("sort_order").notNull().default(0),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: updatedAtColumn(),
 });
 
 export const factChecks = pgTable("fact_checks", {
@@ -78,6 +90,7 @@ export const factChecks = pgTable("fact_checks", {
   published: boolean("published").notNull().default(true),
   publishedAt: timestamp("published_at", { withTimezone: true }).defaultNow().notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: updatedAtColumn(),
 });
 
 export const events = pgTable("events", {
@@ -94,6 +107,7 @@ export const events = pgTable("events", {
   category: text("category").notNull().default("Evento institucional"),
   region: text("region"),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: updatedAtColumn(),
 });
 
 export const posts = pgTable("posts", {
@@ -107,5 +121,5 @@ export const posts = pgTable("posts", {
   published: boolean("published").notNull().default(true),
   publishedAt: timestamp("published_at", { withTimezone: true }).defaultNow().notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: updatedAtColumn(),
 });

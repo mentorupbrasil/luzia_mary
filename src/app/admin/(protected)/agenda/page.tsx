@@ -70,7 +70,7 @@ export default async function AdminAgendaPage() {
             <Button type="submit">Cadastrar evento</Button>
             {usingLocalStore ? (
               <p className="text-xs text-black/45">
-                Banco indisponível: eventos ficam no store local (.data) e alimentam /agenda.
+                Banco indisponível: eventos ficam no armazenamento local e alimentam /agenda.
               </p>
             ) : null}
           </form>

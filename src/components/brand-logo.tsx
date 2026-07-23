@@ -7,6 +7,8 @@ type Props = {
   priority?: boolean;
   /** `light` = logo branco (fundo escuro). `dark` = logo escuro (fundo claro). */
   variant?: "light" | "dark";
+  /** Quando o logo está dentro de um link com aria-label. */
+  decorative?: boolean;
 };
 
 const sizeMap = {
@@ -20,13 +22,14 @@ export function BrandLogo({
   size = "md",
   priority = false,
   variant = "dark",
+  decorative = false,
 }: Props) {
   const dims = sizeMap[size];
 
   return (
     <Image
       src={variant === "light" ? "/images/luzia-mary-logo.png" : "/images/luzia-mary-logo-dark.png"}
-      alt="Luzia Mary"
+      alt={decorative ? "" : "Luzia Mary"}
       width={dims.width}
       height={dims.height}
       priority={priority}

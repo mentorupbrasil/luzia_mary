@@ -11,7 +11,8 @@ export async function loginAction(_: LoginState, formData: FormData): Promise<Lo
   const password = String(formData.get("password") || "");
   const configuredEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
   if (!configuredEmail || !process.env.AUTH_SECRET || (!process.env.ADMIN_PASSWORD && !process.env.ADMIN_PASSWORD_HASH)) {
-    return { error: "Configure ADMIN_EMAIL, ADMIN_PASSWORD (ou ADMIN_PASSWORD_HASH) e AUTH_SECRET nas variáveis de ambiente." };
+    console.error("[admin-login] authentication is not fully configured");
+    return { error: "Acesso temporariamente indisponível. Tente novamente mais tarde." };
   }
   const passwordOk = process.env.ADMIN_PASSWORD_HASH
     ? await bcrypt.compare(password, process.env.ADMIN_PASSWORD_HASH)

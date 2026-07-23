@@ -11,7 +11,6 @@
   --bio-ink-soft: rgba(0, 26, 63, 0.74);
   background: #ffffff;
   color: var(--bio-navy);
-  overflow-x: hidden;
 }
 
 .bio-eyebrow {
@@ -37,6 +36,7 @@
 
 .bio-open {
   position: relative;
+  overflow-x: clip;
   background: #f3f4f6;
   padding: clamp(1.75rem, 3.2vw, 2.75rem) 0 clamp(1.5rem, 3vw, 2.25rem);
 }
@@ -69,7 +69,7 @@
   background: transparent;
   border: 0;
   box-shadow: none;
-  overflow: visible;
+  overflow: clip;
   z-index: 1;
 }
 

@@ -9,7 +9,7 @@ export function SiteLogo({ light = false }: { light?: boolean }) {
       className="group inline-flex flex-col leading-none"
       aria-label={`${content.candidate.ballotName} — início`}
     >
-      <BrandLogo size="md" />
+      <BrandLogo size="md" decorative />
       <span
         className={`mt-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] ${
           light ? "text-white/50" : "text-[var(--muted)]"

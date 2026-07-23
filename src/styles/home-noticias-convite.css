@@ -439,7 +439,7 @@
   }
 
   .convite-title {
-    font-size: clamp(2.75rem, 10.5vw, 3.2rem);
+    font-size: clamp(2.35rem, 9.5vw, 3rem);
   }
 
   .convite-lead {
@@ -457,6 +457,21 @@
     gap: 0.55rem;
   }
 
+  .convite-word {
+    font-size: clamp(3.8rem, 18vw, 6rem);
+    letter-spacing: -0.06em;
+  }
+
+  .convite-actions {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .convite-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
   .convite-visual {
     width: min(68%, 200px);
     margin-bottom: -0.25rem;
@@ -468,49 +483,24 @@
   }
 }
 
-@media (max-width: 1100px) {
-  .people-hero-layout { grid-template-columns: .94fr 1.06fr; }
-  .people-name { font-size: clamp(4.8rem, 10vw, 8.6rem); }
-  .people-portrait-ribbon { display: none; }
+@media (max-width: 390px) {
+  .convite-container,
+  .bandeiras-container,
+  .gabinete-container {
+    width: min(1220px, calc(100% - 1.5rem));
+  }
+
+  .convite-title {
+    font-size: clamp(2.15rem, 9vw, 2.6rem);
+  }
+
+  .hero-mobile-name {
+    font-size: clamp(2.85rem, 13.5vw, 3.4rem);
+  }
 }
 
 @media (max-width: 900px) {
-  .people-hero { min-height: auto; }
-  .people-hero-layout { grid-template-columns: 1fr; }
-  .people-hero-copy { padding-bottom: 1.5rem; }
-  .people-name { font-size: clamp(5.3rem, 19vw, 9rem); }
-  .people-slogan { max-width: 40rem; }
-  .people-portrait-stage { min-height: 620px; }
-  .people-portrait-shape { width: min(78vw,620px); right: 6%; }
-  .people-portrait-lime { width: min(66vw,500px); right: 12%; }
-  .people-photo-seal { left: 4%; }
   .people-news-grid { grid-template-columns: 1fr; gap: 3rem; }
-}
-
-@media (max-width: 640px) {
-  .people-header .container { padding-inline: 1rem; }
-  .people-brand-name { font-size: 1.02rem; }
-  .people-brand-tagline { font-size: .41rem; }
-  .people-hero-layout { padding-top: 88px; }
-  .people-hero-copy { padding-top: 2.4rem; }
-  .people-location { width: auto; font-size: .56rem; line-height: 1.6; }
-  .people-office { margin-top: 1.35rem; font-size: .61rem; }
-  .people-name { font-size: clamp(4.6rem, 23vw, 6.9rem); }
-  .people-tagline { margin-top: 1.3rem; font-size: .66rem; }
-  .people-slogan { margin-top: 1.6rem; font-size: 1.42rem; }
-  .people-lead { font-size: .9rem; line-height: 1.72; }
-  .people-actions { flex-direction: column; align-items: stretch; }
-  .people-button { width: 100%; }
-  .people-hero-signature { flex-wrap: wrap; font-size: .55rem; }
-  .people-portrait-stage { min-height: 490px; }
-  .people-portrait-shape { width: min(96vw,520px); height: 91%; right: 0; }
-  .people-portrait-lime { width: min(82vw,430px); right: 5%; }
-  .people-photo-seal { width: 6.7rem; left: 0; bottom: 7%; }
-  .people-photo-seal strong { font-size: 1.2rem; }
-  .people-hero-footer-inner { min-height: 78px; }
-  .people-hero-footer p { font-size: .7rem; max-width: 9rem; }
-  .people-hero-footer a { font-size: .58rem; text-align: right; }
-  .people-title { font-size: clamp(2.35rem, 12vw, 3.6rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {

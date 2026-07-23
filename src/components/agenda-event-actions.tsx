@@ -1,8 +1,38 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { CalendarPlus, MapPin, Share2 } from "lucide-react";
 import type { AgendaEvent } from "@/config/agenda";
 import { downloadAgendaIcs, getAgendaShareUrl } from "@/lib/agenda";
+
+function copyText(text: string): Promise<boolean> {
+  if (navigator.clipboard?.writeText) {
+    return navigator.clipboard.writeText(text).then(
+      () => true,
+      () => copyTextFallback(text),
+    );
+  }
+  return Promise.resolve(copyTextFallback(text));
+}
+
+function copyTextFallback(text: string): boolean {
+  const field = document.createElement("textarea");
+  field.value = text;
+  field.setAttribute("readonly", "");
+  field.style.position = "fixed";
+  field.style.left = "-9999px";
+  field.style.top = "0";
+  document.body.appendChild(field);
+  field.select();
+  field.setSelectionRange(0, text.length);
+  try {
+    return document.execCommand("copy");
+  } catch {
+    return false;
+  } finally {
+    field.remove();
+  }
+}
 
 export function AgendaEventActions({
   event,
@@ -13,6 +43,13 @@ export function AgendaEventActions({
 }) {
   const mapUrl = event.mapUrl?.trim();
   const hasConfirmedPlace = Boolean(mapUrl || event.location?.trim());
+  const [feedback, setFeedback] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!feedback) return;
+    const timer = window.setTimeout(() => setFeedback(null), 4500);
+    return () => window.clearTimeout(timer);
+  }, [feedback]);
 
   async function handleShare() {
     const url = getAgendaShareUrl(event.id);
@@ -27,16 +64,18 @@ export function AgendaEventActions({
         await navigator.share(payload);
         return;
       }
-    } catch {
-      // usuário cancelou ou share indisponível
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") {
+        return;
+      }
     }
 
-    try {
-      await navigator.clipboard.writeText(url);
-      window.alert("Link do compromisso copiado.");
-    } catch {
-      window.prompt("Copie o link do compromisso:", url);
-    }
+    const copied = await copyText(url);
+    setFeedback(
+      copied
+        ? "Link do compromisso copiado."
+        : "Não foi possível copiar o link automaticamente.",
+    );
   }
 
   const mapHref =
@@ -72,6 +111,9 @@ export function AgendaEventActions({
         <Share2 size={16} aria-hidden />
         COMPARTILHAR
       </button>
+      <p className="agenda-share-feedback" role="status" aria-live="polite" aria-atomic="true">
+        {feedback}
+      </p>
     </div>
   );
 }

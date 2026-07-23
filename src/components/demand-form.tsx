@@ -304,7 +304,14 @@ export function DemandForm({ defaultCategory = "" }: { defaultCategory?: string 
         <legend className="participate-sr-only">Consentimentos</legend>
 
         <label className="participate-consent participate-consent--required">
-          <input type="checkbox" name="consent" required className="participate-checkbox" />
+          <input
+            type="checkbox"
+            name="consent"
+            required
+            className="participate-checkbox"
+            aria-invalid={Boolean(state.errors?.consent)}
+            aria-describedby={state.errors?.consent ? "consent-error" : undefined}
+          />
           <span>
             <strong>Obrigatório.</strong> Li e concordo com o tratamento dos dados necessários
             para registrar, analisar e responder esta demanda, conforme a{" "}

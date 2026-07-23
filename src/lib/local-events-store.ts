@@ -17,23 +17,27 @@ export type LocalEventRecord = {
   category: string;
   region: string | null;
   createdAt: Date;
+  updatedAt: Date;
 };
 
-type StoredEvent = Omit<LocalEventRecord, "startAt" | "endAt" | "createdAt"> & {
+type StoredEvent = Omit<LocalEventRecord, "startAt" | "endAt" | "createdAt" | "updatedAt"> & {
   startAt: string;
   endAt: string | null;
   createdAt: string;
+  updatedAt?: string;
 };
 
 const DATA_DIR = path.join(process.cwd(), ".data");
 const FILE = path.join(DATA_DIR, "events.json");
 
 function revive(row: StoredEvent): LocalEventRecord {
+  const createdAt = new Date(row.createdAt);
   return {
     ...row,
     startAt: new Date(row.startAt),
     endAt: row.endAt ? new Date(row.endAt) : null,
-    createdAt: new Date(row.createdAt),
+    createdAt,
+    updatedAt: row.updatedAt ? new Date(row.updatedAt) : createdAt,
   };
 }
 
@@ -54,6 +58,7 @@ async function writeAll(rows: LocalEventRecord[]) {
     startAt: row.startAt.toISOString(),
     endAt: row.endAt ? row.endAt.toISOString() : null,
     createdAt: row.createdAt.toISOString(),
+    updatedAt: row.updatedAt.toISOString(),
   }));
   await writeFile(FILE, JSON.stringify(payload, null, 2), "utf8");
 }
@@ -64,9 +69,10 @@ export async function listLocalEvents(): Promise<LocalEventRecord[]> {
 }
 
 export async function insertLocalEvent(
-  input: Omit<LocalEventRecord, "id" | "createdAt"> & { id?: string },
+  input: Omit<LocalEventRecord, "id" | "createdAt" | "updatedAt"> & { id?: string },
 ): Promise<LocalEventRecord> {
   const rows = await readAll();
+  const now = new Date();
   const row: LocalEventRecord = {
     id: input.id ?? randomUUID(),
     title: input.title,
@@ -80,7 +86,8 @@ export async function insertLocalEvent(
     featured: input.featured,
     category: input.category,
     region: input.region,
-    createdAt: new Date(),
+    createdAt: now,
+    updatedAt: now,
   };
   rows.push(row);
   await writeAll(rows);

@@ -89,7 +89,7 @@ describe("envio de demanda", () => {
     const result = await submitDemand(initial, buildDemandFormData());
 
     expect(result.ok).toBe(false);
-    expect(result.message).toMatch(/banco de dados/i);
+    expect(result.message).toMatch(/Não foi possível registrar agora/i);
     expect(writeDemandSubmission).not.toHaveBeenCalled();
   });
 });

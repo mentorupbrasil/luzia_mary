@@ -390,7 +390,7 @@
   }
 
   .gabinete-title {
-    font-size: clamp(2.55rem, 11vw, 3rem);
+    font-size: clamp(2.25rem, 10vw, 2.85rem);
   }
 
   .gabinete-lead {
@@ -398,7 +398,14 @@
   }
 
   .gabinete-panel {
-    padding: 1.65rem 1.45rem 1.5rem;
+    padding: 1.55rem 1.25rem 1.4rem;
+  }
+
+  .gabinete-panel-glow {
+    width: 12rem;
+    height: 12rem;
+    right: -3.5rem;
+    top: -4rem;
   }
 
   .gabinete-step {
@@ -408,5 +415,11 @@
 
   .gabinete-step-title {
     font-size: 1.05rem;
+  }
+
+  .gabinete-cta {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
   }
 }

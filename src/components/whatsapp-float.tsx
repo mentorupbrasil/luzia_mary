@@ -28,11 +28,11 @@ export function WhatsAppFloat() {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-sm font-extrabold text-white shadow-lg transition hover:-translate-y-0.5 sm:bottom-7 sm:right-7"
+      className="whatsapp-float"
       aria-label="Falar no WhatsApp com a equipe"
     >
       <MessageCircle size={18} aria-hidden />
-      <span className="hidden sm:inline">WhatsApp</span>
+      <span className="whatsapp-float-label">WhatsApp</span>
     </a>
   );
 }

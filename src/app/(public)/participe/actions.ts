@@ -115,10 +115,11 @@ export async function submitDemand(_: DemandState, formData: FormData): Promise<
   }
 
   if (!hasDatabase()) {
+    console.error("[demand] persistence unavailable: database not configured");
     return {
       ok: false,
       message:
-        "O banco de dados ainda não foi conectado. Configure DATABASE_URL no Neon/Vercel para ativar o formulário.",
+        "Não foi possível registrar agora. Tente novamente ou utilize o canal oficial de contato.",
     };
   }
 
@@ -148,8 +149,9 @@ export async function submitDemand(_: DemandState, formData: FormData): Promise<
       protocol,
       registeredAt: registeredAt.toISOString(),
     };
-  } catch {
-    // Não registrar dados pessoais em logs.
+  } catch (error) {
+    const detail = error instanceof Error ? error.name : "unknown";
+    console.error(`[demand] persistence failed protocol=${protocol} reason=${detail}`);
     return {
       ok: false,
       message:

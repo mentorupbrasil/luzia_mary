@@ -415,7 +415,7 @@
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
   font-size: 0.78rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .lm-footer-social-arrow {
@@ -543,7 +543,19 @@
 
   .lm-footer-social-card {
     border-radius: 22px;
-    padding: 1.55rem;
+    padding: 1.35rem 1.25rem;
+  }
+
+  .lm-footer-social-link {
+    gap: 0.75rem;
+  }
+
+  .lm-footer-social-copy {
+    min-width: 0;
+  }
+
+  .lm-footer-social-handle {
+    overflow-wrap: anywhere;
   }
 }
 

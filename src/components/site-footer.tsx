@@ -197,7 +197,7 @@ export function SiteFooter() {
         <div className="lm-footer-grid">
           <div className="lm-footer-brand">
             <Link href="/" className="lm-footer-logo" aria-label={`${content.candidate.ballotName} — início`}>
-              <BrandLogo size="lg" variant="dark" className="lm-footer-logo-img" />
+              <BrandLogo size="lg" variant="dark" className="lm-footer-logo-img" decorative />
             </Link>
 
             <p className="lm-footer-signature">

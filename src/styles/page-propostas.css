@@ -14,7 +14,6 @@
   --flags-line: rgba(0, 26, 63, 0.12);
   background: var(--flags-soft);
   color: var(--flags-navy);
-  overflow-x: hidden;
 }
 
 .flags-hero {
@@ -877,6 +876,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .flag-side-eyebrow {
@@ -897,6 +898,8 @@
   border-radius: 16px;
   background: #ffffff;
   border: 1px solid rgba(0, 26, 63, 0.08);
+  max-width: 100%;
+  min-width: 0;
 }
 
 .flag-side-nav-link {
@@ -1182,6 +1185,8 @@
     radial-gradient(ellipse 40% 55% at 8% 88%, rgba(8, 166, 75, 0.1), transparent 50%),
     linear-gradient(145deg, #00132f 0%, #001a3f 55%, #062a63 100%);
   color: #ffffff;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .flag-cta-title {
@@ -1199,6 +1204,8 @@
   flex-wrap: nowrap;
   gap: 0.75rem;
   justify-content: flex-end;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .flag-cta-btn {
@@ -1487,13 +1494,18 @@
     flex-direction: row;
     flex-wrap: nowrap;
     gap: 0.35rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     overflow-x: auto;
+    overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
   }
 
   .flag-side-nav-link {
     flex: 0 0 auto;
+    max-width: none;
     white-space: nowrap;
   }
 
@@ -1513,15 +1525,29 @@
 
   .flag-cta {
     padding: 1.75rem 1.35rem;
+    max-width: 100%;
+    min-width: 0;
   }
 
   .flag-cta-actions {
     flex-direction: column;
     flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    justify-content: stretch;
   }
 
   .flag-cta-btn {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 2.85rem;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
+    padding-block: 0.75rem;
   }
 }
 
