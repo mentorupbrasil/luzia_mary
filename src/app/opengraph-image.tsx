@@ -21,17 +21,53 @@ export default function OpenGraphImage() {
       >
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "65%" }}>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: 20, letterSpacing: 3, textTransform: "uppercase", color: "#0b6f99", fontWeight: 800 }}>
+            <div
+              style={{
+                display: "flex",
+                fontSize: 20,
+                letterSpacing: 3,
+                textTransform: "uppercase",
+                color: "#0b6f99",
+                fontWeight: 800,
+              }}
+            >
               {content.candidate.office}
             </div>
-            <div style={{ marginTop: 20, fontSize: 84, fontWeight: 800, lineHeight: 0.95, letterSpacing: -3 }}>
+            <div
+              style={{
+                display: "flex",
+                marginTop: 20,
+                fontSize: 84,
+                fontWeight: 800,
+                lineHeight: 0.95,
+                letterSpacing: -3,
+              }}
+            >
               Luzia Mary
             </div>
-            <div style={{ marginTop: 24, fontSize: 28, lineHeight: 1.35, color: "#5a667a", maxWidth: 540 }}>
+            <div
+              style={{
+                display: "flex",
+                marginTop: 24,
+                fontSize: 28,
+                lineHeight: 1.35,
+                color: "#5a667a",
+                maxWidth: 540,
+              }}
+            >
               {content.candidate.slogan}
             </div>
           </div>
-          <div style={{ fontSize: 18, letterSpacing: 2, textTransform: "uppercase", color: "#5a667a", fontWeight: 700 }}>
+          <div
+            style={{
+              display: "flex",
+              fontSize: 18,
+              letterSpacing: 2,
+              textTransform: "uppercase",
+              color: "#5a667a",
+              fontWeight: 700,
+            }}
+          >
             {content.candidate.city} · {content.candidate.region} · {content.candidate.state}
           </div>
         </div>
