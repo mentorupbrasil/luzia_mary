@@ -1,7 +1,7 @@
 import {
+  type AgendaCategory,
   type AgendaEvent,
   type AgendaRegion,
-  agendaEvents,
 } from "@/config/agenda";
 
 const TZ = "America/Fortaleza";
@@ -13,6 +13,42 @@ const INCOMPLETE_MARKERS = [
   "tbd",
   "a definir",
 ];
+
+const TOCANTINA_MARKERS = [
+  "açailândia",
+  "acailandia",
+  "porto franco",
+  "estreito",
+  "joão lisboa",
+  "joao lisboa",
+  "governador edison lobão",
+  "governador edison lobao",
+  "campestre do maranhão",
+  "campestre do maranhao",
+  "são joão do paraíso",
+  "sao joao do paraiso",
+  "davínópolis",
+  "davinopolis",
+  "cidelândia",
+  "cidelandia",
+  "vila nova dos martírios",
+  "vila nova dos martirios",
+];
+
+export type EventSourceRow = {
+  id: string;
+  title: string;
+  description: string | null;
+  location: string | null;
+  city: string;
+  startAt: Date;
+  endAt: Date | null;
+  status: string;
+  public: boolean;
+  featured?: boolean | null;
+  category?: string | null;
+  region?: string | null;
+};
 
 function hasIncompleteText(value: string) {
   const normalized = value.trim().toLowerCase();
@@ -30,6 +66,93 @@ export function todayInBrasilia(): string {
   }).format(new Date());
 }
 
+function formatInTz(date: Date, options: Intl.DateTimeFormatOptions) {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: TZ, ...options }).format(date);
+}
+
+function timeInTz(date: Date) {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: TZ,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).formatToParts(date);
+  const hour = parts.find((part) => part.type === "hour")?.value ?? "00";
+  const minute = parts.find((part) => part.type === "minute")?.value ?? "00";
+  return `${hour.padStart(2, "0")}:${minute.padStart(2, "0")}`;
+}
+
+export function inferAgendaRegion(city: string): AgendaRegion {
+  const normalized = city.trim().toLowerCase();
+  if (!normalized) return "maranhao";
+  if (
+    normalized.includes("online") ||
+    normalized.includes("virtual") ||
+    normalized.includes("zoom") ||
+    normalized.includes("meet")
+  ) {
+    return "online";
+  }
+  if (normalized.includes("imperatriz")) return "imperatriz";
+  if (TOCANTINA_MARKERS.some((marker) => normalized.includes(marker))) return "tocantina";
+  return "maranhao";
+}
+
+function mapStatus(status: string): AgendaEvent["status"] {
+  const normalized = status.trim().toLowerCase();
+  if (normalized === "confirmado" || normalized === "confirmed") return "confirmed";
+  if (normalized === "cancelado" || normalized === "cancelled") return "cancelled";
+  return "draft";
+}
+
+function asCategory(value: string | null | undefined): AgendaCategory {
+  const allowed: AgendaCategory[] = [
+    "Convenção",
+    "Convenção partidária",
+    "Encontro comunitário",
+    "Visita",
+    "Reunião",
+    "Entrevista",
+    "Audiência",
+    "Mobilização",
+    "Evento institucional",
+  ];
+  if (value && (allowed as string[]).includes(value)) return value as AgendaCategory;
+  return "Evento institucional";
+}
+
+function asRegion(value: string | null | undefined, city: string): AgendaRegion {
+  const allowed: AgendaRegion[] = ["imperatriz", "tocantina", "maranhao", "online"];
+  if (value && (allowed as string[]).includes(value)) return value as AgendaRegion;
+  return inferAgendaRegion(city);
+}
+
+/** Converte registro do banco/store local para o formato da agenda pública. */
+export function mapEventRecordToAgendaEvent(row: EventSourceRow): AgendaEvent {
+  const date = formatInTz(row.startAt, {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+  const time = timeInTz(row.startAt);
+  const endTime = row.endAt ? timeInTz(row.endAt) : undefined;
+
+  return {
+    id: row.id,
+    title: row.title,
+    category: asCategory(row.category),
+    date,
+    time,
+    endTime,
+    location: row.location?.trim() || "",
+    city: row.city,
+    description: row.description?.trim() || "",
+    status: mapStatus(row.status),
+    featured: Boolean(row.featured),
+    region: asRegion(row.region, row.city),
+  };
+}
+
 export function isAgendaEventPublishable(event: AgendaEvent): boolean {
   if (event.status !== "confirmed") return false;
   if (!event.title?.trim()) return false;
@@ -38,7 +161,7 @@ export function isAgendaEventPublishable(event: AgendaEvent): boolean {
   if (hasIncompleteText(event.location)) return false;
   if (hasIncompleteText(event.title)) return false;
   if (hasIncompleteText(event.date)) return false;
-  if (hasIncompleteText(event.location)) return false;
+  if (hasIncompleteText(event.city || "")) return false;
 
   // Convenções: exigir confirmação explícita de presença e partido
   if (event.category.toLowerCase().includes("convenção")) {
@@ -48,9 +171,7 @@ export function isAgendaEventPublishable(event: AgendaEvent): boolean {
   return true;
 }
 
-export function getPublishableAgendaEvents(
-  source: AgendaEvent[] = agendaEvents,
-): AgendaEvent[] {
+export function getPublishableAgendaEvents(source: AgendaEvent[]): AgendaEvent[] {
   const seen = new Set<string>();
   return source.filter((event) => {
     if (!isAgendaEventPublishable(event)) return false;

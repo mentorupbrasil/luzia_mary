@@ -238,7 +238,7 @@ export const fallbackFactChecks = [
   { id: "f2", slug: "propostas-publicadas", claim: "As propostas podem ser alteradas sem registro ou explicação.", verdict: "Falso", explanation: "A plataforma foi preparada para manter propostas e compromissos organizados. Mudanças relevantes devem ser explicadas publicamente pela equipe.", sources: [], published: true, publishedAt: new Date(), createdAt: new Date() },
 ];
 
-/** Sem eventos ou notícias demonstrativas apresentados como reais */
+/** Sem eventos demonstrativos apresentados como reais — a agenda usa o banco/store. */
 export const fallbackEvents: Array<{
   id: string;
   title: string;
@@ -249,6 +249,9 @@ export const fallbackEvents: Array<{
   endAt: Date | null;
   status: string;
   public: boolean;
+  featured: boolean;
+  category: string;
+  region: string | null;
   createdAt: Date;
 }> = [];
 

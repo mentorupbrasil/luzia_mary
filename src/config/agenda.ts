@@ -1,10 +1,6 @@
 /**
- * Fonte central da agenda pública.
- *
- * Regras:
- * - Só publicamos eventos com status "confirmed" e campos obrigatórios preenchidos.
- * - Não inventar horários, locais, partidos ou presença.
- * - Preencher time, location e confirmar presença/partido antes de publicar.
+ * Tipos e textos da agenda pública.
+ * Os eventos vêm de getAgendaEvents() (banco → store local se o banco estiver indisponível).
  */
 
 export type AgendaCategory =
@@ -50,34 +46,6 @@ export type AgendaEvent = {
   partyConfirmed?: boolean;
 };
 
-/**
- * Convenção de 25/07/2026 — estrutura preparada, NÃO publicar até:
- * - horário confirmado
- * - local confirmado
- * - presença de Luzia Mary confirmada
- * - partido confirmado pela equipe (não assumir)
- */
-export const AGENDA_DRAFT_CONVENTION_ID = "convencao-partidaria-2026";
-
-export const agendaEvents: AgendaEvent[] = [
-  {
-    id: AGENDA_DRAFT_CONVENTION_ID,
-    title: "Convenção Partidária Estadual",
-    category: "Convenção partidária",
-    date: "2026-07-25",
-    time: "",
-    location: "",
-    city: "São Luís - MA",
-    description:
-      "Encontro partidário para definição e homologação das candidaturas que participarão das Eleições 2026.",
-    status: "draft",
-    featured: true,
-    region: "maranhao",
-    presenceConfirmed: false,
-    partyConfirmed: false,
-  },
-];
-
 export const agendaMeta = {
   title: "Agenda",
   description:
@@ -91,3 +59,15 @@ export const agendaFilterOptions = [
   { id: "maranhao", label: "MARANHÃO" },
   { id: "online", label: "ONLINE" },
 ] as const;
+
+export const agendaCategories: AgendaCategory[] = [
+  "Encontro comunitário",
+  "Visita",
+  "Reunião",
+  "Entrevista",
+  "Audiência",
+  "Mobilização",
+  "Evento institucional",
+  "Convenção",
+  "Convenção partidária",
+];

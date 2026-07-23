@@ -3,7 +3,6 @@ import { getDb, hasDatabase } from "@/db";
 import { commitments, demands, events, factChecks, posts, proposals } from "@/db/schema";
 import {
   fallbackCommitments,
-  fallbackEvents,
   fallbackFactChecks,
   fallbackPosts,
   fallbackProposals,
@@ -116,7 +115,10 @@ export async function getFactChecks() {
 }
 
 export async function getEvents() {
-  if (!hasDatabase()) return fallbackEvents;
+  if (!hasDatabase()) {
+    const { listLocalEvents } = await import("./local-events-store");
+    return listLocalEvents();
+  }
   try {
     return await getDb()
       .select()
@@ -124,8 +126,52 @@ export async function getEvents() {
       .where(eq(events.public, true))
       .orderBy(asc(events.startAt));
   } catch {
-    return fallbackEvents;
+    const { listLocalEvents } = await import("./local-events-store");
+    return listLocalEvents();
   }
+}
+
+/** Todos os eventos para o painel (inclui privados e não confirmados). */
+export async function getAllEvents() {
+  if (!hasDatabase()) {
+    const { listLocalEvents } = await import("./local-events-store");
+    return listLocalEvents();
+  }
+  try {
+    return await getDb().select().from(events).orderBy(asc(events.startAt));
+  } catch {
+    const { listLocalEvents } = await import("./local-events-store");
+    return listLocalEvents();
+  }
+}
+
+/** Eventos já mapeados e filtrados para a agenda pública. */
+export async function getAgendaEvents() {
+  const { getPublishableAgendaEvents, mapEventRecordToAgendaEvent } = await import("./agenda");
+  const rows = await getEvents();
+  const mapped = rows
+    .filter((row) => row.public !== false)
+    .filter((row) => {
+      const status = String(row.status || "").toLowerCase();
+      return status === "confirmado" || status === "confirmed";
+    })
+    .map((row) =>
+      mapEventRecordToAgendaEvent({
+        id: row.id,
+        title: row.title,
+        description: row.description,
+        location: row.location,
+        city: row.city,
+        startAt: row.startAt instanceof Date ? row.startAt : new Date(row.startAt),
+        endAt: row.endAt ? (row.endAt instanceof Date ? row.endAt : new Date(row.endAt)) : null,
+        status: row.status,
+        public: row.public,
+        featured: "featured" in row ? (row as { featured?: boolean }).featured : false,
+        category: "category" in row ? (row as { category?: string }).category : null,
+        region: "region" in row ? (row as { region?: string | null }).region : null,
+      }),
+    );
+  return getPublishableAgendaEvents(mapped);
 }
 
 export async function getPosts() {

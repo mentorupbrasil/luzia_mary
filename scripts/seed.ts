@@ -63,7 +63,18 @@ async function seed() {
     { slug: "propostas-publicadas", claim: "As propostas podem ser alteradas sem registro ou explicação.", verdict: "Falso", explanation: "A plataforma foi preparada para manter propostas e compromissos organizados. Mudanças relevantes devem ser explicadas publicamente pela equipe.", sources: [], published: true },
   ]).onConflictDoNothing();
 
-  await db.insert(events).values({ title: "Lançamento da plataforma de participação", description: "Apresentação dos canais digitais e da metodologia de escuta.", location: "Canal oficial", city: "Imperatriz", startAt: new Date("2026-08-16T19:00:00-03:00"), status: "a confirmar", public: true });
+  await db.insert(events).values({
+    title: "Lançamento da plataforma de participação",
+    description: "Apresentação dos canais digitais e da metodologia de escuta.",
+    location: "Canal oficial",
+    city: "Imperatriz",
+    startAt: new Date("2026-08-16T19:00:00-03:00"),
+    status: "a confirmar",
+    public: true,
+    featured: false,
+    category: "Evento institucional",
+    region: "imperatriz",
+  });
 
   await db.insert(posts).values({ slug: "uma-campanha-que-escuta-e-presta-contas", title: "Uma campanha que escuta e presta contas", excerpt: "Conheça a proposta de uma plataforma pública para organizar demandas, compromissos e informações oficiais.", body: "Esta plataforma nasce para tornar a participação mais simples e a informação mais acessível. Aqui, a população poderá conhecer propostas, acompanhar compromissos, consultar a agenda pública, enviar demandas e verificar informações oficiais.", category: "Institucional", published: true }).onConflictDoNothing();
   console.log("Banco inicializado com conteúdo demonstrativo.");

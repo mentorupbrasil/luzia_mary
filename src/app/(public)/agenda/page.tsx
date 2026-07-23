@@ -9,12 +9,11 @@ import { Container } from "@/components/container";
 import { AgendaUpcomingSection } from "@/components/agenda-upcoming";
 import { agendaMeta } from "@/config/agenda";
 import { content } from "@/config/site";
-import {
-  formatAgendaDayParts,
-  getPublishableAgendaEvents,
-  partitionAgendaEvents,
-} from "@/lib/agenda";
+import { formatAgendaDayParts, partitionAgendaEvents } from "@/lib/agenda";
+import { getAgendaEvents } from "@/lib/data";
 import { getSiteUrl } from "@/lib/site-url";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: agendaMeta.title,
@@ -35,8 +34,8 @@ const inviteMailto = `mailto:${content.contact.email}?subject=${encodeURICompone
   "Olá,\n\nGostaria de convidar Luzia Mary para uma atividade.\n\nNome do evento:\nData:\nHorário:\nLocal / município:\nDescrição breve:\nContato para retorno:\n\nObrigado(a).",
 )}`;
 
-export default function AgendaPage() {
-  const publishable = getPublishableAgendaEvents();
+export default async function AgendaPage() {
+  const publishable = await getAgendaEvents();
   const { upcomingList, past, featured } = partitionAgendaEvents(publishable);
 
   return (

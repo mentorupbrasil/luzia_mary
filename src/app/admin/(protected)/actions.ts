@@ -54,11 +54,33 @@ export async function createCommitmentAction(formData: FormData) {
 }
 
 export async function createEventAction(formData: FormData) {
-  const startText = text(formData,"startAt");
+  const startText = text(formData, "startAt");
   const startAt = new Date(`${startText}:00-03:00`);
-  const endText = text(formData,"endAt");
-  await dbOrThrow().insert(events).values({ title: text(formData,"title"), description: text(formData,"description") || null, city: text(formData,"city"), location: text(formData,"location") || null, startAt, endAt: endText ? new Date(`${endText}:00-03:00`) : null, status: text(formData,"status") || "confirmado", public: bool(formData,"public") });
-  revalidatePath("/admin/agenda"); revalidatePath("/agenda");
+  const endText = text(formData, "endAt");
+  const endAt = endText ? new Date(`${endText}:00-03:00`) : null;
+  const payload = {
+    title: text(formData, "title"),
+    description: text(formData, "description") || null,
+    city: text(formData, "city"),
+    location: text(formData, "location") || null,
+    startAt,
+    endAt,
+    status: text(formData, "status") || "confirmado",
+    public: bool(formData, "public"),
+    featured: bool(formData, "featured"),
+    category: text(formData, "category") || "Evento institucional",
+    region: text(formData, "region") || null,
+  };
+
+  if (hasDatabase()) {
+    await getDb().insert(events).values(payload);
+  } else {
+    const { insertLocalEvent } = await import("@/lib/local-events-store");
+    await insertLocalEvent(payload);
+  }
+
+  revalidatePath("/admin/agenda");
+  revalidatePath("/agenda");
 }
 
 export async function createFactCheckAction(formData: FormData) {

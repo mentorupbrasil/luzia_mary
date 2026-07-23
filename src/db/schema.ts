@@ -90,6 +90,9 @@ export const events = pgTable("events", {
   endAt: timestamp("end_at", { withTimezone: true }),
   status: text("status").notNull().default("confirmado"),
   public: boolean("public").notNull().default(true),
+  featured: boolean("featured").notNull().default(false),
+  category: text("category").notNull().default("Evento institucional"),
+  region: text("region"),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
