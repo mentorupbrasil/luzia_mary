@@ -80,7 +80,7 @@ export const bandeiras: Bandeira[] = [
       "Defesa de programas federais de moradia e desenvolvimento urbano",
       "Acompanhamento transparente do destino dos recursos defendidos",
     ],
-    demandTheme: "Infraestrutura",
+    demandTheme: "Moradia e comunidades",
   },
   {
     number: "03",
@@ -136,7 +136,7 @@ export const bandeiras: Bandeira[] = [
       "Defesa de programas federais que ampliem o acesso a serviços",
       "Acompanhamento transparente dos encaminhamentos e recursos",
     ],
-    demandTheme: "Infraestrutura",
+    demandTheme: "Serviços essenciais",
   },
   {
     number: "05",
@@ -164,7 +164,7 @@ export const bandeiras: Bandeira[] = [
       "Defesa de programas federais de proteção, qualificação e geração de oportunidade",
       "Acompanhamento público das ações e resultados relacionados",
     ],
-    demandTheme: "Direitos das mulheres",
+    demandTheme: "Mulheres e autonomia",
   },
   {
     number: "06",
@@ -192,7 +192,7 @@ export const bandeiras: Bandeira[] = [
       "Acompanhamento público dos compromissos do mandato",
       "Canais de participação para a população contribuir com prioridades",
     ],
-    demandTheme: "Outro",
+    demandTheme: "Transparência",
   },
 ];
 

@@ -149,15 +149,16 @@ export const navItems = [
 ];
 
 export const demandCategories = [
+  "Proteção social",
+  "Moradia e comunidades",
   "Saúde",
+  "Serviços essenciais",
+  "Mulheres e autonomia",
   "Educação",
-  "Segurança",
   "Emprego e renda",
   "Infraestrutura",
-  "Direitos das mulheres",
-  "Agricultura",
-  "Meio ambiente",
-  "Inclusão e acessibilidade",
-  "Cultura e esporte",
-  "Outro",
+  "Segurança",
+  "Transparência",
+  "Convite para evento",
+  "Outro assunto",
 ] as const;

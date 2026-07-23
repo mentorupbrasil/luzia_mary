@@ -1,16 +1,79 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { LockKeyhole } from "lucide-react";
+import {
+  CheckCircle2,
+  EyeOff,
+  FileText,
+  LockKeyhole,
+  MapPin,
+  MessageCircle,
+  ShieldCheck,
+  UserRoundCheck,
+  type LucideIcon,
+} from "lucide-react";
 import { Container } from "@/components/container";
 import { DemandForm } from "@/components/demand-form";
-import { PublicPageHero } from "@/components/page-hero";
 import { getPublicDemandStats } from "@/lib/data";
+import { getSiteUrl } from "@/lib/site-url";
 
-export const metadata = { title: "Envie sua demanda" };
+export const metadata: Metadata = {
+  title: "Participe",
+  description:
+    "Envie uma demanda, sugestão ou proposta da sua comunidade e receba um protocolo de registro.",
+  alternates: {
+    // Rota pública existente: /demandas (rótulo Participe).
+    // Alias /participe via rewrite em next.config.ts.
+    canonical: "/participe",
+  },
+  openGraph: {
+    title: "Participe | Luzia Mary",
+    description:
+      "Envie uma demanda, sugestão ou proposta da sua comunidade e receba um protocolo de registro.",
+    url: `${getSiteUrl()}/participe`,
+  },
+};
 
-const steps = [
-  { title: "Conte o que está acontecendo", text: "Descreva a necessidade do seu município com clareza e objetividade." },
-  { title: "A equipe registra e organiza", text: "A contribuição é classificada por tema e localidade para orientar o atendimento." },
-  { title: "Você recebe um protocolo", text: "Guarde o número gerado para acompanhar seu registro junto à equipe." },
+const heroSignals = [
+  { label: "Envio seguro", Icon: ShieldCheck },
+  { label: "Protocolo de acompanhamento", Icon: FileText },
+  { label: "Dados protegidos", Icon: LockKeyhole },
+] as const;
+
+const steps: Array<{
+  number: string;
+  title: string;
+  text: string;
+  Icon: LucideIcon;
+  tone: "yellow" | "green" | "blue";
+}> = [
+  {
+    number: "01",
+    title: "Conte o que está acontecendo",
+    text: "Descreva a necessidade, o problema ou a sugestão da sua comunidade com clareza.",
+    Icon: MessageCircle,
+    tone: "yellow",
+  },
+  {
+    number: "02",
+    title: "A equipe registra e organiza",
+    text: "A contribuição é classificada por tema e localidade para facilitar o encaminhamento.",
+    Icon: MapPin,
+    tone: "green",
+  },
+  {
+    number: "03",
+    title: "Você recebe um protocolo",
+    text: "Guarde o número gerado para identificar e acompanhar o registro junto à equipe.",
+    Icon: CheckCircle2,
+    tone: "blue",
+  },
+];
+
+const trustItems: Array<{ title: string; Icon: LucideIcon }> = [
+  { title: "Dados não publicados", Icon: EyeOff },
+  { title: "Uso restrito ao atendimento", Icon: UserRoundCheck },
+  { title: "Protocolo após o envio", Icon: FileText },
+  { title: "Solicitação de correção ou exclusão", Icon: ShieldCheck },
 ];
 
 export default async function DemandsPage({
@@ -21,70 +84,174 @@ export default async function DemandsPage({
   const [{ tema }, stats] = await Promise.all([searchParams, getPublicDemandStats()]);
 
   return (
-    <>
-      <PublicPageHero
-        eyebrow="Participe"
-        title="Envie sua demanda com segurança"
-        description="Um canal simples para registrar necessidades e sugestões do seu município — com protocolo e proteção dos dados."
-      />
+    <div className="participate-page">
+      <section className="participate-hero" aria-labelledby="participate-hero-title">
+        <div className="participate-hero-atmosphere" aria-hidden>
+          <span className="participate-hero-glow participate-hero-glow--blue" />
+          <span className="participate-hero-glow participate-hero-glow--green" />
+          <span className="participate-hero-arc participate-hero-arc--1" />
+          <span className="participate-hero-arc participate-hero-arc--2" />
+        </div>
 
-      <section className="border-b border-[var(--border)] bg-white">
-        <Container className="grid md:grid-cols-3">
-          {steps.map((step, index) => (
-            <div
-              key={step.title}
-              className={`py-9 md:px-7 ${index > 0 ? "border-t border-[var(--border)] md:border-l md:border-t-0" : ""}`}
-            >
-              <p className="font-display text-3xl font-bold text-[var(--brand)]">
-                {String(index + 1).padStart(2, "0")}
+        <Container className="participate-shell">
+          <div className="participate-hero-grid">
+            <div className="participate-hero-copy">
+              <p className="participate-hero-eyebrow">PARTICIPE</p>
+              <h1 id="participate-hero-title" className="participate-hero-title">
+                Sua voz ajuda a transformar
+                <br />
+                necessidades em <em>prioridades.</em>
+              </h1>
+              <p className="participate-hero-lead">
+                Envie uma demanda, sugestão ou proposta da sua comunidade. A equipe registra,
+                organiza e acompanha cada contribuição com segurança e transparência.
               </p>
-              <h2 className="mt-3 font-display text-lg font-bold">{step.title}</h2>
-              <p className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{step.text}</p>
+              <ul className="participate-signals">
+                {heroSignals.map(({ label, Icon }) => (
+                  <li key={label}>
+                    <Icon size={16} strokeWidth={2.2} aria-hidden />
+                    <span>{label}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-          ))}
+
+            <div className="participate-hero-visual" aria-hidden>
+              <div className="participate-orbit">
+                <span className="participate-orbit-core">
+                  <MessageCircle size={28} strokeWidth={1.8} />
+                </span>
+                <span className="participate-orbit-node participate-orbit-node--1">
+                  <MapPin size={18} />
+                </span>
+                <span className="participate-orbit-node participate-orbit-node--2">
+                  <FileText size={18} />
+                </span>
+                <span className="participate-orbit-node participate-orbit-node--3">
+                  <CheckCircle2 size={18} />
+                </span>
+                <span className="participate-orbit-ring" />
+              </div>
+            </div>
+          </div>
         </Container>
       </section>
 
-      <Container className="grid gap-8 py-12 lg:grid-cols-[1.15fr_0.85fr]">
-        <div className="rounded-[1.75rem] border border-[var(--border)] bg-white p-6 sm:p-8">
-          <h2 className="font-display text-xl font-bold">Formulário</h2>
-          <p className="mt-2 text-sm leading-7 text-[var(--text-muted)]">
-            Campos com asterisco são obrigatórios. Evite enviar dados sensíveis ou de terceiros.
-          </p>
-          <div className="mt-7">
-            <DemandForm defaultCategory={tema || ""} />
+      <section className="participate-steps" aria-labelledby="participate-steps-title">
+        <Container className="participate-shell">
+          <div className="participate-section-head">
+            <h2 id="participate-steps-title" className="participate-section-title">
+              Como funciona
+            </h2>
           </div>
-        </div>
+          <div className="participate-steps-grid">
+            {steps.map((step) => (
+              <article
+                key={step.number}
+                className={`participate-step participate-step--${step.tone}`}
+              >
+                <div className="participate-step-top">
+                  <span className="participate-step-number">{step.number}</span>
+                  <span className="participate-step-icon" aria-hidden>
+                    <step.Icon size={18} strokeWidth={2.2} />
+                  </span>
+                </div>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </article>
+            ))}
+          </div>
+        </Container>
+      </section>
 
-        <aside className="space-y-5">
-          <div className="rounded-[1.75rem] border border-[var(--border)] bg-[var(--surface-muted)]/60 p-6">
-            <LockKeyhole className="text-[var(--brand)]" strokeWidth={1.6} aria-hidden />
-            <h2 className="mt-4 font-display text-lg font-bold">Seus dados protegidos</h2>
-            <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">
-              Informações pessoais não aparecem publicamente. Estatísticas, quando existirem, são agregadas.
-            </p>
-            <Link href="/privacidade" className="mt-4 inline-block text-sm font-bold text-[var(--brand-dark)]">
-              Política de privacidade
+      <section className="participate-main" aria-label="Formulário de participação">
+        <Container className="participate-shell">
+          <div className="participate-layout">
+            <div className="participate-form-panel">
+              <div className="participate-form-intro">
+                <h2 className="participate-form-title">Envie sua contribuição</h2>
+                <p className="participate-form-lead">
+                  Preencha as informações abaixo. Campos com asterisco são obrigatórios.
+                </p>
+              </div>
+              <DemandForm defaultCategory={tema || ""} />
+            </div>
+
+            <aside className="participate-aside">
+              <div className="participate-trust">
+                <p className="participate-trust-eyebrow">PRIVACIDADE</p>
+                <h2 className="participate-trust-title">Sua contribuição está protegida</h2>
+                <p className="participate-trust-text">
+                  As informações enviadas são utilizadas para registrar, organizar e responder sua
+                  demanda. Os dados pessoais não serão exibidos publicamente.
+                </p>
+                <ul className="participate-trust-list">
+                  {trustItems.map(({ title, Icon }) => (
+                    <li key={title}>
+                      <span aria-hidden>
+                        <Icon size={16} strokeWidth={2.2} />
+                      </span>
+                      {title}
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/privacidade" className="participate-trust-link">
+                  LER POLÍTICA DE PRIVACIDADE
+                </Link>
+              </div>
+
+              <div className="participate-tips">
+                <h3>Antes de enviar</h3>
+                <ul>
+                  <li>não informe senhas;</li>
+                  <li>evite documentos pessoais;</li>
+                  <li>não envie dados sensíveis de terceiros;</li>
+                  <li>descreva o problema de forma objetiva.</li>
+                </ul>
+              </div>
+
+              {(stats.total > 0 || stats.cities > 0) && (
+                <div className="participate-stats">
+                  <p className="participate-trust-eyebrow">PARTICIPAÇÃO</p>
+                  <div className="participate-stats-grid">
+                    {stats.total > 0 ? (
+                      <div>
+                        <strong>{stats.total}</strong>
+                        <span>demandas registradas</span>
+                      </div>
+                    ) : null}
+                    {stats.cities > 0 ? (
+                      <div>
+                        <strong>{stats.cities}</strong>
+                        <span>municípios</span>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              )}
+            </aside>
+          </div>
+        </Container>
+      </section>
+
+      <section className="participate-closing" aria-labelledby="participate-closing-title">
+        <Container className="participate-shell">
+          <div className="participate-closing-panel">
+            <div>
+              <h2 id="participate-closing-title" className="participate-closing-title">
+                A participação começa pela escuta.
+              </h2>
+              <p className="participate-closing-text">
+                Cada contribuição ajuda a compreender melhor as necessidades de Imperatriz, da
+                Região Tocantina e do Maranhão.
+              </p>
+            </div>
+            <Link href="/propostas" className="participate-closing-btn">
+              CONHECER AS BANDEIRAS
             </Link>
           </div>
-
-          {(stats.total > 0 || stats.cities > 0) && (
-            <div className="rounded-[1.75rem] bg-[var(--brand-dark)] p-6 text-white">
-              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/45">Participação</p>
-              <div className="mt-5 grid grid-cols-2 gap-4">
-                <div>
-                  <p className="font-display text-3xl font-bold">{stats.total}</p>
-                  <p className="mt-1 text-xs text-white/55">demandas</p>
-                </div>
-                <div>
-                  <p className="font-display text-3xl font-bold">{stats.cities}</p>
-                  <p className="mt-1 text-xs text-white/55">municípios</p>
-                </div>
-              </div>
-            </div>
-          )}
-        </aside>
-      </Container>
-    </>
+        </Container>
+      </section>
+    </div>
   );
 }
