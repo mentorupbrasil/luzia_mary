@@ -16,15 +16,22 @@
   color: var(--flags-navy);
 }
 
-.flags-hero {
+.flags-hero-stack {
   position: relative;
+  color: #ffffff;
   background:
     radial-gradient(circle at 82% 28%, rgba(22, 112, 240, 0.34), transparent 32%),
     radial-gradient(circle at 15% 80%, rgba(0, 171, 93, 0.12), transparent 30%),
     linear-gradient(135deg, #001b42 0%, #063b86 100%);
-  color: #ffffff;
-  padding: clamp(3.75rem, 5.5vw, 4.75rem) 0 clamp(2.75rem, 4vw, 3.5rem);
   overflow: hidden;
+}
+
+.flags-hero {
+  position: relative;
+  background: transparent;
+  color: #ffffff;
+  padding: clamp(4.375rem, 7vw, 5.375rem) 0;
+  overflow: visible;
 }
 
 .flags-hero-atmosphere {
@@ -110,24 +117,22 @@
 }
 
 .flags-hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.58fr) minmax(0, 0.42fr);
-  gap: clamp(3.75rem, 5.5vw, 4.75rem);
-  align-items: start;
+  position: relative;
+  display: block;
 }
 
 .flags-hero-copy {
+  position: relative;
+  z-index: 1;
   min-width: 0;
-  max-width: none;
-  container-type: inline-size;
-  container-name: flags-copy;
+  max-width: 42rem;
 }
 
 .flags-hero-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  margin: 0;
+  margin: 0 0 0.85rem;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
   font-size: clamp(0.72rem, 0.95vw, 0.84rem);
   font-weight: 700;
@@ -145,13 +150,13 @@
 }
 
 .flags-hero-title {
-  margin: 1.05rem 0 0;
-  max-width: 720px;
+  margin: 0 0 1.1rem;
+  max-width: 42rem;
   font-family: var(--font-league-spartan), "League Spartan", sans-serif;
-  font-size: clamp(3.125rem, 9.4cqi, 4.5rem);
+  font-size: clamp(1.7rem, 6.5vw, 3.35rem);
   font-weight: 800;
-  line-height: 0.94;
-  letter-spacing: -0.045em;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   color: #ffffff;
 }
 
@@ -165,30 +170,65 @@
 }
 
 .flags-hero-lead {
-  margin: 1.2rem 0 0;
-  max-width: 42rem;
+  margin: 0;
+  max-width: 36rem;
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
-  font-size: clamp(1.0625rem, 1.2vw, 1.1875rem);
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
   font-weight: 500;
-  line-height: 1.72;
-  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .flags-pillars {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.85rem;
+  gap: 0.75rem;
   list-style: none;
-  margin: 1.65rem 0 0;
+  margin: 0;
   padding: 0;
+  max-width: 42rem;
+}
+
+.flags-hero-chips {
+  position: relative;
+  z-index: 1;
+  padding: 0 0 1.5rem;
+}
+
+@media (min-width: 901px) {
+  .flags-hero-chips {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 clamp(1.25rem, 4vw, 2.5rem) 0 0;
+    pointer-events: none;
+  }
+
+  .flags-hero-chips .flags-hero-shell {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    pointer-events: none;
+  }
+
+  .flags-pillars {
+    display: flex;
+    flex-direction: column;
+    width: min(15.5rem, 26%);
+    max-width: none;
+    pointer-events: auto;
+  }
 }
 
 .flags-pillar {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  min-height: 3.35rem;
-  padding: 0.7rem 0.85rem;
+  gap: 0.55rem;
+  min-height: 0;
+  padding: 0.55rem 0.75rem;
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(255, 255, 255, 0.1);
@@ -232,19 +272,13 @@
 }
 
 .flags-hero-visual {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 0;
-  padding-right: clamp(0.75rem, 2vw, 1.5rem);
-  overflow: visible;
+  display: none;
 }
 
 .flags-orbit {
   position: relative;
-  width: min(100%, 420px);
-  max-width: 100%;
+  width: 100%;
+  max-width: 340px;
   aspect-ratio: 1;
 }
 
@@ -1259,31 +1293,15 @@
 }
 
 @media (max-width: 1024px) {
-  .flags-hero {
-    padding-top: clamp(3.25rem, 5vw, 4rem);
-  }
-
-  .flags-hero-grid {
-    gap: clamp(2.25rem, 4vw, 3.25rem);
-  }
-
   .flags-hero-title {
-    font-size: clamp(1.65rem, 6.8vw, 2.75rem);
-    line-height: 1.05;
+    font-size: clamp(1.7rem, 6.5vw, 2.75rem);
+    line-height: 1.08;
   }
 
   @media (min-width: 360px) {
     .flags-hero-title-line {
       white-space: nowrap;
     }
-  }
-
-  .flags-hero-visual {
-    min-height: 300px;
-  }
-
-  .flags-orbit {
-    width: min(100%, 340px);
   }
 
   .flags-core {
@@ -1293,7 +1311,7 @@
   }
 
   .flags-pillars {
-    gap: 0.7rem;
+    gap: 0.65rem;
   }
 
   .flags-pillar-label {
@@ -1333,23 +1351,41 @@
 }
 
 @media (max-width: 900px) {
-  .flags-hero-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .flags-hero-stack {
+    background: transparent;
+    overflow: visible;
+  }
+
+  .flags-hero {
+    background:
+      radial-gradient(circle at 82% 28%, rgba(22, 112, 240, 0.34), transparent 32%),
+      radial-gradient(circle at 15% 80%, rgba(0, 171, 93, 0.12), transparent 30%),
+      linear-gradient(135deg, #001b42 0%, #063b86 100%);
+    overflow: hidden;
   }
 
   .flags-hero-copy {
     max-width: 40rem;
   }
 
-  .flags-hero-visual {
-    min-height: 0;
-    justify-content: flex-start;
+  .flags-hero-chips {
+    padding: 1.15rem 0 0;
+    background: var(--flags-soft);
   }
 
-  .flags-orbit {
-    width: min(100%, 360px);
-    margin-inline: auto;
+  .flags-pillars {
+    width: 100%;
+    max-width: none;
+  }
+
+  .flags-pillar {
+    border-color: rgba(0, 26, 63, 0.1);
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(0, 26, 63, 0.05);
+  }
+
+  .flags-pillar-label {
+    color: var(--flags-navy);
   }
 
   .flags-closing-panel {
@@ -1399,11 +1435,6 @@
 }
 
 @media (max-width: 720px) {
-  .flags-hero {
-    padding-top: 3rem;
-    padding-bottom: 2.25rem;
-  }
-
   .flags-hero-shell {
     padding-inline: clamp(1.25rem, 5vw, 1.5rem);
     padding-bottom: 0;
@@ -1420,7 +1451,7 @@
 
   .flags-pillars {
     grid-template-columns: 1fr 1fr;
-    gap: 0.7rem;
+    gap: 0.65rem;
   }
 
   .flags-pillar:last-child {
@@ -1430,10 +1461,6 @@
   .flags-path--funds,
   .flags-path--watch {
     display: none;
-  }
-
-  .flags-orbit {
-    width: min(100%, 300px);
   }
 
   .flags-hero-dots {

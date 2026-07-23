@@ -80,16 +80,16 @@ export default async function ParticipatePage({
   return (
     <div className="participate-page">
       <JsonLd data={buildBreadcrumbJsonLd([{ name: "Participe", path: "/participe" }])} />
-      <section className="participate-hero" aria-labelledby="participate-hero-title">
-        <div className="participate-hero-atmosphere" aria-hidden>
-          <span className="participate-hero-glow participate-hero-glow--blue" />
-          <span className="participate-hero-glow participate-hero-glow--green" />
-          <span className="participate-hero-arc participate-hero-arc--1" />
-          <span className="participate-hero-arc participate-hero-arc--2" />
-        </div>
+      <div className="participate-hero-stack">
+        <section className="participate-hero" aria-labelledby="participate-hero-title">
+          <div className="participate-hero-atmosphere" aria-hidden>
+            <span className="participate-hero-glow participate-hero-glow--blue" />
+            <span className="participate-hero-glow participate-hero-glow--green" />
+            <span className="participate-hero-arc participate-hero-arc--1" />
+            <span className="participate-hero-arc participate-hero-arc--2" />
+          </div>
 
-        <Container className="participate-shell">
-          <div className="participate-hero-grid">
+          <Container className="participate-shell">
             <div className="participate-hero-copy">
               <p className="participate-hero-eyebrow">PARTICIPE</p>
               <h1 id="participate-hero-title" className="participate-hero-title">
@@ -101,36 +101,23 @@ export default async function ParticipatePage({
                 Envie uma demanda, sugestão ou proposta da sua comunidade. A equipe registra,
                 organiza e acompanha cada contribuição com segurança e transparência.
               </p>
-              <ul className="participate-signals">
-                {heroSignals.map(({ label, Icon }) => (
-                  <li key={label}>
-                    <Icon size={16} strokeWidth={2.2} aria-hidden />
-                    <span>{label}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
+          </Container>
+        </section>
 
-            <div className="participate-hero-visual" aria-hidden>
-              <div className="participate-orbit">
-                <span className="participate-orbit-core">
-                  <MessageCircle size={28} strokeWidth={1.8} />
-                </span>
-                <span className="participate-orbit-node participate-orbit-node--1">
-                  <MapPin size={18} />
-                </span>
-                <span className="participate-orbit-node participate-orbit-node--2">
-                  <FileText size={18} />
-                </span>
-                <span className="participate-orbit-node participate-orbit-node--3">
-                  <CheckCircle2 size={18} />
-                </span>
-                <span className="participate-orbit-ring" />
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
+        <div className="participate-hero-chips">
+          <Container className="participate-shell">
+            <ul className="participate-signals" aria-label="Garantias do envio">
+              {heroSignals.map(({ label, Icon }) => (
+                <li key={label}>
+                  <Icon size={16} strokeWidth={2.2} aria-hidden />
+                  <span>{label}</span>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </div>
+      </div>
 
       <section className="participate-steps" aria-labelledby="participate-steps-title">
         <Container className="participate-shell">

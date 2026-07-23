@@ -493,10 +493,6 @@
   .convite-title {
     font-size: clamp(2.15rem, 9vw, 2.6rem);
   }
-
-  .hero-mobile-name {
-    font-size: clamp(2.85rem, 13.5vw, 3.4rem);
-  }
 }
 
 @media (max-width: 900px) {

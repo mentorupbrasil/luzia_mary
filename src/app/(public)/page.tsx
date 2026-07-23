@@ -92,7 +92,8 @@ export default async function HomePage() {
         <Image
           src="/images/hero-luzia-mobile.webp"
           alt=""
-          fill
+          width={1080}
+          height={1920}
           priority
           sizes="(max-width: 1023px) 100vw, 0px"
           quality={80}
@@ -109,16 +110,6 @@ export default async function HomePage() {
         <p className="sr-only">
           A mulher do povo, de Imperatriz para o Maranhão. Trabalho, fé e família.
         </p>
-
-        <div className="hero-mobile-panel">
-          <p className="hero-mobile-eyebrow">Pré-candidata a deputada federal pelo Maranhão</p>
-          <p className="hero-mobile-name" aria-hidden="true">
-            Luzia <span>Mary</span>
-          </p>
-          <p className="hero-mobile-lead">
-            A mulher do povo, de Imperatriz para o Maranhão.
-          </p>
-        </div>
 
         <Link href="/sobre" className="hero-button">
           <span>Conheça Luzia</span>
