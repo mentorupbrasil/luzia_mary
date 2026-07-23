@@ -13,17 +13,26 @@ import {
   Scale,
   type LucideIcon,
 } from "lucide-react";
+import type { Metadata } from "next";
+import { createElement } from "react";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/container";
 import { FlagDetailSideNav } from "@/components/flag-detail-side-nav";
+import { JsonLd } from "@/components/json-ld";
 import {
   federalAtuacaoResumo,
   proposalNumber,
   transparenciaCompromisso,
 } from "@/config/bandeiras";
-import { fallbackProposals } from "@/lib/fallback-data";
-import { getProposalBySlug } from "@/lib/data";
+import { getProposalBySlug, getProposals } from "@/lib/data";
+import { buildParticipateHref } from "@/lib/demand-category";
+import { buildBreadcrumbJsonLd } from "@/lib/json-ld";
+import { createPageMetadata } from "@/lib/page-metadata";
 import { getProposalIcon } from "@/lib/proposal-icons";
+
+function ProposalHeadingIcon({ name }: { name: string }) {
+  return createElement(getProposalIcon(name), { size: 28, strokeWidth: 1.75 });
+}
 
 const federalIcons: LucideIcon[] = [Landmark, FileCheck2, Scale, Handshake, Eye, MessagesSquare];
 
@@ -62,19 +71,32 @@ const sideNav = [
   { href: "#transparencia", label: "Transparência" },
 ] as const;
 
-export function generateStaticParams() {
-  return fallbackProposals.map((item) => ({ slug: item.slug }));
+export async function generateStaticParams() {
+  const proposals = await getProposals();
+  return proposals.map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}) {
+}): Promise<Metadata> {
   const { slug } = await params;
   const proposal = await getProposalBySlug(slug);
-  if (!proposal) return { title: "Bandeira" };
-  return { title: proposal.title };
+  if (!proposal) {
+    return createPageMetadata({
+      title: "Proposta",
+      description: "Bandeira e prioridade da pré-candidatura de Luzia Mary.",
+      path: `/propostas/${slug}`,
+      noIndex: true,
+    });
+  }
+
+  return createPageMetadata({
+    title: proposal.title,
+    description: proposal.summary || proposal.whyItMatters || proposal.body,
+    path: `/propostas/${proposal.slug}`,
+  });
 }
 
 export default async function ProposalDetailPage({
@@ -86,11 +108,16 @@ export default async function ProposalDetailPage({
   const proposal = await getProposalBySlug(slug);
   if (!proposal) notFound();
 
-  const Icon = getProposalIcon(proposal.icon);
-  const demandHref = `/demandas?tema=${encodeURIComponent(proposal.demandTheme)}`;
+  const demandHref = buildParticipateHref(proposal.demandTheme);
 
   return (
     <div className="flag-detail-page">
+      <JsonLd
+        data={buildBreadcrumbJsonLd([
+          { name: "Propostas", path: "/propostas" },
+          { name: proposal.title, path: `/propostas/${proposal.slug}` },
+        ])}
+      />
       <section className="flag-detail-hero" aria-labelledby="flag-detail-title">
         <Container className="flag-detail-hero-shell">
           <div className="flag-detail-hero-grid">
@@ -107,7 +134,7 @@ export default async function ProposalDetailPage({
 
               <div className="flag-detail-heading">
                 <span className="flag-detail-icon" aria-hidden>
-                  <Icon size={28} strokeWidth={1.75} />
+                  <ProposalHeadingIcon name={proposal.icon} />
                 </span>
                 <h1 id="flag-detail-title" className="flag-detail-title">
                   {proposal.title}
@@ -241,7 +268,7 @@ export default async function ProposalDetailPage({
           </h2>
           <div className="flag-cta-actions">
             <Link href={demandHref} className="flag-cta-btn flag-cta-btn--primary">
-              Enviar uma contribuição
+              Enviar demanda sobre este tema
               <ArrowRight size={16} aria-hidden />
             </Link>
             <Link href="/propostas" className="flag-cta-btn flag-cta-btn--secondary">

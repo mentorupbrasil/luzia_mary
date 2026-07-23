@@ -18,6 +18,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Container } from "@/components/container";
+import { JsonLd } from "@/components/json-ld";
 import { PrivacyToc } from "@/components/privacy-toc";
 import {
   PRIVACY_DATA_REGION_NOTE,
@@ -27,20 +28,14 @@ import {
   privacyMeta,
   privacyToc,
 } from "@/config/privacy";
-import { getSiteUrl } from "@/lib/site-url";
+import { buildBreadcrumbJsonLd } from "@/lib/json-ld";
+import { createPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: privacyMeta.title,
   description: privacyMeta.description,
-  alternates: {
-    canonical: "/privacidade",
-  },
-  openGraph: {
-    title: `${privacyMeta.title} | Luzia Mary`,
-    description: privacyMeta.description,
-    url: `${getSiteUrl()}/privacidade`,
-  },
-};
+  path: "/privacidade",
+});
 
 const privacyMailto = `mailto:${privacyMeta.contactEmail}?subject=${encodeURIComponent(
   "Solicitação sobre meus dados pessoais",
@@ -78,6 +73,11 @@ function PrivacySection({ id, number, title, Icon, children }: SectionProps) {
 export default function PrivacyPage() {
   return (
     <div className="privacy-page">
+      <JsonLd
+        data={buildBreadcrumbJsonLd([
+          { name: "Política de Privacidade", path: "/privacidade" },
+        ])}
+      />
       {/*
         TODO jurídico (não exibir na página):
         Confirmar com o responsável jurídico se a identificação do controlador

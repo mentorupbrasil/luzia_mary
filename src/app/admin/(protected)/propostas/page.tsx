@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { proposalNumber } from "@/config/bandeiras";
+import { demandCategories } from "@/lib/demand-category";
 import { hasDatabase } from "@/db";
 import { getAllProposals } from "@/lib/data";
 import { createProposalAction } from "../actions";
@@ -27,7 +28,24 @@ export default async function AdminProposalsPage() {
             <Field label="Título" name="title" />
             <Field label="Slug opcional" name="slug" />
             <Field label="Categoria" name="category" />
-            <Field label="Tema da demanda" name="demandTheme" placeholder="Igual à categoria, salvo Transparência" />
+            <div>
+              <Label>Tema da demanda (formulário Participe)</Label>
+              <select
+                name="demandTheme"
+                required
+                defaultValue=""
+                className="flex h-11 w-full rounded-2xl border border-black/10 bg-white px-3 text-sm"
+              >
+                <option value="" disabled>
+                  Selecione um tema válido
+                </option>
+                {demandCategories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
             <Field label="Ícone" name="icon" placeholder="heart-handshake, home, heart-pulse, building-2, shield, messages-square" />
             <div>
               <Label>Resumo</Label>
@@ -107,7 +125,7 @@ function Field(props: {
         type={props.type}
         placeholder={props.placeholder}
         defaultValue={props.defaultValue}
-        required={props.name !== "slug" && props.name !== "icon" && props.name !== "demandTheme"}
+        required={props.name !== "slug" && props.name !== "icon"}
       />
     </div>
   );

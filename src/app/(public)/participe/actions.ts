@@ -3,6 +3,12 @@
 import { z } from "zod";
 import { getDb, hasDatabase } from "@/db";
 import { demandCategorySchema } from "@/lib/demand-category";
+import {
+  DEMAND_CONTACT_REQUIRED_MESSAGE,
+  demandEmailField,
+  demandPhoneField,
+  hasDemandContact,
+} from "@/lib/demand-contact";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { getDemandRateLimitKey } from "@/lib/request-ip";
 
@@ -19,38 +25,40 @@ function normalizePhone(value: string) {
   return value.replace(/[^\d+()\-\s]/g, "").trim();
 }
 
-const schema = z.object({
-  name: z.string().min(3, "Informe seu nome.").max(120, "Nome muito longo."),
-  email: z
-    .string()
-    .email("Informe um e-mail válido.")
-    .optional()
-    .or(z.literal("")),
-  phone: z
-    .string()
-    .optional()
-    .or(z.literal(""))
-    .refine((value) => {
-      if (!value) return true;
-      const digits = value.replace(/\D/g, "");
-      return digits.length >= 8 && digits.length <= 15;
-    }, "Informe um telefone válido com DDD."),
-  city: z.string().min(2, "Informe o município.").max(80, "Município muito longo."),
-  neighborhood: z.string().max(80, "Localidade muito longa.").optional().or(z.literal("")),
-  category: demandCategorySchema,
-  title: z
-    .string()
-    .min(5, "Resuma a demanda em pelo menos 5 caracteres.")
-    .max(160, "Resumo com no máximo 160 caracteres."),
-  description: z
-    .string()
-    .min(20, "Descreva a situação com pelo menos 20 caracteres.")
-    .max(4000, "Descrição com no máximo 4.000 caracteres."),
-  consent: z.literal("on", {
-    error: "É necessário concordar com o tratamento dos dados para enviar.",
-  }),
-  updates: z.string().optional(),
-});
+const schema = z
+  .object({
+    name: z.string().min(3, "Informe seu nome.").max(120, "Nome muito longo."),
+    email: demandEmailField,
+    phone: demandPhoneField,
+    city: z.string().min(2, "Informe o município.").max(80, "Município muito longo."),
+    neighborhood: z.string().max(80, "Localidade muito longa.").optional().or(z.literal("")),
+    category: demandCategorySchema,
+    title: z
+      .string()
+      .min(5, "Resuma a demanda em pelo menos 5 caracteres.")
+      .max(160, "Resumo com no máximo 160 caracteres."),
+    description: z
+      .string()
+      .min(20, "Descreva a situação com pelo menos 20 caracteres.")
+      .max(4000, "Descrição com no máximo 4.000 caracteres."),
+    consent: z.literal("on", {
+      error: "É necessário concordar com o tratamento dos dados para enviar.",
+    }),
+    updates: z.string().optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (hasDemandContact(data.email, data.phone)) return;
+    ctx.addIssue({
+      code: "custom",
+      path: ["email"],
+      message: DEMAND_CONTACT_REQUIRED_MESSAGE,
+    });
+    ctx.addIssue({
+      code: "custom",
+      path: ["phone"],
+      message: DEMAND_CONTACT_REQUIRED_MESSAGE,
+    });
+  });
 
 export type DemandState = {
   ok: boolean;

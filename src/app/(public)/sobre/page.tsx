@@ -12,9 +12,19 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Container } from "@/components/container";
+import { JsonLd } from "@/components/json-ld";
 import { content } from "@/config/site";
+import { buildBreadcrumbJsonLd, buildPersonJsonLd } from "@/lib/json-ld";
+import { createPageMetadata } from "@/lib/page-metadata";
 
-export const metadata = { title: "Biografia" };
+export const metadata = createPageMetadata({
+  title: "Biografia",
+  description:
+    content.candidate.bio[0] ||
+    `Conheça a trajetória de ${content.candidate.ballotName} em Imperatriz, na Região Tocantina e no Maranhão.`,
+  path: "/sobre",
+  image: content.candidate.photos.about,
+});
 
 const BIO_PHOTO = "/images/ultima-tentativa-cutout.png";
 
@@ -77,6 +87,7 @@ const experience: Array<{ title: string; text: string; Icon: LucideIcon }> = [
 export default function AboutPage() {
   return (
     <div className="bio-page">
+      <JsonLd data={[buildPersonJsonLd(), buildBreadcrumbJsonLd([{ name: "Biografia", path: "/sobre" }])]} />
       <section className="bio-open" aria-labelledby="bio-hero-title">
         <Container className="bio-open-shell">
           <div className="bio-open-compose">
@@ -197,7 +208,7 @@ export default function AboutPage() {
                   Ver propostas
                   <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
                 </Link>
-                <Link href="/demandas" className="bio-cta-btn bio-cta-btn--secondary">
+                <Link href="/participe" className="bio-cta-btn bio-cta-btn--secondary">
                   Participar
                   <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
                 </Link>

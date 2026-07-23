@@ -13,8 +13,19 @@ import { hasPhoto } from "@/components/photo";
 import { proposalNumber } from "@/config/bandeiras";
 import { content } from "@/config/site";
 import { getPosts, getProposals } from "@/lib/data";
+import { createPageMetadata } from "@/lib/page-metadata";
 import { getProposalIcon } from "@/lib/proposal-icons";
 import { formatShortDate } from "@/lib/utils";
+import { JsonLd } from "@/components/json-ld";
+import { buildPersonJsonLd } from "@/lib/json-ld";
+
+export const metadata = createPageMetadata({
+  title: `${content.candidate.ballotName} | ${content.candidate.office}`,
+  description: content.candidate.homeLead || content.candidate.shortBio,
+  path: "/",
+  absoluteTitle: true,
+  image: content.candidate.photos.hero,
+});
 
 const listeningSteps = [
   {
@@ -67,6 +78,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <JsonLd data={buildPersonJsonLd()} />
       <section className="campaign-hero" aria-labelledby="hero-title">
         <Image
           src="/hero/hero-final.png"
@@ -74,7 +86,7 @@ export default async function HomePage() {
           fill
           priority
           sizes="100vw"
-          unoptimized
+          quality={85}
           className="hero-base-img"
         />
 
@@ -105,9 +117,8 @@ export default async function HomePage() {
                   alt={`${content.candidate.ballotName} — De Imperatriz para todo o Maranhão`}
                   width={1122}
                   height={1402}
-                  priority
-                  unoptimized
-                  sizes="(max-width: 768px) 90vw, (max-width: 1280px) 380px, 400px"
+                  sizes="(max-width: 768px) 90vw, (max-width: 1280px) 360px, 400px"
+                  quality={80}
                   className="about-photo-img"
                 />
                 <figcaption className="sr-only">
@@ -253,7 +264,7 @@ export default async function HomePage() {
                 região em prioridades organizadas.
               </p>
 
-              <Link href="/demandas" className="gabinete-cta">
+              <Link href="/participe" className="gabinete-cta">
                 Registrar uma demanda
                 <ArrowRight size={18} aria-hidden />
               </Link>
@@ -465,7 +476,7 @@ export default async function HomePage() {
                 </p>
 
                 <div className="convite-actions">
-                  <Link href="/demandas" className="convite-btn convite-btn--primary">
+                  <Link href="/participe" className="convite-btn convite-btn--primary">
                     <MessageCircle size={18} aria-hidden />
                     Quero participar
                     <ArrowRight size={17} aria-hidden />

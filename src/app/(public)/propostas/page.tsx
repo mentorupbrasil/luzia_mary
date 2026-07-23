@@ -13,11 +13,19 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Container } from "@/components/container";
+import { JsonLd } from "@/components/json-ld";
 import { proposalNumber } from "@/config/bandeiras";
 import { getProposals } from "@/lib/data";
+import { buildBreadcrumbJsonLd } from "@/lib/json-ld";
+import { createPageMetadata } from "@/lib/page-metadata";
 import { getProposalIcon } from "@/lib/proposal-icons";
 
-export const metadata = { title: "Bandeiras" };
+export const metadata = createPageMetadata({
+  title: "Propostas",
+  description:
+    "Prioridades construídas a partir da escuta das comunidades de Imperatriz, da Região Tocantina e do Maranhão.",
+  path: "/propostas",
+});
 
 const pillars: Array<{ title: string; tone: "yellow" | "blue" | "green"; Icon: LucideIcon }> = [
   { title: "Escuta da população", tone: "yellow", Icon: MessageCircle },
@@ -30,6 +38,7 @@ export default async function ProposalsPage() {
 
   return (
     <div className="flags-page">
+      <JsonLd data={buildBreadcrumbJsonLd([{ name: "Propostas", path: "/propostas" }])} />
       <section className="flags-hero" aria-labelledby="flags-hero-title">
         <div className="flags-hero-atmosphere" aria-hidden>
           <span className="flags-hero-glow flags-hero-glow--blue" />
@@ -161,7 +170,7 @@ export default async function ProposalsPage() {
               </p>
             </div>
             <div className="flags-closing-actions">
-              <Link href="/demandas" className="flags-closing-btn flags-closing-btn--primary">
+              <Link href="/participe" className="flags-closing-btn flags-closing-btn--primary">
                 Enviar uma contribuição
                 <ArrowRight size={16} aria-hidden />
               </Link>

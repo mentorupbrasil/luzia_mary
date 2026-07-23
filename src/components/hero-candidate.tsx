@@ -1,14 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Heart, MapPin, Menu, Users, X } from "lucide-react";
-
-const navItems = [
-  { href: "/", label: "Início" },
-  { href: "/sobre", label: "Biografia" },
-  { href: "/propostas", label: "Propostas" },
-  { href: "/agenda", label: "Agenda" },
-  { href: "/demandas", label: "Participe" },
-] as const;
+import { mainNav } from "@/config/site";
 
 export function HeroCandidate() {
   return (
@@ -49,7 +42,7 @@ export function HeroCandidate() {
             className="absolute left-[80.5%] top-[2.5%] h-[8.5%] w-[8%] rounded focus-visible:bg-white/10"
           />
           <Link
-            href="/demandas"
+            href="/participe"
             aria-label="Participe"
             className="absolute left-[89%] top-[2.5%] h-[8.5%] w-[9%] rounded focus-visible:bg-white/10"
           />
@@ -103,7 +96,7 @@ export function HeroCandidate() {
                 <span className="sr-only">Abrir menu</span>
               </summary>
               <nav className="absolute right-0 top-14 w-56 rounded-2xl border border-white/15 bg-[#031936]/95 p-2 shadow-2xl backdrop-blur-xl" aria-label="Menu mobile">
-                {navItems.map((item) => (
+                {mainNav.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}

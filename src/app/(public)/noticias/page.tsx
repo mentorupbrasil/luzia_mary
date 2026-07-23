@@ -2,11 +2,19 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/container";
 import { EmptyState } from "@/components/empty-state";
+import { JsonLd } from "@/components/json-ld";
 import { PublicPageHero } from "@/components/page-hero";
 import { getPosts } from "@/lib/data";
+import { buildBreadcrumbJsonLd } from "@/lib/json-ld";
+import { createPageMetadata } from "@/lib/page-metadata";
 import { formatShortDate } from "@/lib/utils";
 
-export const metadata = { title: "Notícias" };
+export const metadata = createPageMetadata({
+  title: "Notícias",
+  description:
+    "Ações, posicionamentos e atualizações oficiais da pré-candidatura de Luzia Mary em um canal próprio.",
+  path: "/noticias",
+});
 
 export default async function NewsPage() {
   const posts = await getPosts();
@@ -14,6 +22,7 @@ export default async function NewsPage() {
 
   return (
     <>
+      <JsonLd data={buildBreadcrumbJsonLd([{ name: "Notícias", path: "/noticias" }])} />
       <PublicPageHero
         eyebrow="Notícias"
         title="Ações e atualizações oficiais"

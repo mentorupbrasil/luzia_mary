@@ -3,8 +3,17 @@
 import Link from "next/link";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { CheckCircle2, Copy, Loader2, RotateCcw, Send } from "lucide-react";
-import { submitDemand, type DemandState } from "@/app/(public)/demandas/actions";
-import { demandCategories, content, isDemandCategory } from "@/config/site";
+import { submitDemand, type DemandState } from "@/app/(public)/participe/actions";
+import { content } from "@/config/site";
+import {
+  DEMAND_CONTACT_REQUIRED_MESSAGE,
+  hasDemandContact,
+} from "@/lib/demand-contact";
+import {
+  demandCategories,
+  isDemandCategory,
+  type DemandCategory,
+} from "@/lib/demand-category";
 
 const initialState: DemandState = { ok: false, message: "" };
 
@@ -17,11 +26,21 @@ export function DemandForm({ defaultCategory = "" }: { defaultCategory?: string 
   const [titleLen, setTitleLen] = useState(0);
   const [descriptionLen, setDescriptionLen] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [contactError, setContactError] = useState<string | null>(null);
 
-  const categoryValue = isDemandCategory(defaultCategory) ? defaultCategory : "";
+  const categoryValue: DemandCategory | "" = isDemandCategory(defaultCategory)
+    ? defaultCategory
+    : "";
+  /** Erros do servidor de contato têm prioridade sobre a validação local. */
+  const serverHasContactErrors = Boolean(state.errors?.email || state.errors?.phone);
+  const shownContactError = serverHasContactErrors ? null : contactError;
+  const emailErrors = shownContactError ? [shownContactError] : state.errors?.email;
+  const phoneErrors = shownContactError ? [shownContactError] : state.errors?.phone;
 
   useEffect(() => {
-    if (state.ok) formRef.current?.reset();
+    if (state.ok) {
+      formRef.current?.reset();
+    }
   }, [state.ok]);
 
   if (state.ok && state.protocol) {
@@ -79,7 +98,23 @@ export function DemandForm({ defaultCategory = "" }: { defaultCategory?: string 
   }
 
   return (
-    <form ref={formRef} action={action} className="participate-form" noValidate>
+    <form
+      ref={formRef}
+      action={action}
+      className="participate-form"
+      noValidate
+      onSubmit={(event) => {
+        const form = event.currentTarget;
+        const email = String(new FormData(form).get("email") || "").trim();
+        const phone = String(new FormData(form).get("phone") || "").trim();
+        if (!hasDemandContact(email, phone)) {
+          event.preventDefault();
+          setContactError(DEMAND_CONTACT_REQUIRED_MESSAGE);
+          return;
+        }
+        setContactError(null);
+      }}
+    >
       {state.message ? (
         <div className="participate-alert" role="alert">
           <strong>Não foi possível enviar.</strong>
@@ -145,11 +180,14 @@ export function DemandForm({ defaultCategory = "" }: { defaultCategory?: string 
             type="email"
             autoComplete="email"
             placeholder="voce@email.com"
-            className={`participate-input${state.errors?.email ? " is-invalid" : ""}`}
-            aria-invalid={Boolean(state.errors?.email)}
-            aria-describedby={state.errors?.email ? "email-error" : undefined}
+            className={`participate-input${emailErrors ? " is-invalid" : ""}`}
+            aria-invalid={Boolean(emailErrors)}
+            aria-describedby={emailErrors ? "email-error contact-hint" : "contact-hint"}
+            onChange={() => {
+              if (contactError) setContactError(null);
+            }}
           />
-          <FieldError id="email-error" errors={state.errors?.email} />
+          <FieldError id="email-error" errors={emailErrors} />
         </div>
 
         <div className="participate-field">
@@ -162,12 +200,19 @@ export function DemandForm({ defaultCategory = "" }: { defaultCategory?: string 
             inputMode="tel"
             autoComplete="tel"
             placeholder="DDD + número"
-            className={`participate-input${state.errors?.phone ? " is-invalid" : ""}`}
-            aria-invalid={Boolean(state.errors?.phone)}
-            aria-describedby={state.errors?.phone ? "phone-error" : undefined}
+            className={`participate-input${phoneErrors ? " is-invalid" : ""}`}
+            aria-invalid={Boolean(phoneErrors)}
+            aria-describedby={phoneErrors ? "phone-error contact-hint" : "contact-hint"}
+            onChange={() => {
+              if (contactError) setContactError(null);
+            }}
           />
-          <FieldError id="phone-error" errors={state.errors?.phone} />
+          <FieldError id="phone-error" errors={phoneErrors} />
         </div>
+
+        <p id="contact-hint" className="participate-contact-hint">
+          Informe pelo menos um contato: e-mail ou telefone/WhatsApp.
+        </p>
 
         <div className="participate-field">
           <label htmlFor="neighborhood" className="participate-label">
@@ -188,6 +233,7 @@ export function DemandForm({ defaultCategory = "" }: { defaultCategory?: string 
           <select
             id="category"
             name="category"
+            key={categoryValue || "category-empty"}
             required
             defaultValue={categoryValue}
             className={`participate-input participate-select${state.errors?.category ? " is-invalid" : ""}`}

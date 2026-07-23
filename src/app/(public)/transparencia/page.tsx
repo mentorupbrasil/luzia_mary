@@ -1,9 +1,17 @@
 import { FileCheck2, Landmark, ReceiptText, Users } from "lucide-react";
 import { Container } from "@/components/container";
+import { JsonLd } from "@/components/json-ld";
 import { PublicPageHero } from "@/components/page-hero";
 import { siteConfig } from "@/config/site";
+import { buildBreadcrumbJsonLd } from "@/lib/json-ld";
+import { createPageMetadata } from "@/lib/page-metadata";
 
-export const metadata = { title: "Transparência" };
+export const metadata = createPageMetadata({
+  title: "Transparência",
+  description:
+    "Espaço para documentos, compromissos e prestações de contas da pré-candidatura de Luzia Mary.",
+  path: "/transparencia",
+});
 
 const areas = [
   { icon: ReceiptText, title: "Receitas e despesas", text: "Espaço para links oficiais, relatórios e explicações financeiras da campanha." },
@@ -17,6 +25,7 @@ export default function TransparencyPage() {
 
   return (
     <>
+      <JsonLd data={buildBreadcrumbJsonLd([{ name: "Transparência", path: "/transparencia" }])} />
       <PublicPageHero
         eyebrow="Transparência"
         title="Informação pública, de forma simples"

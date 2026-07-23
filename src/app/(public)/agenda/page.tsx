@@ -7,26 +7,21 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/container";
 import { AgendaUpcomingSection } from "@/components/agenda-upcoming";
+import { JsonLd } from "@/components/json-ld";
 import { agendaMeta } from "@/config/agenda";
 import { content } from "@/config/site";
 import { formatAgendaDayParts, partitionAgendaEvents } from "@/lib/agenda";
 import { getAgendaEvents } from "@/lib/data";
-import { getSiteUrl } from "@/lib/site-url";
+import { buildBreadcrumbJsonLd, buildEventsJsonLd } from "@/lib/json-ld";
+import { createPageMetadata } from "@/lib/page-metadata";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: agendaMeta.title,
   description: agendaMeta.description,
-  alternates: {
-    canonical: "/agenda",
-  },
-  openGraph: {
-    title: `${agendaMeta.title} | Luzia Mary`,
-    description: agendaMeta.description,
-    url: `${getSiteUrl()}/agenda`,
-  },
-};
+  path: "/agenda",
+});
 
 const inviteMailto = `mailto:${content.contact.email}?subject=${encodeURIComponent(
   "Convite para evento",
@@ -37,9 +32,16 @@ const inviteMailto = `mailto:${content.contact.email}?subject=${encodeURICompone
 export default async function AgendaPage() {
   const publishable = await getAgendaEvents();
   const { upcomingList, past, featured } = partitionAgendaEvents(publishable);
+  const eventSchemas = buildEventsJsonLd(publishable);
 
   return (
     <div className="agenda-page">
+      <JsonLd
+        data={[
+          buildBreadcrumbJsonLd([{ name: "Agenda", path: "/agenda" }]),
+          ...eventSchemas,
+        ]}
+      />
       <section className="agenda-hero" aria-labelledby="agenda-hero-title">
         <div className="agenda-hero-atmosphere" aria-hidden>
           <span className="agenda-hero-glow agenda-hero-glow--blue" />

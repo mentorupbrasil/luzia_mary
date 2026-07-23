@@ -82,13 +82,14 @@ export const content = {
 
   contact: {
     email: "contato@luziamary.com.br",
-    whatsapp: "",
+    /** Dígitos internacionais (sem +) para https://wa.me/{whatsapp} */
+    whatsapp: "559992208000",
     address: "Imperatriz, Maranhão",
   },
 
   social: {
-    instagram: "",
-    facebook: "",
+    instagram: "https://www.instagram.com/luziamary20020/",
+    facebook: "https://www.facebook.com/profile.php?id=100024218122253&locale=pt_BR",
     youtube: "",
   },
 
@@ -128,25 +129,16 @@ export const siteConfig = {
   timeline: content.timeline,
 } as const;
 
-export const navPrimary = [
+/** Menu oficial do site público (header, mobile e rodapé). */
+export const mainNav = [
   { href: "/", label: "Início" },
-  { href: "/sobre", label: "Quem é Luzia" },
-  { href: "/propostas", label: "Bandeiras" },
-  { href: "/noticias", label: "Notícias" },
-  { href: "/demandas", label: "Participe" },
-] as const;
-
-export const navSecondary = [
+  { href: "/sobre", label: "Biografia" },
+  { href: "/propostas", label: "Propostas" },
   { href: "/agenda", label: "Agenda" },
-  { href: "/compromissos", label: "Compromissos" },
-  { href: "/transparencia", label: "Transparência" },
-  { href: "/verdade-ou-boato", label: "Verdade ou boato" },
+  { href: "/participe", label: "Participe" },
 ] as const;
 
-export const navItems = [
-  ...navPrimary.filter((item) => item.href !== "/"),
-  ...navSecondary,
-];
+export type MainNavItem = (typeof mainNav)[number];
 
 export const demandCategories = [
   "Proteção social",

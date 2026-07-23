@@ -3,6 +3,7 @@ import {
   type AgendaEvent,
   type AgendaRegion,
 } from "@/config/agenda";
+import { getSiteUrl } from "@/lib/site-url";
 
 const TZ = "America/Fortaleza";
 
@@ -253,10 +254,72 @@ function pad(value: number) {
   return String(value).padStart(2, "0");
 }
 
+const AGENDA_DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
+const AGENDA_TIME_RE = /^(\d{2}):(\d{2})$/;
+
+export function isValidAgendaDate(date: string) {
+  const match = AGENDA_DATE_RE.exec(date.trim());
+  if (!match) return false;
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const utc = new Date(Date.UTC(year, month - 1, day));
+  return (
+    utc.getUTCFullYear() === year &&
+    utc.getUTCMonth() === month - 1 &&
+    utc.getUTCDate() === day
+  );
+}
+
+export function isValidAgendaTime(time: string) {
+  const match = AGENDA_TIME_RE.exec(time.trim());
+  if (!match) return false;
+  const hour = Number(match[1]);
+  const minute = Number(match[2]);
+  return hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59;
+}
+
 function toIcsLocalStamp(date: string, time: string) {
   const [y, m, d] = date.split("-");
   const [hh, mm] = time.split(":");
   return `${y}${m}${d}T${hh}${mm}00`;
+}
+
+function addDaysToAgendaDate(date: string, days: number) {
+  const [year, month, day] = date.split("-").map(Number);
+  const utc = new Date(Date.UTC(year, month - 1, day + days));
+  return `${utc.getUTCFullYear()}-${pad(utc.getUTCMonth() + 1)}-${pad(utc.getUTCDate())}`;
+}
+
+function timeToMinutes(time: string) {
+  const [hour, minute] = time.split(":").map(Number);
+  return hour * 60 + minute;
+}
+
+/**
+ * Define o fim do evento no ICS.
+ * Sem endTime: +1 hora (pode mudar o dia após meia-noite).
+ * Com endTime <= início no mesmo calendário: trata como término no dia seguinte.
+ */
+export function resolveAgendaIcsEnd(
+  date: string,
+  time: string,
+  endTime?: string,
+): { date: string; time: string } {
+  if (endTime) {
+    if (timeToMinutes(endTime) > timeToMinutes(time)) {
+      return { date, time: endTime };
+    }
+    return { date: addDaysToAgendaDate(date, 1), time: endTime };
+  }
+
+  const total = timeToMinutes(time) + 60;
+  const dayOffset = Math.floor(total / (24 * 60));
+  const minutesInDay = total % (24 * 60);
+  return {
+    date: dayOffset > 0 ? addDaysToAgendaDate(date, dayOffset) : date,
+    time: `${pad(Math.floor(minutesInDay / 60))}:${pad(minutesInDay % 60)}`,
+  };
 }
 
 function escapeIcs(value: string) {
@@ -267,10 +330,30 @@ function escapeIcs(value: string) {
     .replace(/\n/g, "\\n");
 }
 
+function icsUidDomain() {
+  try {
+    return new URL(getSiteUrl()).hostname;
+  } catch {
+    return "luziamary.com.br";
+  }
+}
+
 export function buildAgendaIcs(event: AgendaEvent) {
+  if (!isValidAgendaDate(event.date) || !isValidAgendaTime(event.time)) {
+    throw new Error("Data ou horário inválidos para gerar o calendário.");
+  }
+  if (event.endTime && !isValidAgendaTime(event.endTime)) {
+    throw new Error("Horário de término inválido para gerar o calendário.");
+  }
+
+  const end = resolveAgendaIcsEnd(event.date, event.time, event.endTime);
   const dtStart = toIcsLocalStamp(event.date, event.time);
-  const endTime = event.endTime || addOneHour(event.time);
-  const dtEnd = toIcsLocalStamp(event.date, endTime);
+  const dtEnd = toIcsLocalStamp(end.date, end.time);
+
+  if (dtEnd <= dtStart) {
+    throw new Error("DTEND deve ser posterior a DTSTART.");
+  }
+
   const now = new Date();
   const dtStamp = `${now.getUTCFullYear()}${pad(now.getUTCMonth() + 1)}${pad(now.getUTCDate())}T${pad(now.getUTCHours())}${pad(now.getUTCMinutes())}${pad(now.getUTCSeconds())}Z`;
   const location = [event.location, event.city].filter(Boolean).join(", ");
@@ -282,7 +365,7 @@ export function buildAgendaIcs(event: AgendaEvent) {
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
     "BEGIN:VEVENT",
-    `UID:${event.id}@luziamary.com.br`,
+    `UID:${event.id}@${icsUidDomain()}`,
     `DTSTAMP:${dtStamp}`,
     `DTSTART;TZID=${TZ}:${dtStart}`,
     `DTEND;TZID=${TZ}:${dtEnd}`,
@@ -295,16 +378,19 @@ export function buildAgendaIcs(event: AgendaEvent) {
   ].join("\r\n");
 }
 
-function addOneHour(time: string) {
-  const [hh, mm] = time.split(":").map(Number);
-  const total = hh * 60 + mm + 60;
-  const nextH = Math.floor(total / 60) % 24;
-  const nextM = total % 60;
-  return `${pad(nextH)}:${pad(nextM)}`;
-}
-
 export function downloadAgendaIcs(event: AgendaEvent) {
-  const ics = buildAgendaIcs(event);
+  let ics: string;
+  try {
+    ics = buildAgendaIcs(event);
+  } catch {
+    if (typeof window !== "undefined") {
+      window.alert(
+        "Não foi possível gerar o arquivo da agenda. Verifique data e horário do compromisso.",
+      );
+    }
+    return;
+  }
+
   const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");

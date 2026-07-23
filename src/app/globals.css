@@ -59,7 +59,6 @@
 @theme inline {
   --font-sans: var(--font-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-league-spartan), "League Spartan", ui-sans-serif, system-ui, sans-serif;
-  --font-script: var(--font-yellowtail), "Yellowtail", cursive;
   --color-background: var(--bg);
   --color-foreground: var(--ink);
 }
@@ -86,7 +85,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .font-display { font-family: var(--font-league-spartan), "League Spartan", ui-sans-serif, system-ui, sans-serif; }
-.font-script { font-family: var(--font-yellowtail), "Yellowtail", cursive; }
 
 .sr-only {
   position: absolute;
@@ -1589,7 +1587,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .people-news-featured > div { margin-top: 1.3rem; max-width: 40rem; color: var(--people-muted); font-size: .93rem; line-height: 1.8; }
 .people-news-secondary { border-top: 1px solid var(--people-line); }
 .people-news-secondary li { padding: 1.5rem 0; border-bottom: 1px solid var(--people-line); }
-.people-news-secondary h3 { margin-top: .65rem; color: var(--people-blue-dark); font-family: var(--font-archivo), sans-serif; font-size: 1.25rem; font-weight: 850; line-height: 1.12; letter-spacing: -.035em; }
+.people-news-secondary h3 { margin-top: .65rem; color: var(--people-blue-dark); font-family: var(--font-archivo), sans-serif; font-size: 1.25rem; font-weight: 900; line-height: 1.12; letter-spacing: -.035em; }
 
 /* Convite final / participação */
 .convite {
@@ -6766,6 +6764,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .participate-textarea.is-invalid {
   border-color: #dc2626;
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+}
+
+.participate-contact-hint {
+  grid-column: 1 / -1;
+  margin: -0.35rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--participate-muted);
 }
 
 .participate-field-error {

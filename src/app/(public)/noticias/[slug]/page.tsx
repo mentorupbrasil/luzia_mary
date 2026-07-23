@@ -1,13 +1,42 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/container";
+import { JsonLd } from "@/components/json-ld";
 import { getPostBySlug, getPosts } from "@/lib/data";
+import { buildArticleJsonLd, buildBreadcrumbJsonLd } from "@/lib/json-ld";
+import { createPageMetadata } from "@/lib/page-metadata";
 import { formatDate } from "@/lib/utils";
 
 export async function generateStaticParams() {
   const posts = await getPosts();
   return posts.map((post) => ({ slug: post.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+  if (!post) {
+    return createPageMetadata({
+      title: "Notícia",
+      description: "Publicação oficial da pré-candidatura de Luzia Mary.",
+      path: `/noticias/${slug}`,
+      noIndex: true,
+    });
+  }
+
+  return createPageMetadata({
+    title: post.title,
+    description: post.excerpt || post.body,
+    path: `/noticias/${post.slug}`,
+    image: post.imageUrl,
+    type: "article",
+  });
 }
 
 export default async function NewsDetailPage({
@@ -20,9 +49,27 @@ export default async function NewsDetailPage({
   if (!post) notFound();
 
   const related = (await getPosts()).filter((item) => item.slug !== post.slug).slice(0, 3);
+  const description = post.excerpt || post.body;
 
   return (
     <>
+      <JsonLd
+        data={[
+          buildBreadcrumbJsonLd([
+            { name: "Notícias", path: "/noticias" },
+            { name: post.title, path: `/noticias/${post.slug}` },
+          ]),
+          buildArticleJsonLd({
+            title: post.title,
+            description,
+            path: `/noticias/${post.slug}`,
+            imageUrl: post.imageUrl,
+            publishedAt: post.publishedAt,
+            updatedAt: post.updatedAt,
+            category: post.category,
+          }),
+        ]}
+      />
       <section className="border-b border-[var(--border)] bg-[linear-gradient(160deg,#eef4ff_0%,#faf9f7_70%)] py-12">
         <Container>
           <Link href="/noticias" className="inline-flex items-center gap-2 text-sm font-bold text-[var(--brand)]">

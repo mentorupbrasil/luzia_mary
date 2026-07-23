@@ -5,16 +5,8 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BrandLogo } from "@/components/brand-logo";
-import { content } from "@/config/site";
+import { content, mainNav } from "@/config/site";
 import { cn } from "@/lib/utils";
-
-export const campaignNav = [
-  { href: "/", label: "Início" },
-  { href: "/sobre", label: "Biografia" },
-  { href: "/propostas", label: "Propostas" },
-  { href: "/agenda", label: "Agenda" },
-  { href: "/demandas", label: "Participe" },
-] as const;
 
 type Props = {
   /** `hero` = transparente sobre a arte. `bar` = faixa fixa nas demais páginas. */
@@ -46,11 +38,11 @@ export function CampaignHomeHeader({ variant = "hero" }: Props) {
     >
       <div className="campaign-header-bar">
         <Link href="/" className="campaign-lockup" aria-label={`${content.candidate.ballotName} — início`}>
-          <BrandLogo variant="light" size="md" priority={variant === "hero"} unoptimized className="campaign-logo" />
+          <BrandLogo variant="light" size="md" className="campaign-logo" />
         </Link>
 
         <nav className="campaign-nav" aria-label="Navegação principal">
-          {campaignNav.map((item) => {
+          {mainNav.map((item) => {
             const active = isActivePath(pathname, item.href);
             return (
               <Link
@@ -80,7 +72,7 @@ export function CampaignHomeHeader({ variant = "hero" }: Props) {
         <div id="campaign-mobile-menu" className="campaign-mobile-menu">
           <div className="campaign-header-bar campaign-mobile-menu-inner">
             <nav className="campaign-mobile-nav" aria-label="Menu mobile">
-              {campaignNav.map((item) => {
+              {mainNav.map((item) => {
                 const active = isActivePath(pathname, item.href);
                 return (
                   <Link

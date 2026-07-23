@@ -2,11 +2,19 @@ import Link from "next/link";
 import { AlertTriangle, ExternalLink } from "lucide-react";
 import { Container } from "@/components/container";
 import { EmptyState } from "@/components/empty-state";
+import { JsonLd } from "@/components/json-ld";
 import { PublicPageHero } from "@/components/page-hero";
 import { getFactChecks } from "@/lib/data";
+import { buildBreadcrumbJsonLd } from "@/lib/json-ld";
+import { createPageMetadata } from "@/lib/page-metadata";
 import { formatShortDate } from "@/lib/utils";
 
-export const metadata = { title: "Verdade ou boato" };
+export const metadata = createPageMetadata({
+  title: "Verdade ou boato",
+  description:
+    "Consulte esclarecimentos oficiais e confirme mensagens antes de compartilhar informações sobre a campanha.",
+  path: "/verdade-ou-boato",
+});
 
 function verdictClass(verdict: string) {
   const value = verdict.toLowerCase();
@@ -20,6 +28,9 @@ export default async function FactCheckPage() {
 
   return (
     <>
+      <JsonLd
+        data={buildBreadcrumbJsonLd([{ name: "Verdade ou boato", path: "/verdade-ou-boato" }])}
+      />
       <PublicPageHero
         eyebrow="Verificação"
         title="Verdade ou boato"
@@ -72,7 +83,7 @@ export default async function FactCheckPage() {
             <p className="text-sm leading-7">
               Desconfie de pedidos de dinheiro ou formulários por canais não oficiais. A campanha não solicita senhas ou dados bancários por mensagem.
             </p>
-            <Link href="/demandas" className="mt-3 inline-block text-sm font-bold underline">
+            <Link href="/participe" className="mt-3 inline-block text-sm font-bold underline">
               Enviar uma dúvida
             </Link>
           </div>

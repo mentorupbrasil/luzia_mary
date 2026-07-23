@@ -216,7 +216,7 @@ function AgendaEmptyUpcoming() {
             A agenda está sendo atualizada pela equipe. Acompanhe o site e as redes oficiais
             para conferir os próximos encontros e atividades públicas.
           </p>
-          <a href="/demandas" className="agenda-btn agenda-btn--primary">
+          <a href="/participe" className="agenda-btn agenda-btn--primary">
             RECEBER ATUALIZAÇÕES
           </a>
         </div>

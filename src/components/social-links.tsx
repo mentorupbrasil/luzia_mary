@@ -1,10 +1,19 @@
 import { content } from "@/config/site";
 
+function whatsappHref() {
+  const raw = content.contact.whatsapp?.trim();
+  if (!raw) return "";
+  if (/^https?:\/\//i.test(raw)) return raw;
+  const digits = raw.replace(/\D/g, "");
+  return digits ? `https://wa.me/${digits}` : "";
+}
+
 const items = [
   { label: "Instagram", href: content.social.instagram },
   { label: "Facebook", href: content.social.facebook },
+  { label: "WhatsApp", href: whatsappHref() },
   { label: "YouTube", href: content.social.youtube },
-].filter((i) => Boolean(i.href));
+].filter((item) => Boolean(item.href));
 
 export function SocialLinks({ inverted = false }: { inverted?: boolean }) {
   if (items.length === 0) return null;

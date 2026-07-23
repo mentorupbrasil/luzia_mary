@@ -14,24 +14,17 @@ import {
 import { Container } from "@/components/container";
 import { DemandForm } from "@/components/demand-form";
 import { getPublicDemandStats } from "@/lib/data";
-import { getSiteUrl } from "@/lib/site-url";
+import { resolveDemandCategory } from "@/lib/demand-category";
+import { buildBreadcrumbJsonLd } from "@/lib/json-ld";
+import { createPageMetadata } from "@/lib/page-metadata";
+import { JsonLd } from "@/components/json-ld";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Participe",
   description:
     "Envie uma demanda, sugestão ou proposta da sua comunidade e receba um protocolo de registro.",
-  alternates: {
-    // Rota pública existente: /demandas (rótulo Participe).
-    // Alias /participe via rewrite em next.config.ts.
-    canonical: "/participe",
-  },
-  openGraph: {
-    title: "Participe | Luzia Mary",
-    description:
-      "Envie uma demanda, sugestão ou proposta da sua comunidade e receba um protocolo de registro.",
-    url: `${getSiteUrl()}/participe`,
-  },
-};
+  path: "/participe",
+});
 
 const heroSignals = [
   { label: "Envio seguro", Icon: ShieldCheck },
@@ -76,15 +69,17 @@ const trustItems: Array<{ title: string; Icon: LucideIcon }> = [
   { title: "Solicitação de correção ou exclusão", Icon: ShieldCheck },
 ];
 
-export default async function DemandsPage({
+export default async function ParticipatePage({
   searchParams,
 }: {
   searchParams: Promise<{ tema?: string }>;
 }) {
   const [{ tema }, stats] = await Promise.all([searchParams, getPublicDemandStats()]);
+  const defaultCategory = resolveDemandCategory(tema) ?? "";
 
   return (
     <div className="participate-page">
+      <JsonLd data={buildBreadcrumbJsonLd([{ name: "Participe", path: "/participe" }])} />
       <section className="participate-hero" aria-labelledby="participate-hero-title">
         <div className="participate-hero-atmosphere" aria-hidden>
           <span className="participate-hero-glow participate-hero-glow--blue" />
@@ -174,7 +169,7 @@ export default async function DemandsPage({
                   Preencha as informações abaixo. Campos com asterisco são obrigatórios.
                 </p>
               </div>
-              <DemandForm defaultCategory={tema || ""} />
+              <DemandForm defaultCategory={defaultCategory} />
             </div>
 
             <aside className="participate-aside">

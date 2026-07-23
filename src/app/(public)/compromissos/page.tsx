@@ -1,16 +1,25 @@
 import { Container } from "@/components/container";
+import { JsonLd } from "@/components/json-ld";
 import { PublicPageHero } from "@/components/page-hero";
 import { commitmentStatusLabel } from "@/lib/commitments";
 import { getCommitments } from "@/lib/data";
+import { buildBreadcrumbJsonLd } from "@/lib/json-ld";
+import { createPageMetadata } from "@/lib/page-metadata";
 import { formatShortDate } from "@/lib/utils";
 
-export const metadata = { title: "Compromissos" };
+export const metadata = createPageMetadata({
+  title: "Compromissos",
+  description:
+    "Metas públicas com objetivo, indicador e situação atual — para acompanhar o que já está em construção.",
+  path: "/compromissos",
+});
 
 export default async function CommitmentsPage() {
   const items = await getCommitments();
 
   return (
     <>
+      <JsonLd data={buildBreadcrumbJsonLd([{ name: "Compromissos", path: "/compromissos" }])} />
       <PublicPageHero
         eyebrow="Compromissos"
         title="Metas públicas para acompanhar"

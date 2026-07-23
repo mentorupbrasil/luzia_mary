@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import { Archivo, League_Spartan, Montserrat, Plus_Jakarta_Sans, Yellowtail } from "next/font/google";
+import { Archivo, League_Spartan, Montserrat, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { content } from "@/config/site";
 import { getSiteUrl } from "@/lib/site-url";
 
-const display = Archivo({
+/** Display pesado (títulos da home / people). */
+const archivo = Archivo({
   subsets: ["latin"],
   variable: "--font-archivo",
   display: "swap",
-  weight: ["500", "600", "700", "800", "900"],
+  weight: ["900"],
 });
 
+/** Títulos `.font-display` e headings da marca. */
 const leagueSpartan = League_Spartan({
   subsets: ["latin"],
   variable: "--font-league-spartan",
@@ -18,6 +20,7 @@ const leagueSpartan = League_Spartan({
   weight: ["600", "700", "800", "900"],
 });
 
+/** UI / labels / botões da campanha. */
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
@@ -25,25 +28,21 @@ const montserrat = Montserrat({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const yellowtail = Yellowtail({
-  subsets: ["latin"],
-  variable: "--font-yellowtail",
-  display: "swap",
-  weight: "400",
-});
-
-const body = Plus_Jakarta_Sans({
+/** Corpo do site. */
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 const url = getSiteUrl();
+const defaultTitle = `${content.candidate.ballotName} | ${content.candidate.office}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(url),
   title: {
-    default: `${content.candidate.ballotName} | ${content.candidate.office}`,
+    default: defaultTitle,
     template: `%s | ${content.candidate.ballotName}`,
   },
   description: content.candidate.shortBio,
@@ -55,29 +54,23 @@ export const metadata: Metadata = {
     content.candidate.region,
   ],
   openGraph: {
-    title: `${content.candidate.ballotName} | ${content.candidate.office}`,
-    description: content.candidate.shortBio,
-    locale: "pt_BR",
     type: "website",
+    locale: "pt_BR",
     siteName: content.candidate.ballotName,
-    url,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${content.candidate.ballotName} | ${content.candidate.office}`,
-    description: content.candidate.shortBio,
   },
   robots: { index: true, follow: true },
-  alternates: { canonical: "/" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="pt-BR"
-      className={`${display.variable} ${leagueSpartan.variable} ${montserrat.variable} ${yellowtail.variable} ${body.variable}`}
+      className={`${archivo.variable} ${leagueSpartan.variable} ${montserrat.variable} ${jakarta.variable}`}
     >
-      <body className={`${body.className} antialiased`}>{children}</body>
+      <body className={`${jakarta.className} antialiased`}>{children}</body>
     </html>
   );
 }

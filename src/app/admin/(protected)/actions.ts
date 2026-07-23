@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { getDb, hasDatabase } from "@/db";
 import { commitments, demands, events, factChecks, posts, proposals } from "@/db/schema";
+import { resolveDemandCategory } from "@/lib/demand-category";
 import { slugify } from "@/lib/utils";
 
 function dbOrThrow() {
@@ -28,6 +29,12 @@ export async function createProposalAction(formData: FormData) {
       .map((line) => line.trim())
       .filter(Boolean);
   const category = text(formData, "category");
+  const demandTheme =
+    resolveDemandCategory(text(formData, "demandTheme")) ||
+    resolveDemandCategory(category);
+  if (!demandTheme) {
+    throw new Error("Selecione um tema da demanda válido (lista do formulário Participe).");
+  }
   await dbOrThrow().insert(proposals).values({
     title,
     slug: slugify(text(formData, "slug") || title),
@@ -41,7 +48,7 @@ export async function createProposalAction(formData: FormData) {
     whyItMatters: text(formData, "whyItMatters"),
     commitments: lines("commitments"),
     howFederalActs: lines("howFederalActs"),
-    demandTheme: text(formData, "demandTheme") || category,
+    demandTheme,
   });
   revalidatePath("/admin/propostas");
   revalidatePath("/propostas");

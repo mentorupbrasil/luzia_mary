@@ -17,7 +17,9 @@ async function seed() {
   await db
     .insert(proposals)
     .values(
-      fallbackProposals.map(
+      fallbackProposals
+        .filter((item) => item.published)
+        .map(
         ({
           slug,
           title,

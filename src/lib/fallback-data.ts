@@ -1,5 +1,7 @@
 /** Fonte única de propostas quando o banco estiver indisponível. */
 
+import type { DemandCategory } from "@/config/site";
+
 export type ProposalRecord = {
   id: string;
   slug: string;
@@ -14,7 +16,8 @@ export type ProposalRecord = {
   whyItMatters: string;
   commitments: string[];
   howFederalActs: string[];
-  demandTheme: string;
+  /** Sempre uma opção de `demandCategories` (formulário /participe). */
+  demandTheme: DemandCategory;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -224,6 +227,24 @@ export const fallbackProposals: ProposalRecord[] = [
     createdAt: new Date(),
     updatedAt: new Date(),
   },
+  {
+    id: "p-draft",
+    slug: "rascunho-proposta-interna",
+    title: "Rascunho interno (não publicar)",
+    summary: "Conteúdo de teste/rascunho — não deve aparecer no site público.",
+    body: "Rascunho reservado ao painel administrativo.",
+    category: "Transparência",
+    featured: false,
+    published: false,
+    sortOrder: 99,
+    icon: "messages-square",
+    whyItMatters: "Item de rascunho para validar o filtro published nas rotas públicas.",
+    commitments: ["Não exibir no site público"],
+    howFederalActs: ["Uso interno da equipe"],
+    demandTheme: "Transparência",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
 ];
 
 export const fallbackCommitments = [
@@ -267,4 +288,18 @@ export const fallbackPosts: Array<{
   publishedAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
-}> = [];
+}> = [
+  {
+    id: "n-draft",
+    slug: "rascunho-noticia-interna",
+    title: "Rascunho de notícia (não publicar)",
+    excerpt: "Não deve aparecer no site público.",
+    body: "Rascunho reservado ao painel administrativo.",
+    category: "Notícias",
+    imageUrl: null,
+    published: false,
+    publishedAt: null,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];

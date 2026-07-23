@@ -3,7 +3,7 @@
  * Não inventar fornecedores, cookies ou operações ausentes do projeto.
  *
  * Achados técnicos:
- * - Formulário público: /demandas (DemandForm + submitDemand)
+ * - Formulário público: /participe (DemandForm + submitDemand); /demandas redireciona 301
  * - Campos: name*, city*, email?, phone?, neighborhood?, category*, title*, description*, consent*, updates?
  * - Persistência: Neon Postgres (tabelas demands e contacts)
  * - Hospedagem prevista: Vercel (NEXT_PUBLIC_SITE_URL / mensagem de erro do formulário)

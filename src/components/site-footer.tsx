@@ -1,15 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, type LucideProps } from "lucide-react";
-import { content } from "@/config/site";
+import { content, mainNav } from "@/config/site";
 import { BrandLogo } from "./brand-logo";
-
-const navLinks = [
-  { href: "/", label: "Início" },
-  { href: "/sobre", label: "Biografia" },
-  { href: "/propostas", label: "Propostas" },
-  { href: "/agenda", label: "Agenda" },
-  { href: "/demandas", label: "Participe" },
-] as const;
 
 type SocialIcon = (props: LucideProps) => React.ReactElement;
 
@@ -106,8 +98,11 @@ type SocialItem = {
 };
 
 function getSocialItems(): SocialItem[] {
-  const whatsappHref = content.contact.whatsapp
-    ? `https://wa.me/${content.contact.whatsapp}`
+  const digits = content.contact.whatsapp.replace(/\D/g, "");
+  const whatsappHref = digits
+    ? content.contact.whatsapp.startsWith("http")
+      ? content.contact.whatsapp
+      : `https://wa.me/${digits}`
     : null;
 
   return [
@@ -134,7 +129,7 @@ function getSocialItems(): SocialItem[] {
     },
     {
       label: "WhatsApp",
-      handle: content.contact.whatsapp ? "Fale conosco" : "Em breve",
+      handle: digits ? "Fale conosco" : "Em breve",
       href: whatsappHref,
       Icon: WhatsappIcon,
       ariaLabel: "WhatsApp de Luzia Mary",
@@ -223,7 +218,7 @@ export function SiteFooter() {
             <nav className="lm-footer-nav" aria-label="Navegação do rodapé">
               <h2 className="lm-footer-nav-title">Navegue</h2>
               <ul className="lm-footer-nav-list">
-                {navLinks.map((item) => (
+                {mainNav.map((item) => (
                   <li key={item.href}>
                     <Link href={item.href} className="lm-footer-nav-link">
                       <span>{item.label}</span>
