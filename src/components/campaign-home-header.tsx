@@ -27,8 +27,10 @@ export function CampaignHomeHeader({ variant = "hero" }: Props) {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    document.body.classList.toggle("campaign-menu-open", open);
     return () => {
       document.body.style.overflow = "";
+      document.body.classList.remove("campaign-menu-open");
     };
   }, [open]);
 
