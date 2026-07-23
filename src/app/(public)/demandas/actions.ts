@@ -2,7 +2,6 @@
 
 import { z } from "zod";
 import { getDb, hasDatabase } from "@/db";
-import { contacts, demands } from "@/db/schema";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { getDemandRateLimitKey } from "@/lib/request-ip";
 
@@ -119,30 +118,20 @@ export async function submitDemand(_: DemandState, formData: FormData): Promise<
   const protocol = `MA-${registeredAt.getFullYear()}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
 
   try {
-    const db = getDb();
-    await db.insert(demands).values({
+    const { createNeonDemandWriter, writeDemandSubmission } = await import("@/lib/persist-demand");
+    const writer = createNeonDemandWriter(getDb());
+    await writeDemandSubmission(writer, {
       protocol,
       name: data.name,
-      email: data.email || null,
-      phone: data.phone || null,
+      email: data.email || undefined,
+      phone: data.phone || undefined,
       city: data.city,
-      neighborhood: data.neighborhood || null,
+      neighborhood: data.neighborhood || undefined,
       category: data.category,
       title: data.title,
       description: data.description,
-      consent: true,
+      updates: data.updates,
     });
-
-    if (data.updates === "on" && (data.email || data.phone)) {
-      await db.insert(contacts).values({
-        name: data.name,
-        email: data.email || null,
-        phone: data.phone || null,
-        city: data.city,
-        source: "formulario-demanda",
-        consentText: "Autorizo o recebimento de atualizações pelos canais informados.",
-      });
-    }
 
     return {
       ok: true,
