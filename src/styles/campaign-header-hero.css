@@ -263,15 +263,8 @@ body.campaign-menu-open .whatsapp-float {
   transform: none;
 }
 
-/* Mobile poster: proporção intrínseca (não usa fill/cover). */
 .hero-base-img--mobile {
   display: none !important;
-  position: relative !important;
-  inset: auto !important;
-  width: 100% !important;
-  height: auto !important;
-  object-fit: contain;
-  object-position: center top;
 }
 
 .hero-button {
@@ -331,19 +324,18 @@ body.campaign-menu-open .whatsapp-float {
   }
 }
 
-/*
-  Mobile/tablet: poster 1080×1920 já traz tipografia e faixa inferior.
-  A imagem define a altura do hero (sem cover/100svh cortando o texto).
-  CTA fica acima da faixa colorida.
-*/
+/* Tablet e celular: composição full-bleed — só o CTA por cima da arte */
 @media (max-width: 1023px) {
   .campaign-hero {
     width: 100%;
     aspect-ratio: auto;
     height: auto;
-    min-height: 0;
-    max-height: none;
-    padding: 0;
+    min-height: 85svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 0 0 max(1.25rem, env(safe-area-inset-bottom));
   }
 
   .hero-base-img--desktop {
@@ -352,26 +344,21 @@ body.campaign-menu-open .whatsapp-float {
 
   .hero-base-img--mobile {
     display: block !important;
+    object-fit: cover;
+    object-position: center 18%;
   }
 
-  /* Só um véu leve no topo para o logo/menu — sem escurecer a tipografia da arte. */
   .campaign-hero::after {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background: linear-gradient(
-      180deg,
-      rgba(0, 18, 42, 0.38) 0%,
-      rgba(0, 18, 42, 0.1) 14%,
-      transparent 28%
-    );
+    background:
+      linear-gradient(180deg, rgba(0, 18, 42, 0.55) 0%, rgba(0, 18, 42, 0.12) 28%, rgba(0, 18, 42, 0.15) 55%, rgba(0, 18, 42, 0.72) 100%);
   }
 
   .campaign-hero-chrome {
-    position: absolute;
-    inset: 0 0 auto;
     height: 76px;
     z-index: 30;
   }
@@ -389,41 +376,59 @@ body.campaign-menu-open .whatsapp-float {
   }
 
   .hero-button {
-    left: 1.25rem;
-    right: auto;
+    position: relative;
+    left: auto;
     top: auto;
-    bottom: 12%;
     z-index: 20;
     width: min(260px, calc(100% - 2.5rem));
-    height: 48px;
-    margin: 0;
+    height: 50px;
+    margin: 0 1.25rem 0.35rem;
     padding: 0 1.35rem 0 1.5rem;
     font-size: 0.8125rem;
   }
 }
 
 @media (max-width: 767px) {
+  .campaign-hero {
+    min-height: 85svh;
+  }
+
+  .hero-base-img--mobile {
+    object-position: 58% 12%;
+  }
+
   .hero-button {
     width: min(100%, calc(100% - 2.5rem));
     max-width: 280px;
     height: 48px;
-    bottom: 12.5%;
   }
 }
 
 @media (max-width: 767px) and (max-height: 700px) {
+  .campaign-hero {
+    min-height: 80svh;
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+
   .hero-button {
-    height: 44px;
-    bottom: 11.5%;
+    height: 46px;
+    margin-bottom: 0.45rem;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
+  .campaign-hero {
+    min-height: min(85svh, 820px);
+  }
+
+  .hero-base-img--mobile {
+    object-position: center 22%;
+  }
+
   .hero-button {
-    left: 2rem;
+    margin-left: 2rem;
     width: 280px;
     height: 52px;
-    bottom: 13%;
   }
 }
 

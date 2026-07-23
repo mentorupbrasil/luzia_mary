@@ -92,8 +92,7 @@ export default async function HomePage() {
         <Image
           src="/images/hero-luzia-mobile.webp"
           alt=""
-          width={1080}
-          height={1920}
+          fill
           priority
           sizes="(max-width: 1023px) 100vw, 0px"
           quality={80}
