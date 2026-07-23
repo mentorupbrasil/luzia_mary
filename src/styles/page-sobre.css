@@ -1,0 +1,729 @@
+/* =========================================================
+   Página Biografia (/sobre) — composição contínua sem moldura
+   ========================================================= */
+
+.bio-page {
+  --bio-navy: #001a3f;
+  --bio-blue: #063e99;
+  --bio-blue-soft: #e8f1ff;
+  --bio-yellow: #ffd31a;
+  --bio-green: #08a64b;
+  --bio-ink-soft: rgba(0, 26, 63, 0.74);
+  background: #ffffff;
+  color: var(--bio-navy);
+  overflow-x: hidden;
+}
+
+.bio-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0;
+  color: var(--bio-navy);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(0.72rem, 0.95vw, 0.84rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.bio-eyebrow::before {
+  content: "";
+  width: 1.55rem;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--bio-yellow);
+}
+
+.bio-open {
+  position: relative;
+  background: #f3f4f6;
+  padding: clamp(1.75rem, 3.2vw, 2.75rem) 0 clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.bio-open-shell {
+  position: relative;
+  z-index: 1;
+}
+
+.bio-open-compose {
+  position: relative;
+}
+
+.bio-open-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem 0;
+  align-items: end;
+}
+
+.bio-visual {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  max-width: 440px;
+  margin-inline: auto;
+  min-height: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  overflow: visible;
+  z-index: 1;
+}
+
+.bio-copy {
+  min-width: 0;
+  padding-bottom: 0.5rem;
+}
+
+.bio-visual-deco {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bio-deco-blob {
+  position: absolute;
+  left: 6%;
+  top: 8%;
+  width: 88%;
+  height: 78%;
+  border-radius: 56% 44% 48% 52% / 48% 54% 46% 52%;
+  background:
+    radial-gradient(circle at 42% 36%, rgba(237, 230, 215, 0.42) 0%, rgba(237, 230, 215, 0.22) 45%, rgba(237, 230, 215, 0.08) 68%, transparent 82%);
+  filter: blur(2px);
+}
+
+.bio-deco-glow {
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 4%;
+  height: 34%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(35, 112, 240, 0.08), transparent 70%);
+}
+
+.bio-deco-arc {
+  position: absolute;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: transparent;
+}
+
+.bio-deco-arc--yellow {
+  width: min(88%, 380px);
+  aspect-ratio: 1;
+  left: -6%;
+  top: -2%;
+  border-width: 2.5px;
+  border-top-color: rgba(255, 211, 26, 0.85);
+  border-right-color: rgba(255, 211, 26, 0.35);
+  transform: rotate(-22deg);
+}
+
+.bio-deco-arc--green {
+  width: min(72%, 300px);
+  aspect-ratio: 1;
+  right: -4%;
+  bottom: 8%;
+  border-width: 2px;
+  border-bottom-color: rgba(8, 166, 75, 0.55);
+  border-left-color: rgba(8, 166, 75, 0.22);
+  transform: rotate(16deg);
+}
+
+.bio-photo {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  filter: none;
+  outline: 0;
+}
+
+.bio-title {
+  margin: 0.85rem 0 0;
+  max-width: 14ch;
+  color: var(--bio-navy);
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: clamp(2.15rem, 4.6vw, 3.75rem);
+  font-weight: 800;
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+}
+
+.bio-title span {
+  color: var(--bio-green);
+}
+
+.bio-lead {
+  margin: 1rem 0 0;
+  max-width: 34rem;
+  color: var(--bio-ink-soft);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(1rem, 1.15vw, 1.125rem);
+  font-weight: 500;
+  line-height: 1.72;
+}
+
+.bio-rail {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.65rem;
+  width: 100%;
+  min-height: 70px;
+  margin-top: calc(-4.75rem - 32px);
+  padding: 0.7rem 1.15rem;
+  border-radius: 16px;
+  background: rgba(248, 249, 251, 0.94);
+  border-top: 2px solid var(--bio-yellow);
+  box-shadow: 0 14px 35px rgba(0, 31, 77, 0.08);
+}
+
+.bio-rail-place {
+  margin: 0;
+  color: var(--bio-navy);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(0.72rem, 1.1vw, 0.8rem);
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+
+.bio-rail-sep {
+  margin: 0 0.7rem;
+}
+
+.bio-rail-sep--yellow {
+  color: var(--bio-yellow);
+}
+
+.bio-rail-sep--green {
+  color: var(--bio-green);
+}
+
+.bio-rail-pillars {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.85rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bio-rail-pillar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--bio-navy);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.bio-rail-pillar + .bio-rail-pillar {
+  padding-left: 0.9rem;
+  border-left: 1px solid rgba(0, 26, 63, 0.05);
+}
+
+.bio-rail-pillar-icon {
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  color: var(--bio-navy);
+}
+
+.bio-rail-pillar--yellow .bio-rail-pillar-icon {
+  background: var(--bio-yellow);
+}
+
+.bio-rail-pillar--blue .bio-rail-pillar-icon {
+  background: #2f79f0;
+  color: white;
+}
+
+.bio-rail-pillar--green .bio-rail-pillar-icon {
+  background: var(--bio-green);
+  color: white;
+}
+
+.bio-body {
+  background: #ffffff;
+  padding: clamp(2.5rem, 5vw, 4.25rem) 0 clamp(3rem, 6vw, 4.75rem);
+}
+
+.bio-body-grid {
+  display: grid;
+  gap: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+.bio-timeline {
+  position: relative;
+  margin: 1.35rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bio-timeline::before {
+  content: "";
+  position: absolute;
+  left: 1.15rem;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(255, 211, 26, 0.85), rgba(8, 166, 75, 0.55), rgba(6, 62, 153, 0.25));
+}
+
+.bio-timeline li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.35rem 1fr;
+  gap: 0.95rem;
+  align-items: start;
+  padding: 0.45rem 0 1rem;
+}
+
+.bio-timeline li:last-child {
+  padding-bottom: 0;
+}
+
+.bio-timeline-mark {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1.5px solid rgba(6, 62, 153, 0.16);
+  color: var(--bio-blue);
+  box-shadow: 0 0 0 6px #ffffff;
+}
+
+.bio-timeline li:nth-child(even) .bio-timeline-mark {
+  color: var(--bio-green);
+  border-color: rgba(8, 166, 75, 0.28);
+}
+
+.bio-timeline p {
+  margin: 0;
+  color: var(--bio-ink-soft);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+.bio-timeline-num {
+  display: block;
+  margin-bottom: 0.28rem;
+  color: var(--bio-green);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.bio-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+  margin: 1.35rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bio-card {
+  display: grid;
+  gap: 0.55rem;
+  align-content: start;
+  min-height: 100%;
+  padding: 1.25rem 1.2rem 1.35rem;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 26, 63, 0.06);
+  box-shadow: 0 8px 24px rgba(0, 26, 63, 0.035);
+}
+
+.bio-card-icon {
+  display: grid;
+  place-items: center;
+  width: 2.45rem;
+  height: 2.45rem;
+  border-radius: 12px;
+  background: var(--bio-blue-soft);
+  color: var(--bio-blue);
+}
+
+.bio-card:nth-child(even) .bio-card-icon {
+  background: rgba(8, 166, 75, 0.1);
+  color: var(--bio-green);
+}
+
+.bio-card h2 {
+  margin: 0;
+  color: var(--bio-navy);
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.bio-card p {
+  margin: 0;
+  color: var(--bio-ink-soft);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.bio-cta {
+  padding: 0 0 clamp(2.25rem, 4.5vw, 3.5rem);
+  background: #ffffff;
+}
+
+.bio-cta-panel {
+  position: relative;
+  overflow: hidden;
+  max-width: 72rem;
+  padding: clamp(1.45rem, 2.6vw, 2rem) clamp(1.25rem, 2.8vw, 2.1rem);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 92% 18%, rgba(255, 211, 26, 0.12), transparent 32%),
+    radial-gradient(circle at 10% 88%, rgba(35, 112, 240, 0.07), transparent 36%),
+    linear-gradient(145deg, #f7f9fc 0%, #ffffff 58%, #f8fafc 100%);
+  border: 1px solid rgba(0, 26, 63, 0.05);
+}
+
+.bio-cta-deco {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bio-cta-arc {
+  position: absolute;
+  width: min(38vw, 280px);
+  aspect-ratio: 1;
+  right: -6%;
+  top: 8%;
+  border-radius: 50%;
+  border: 1.5px solid rgba(6, 62, 153, 0.16);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  transform: rotate(18deg);
+}
+
+.bio-cta-arc::after {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  background-image: radial-gradient(circle, rgba(6, 62, 153, 0.18) 1.25px, transparent 1.4px);
+  background-size: 18px 18px;
+  background-position: center;
+  opacity: 0.45;
+  mask-image: radial-gradient(circle at 70% 30%, #000 0%, transparent 68%);
+}
+
+.bio-cta-word {
+  position: absolute;
+  right: 3.5%;
+  bottom: 10%;
+  color: rgba(0, 26, 63, 0.07);
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  line-height: 0.9;
+  user-select: none;
+}
+
+.bio-cta-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.bio-cta-title {
+  margin: 0;
+  color: var(--bio-navy);
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.55rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.bio-cta-line {
+  display: block;
+}
+
+.bio-cta-side {
+  min-width: 0;
+  display: grid;
+  gap: 1.15rem;
+  align-content: center;
+}
+
+.bio-cta-lead {
+  margin: 0;
+  max-width: 36rem;
+  color: var(--bio-ink-soft);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(0.98rem, 1.1vw, 1.06rem);
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.bio-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.bio-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 3rem;
+  padding: 0.8rem 1.35rem;
+  border-radius: 999px;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.bio-cta-btn--primary {
+  background: var(--bio-yellow);
+  color: var(--bio-navy);
+}
+
+.bio-cta-btn--primary:hover {
+  background: #ffe04a;
+  transform: translateY(-1px);
+}
+
+.bio-cta-btn--secondary {
+  background: #ffffff;
+  color: var(--bio-navy);
+  border: 1.5px solid rgba(6, 62, 153, 0.45);
+}
+
+.bio-cta-btn--secondary:hover {
+  border-color: var(--bio-blue);
+  background: #f7faff;
+}
+
+.bio-cta-btn:focus-visible {
+  outline: 3px solid var(--bio-yellow);
+  outline-offset: 3px;
+}
+
+@media (min-width: 760px) {
+  .bio-cta-grid {
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: clamp(1.75rem, 4vw, 3.25rem);
+    align-items: center;
+  }
+
+  .bio-cta-line {
+    white-space: nowrap;
+  }
+
+  .bio-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bio-rail {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 1.5rem;
+    height: 72px;
+    min-height: 72px;
+    padding: 0 1.35rem;
+  }
+}
+
+@media (min-width: 980px) {
+  .bio-open {
+    padding-top: clamp(2rem, 3vw, 3rem);
+    padding-bottom: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  .bio-open-compose::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 36px;
+    background: #f3f4f6;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .bio-open-grid {
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+    align-items: end;
+    column-gap: clamp(1.75rem, 3.5vw, 3.75rem);
+    row-gap: 0;
+  }
+
+  .bio-visual {
+    justify-content: flex-start;
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  .bio-copy {
+    align-self: start;
+    padding-top: clamp(1.25rem, 3vh, 2.5rem);
+    padding-bottom: 7.25rem;
+  }
+
+  .bio-photo {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: min(620px, calc(100vh - 160px));
+  }
+
+  .bio-title {
+    max-width: 15.5ch;
+    font-size: clamp(2.85rem, 3.6vw, 3.85rem);
+    line-height: 0.95;
+  }
+
+  .bio-rail {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 36px;
+    width: 100%;
+    margin-top: 0;
+    height: 72px;
+    min-height: 72px;
+    padding: 0 1.5rem;
+    align-items: center;
+  }
+
+  .bio-body-grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(2rem, 4vw, 3.75rem);
+    align-items: stretch;
+  }
+
+  .bio-timeline-col,
+  .bio-cards-col {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .bio-timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.15rem;
+  }
+
+  .bio-cards {
+    flex: 1;
+    grid-template-rows: 1fr 1fr;
+    gap: clamp(1rem, 1.6vw, 1.35rem);
+    align-content: stretch;
+  }
+
+  .bio-card {
+    height: 100%;
+  }
+}
+
+@media (max-width: 759px) {
+  .bio-cta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bio-cta-word {
+    font-size: clamp(2.2rem, 14vw, 3.4rem);
+    right: 3%;
+    bottom: 5%;
+  }
+
+  .bio-cta-actions {
+    flex-direction: column;
+  }
+
+  .bio-cta-btn {
+    width: 100%;
+    max-width: 22rem;
+  }
+
+  .bio-visual {
+    max-width: 340px;
+    order: 2;
+  }
+
+  .bio-copy {
+    order: 1;
+  }
+
+  .bio-open-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bio-rail {
+    margin-top: calc(-4.25rem - 32px);
+    min-height: 70px;
+  }
+
+  .bio-rail-pillar + .bio-rail-pillar {
+    padding-left: 0.65rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bio-cta-btn {
+    transition: none;
+  }
+
+  .bio-cta-btn--primary:hover {
+    transform: none;
+  }
+}

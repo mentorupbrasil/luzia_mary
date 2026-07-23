@@ -1,0 +1,565 @@
+/* =========================================================
+   Site footer — identidade Luzia Mary (amarelo / marinho / verde)
+   ========================================================= */
+
+.lm-footer {
+  --lm-footer-yellow: #ffd915;
+  --lm-footer-yellow-soft: #ffe43d;
+  --lm-footer-navy: #001a3f;
+  --lm-footer-green: #08a64b;
+  --lm-footer-white: #ffffff;
+  position: relative;
+  margin-top: 2rem;
+  overflow: hidden;
+  color: var(--lm-footer-navy);
+  background:
+    radial-gradient(circle at 45% 45%, rgba(255, 255, 255, 0.32), transparent 26%),
+    linear-gradient(135deg, var(--lm-footer-yellow) 0%, var(--lm-footer-yellow-soft) 100%);
+}
+
+.lm-footer-bg {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.lm-footer-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.22;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.lm-footer-blob--1 {
+  width: 280px;
+  height: 280px;
+  top: -80px;
+  left: -60px;
+}
+
+.lm-footer-blob--2 {
+  width: 220px;
+  height: 220px;
+  right: 8%;
+  top: 18%;
+  opacity: 0.16;
+  background: rgba(0, 26, 63, 0.08);
+}
+
+.lm-footer-blob--3 {
+  width: 360px;
+  height: 180px;
+  left: 28%;
+  bottom: -70px;
+  border-radius: 48% 52% 40% 60%;
+  opacity: 0.18;
+  background: rgba(8, 166, 75, 0.12);
+}
+
+.lm-footer-dots {
+  position: absolute;
+  inset: 12% 6% auto auto;
+  width: 140px;
+  height: 140px;
+  opacity: 0.18;
+  background-image: radial-gradient(circle, rgba(0, 26, 63, 0.55) 1.4px, transparent 1.6px);
+  background-size: 18px 18px;
+}
+
+.lm-footer-arc {
+  position: absolute;
+  border: 1.5px solid rgba(0, 26, 63, 0.12);
+  border-radius: 50%;
+}
+
+.lm-footer-arc--1 {
+  width: 420px;
+  height: 420px;
+  right: -160px;
+  bottom: -180px;
+}
+
+.lm-footer-arc--2 {
+  width: 260px;
+  height: 260px;
+  left: 42%;
+  top: -120px;
+  border-color: rgba(8, 166, 75, 0.14);
+}
+
+.lm-footer-inner {
+  position: relative;
+  z-index: 1;
+  width: min(1220px, calc(100% - 2.5rem));
+  margin-inline: auto;
+  padding: 80px 0 56px;
+}
+
+.lm-footer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.36fr) minmax(0, 1fr) minmax(0, 1.22fr);
+  gap: clamp(2.5rem, 5vw, 4.25rem);
+  align-items: start;
+}
+
+.lm-footer-logo {
+  display: inline-flex;
+  transition: transform 220ms ease;
+}
+
+.lm-footer-logo:hover {
+  transform: translateY(-2px);
+}
+
+.lm-footer-logo:focus-visible {
+  outline: 3px solid var(--lm-footer-navy);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.lm-footer-logo-img {
+  height: 2.75rem !important;
+  width: auto !important;
+}
+
+.lm-footer-signature {
+  margin: 1.55rem 0 0;
+  max-width: 17ch;
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: clamp(2.05rem, 2.8vw, 2.85rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--lm-footer-navy);
+}
+
+.lm-footer-signature-accent {
+  color: var(--lm-footer-green);
+}
+
+.lm-footer-lead {
+  margin: 1.15rem 0 0;
+  max-width: 28rem;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(0.94rem, 1.05vw, 1.05rem);
+  font-weight: 500;
+  line-height: 1.65;
+  color: rgba(0, 26, 63, 0.76);
+}
+
+.lm-footer-mid {
+  position: relative;
+  min-width: 0;
+  padding-top: 0.35rem;
+}
+
+.lm-footer-decor {
+  pointer-events: none;
+  position: absolute;
+  left: -42%;
+  top: 8%;
+  width: min(210px, 48vw);
+  opacity: 0.9;
+  z-index: 0;
+}
+
+.lm-footer-decor-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lm-footer-watermark {
+  fill: rgba(0, 26, 63, 0.07);
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.lm-footer-map {
+  fill: rgba(0, 26, 63, 0.04);
+  stroke: rgba(0, 26, 63, 0.18);
+  stroke-width: 1.5;
+}
+
+.lm-footer-dot {
+  fill: rgba(0, 26, 63, 0.28);
+}
+
+.lm-footer-dot--b,
+.lm-footer-dot--d {
+  fill: rgba(8, 166, 75, 0.45);
+}
+
+.lm-footer-curve {
+  fill: none;
+  stroke: rgba(0, 26, 63, 0.22);
+  stroke-width: 1.4;
+  stroke-dasharray: 3 4;
+}
+
+.lm-footer-curve--green {
+  stroke: rgba(8, 166, 75, 0.35);
+}
+
+.lm-footer-bubble {
+  fill: rgba(255, 255, 255, 0.28);
+  stroke: rgba(0, 26, 63, 0.2);
+  stroke-width: 1.4;
+}
+
+.lm-footer-bubble--soft {
+  fill: rgba(8, 166, 75, 0.08);
+  stroke: rgba(8, 166, 75, 0.28);
+}
+
+.lm-footer-wave {
+  fill: none;
+  stroke: rgba(0, 26, 63, 0.22);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.lm-footer-wave--green {
+  stroke: rgba(8, 166, 75, 0.35);
+}
+
+.lm-footer-nav {
+  position: relative;
+  z-index: 1;
+}
+
+.lm-footer-nav-title {
+  margin: 0;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lm-footer-navy);
+}
+
+.lm-footer-nav-list {
+  margin: 1.1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lm-footer-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.72rem 0.15rem 0.72rem 0;
+  border-bottom: 1px solid rgba(0, 26, 63, 0.18);
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: clamp(1.05rem, 1.2vw, 1.2rem);
+  font-weight: 700;
+  color: var(--lm-footer-navy);
+  text-decoration: none;
+  transition: padding-left 220ms ease, color 220ms ease, border-color 220ms ease;
+}
+
+.lm-footer-nav-list li:last-child .lm-footer-nav-link {
+  border-bottom-color: rgba(8, 166, 75, 0.35);
+}
+
+.lm-footer-nav-arrow {
+  flex-shrink: 0;
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: opacity 220ms ease, transform 220ms ease;
+  color: var(--lm-footer-green);
+}
+
+.lm-footer-nav-link:hover,
+.lm-footer-nav-link:focus-visible {
+  padding-left: 0.55rem;
+  color: var(--lm-footer-navy);
+  border-bottom-color: rgba(8, 166, 75, 0.55);
+}
+
+.lm-footer-nav-link:hover .lm-footer-nav-arrow,
+.lm-footer-nav-link:focus-visible .lm-footer-nav-arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.lm-footer-nav-link:focus-visible {
+  outline: 3px solid var(--lm-footer-navy);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.lm-footer-social-card {
+  position: relative;
+  padding: clamp(1.75rem, 2.4vw, 2.1rem);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(255, 217, 21, 0.22), transparent 28%),
+    linear-gradient(160deg, #001a3f 0%, #00275a 55%, #001532 100%);
+  box-shadow: 0 18px 40px rgba(0, 26, 63, 0.18);
+  overflow: hidden;
+}
+
+.lm-footer-social-card::before {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  right: -28px;
+  bottom: -36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 217, 21, 0.28);
+}
+
+.lm-footer-social-card::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: 1.35rem;
+  right: 1.35rem;
+  border-radius: 50%;
+  background: #ffd915;
+  box-shadow: 0 0 0 6px rgba(255, 217, 21, 0.18);
+}
+
+.lm-footer-social-title {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--font-league-spartan), "League Spartan", sans-serif;
+  font-size: clamp(1.65rem, 2vw, 1.95rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--lm-footer-white);
+}
+
+.lm-footer-social-list {
+  position: relative;
+  z-index: 1;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.lm-footer-social-link {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.85rem;
+  min-height: 3.15rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 14px;
+  color: var(--lm-footer-white);
+  text-decoration: none;
+  transition: transform 220ms ease, background-color 220ms ease;
+}
+
+.lm-footer-social-link:hover,
+.lm-footer-social-link:focus-visible {
+  transform: translateX(4px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.lm-footer-social-link:focus-visible {
+  outline: 3px solid #ffd915;
+  outline-offset: 2px;
+}
+
+.lm-footer-social-link--soon {
+  opacity: 0.72;
+  cursor: default;
+}
+
+.lm-footer-social-icon {
+  display: grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 12px;
+  background: rgba(255, 217, 21, 0.14);
+  color: #ffd915;
+  transition: transform 220ms ease, background-color 220ms ease;
+}
+
+.lm-footer-social-link:hover .lm-footer-social-icon,
+.lm-footer-social-link:focus-visible .lm-footer-social-icon {
+  transform: translateY(-1px);
+  background: rgba(255, 217, 21, 0.22);
+}
+
+.lm-footer-social-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.08rem;
+  min-width: 0;
+}
+
+.lm-footer-social-label {
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.lm-footer-social-handle {
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.lm-footer-social-arrow {
+  opacity: 0.45;
+  color: #ffd915;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.lm-footer-social-link:hover .lm-footer-social-arrow,
+.lm-footer-social-link:focus-visible .lm-footer-social-arrow {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+.lm-footer-legal {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(0, 26, 63, 0.16);
+}
+
+.lm-footer-legal-inner {
+  width: min(1220px, calc(100% - 2.5rem));
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  padding: 1.35rem 0;
+}
+
+.lm-footer-copy,
+.lm-footer-legal-links a {
+  margin: 0;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: rgba(0, 26, 63, 0.62);
+  text-decoration: none;
+}
+
+.lm-footer-legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.35rem;
+}
+
+.lm-footer-legal-links a:hover,
+.lm-footer-legal-links a:focus-visible {
+  color: var(--lm-footer-navy);
+}
+
+.lm-footer-legal-links a:focus-visible {
+  outline: 3px solid var(--lm-footer-navy);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (max-width: 1024px) {
+  .lm-footer-inner {
+    padding: 72px 0 48px;
+  }
+
+  .lm-footer-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 2.75rem 3rem;
+  }
+
+  .lm-footer-social-col {
+    grid-column: 1 / -1;
+    max-width: 420px;
+  }
+
+  .lm-footer-decor {
+    left: -28%;
+    width: 170px;
+    opacity: 0.7;
+  }
+}
+
+@media (max-width: 720px) {
+  .lm-footer-inner {
+    width: min(1220px, calc(100% - 2.5rem));
+    padding: 64px 0 40px;
+  }
+
+  .lm-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2.35rem;
+  }
+
+  .lm-footer-signature {
+    max-width: 14ch;
+    font-size: clamp(2rem, 9vw, 2.45rem);
+  }
+
+  .lm-footer-decor {
+    display: none;
+  }
+
+  .lm-footer-social-col {
+    max-width: none;
+  }
+
+  .lm-footer-legal-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem 0 1.5rem;
+  }
+
+  .lm-footer-dots,
+  .lm-footer-arc--2 {
+    opacity: 0.1;
+  }
+}
+
+@media (max-width: 480px) {
+  .lm-footer-inner,
+  .lm-footer-legal-inner {
+    width: min(1220px, calc(100% - 2.5rem));
+  }
+
+  .lm-footer-logo-img {
+    height: 2.35rem !important;
+  }
+
+  .lm-footer-social-card {
+    border-radius: 22px;
+    padding: 1.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lm-footer-logo,
+  .lm-footer-nav-link,
+  .lm-footer-nav-arrow,
+  .lm-footer-social-link,
+  .lm-footer-social-icon,
+  .lm-footer-social-arrow {
+    transition: none;
+  }
+
+  .lm-footer-logo:hover,
+  .lm-footer-social-link:hover,
+  .lm-footer-social-link:focus-visible {
+    transform: none;
+  }
+}
