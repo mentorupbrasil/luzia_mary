@@ -1,109 +1,211 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  Flag,
+  HeartHandshake,
+  Landmark,
+  MapPin,
+  MessageCircle,
+  ShieldCheck,
+  Users,
+  type LucideIcon,
+} from "lucide-react";
 import { Container } from "@/components/container";
-import { Photo, hasPhoto } from "@/components/photo";
 import { content } from "@/config/site";
 
-export const metadata = { title: "Quem é Luzia Mary" };
+export const metadata = { title: "Biografia" };
+
+const BIO_PHOTO = "/images/ultima-tentativa-cutout.png";
+
+const pillars: Array<{
+  title: string;
+  Icon: LucideIcon;
+  tone: "yellow" | "blue" | "green";
+}> = [
+  { title: "Escuta", Icon: MessageCircle, tone: "yellow" },
+  { title: "Presença", Icon: MapPin, tone: "blue" },
+  { title: "Compromisso", Icon: HeartHandshake, tone: "green" },
+];
+
+const trajectory: Array<{ text: string; Icon: LucideIcon }> = [
+  {
+    text: "Antes de disputar eleições, Luzia Mary já participava da vida pública pela base, ouvindo famílias, acompanhando demandas reais e defendendo melhorias para as comunidades de Imperatriz.",
+    Icon: Users,
+  },
+  {
+    text: "Ao longo de sua caminhada, consolidou uma atuação marcada pela proximidade com as pessoas, pela defesa da dignidade social e pelo compromisso com soluções concretas para o cotidiano da população.",
+    Icon: HeartHandshake,
+  },
+  {
+    text: "Sua experiência inclui participação em pautas ligadas à assistência social, ao acolhimento de famílias, à defesa de comunidades, ao diálogo com lideranças locais e à busca por melhorias em serviços e direitos básicos.",
+    Icon: ShieldCheck,
+  },
+  {
+    text: "Nas eleições municipais de 2024, colocou seu nome à disposição da cidade, ampliando sua rede de diálogo com lideranças, mulheres, jovens e comunidades da Região Tocantina.",
+    Icon: Landmark,
+  },
+  {
+    text: "Agora, apresenta sua pré-candidatura a deputada federal com o propósito de transformar escuta em prioridade, presença em trabalho e compromisso em resultado para o Maranhão.",
+    Icon: Flag,
+  },
+];
+
+const experience: Array<{ title: string; text: string; Icon: LucideIcon }> = [
+  {
+    title: "Liderança comunitária",
+    text: "Atuação próxima das comunidades, com escuta ativa e defesa das necessidades reais da população.",
+    Icon: Users,
+  },
+  {
+    title: "Gestão social",
+    text: "Experiência ligada à área social, com foco em acolhimento, atenção às famílias e compromisso com políticas públicas mais humanas.",
+    Icon: HeartHandshake,
+  },
+  {
+    title: "Defesa das comunidades",
+    text: "Participação em pautas voltadas à melhoria de serviços, infraestrutura, dignidade e garantia de direitos.",
+    Icon: ShieldCheck,
+  },
+  {
+    title: "Diálogo e representação",
+    text: "Construção de pontes com lideranças, mulheres, jovens e comunidades da Região Tocantina.",
+    Icon: MessageCircle,
+  },
+];
 
 export default function AboutPage() {
-  const photo = content.candidate.photos.about;
-  const showPhoto = hasPhoto(photo);
-
   return (
-    <>
-      <section className="bg-[linear-gradient(160deg,#e9f7fc_0%,#fffdf9_60%)] py-14 sm:py-16">
-        <Container className={`grid items-center gap-10 lg:gap-14 ${showPhoto ? "lg:grid-cols-[0.9fr_1.1fr]" : ""}`}>
-          {showPhoto && (
-            <div className="relative mx-auto w-full max-w-[420px] lg:mx-0">
-              <div className="absolute -inset-3 rounded-[2rem] bg-[var(--cyan)]/15" aria-hidden />
-              <Photo
-                src={photo}
-                alt={`${content.candidate.ballotName}`}
-                priority
-                className="relative aspect-[4/5] rounded-[1.75rem] shadow-[var(--glow)]"
-              />
-            </div>
-          )}
-          <div>
-            <p className="text-[12px] font-extrabold uppercase tracking-[0.16em] text-[var(--coral)]">Quem é Luzia</p>
-            <h1 className="mt-3 font-display text-[clamp(2.2rem,5vw,3.6rem)] font-extrabold tracking-[-0.045em]">
-              Luzia Mary
-            </h1>
-            <p className="mt-3 text-sm font-bold text-[var(--muted)]">{content.candidate.office}</p>
-            <p className="mt-5 max-w-xl text-base leading-8 text-[var(--muted)]">{content.candidate.shortBio}</p>
-            <p className="mt-4 text-sm font-extrabold text-[var(--cyan-deep)]">
-              {content.candidate.city} · {content.candidate.region} · {content.candidate.state}
-            </p>
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-14">
-        <Container className="max-w-3xl">
-          <h2 className="font-display text-2xl font-extrabold tracking-[-0.03em] sm:text-3xl">Biografia</h2>
-          <div className="mt-6 space-y-5 text-base leading-8 text-[var(--muted)]">
-            {content.candidate.bio.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
-          </div>
-          {content.candidate.motivation ? (
-            <div className="mt-10 rounded-3xl bg-[var(--bg-soft)] p-6 sm:p-8">
-              <h3 className="font-display text-xl font-extrabold">Por que esta candidatura</h3>
-              <p className="mt-3 text-base leading-8 text-[var(--muted)]">{content.candidate.motivation}</p>
-            </div>
-          ) : null}
-        </Container>
-      </section>
-
-      <section className="border-y border-[var(--line)] bg-white py-14">
-        <Container>
-          <h2 className="font-display text-2xl font-extrabold sm:text-3xl">Trajetória</h2>
-          <ol className="mt-8">
-            {content.timeline.map((item, i) => (
-              <li key={item.label} className="grid gap-3 border-b border-[var(--line)] py-7 sm:grid-cols-[72px_1fr]">
-                <span className="font-display text-2xl font-extrabold text-[var(--cyan)]">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="font-display text-xl font-extrabold">{item.label}</h3>
-                  <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--muted)]">{item.text}</p>
+    <div className="bio-page">
+      <section className="bio-open" aria-labelledby="bio-hero-title">
+        <Container className="bio-open-shell">
+          <div className="bio-open-compose">
+            <div className="bio-open-grid">
+              <div className="bio-visual">
+                <div className="bio-visual-deco" aria-hidden="true">
+                  <span className="bio-deco-blob" />
+                  <span className="bio-deco-arc bio-deco-arc--yellow" />
+                  <span className="bio-deco-arc bio-deco-arc--green" />
+                  <span className="bio-deco-glow" />
                 </div>
-              </li>
-            ))}
-          </ol>
-        </Container>
-      </section>
-
-      <section className="py-14">
-        <Container>
-          <h2 className="font-display text-2xl font-extrabold sm:text-3xl">Valores</h2>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {content.values.map((v) => (
-              <div key={v.title} className="rounded-3xl border border-[var(--line)] bg-[var(--bg-soft)] p-6">
-                <h3 className="font-display text-xl font-extrabold">{v.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{v.text}</p>
+                <Image
+                  src={BIO_PHOTO}
+                  alt={`${content.candidate.ballotName} — biografia`}
+                  width={1122}
+                  height={1402}
+                  priority
+                  unoptimized
+                  sizes="(max-width: 899px) 86vw, 42vw"
+                  className="bio-photo"
+                />
               </div>
-            ))}
+
+              <div className="bio-copy">
+                <p className="bio-eyebrow">Quem é Luzia Mary</p>
+                <h1 id="bio-hero-title" className="bio-title">
+                  Uma trajetória construída
+                  <br />
+                  ouvindo as pessoas e
+                  <br />
+                  <span>agindo pela comunidade.</span>
+                </h1>
+                <p className="bio-lead">
+                  Luzia Mary construiu sua história pública em Imperatriz a partir da escuta, da presença
+                  nas comunidades e do compromisso com quem mais precisa. Sua trajetória reúne liderança
+                  comunitária, experiência em gestão social e atuação próxima das famílias, sempre
+                  conectada à realidade da Região Tocantina e do Maranhão.
+                </p>
+              </div>
+            </div>
+
+            <div className="bio-rail">
+              <p className="bio-rail-place">
+                Imperatriz <span className="bio-rail-sep bio-rail-sep--yellow" aria-hidden>•</span>{" "}
+                Região Tocantina <span className="bio-rail-sep bio-rail-sep--green" aria-hidden>•</span>{" "}
+                Maranhão
+              </p>
+              <ul className="bio-rail-pillars" aria-label="Pilares">
+                {pillars.map(({ title, Icon, tone }) => (
+                  <li key={title} className={`bio-rail-pillar bio-rail-pillar--${tone}`}>
+                    <span className="bio-rail-pillar-icon" aria-hidden="true">
+                      <Icon size={15} strokeWidth={2.2} />
+                    </span>
+                    <span>{title}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </Container>
       </section>
 
-      <section className="pb-16">
-        <Container>
-          <div className="flex flex-col items-start justify-between gap-6 rounded-[1.75rem] bg-[var(--blue-deep)] px-8 py-10 text-white sm:flex-row sm:items-center">
-            <div>
-              <h2 className="font-display text-2xl font-extrabold sm:text-3xl">Participe desta construção</h2>
-              <p className="mt-3 max-w-lg text-sm leading-7 text-white/60">
-                Envie uma demanda ou sugestão e ajude a orientar as prioridades do território.
-              </p>
-            </div>
-            <Link href="/demandas" className="inline-flex h-12 items-center gap-2 rounded-full bg-[var(--coral)] px-6 text-sm font-extrabold">
-              Enviar demanda <ArrowRight size={16} aria-hidden />
-            </Link>
+      <section className="bio-body" aria-label="Trajetória e experiência">
+        <Container className="bio-body-grid">
+          <div className="bio-timeline-col">
+            <p className="bio-eyebrow">Trajetória</p>
+            <ol className="bio-timeline">
+              {trajectory.map(({ text, Icon }, index) => (
+                <li key={text}>
+                  <span className="bio-timeline-mark" aria-hidden="true">
+                    <Icon size={16} strokeWidth={2.1} />
+                  </span>
+                  <p>
+                    <span className="bio-timeline-num">{String(index + 1).padStart(2, "0")}</span>
+                    {text}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="bio-cards-col">
+            <p className="bio-eyebrow">Experiência e atuação</p>
+            <ul className="bio-cards">
+              {experience.map(({ title, text, Icon }) => (
+                <li key={title} className="bio-card">
+                  <span className="bio-card-icon" aria-hidden="true">
+                    <Icon size={20} strokeWidth={1.9} />
+                  </span>
+                  <h2>{title}</h2>
+                  <p>{text}</p>
+                </li>
+              ))}
+            </ul>
           </div>
         </Container>
       </section>
-    </>
+
+      <section className="bio-cta" aria-labelledby="bio-cta-title">
+        <Container className="bio-cta-panel">
+          <div className="bio-cta-deco" aria-hidden="true">
+            <span className="bio-cta-arc" />
+            <span className="bio-cta-word">Maranhão</span>
+          </div>
+          <div className="bio-cta-grid">
+            <h2 id="bio-cta-title" className="bio-cta-title">
+              <span className="bio-cta-line">Uma trajetória feita{"\u00A0"}com</span>
+              <span className="bio-cta-line">presença, diálogo{"\u00A0"}e</span>
+              <span className="bio-cta-line">compromisso.</span>
+            </h2>
+            <div className="bio-cta-side">
+              <p className="bio-cta-lead">
+                Conheça as propostas, acompanhe a caminhada e participe da construção de um projeto
+                conectado à realidade de Imperatriz, da Região Tocantina e do Maranhão.
+              </p>
+              <div className="bio-cta-actions">
+                <Link href="/propostas" className="bio-cta-btn bio-cta-btn--primary">
+                  Ver propostas
+                  <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
+                </Link>
+                <Link href="/demandas" className="bio-cta-btn bio-cta-btn--secondary">
+                  Participar
+                  <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+    </div>
   );
 }

@@ -1,28 +1,49 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Check, MessageCircle } from "lucide-react";
+import {
+  ArrowRight,
+  BriefcaseBusiness,
+  CheckCircle2,
+  Clock3,
+  HeartPulse,
+  MessageCircle,
+  Route,
+  ShieldCheck,
+  Target,
+  type LucideIcon,
+} from "lucide-react";
 import { CampaignHomeHeader } from "@/components/campaign-home-header";
 import { Container } from "@/components/container";
-import { Photo, hasPhoto } from "@/components/photo";
+import { hasPhoto } from "@/components/photo";
 import { content } from "@/config/site";
 import { getPosts, getProposals } from "@/lib/data";
 import { formatShortDate } from "@/lib/utils";
+
+const priorityIcons: Record<string, LucideIcon> = {
+  "heart-pulse": HeartPulse,
+  "briefcase-business": BriefcaseBusiness,
+  route: Route,
+  "shield-check": ShieldCheck,
+};
 
 const listeningSteps = [
   {
     n: "01",
     title: "Conte a realidade da sua comunidade",
     text: "Registre o problema, a necessidade ou a proposta de forma simples e direta.",
+    Icon: MessageCircle,
   },
   {
     n: "02",
     title: "Receba um protocolo",
     text: "A demanda fica organizada por tema e localidade, sem se perder em mensagens soltas.",
+    Icon: CheckCircle2,
   },
   {
     n: "03",
     title: "Ajude a construir prioridades",
     text: "As contribuições ajudam a orientar propostas e ações conectadas com a vida real.",
+    Icon: Target,
   },
 ] as const;
 
@@ -32,10 +53,8 @@ export default async function HomePage() {
   const [featured, ...rest] = posts;
   const secondary = rest.slice(0, 2);
 
-  const aboutSrc = "/images/quem-e-luzia.png";
-  const participateSrc = content.candidate.photos.participate;
+  const aboutSrc = "/images/imagem-final.png";
   const showAboutPhoto = hasPhoto(aboutSrc);
-  const showParticipatePhoto = hasPhoto(participateSrc);
   const aboutValues = [
     {
       title: "Clareza",
@@ -55,11 +74,6 @@ export default async function HomePage() {
     "Nas eleições municipais de 2024, ampliou uma rede de diálogo com lideranças, profissionais, mulheres, jovens e comunidades da Região Tocantina.",
   ] as const;
   const achievements = content.achievements;
-  const hasSocial =
-    Boolean(content.social.instagram) ||
-    Boolean(content.social.facebook) ||
-    Boolean(content.social.youtube) ||
-    Boolean(content.contact.whatsapp);
 
   return (
     <>
@@ -103,13 +117,17 @@ export default async function HomePage() {
                   height={1402}
                   priority
                   unoptimized
-                  sizes="(max-width: 768px) 90vw, (max-width: 1280px) 400px, 440px"
+                  sizes="(max-width: 768px) 90vw, (max-width: 1280px) 380px, 400px"
                   className="about-photo-img"
                 />
                 <figcaption className="sr-only">
                   De Imperatriz para todo o Maranhão.
                 </figcaption>
               </figure>
+              <Link href="/sobre" className="about-cta">
+                Conheça a trajetória completa
+                <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
+              </Link>
             </div>
           )}
 
@@ -139,83 +157,156 @@ export default async function HomePage() {
               ))}
             </ul>
 
-            <Link href="/sobre" className="about-cta">
-              Conheça a trajetória completa
-              <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
-            </Link>
+            {!showAboutPhoto && (
+              <Link href="/sobre" className="about-cta">
+                Conheça a trajetória completa
+                <ArrowRight size={18} strokeWidth={2.2} aria-hidden />
+              </Link>
+            )}
           </div>
         </Container>
       </section>
 
       {priorities.length > 0 && (
-        <section className="people-priorities relative overflow-hidden py-20 text-white sm:py-24 lg:py-32">
-          <div className="people-priorities-glow" aria-hidden />
-          <Container className="relative">
-            <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
-              <div>
-                <p className="people-kicker people-kicker-light">Bandeiras</p>
-                <h2 className="people-title mt-5 max-w-2xl text-white">
-                  Prioridades que nascem da escuta e precisam virar ação.
-                </h2>
-              </div>
-              <p className="max-w-xl text-base leading-8 text-white/70 lg:justify-self-end">
-                Propostas apresentadas de forma clara, ligadas à realidade de Imperatriz, da Região Tocantina e do Maranhão.
+        <section className="bandeiras" aria-labelledby="bandeiras-heading">
+          <div className="bandeiras-deco" aria-hidden>
+            <span className="bandeiras-deco-arc" />
+            <span className="bandeiras-deco-dots" />
+            <span className="bandeiras-deco-line" />
+            <span className="bandeiras-deco-glow" />
+          </div>
+
+          <Container className="bandeiras-container relative max-w-[1220px]">
+            <header className="bandeiras-header">
+              <p className="bandeiras-eyebrow">
+                <span className="bandeiras-eyebrow-mark" aria-hidden />
+                Bandeiras
               </p>
+              <h2 id="bandeiras-heading" className="bandeiras-title">
+                <span className="bandeiras-title-line">Prioridades que nascem da escuta</span>
+                <span className="bandeiras-title-line">
+                  e <em>viram ação</em>.
+                </span>
+              </h2>
+              <p className="bandeiras-lead">
+                Propostas construídas com diálogo e ligadas à realidade de Imperatriz, da Região
+                Tocantina e do Maranhão.
+              </p>
+            </header>
+
+            <div className="bandeiras-grid">
+              {priorities.map((item, index) => {
+                const Icon = priorityIcons[item.icon ?? ""] ?? HeartPulse;
+                const n = String(index + 1).padStart(2, "0");
+                return (
+                  <article
+                    key={item.id}
+                    className={`bandeiras-card bandeiras-card--${index + 1} group`}
+                  >
+                    <div className="bandeiras-card-meta">
+                      <span className="bandeiras-card-icon" aria-hidden>
+                        <Icon size={30} strokeWidth={1.75} />
+                      </span>
+                      <p className="bandeiras-card-label">
+                        <span className="bandeiras-card-num">{n}</span>
+                        <span className="bandeiras-card-dot" aria-hidden>
+                          ·
+                        </span>
+                        <span>{item.category}</span>
+                      </p>
+                    </div>
+                    <h3 className="bandeiras-card-title">{item.title}</h3>
+                    <p className="bandeiras-card-summary">{item.summary}</p>
+                    <Link
+                      href={`/propostas/${item.slug}`}
+                      className="bandeiras-card-link"
+                      aria-label={`Ver proposta: ${item.title}`}
+                    >
+                      Ver proposta
+                      <ArrowRight size={16} aria-hidden />
+                    </Link>
+                  </article>
+                );
+              })}
             </div>
 
-            <div className="people-priority-grid mt-14">
-              {priorities.map((item, index) => (
-                <article key={item.id} className="people-priority-card group">
-                  <div className="people-priority-top">
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <p>{item.category}</p>
-                  </div>
-                  <h3>{item.title}</h3>
-                  <p className="people-priority-summary">{item.summary}</p>
-                  <Link href={`/propostas/${item.slug}`} aria-label={`Ver proposta: ${item.title}`}>
-                    Ver proposta <ArrowRight size={17} aria-hidden />
-                  </Link>
-                </article>
-              ))}
-            </div>
-
-            <Link href="/propostas" className="people-text-link people-text-link-light mt-10">
-              Ver todas as bandeiras <ArrowRight size={16} aria-hidden />
+            <Link href="/propostas" className="bandeiras-cta">
+              Ver todas as bandeiras
+              <ArrowRight size={18} aria-hidden />
             </Link>
           </Container>
         </section>
       )}
 
-      <section className="people-listening overflow-hidden">
-        <Container className="people-listening-layout">
-          <div className="people-listening-copy py-20 sm:py-24 lg:py-28">
-            <div className="people-message-icon" aria-hidden>
-              <MessageCircle size={28} />
-            </div>
-            <p className="people-kicker mt-8">Gabinete digital</p>
-            <h2 className="people-title mt-5 max-w-xl">
-              A voz da comunidade não pode se perder em uma conversa.
-            </h2>
-            <p className="mt-6 max-w-lg text-base leading-8 text-[var(--people-muted)]">
-              Envie sua demanda, receba um protocolo e ajude a transformar as necessidades da sua região em prioridades organizadas.
-            </p>
-            <Link href="/demandas" className="people-button people-button-blue mt-9">
-              Registrar uma demanda <ArrowRight size={17} aria-hidden />
-            </Link>
-          </div>
+      <section className="gabinete" aria-labelledby="gabinete-heading">
+        <Container className="gabinete-container relative max-w-[1220px]">
+          <div className="gabinete-layout">
+            <div className="gabinete-copy">
+              <div className="gabinete-icon" aria-hidden>
+                <MessageCircle size={30} strokeWidth={1.75} />
+                <span className="gabinete-icon-accent" />
+              </div>
 
-          <ol className="people-listening-steps">
-            {listeningSteps.map((step) => (
-              <li key={step.n}>
-                <span>{step.n}</span>
-                <div>
-                  <h3>{step.title}</h3>
-                  <p>{step.text}</p>
-                </div>
-                <Check size={20} aria-hidden />
-              </li>
-            ))}
-          </ol>
+              <p className="gabinete-eyebrow">
+                <span className="gabinete-eyebrow-mark" aria-hidden />
+                Gabinete digital
+              </p>
+
+              <h2 id="gabinete-heading" className="gabinete-title">
+                A voz da comunidade
+                <br />
+                precisa <em>virar ação</em>.
+              </h2>
+
+              <p className="gabinete-lead">
+                Envie sua demanda, receba um protocolo e ajude a transformar as necessidades da sua
+                região em prioridades organizadas.
+              </p>
+
+              <Link href="/demandas" className="gabinete-cta">
+                Registrar uma demanda
+                <ArrowRight size={18} aria-hidden />
+              </Link>
+
+              <p className="gabinete-micro">
+                <Clock3 size={14} aria-hidden />
+                Leva menos de 3 minutos.
+              </p>
+            </div>
+
+            <aside className="gabinete-panel" aria-label="Como funciona o Gabinete Digital">
+              <div className="gabinete-panel-deco" aria-hidden>
+                <span className="gabinete-panel-glow" />
+                <span className="gabinete-panel-dots" />
+                <span className="gabinete-panel-line" />
+              </div>
+
+              <div className="gabinete-panel-head">
+                <span className="gabinete-seal">Escuta ativa</span>
+                <h3 className="gabinete-panel-title">Como funciona</h3>
+                <p className="gabinete-panel-lead">
+                  Três passos simples para sua demanda não se perder.
+                </p>
+              </div>
+
+              <ol className="gabinete-steps">
+                {listeningSteps.map(({ n, title, text, Icon }) => (
+                  <li key={n} className="gabinete-step">
+                    <div className="gabinete-step-rail" aria-hidden>
+                      <span className="gabinete-step-num">{n}</span>
+                      <span className="gabinete-step-icon">
+                        <Icon size={18} strokeWidth={1.9} />
+                      </span>
+                    </div>
+                    <div className="gabinete-step-body">
+                      <h4 className="gabinete-step-title">{title}</h4>
+                      <p className="gabinete-step-text">{text}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </aside>
+          </div>
         </Container>
       </section>
 
@@ -283,66 +374,135 @@ export default async function HomePage() {
         </section>
       )}
 
-      <section className="people-closing relative isolate overflow-hidden text-white">
-        <div className="people-closing-word" aria-hidden>
-          Participe
+      <section className="convite" aria-labelledby="convite-heading">
+        <div className="convite-bg" aria-hidden>
+          <span className="convite-glow" />
+          <span className="convite-arc" />
+          <span className="convite-dots" />
+          <span className="convite-curve" />
+          <span className="convite-orb convite-orb--green" />
+          <span className="convite-orb convite-orb--yellow" />
+          <span className="convite-word">Participe</span>
         </div>
-        <Container className={`relative grid items-end gap-10 ${showParticipatePhoto ? "lg:grid-cols-[1.02fr_0.98fr]" : ""}`}>
-          <div className="py-20 sm:py-24 lg:py-28">
-            <div className="people-closing-tag">A mulher do povo!</div>
-            <h2 className="people-closing-title mt-6 max-w-3xl">
-              Vamos construir uma voz forte para Imperatriz e para o Maranhão.
-            </h2>
-            <p className="mt-6 max-w-xl text-base leading-8 text-white/78">
-              Conte o que sua comunidade precisa. Participação de verdade começa com escuta, presença e compromisso.
-            </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link href="/demandas" className="people-button people-button-lime">
-                Quero participar <ArrowRight size={17} aria-hidden />
-              </Link>
-              <Link href="/compromissos" className="people-button people-button-outline-light">
-                Ver compromissos
-              </Link>
-            </div>
 
-            {hasSocial && (
-              <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold text-white/72">
-                {content.contact.whatsapp && (
-                  <a href={`https://wa.me/${content.contact.whatsapp}`} target="_blank" rel="noopener noreferrer">
-                    WhatsApp
-                  </a>
-                )}
-                {content.social.instagram && (
-                  <a href={content.social.instagram} target="_blank" rel="noopener noreferrer">
-                    Instagram
-                  </a>
-                )}
-                {content.social.facebook && (
-                  <a href={content.social.facebook} target="_blank" rel="noopener noreferrer">
-                    Facebook
-                  </a>
-                )}
-                {content.social.youtube && (
-                  <a href={content.social.youtube} target="_blank" rel="noopener noreferrer">
-                    YouTube
-                  </a>
-                )}
+        <Container className="convite-container relative max-w-[1220px]">
+          <div className="convite-layout">
+            <div className="convite-copy">
+              <div className="convite-seal-wrap">
+                <span className="convite-seal-shadow" aria-hidden />
+                <p className="convite-seal">A mulher do povo</p>
               </div>
-            )}
-          </div>
 
-          {showParticipatePhoto && (
-            <div className="people-closing-photo relative flex min-h-[520px] items-end justify-center lg:min-h-[690px]">
-              <div className="people-closing-lime" aria-hidden />
-              <Photo
-                src={participateSrc}
-                alt={`${content.candidate.ballotName} convida à participação`}
-                className="relative z-10 aspect-[4/5] w-full max-w-[530px]"
-                imgClassName="object-contain object-bottom"
-                objectPosition="center bottom"
-              />
+              <h2 id="convite-heading" className="convite-title">
+                <span className="convite-title-line">Vamos construir</span>
+                <span className="convite-title-line">
+                  uma <em>voz forte</em>
+                </span>
+                <span className="convite-title-line">para Imperatriz</span>
+                <span className="convite-title-line">e para o Maranhão.</span>
+              </h2>
+
+              <p className="convite-lead">
+                Conte o que sua comunidade precisa. Participação de verdade começa com escuta, presença e
+                compromisso.
+              </p>
             </div>
-          )}
+
+            <div className="convite-aside">
+              <div className="convite-visual" aria-hidden>
+                <svg className="convite-visual-svg" viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="160" cy="150" r="88" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" />
+                  <circle cx="160" cy="150" r="58" stroke="rgba(229,217,39,0.22)" strokeWidth="1.5" strokeDasharray="4 6" />
+                  <path
+                    d="M52 78C78 42 124 36 160 58"
+                    stroke="rgba(255,255,255,0.2)"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M268 86C242 48 198 40 160 58"
+                    stroke="rgba(39,211,87,0.35)"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M64 214C96 246 132 252 160 236"
+                    stroke="rgba(229,217,39,0.28)"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M256 210C224 248 188 252 160 236"
+                    stroke="rgba(255,255,255,0.16)"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <g className="convite-bubble convite-bubble--1">
+                    <rect x="38" y="48" width="78" height="54" rx="18" fill="rgba(255,255,255,0.14)" />
+                    <path d="M58 102L52 118L74 102" fill="rgba(255,255,255,0.14)" />
+                    <circle cx="62" cy="75" r="4" fill="rgba(229,217,39,0.9)" />
+                    <circle cx="77" cy="75" r="4" fill="rgba(255,255,255,0.55)" />
+                    <circle cx="92" cy="75" r="4" fill="rgba(39,211,87,0.85)" />
+                  </g>
+                  <g className="convite-bubble convite-bubble--2">
+                    <rect x="208" y="42" width="72" height="48" rx="16" fill="rgba(0,105,254,0.45)" />
+                    <path d="M254 90L266 106L242 90" fill="rgba(0,105,254,0.45)" />
+                    <rect x="224" y="60" width="28" height="4" rx="2" fill="rgba(255,255,255,0.55)" />
+                    <rect x="224" y="70" width="40" height="4" rx="2" fill="rgba(255,255,255,0.35)" />
+                  </g>
+                  <g className="convite-bubble convite-bubble--3">
+                    <rect x="214" y="168" width="70" height="48" rx="16" fill="rgba(229,217,39,0.88)" />
+                    <path d="M248 216L258 232L236 216" fill="rgba(229,217,39,0.88)" />
+                    <circle cx="238" cy="192" r="8" fill="#002a66" opacity="0.35" />
+                    <circle cx="256" cy="192" r="8" fill="#002a66" opacity="0.55" />
+                  </g>
+                  <g className="convite-bubble convite-bubble--4">
+                    <rect x="42" y="168" width="66" height="46" rx="15" fill="rgba(39,211,87,0.75)" />
+                    <path d="M68 214L58 230L82 214" fill="rgba(39,211,87,0.75)" />
+                    <rect x="56" y="186" width="36" height="4" rx="2" fill="#002a66" opacity="0.35" />
+                    <rect x="56" y="196" width="24" height="4" rx="2" fill="#002a66" opacity="0.25" />
+                  </g>
+                  <circle cx="160" cy="150" r="22" fill="rgba(255,255,255,0.16)" />
+                  <circle cx="160" cy="150" r="12" fill="#e5d927" />
+                </svg>
+              </div>
+
+              <aside className="convite-panel" aria-label="Formas de participar">
+                <h3 className="convite-panel-title">Faça parte dessa construção</h3>
+                <p className="convite-panel-lead">
+                  Escolha como você quer participar e acompanhe de perto os compromissos com Imperatriz e o
+                  Maranhão.
+                </p>
+
+                <div className="convite-actions">
+                  <Link href="/demandas" className="convite-btn convite-btn--primary">
+                    <MessageCircle size={18} aria-hidden />
+                    Quero participar
+                    <ArrowRight size={17} aria-hidden />
+                  </Link>
+                  <Link href="/compromissos" className="convite-btn convite-btn--secondary">
+                    Ver compromissos
+                    <ArrowRight size={17} aria-hidden />
+                  </Link>
+                </div>
+
+                <ul className="convite-guarantees">
+                  <li>
+                    <CheckCircle2 size={15} aria-hidden />
+                    Escuta ativa
+                  </li>
+                  <li>
+                    <CheckCircle2 size={15} aria-hidden />
+                    Protocolo organizado
+                  </li>
+                  <li>
+                    <CheckCircle2 size={15} aria-hidden />
+                    Compromisso com retorno
+                  </li>
+                </ul>
+              </aside>
+            </div>
+          </div>
         </Container>
       </section>
     </>

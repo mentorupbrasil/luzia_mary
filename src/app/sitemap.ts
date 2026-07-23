@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/sobre",
     "/propostas",
     "/compromissos",
-    "/demandas",
+    "/participe",
     "/agenda",
     "/verdade-ou-boato",
     "/transparencia",
