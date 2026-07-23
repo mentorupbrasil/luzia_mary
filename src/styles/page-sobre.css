@@ -155,17 +155,27 @@
 
 .bio-title {
   margin: 0.85rem 0 0;
-  max-width: 14ch;
+  max-width: none;
   color: var(--bio-navy);
   font-family: var(--font-league-spartan), "League Spartan", sans-serif;
-  font-size: clamp(2.15rem, 4.6vw, 3.75rem);
+  font-size: clamp(1.55rem, 6.8vw, 2.35rem);
   font-weight: 800;
-  line-height: 0.96;
-  letter-spacing: -0.045em;
+  line-height: 1.06;
+  letter-spacing: -0.04em;
 }
 
-.bio-title span {
+.bio-title-line {
+  display: block;
+}
+
+.bio-title-line--accent {
   color: var(--bio-green);
+}
+
+@media (min-width: 360px) and (max-width: 979px) {
+  .bio-title-line {
+    white-space: nowrap;
+  }
 }
 
 .bio-lead {
@@ -197,6 +207,10 @@
 }
 
 .bio-rail-place {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0;
   margin: 0;
   color: var(--bio-navy);
   font-family: var(--font-montserrat), "Montserrat", sans-serif;
@@ -205,6 +219,16 @@
   letter-spacing: 0.11em;
   text-transform: uppercase;
   line-height: 1.35;
+}
+
+.bio-rail-place-group {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.bio-rail-place-item {
+  white-space: nowrap;
 }
 
 .bio-rail-sep {
@@ -626,6 +650,7 @@
     max-width: 15.5ch;
     font-size: clamp(2.85rem, 3.6vw, 3.85rem);
     line-height: 0.95;
+    text-wrap: unset;
   }
 
   .bio-rail {
@@ -709,12 +734,48 @@
   }
 
   .bio-rail {
-    margin-top: calc(-4.25rem - 32px);
-    min-height: 70px;
+    margin-top: -2.75rem;
+    gap: 0.95rem;
+    min-height: 0;
+    padding: 1rem 1rem 1.1rem;
+    background: #f8f9fb;
   }
 
+  .bio-rail-place {
+    width: 100%;
+    gap: 0.3rem 0;
+    font-size: 0.66rem;
+    letter-spacing: 0.07em;
+  }
+
+  .bio-rail-sep {
+    margin: 0 0.4rem;
+  }
+
+  .bio-rail-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.65rem;
+    width: 100%;
+  }
+
+  .bio-rail-pillar,
   .bio-rail-pillar + .bio-rail-pillar {
-    padding-left: 0.65rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.4rem;
+    padding-left: 0;
+    border-left: 0;
+    font-size: 0.72rem;
+    letter-spacing: -0.01em;
+    text-align: center;
+  }
+
+  .bio-rail-pillar-icon {
+    width: 1.7rem;
+    height: 1.7rem;
+    flex-shrink: 0;
   }
 }
 

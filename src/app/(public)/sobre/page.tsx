@@ -114,11 +114,13 @@ export default function AboutPage() {
               <div className="bio-copy">
                 <p className="bio-eyebrow">Quem é Luzia Mary</p>
                 <h1 id="bio-hero-title" className="bio-title">
-                  Uma trajetória construída
-                  <br />
-                  ouvindo as pessoas e
-                  <br />
-                  <span>agindo pela comunidade.</span>
+                  <span className="bio-title-line">Uma trajetória construída</span>
+                  <span className="bio-title-line">
+                    ouvindo as pessoas{"\u00A0"}e
+                  </span>
+                  <span className="bio-title-line bio-title-line--accent">
+                    agindo pela{"\u00A0"}comunidade.
+                  </span>
                 </h1>
                 <p className="bio-lead">
                   Luzia Mary construiu sua história pública em Imperatriz a partir da escuta, da presença
@@ -131,9 +133,21 @@ export default function AboutPage() {
 
             <div className="bio-rail">
               <p className="bio-rail-place">
-                Imperatriz <span className="bio-rail-sep bio-rail-sep--yellow" aria-hidden>•</span>{" "}
-                Região Tocantina <span className="bio-rail-sep bio-rail-sep--green" aria-hidden>•</span>{" "}
-                Maranhão
+                <span className="bio-rail-place-group">
+                  <span className="bio-rail-place-item">Imperatriz</span>
+                </span>
+                <span className="bio-rail-place-group">
+                  <span className="bio-rail-sep bio-rail-sep--yellow" aria-hidden>
+                    •
+                  </span>
+                  <span className="bio-rail-place-item">Região Tocantina</span>
+                </span>
+                <span className="bio-rail-place-group">
+                  <span className="bio-rail-sep bio-rail-sep--green" aria-hidden>
+                    •
+                  </span>
+                  <span className="bio-rail-place-item">Maranhão</span>
+                </span>
               </p>
               <ul className="bio-rail-pillars" aria-label="Pilares">
                 {pillars.map(({ title, Icon, tone }) => (

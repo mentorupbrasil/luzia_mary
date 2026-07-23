@@ -173,27 +173,26 @@
   color: white;
   background: rgba(0, 20, 48, 0.96);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  /* Chrome do hero usa pointer-events: none; o painel precisa receber clique. */
   pointer-events: auto;
 }
 
-/* Menu aberto: sobe o stacking do header acima das seções da página */
+/* Menu aberto: header e painel acima de seções / WhatsApp */
 body.campaign-menu-open .campaign-hero {
   z-index: 200;
 }
 
 body.campaign-menu-open .campaign-hero-chrome {
-  z-index: 210;
+  z-index: 230;
   pointer-events: auto;
 }
 
 body.campaign-menu-open .campaign-header-bar-page {
-  z-index: 210;
+  z-index: 230;
 }
 
 body.campaign-menu-open .whatsapp-float {
-  z-index: 40;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .campaign-mobile-menu-inner {

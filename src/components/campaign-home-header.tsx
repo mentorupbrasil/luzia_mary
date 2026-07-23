@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { BrandLogo } from "@/components/brand-logo";
 import { content, mainNav } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -21,9 +22,14 @@ function isActivePath(pathname: string, href: string) {
 export function CampaignHomeHeader({ variant = "hero" }: Props) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const menuId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -69,6 +75,40 @@ export function CampaignHomeHeader({ variant = "hero" }: Props) {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
+  const mobileMenu =
+    open && mounted
+      ? createPortal(
+          <div
+            id={menuId}
+            ref={menuRef}
+            className="campaign-mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu de navegação"
+          >
+            <div className="campaign-header-bar campaign-mobile-menu-inner">
+              <nav className="campaign-mobile-nav" aria-label="Menu mobile">
+                {mainNav.map((item) => {
+                  const active = isActivePath(pathname, item.href);
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className={cn("campaign-mobile-link", active && "campaign-mobile-link-active")}
+                      aria-current={active ? "page" : undefined}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
+          </div>,
+          document.body,
+        )
+      : null;
+
   return (
     <header
       className={cn(
@@ -111,35 +151,7 @@ export function CampaignHomeHeader({ variant = "hero" }: Props) {
         </button>
       </div>
 
-      {open ? (
-        <div
-          id={menuId}
-          ref={menuRef}
-          className="campaign-mobile-menu"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Menu de navegação"
-        >
-          <div className="campaign-header-bar campaign-mobile-menu-inner">
-            <nav className="campaign-mobile-nav" aria-label="Menu mobile">
-              {mainNav.map((item) => {
-                const active = isActivePath(pathname, item.href);
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className={cn("campaign-mobile-link", active && "campaign-mobile-link-active")}
-                    aria-current={active ? "page" : undefined}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </nav>
-          </div>
-        </div>
-      ) : null}
+      {mobileMenu}
     </header>
   );
 }

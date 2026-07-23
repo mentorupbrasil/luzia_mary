@@ -102,10 +102,11 @@
 .participate-hero-title {
   margin: 0 0 1.1rem;
   font-family: var(--font-league-spartan), sans-serif;
-  font-size: clamp(2.15rem, 4.6vw, 3.25rem);
+  font-size: clamp(1.7rem, 6.5vw, 3.25rem);
   font-weight: 800;
-  line-height: 1.08;
+  line-height: 1.1;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .participate-hero-title em {

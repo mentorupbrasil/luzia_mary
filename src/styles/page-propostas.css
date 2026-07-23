@@ -1268,7 +1268,14 @@
   }
 
   .flags-hero-title {
-    font-size: clamp(2.85rem, 4.2vw, 3.6rem);
+    font-size: clamp(1.65rem, 6.8vw, 2.75rem);
+    line-height: 1.05;
+  }
+
+  @media (min-width: 360px) {
+    .flags-hero-title-line {
+      white-space: nowrap;
+    }
   }
 
   .flags-hero-visual {
@@ -1403,7 +1410,7 @@
   }
 
   .flags-hero-title {
-    font-size: clamp(2.75rem, 10.5vw, 3.375rem);
+    font-size: clamp(1.55rem, 6.6vw, 2.35rem);
   }
 
   .flags-hero-lead {
