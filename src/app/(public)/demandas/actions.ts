@@ -3,6 +3,12 @@
 import { z } from "zod";
 import { getDb, hasDatabase } from "@/db";
 import { contacts, demands } from "@/db/schema";
+import { checkRateLimit } from "@/lib/rate-limit";
+import { getDemandRateLimitKey } from "@/lib/request-ip";
+
+/** Janela curta: até 5 envios válidos por IP a cada 10 minutos. */
+const DEMAND_RATE_LIMIT = 5;
+const DEMAND_RATE_WINDOW_MS = 10 * 60 * 1000;
 
 function sanitizeText(value: unknown, max: number) {
   if (typeof value !== "string") return "";
@@ -83,6 +89,20 @@ export async function submitDemand(_: DemandState, formData: FormData): Promise<
       ok: false,
       message: "Revise os campos destacados.",
       errors: parsed.error.flatten().fieldErrors,
+    };
+  }
+
+  const rateKey = await getDemandRateLimitKey();
+  const rate = checkRateLimit(rateKey, {
+    limit: DEMAND_RATE_LIMIT,
+    windowMs: DEMAND_RATE_WINDOW_MS,
+  });
+  if (!rate.allowed) {
+    // Sem logs de IP, formulário ou dados pessoais.
+    return {
+      ok: false,
+      message:
+        "Você enviou várias contribuições em pouco tempo. Aguarde alguns minutos e tente novamente.",
     };
   }
 
