@@ -6,30 +6,18 @@ import {
   CheckCircle2,
   Eye,
   FileText,
-  HeartHandshake,
-  HeartPulse,
-  Home,
   Landmark,
   MapPin,
   MessageCircle,
   MessagesSquare,
-  Shield,
   type LucideIcon,
 } from "lucide-react";
 import { Container } from "@/components/container";
 import { proposalNumber } from "@/config/bandeiras";
 import { getProposals } from "@/lib/data";
+import { getProposalIcon } from "@/lib/proposal-icons";
 
 export const metadata = { title: "Bandeiras" };
-
-const iconMap: Record<string, LucideIcon> = {
-  "heart-handshake": HeartHandshake,
-  home: Home,
-  "heart-pulse": HeartPulse,
-  "building-2": Building2,
-  shield: Shield,
-  "messages-square": MessagesSquare,
-};
 
 const pillars: Array<{ title: string; tone: "yellow" | "blue" | "green"; Icon: LucideIcon }> = [
   { title: "Escuta da população", tone: "yellow", Icon: MessageCircle },
@@ -133,7 +121,7 @@ export default async function ProposalsPage() {
         <Container className="flags-section-shell">
           <div className="flags-grid">
             {proposals.map((item) => {
-              const Icon = iconMap[item.icon] ?? Landmark;
+              const Icon = getProposalIcon(item.icon);
               return (
                 <article key={item.slug} className="flags-card">
                   <div className="flags-card-top">

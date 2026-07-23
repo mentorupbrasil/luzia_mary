@@ -2,20 +2,15 @@ import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
-  Building2,
   Check,
   CheckCircle2,
   Eye,
   FileCheck2,
   Handshake,
-  HeartHandshake,
-  HeartPulse,
-  Home,
   Landmark,
   MessageCircle,
   MessagesSquare,
   Scale,
-  Shield,
   type LucideIcon,
 } from "lucide-react";
 import { notFound } from "next/navigation";
@@ -28,15 +23,7 @@ import {
 } from "@/config/bandeiras";
 import { fallbackProposals } from "@/lib/fallback-data";
 import { getProposalBySlug } from "@/lib/data";
-
-const iconMap: Record<string, LucideIcon> = {
-  "heart-handshake": HeartHandshake,
-  home: Home,
-  "heart-pulse": HeartPulse,
-  "building-2": Building2,
-  shield: Shield,
-  "messages-square": MessagesSquare,
-};
+import { getProposalIcon } from "@/lib/proposal-icons";
 
 const federalIcons: LucideIcon[] = [Landmark, FileCheck2, Scale, Handshake, Eye, MessagesSquare];
 
@@ -99,7 +86,7 @@ export default async function ProposalDetailPage({
   const proposal = await getProposalBySlug(slug);
   if (!proposal) notFound();
 
-  const Icon = iconMap[proposal.icon] ?? Landmark;
+  const Icon = getProposalIcon(proposal.icon);
   const demandHref = `/demandas?tema=${encodeURIComponent(proposal.demandTheme)}`;
 
   return (

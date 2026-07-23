@@ -34,7 +34,7 @@ export async function createProposalAction(formData: FormData) {
     summary: text(formData, "summary"),
     body: text(formData, "body"),
     category,
-    icon: text(formData, "icon") || "landmark",
+    icon: text(formData, "icon") || "heart-handshake",
     featured: bool(formData, "featured"),
     published: bool(formData, "published"),
     sortOrder: int(formData, "sortOrder"),

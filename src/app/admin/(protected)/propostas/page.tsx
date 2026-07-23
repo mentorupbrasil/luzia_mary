@@ -28,7 +28,7 @@ export default async function AdminProposalsPage() {
             <Field label="Slug opcional" name="slug" />
             <Field label="Categoria" name="category" />
             <Field label="Tema da demanda" name="demandTheme" placeholder="Igual à categoria, salvo Transparência" />
-            <Field label="Ícone" name="icon" placeholder="heart-handshake, home, heart-pulse..." />
+            <Field label="Ícone" name="icon" placeholder="heart-handshake, home, heart-pulse, building-2, shield, messages-square" />
             <div>
               <Label>Resumo</Label>
               <Textarea name="summary" required />

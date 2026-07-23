@@ -35,7 +35,7 @@ function normalizeProposal(row: {
     summary: row.summary,
     body: row.body,
     category: row.category,
-    icon: row.icon ?? fallback?.icon ?? "landmark",
+    icon: row.icon ?? fallback?.icon ?? "heart-handshake",
     featured: row.featured,
     published: row.published,
     sortOrder: row.sortOrder,
